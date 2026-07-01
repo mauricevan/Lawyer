@@ -1,0 +1,109 @@
+"""Index a single document into PostgreSQL and Qdrant."""
+import asyncio
+import logging
+import uuid
+from datetime import datetime, timezone
+
+from sqlalchemy import select
+from sqlalchemy.ext.asyncio import AsyncSession, async_sessionmaker, create_async_engine
+
+from backend.src.config import settings
+from backend.src.database import Base
+from backend.src.models.tables import Chunk, Document
+from backend.src.services.embedding_service import get_embedding_service
+from backend.src.services.qdrant_service import QdrantService
+from ingestion.src.chunkers.legal_chunker import LegalChunker
+from ingestion.src.clients.cellar_rest_client import CellarRestClient
+from ingestion.src.data.sample_articles import SAMPLE_ARTICLES
+from ingestion.src.parsers.document_parser import DocumentParser
+from shared.schemas.document import DocumentMetadata
+
+logger = logging.getLogger(__name__)
+
+
+async def ingest_document(
+    metadata: DocumentMetadata,
+    session: AsyncSession,
+    use_live_fetch: bool = True,
+) -> int:
+    """Fetch, parse, chunk, embed and store one document. Returns chunk count."""
+    parser = DocumentParser()
+    chunker = LegalChunker()
+    cellar = CellarRestClient()
+    subdivisions = await _fetch_subdivisions(metadata, parser, cellar, use_live_fetch)
+    if not subdivisions:
+        logger.warning("No content for %s", metadata.celex)
+        return 0
+    doc = await _upsert_document(metadata, session)
+    chunks = chunker.chunk_document(subdivisions, metadata)
+    embeddings = get_embedding_service()
+    vectors = embeddings.embed_passages([c.text for c in chunks])
+    qdrant = QdrantService()
+    qdrant.upsert_chunks(chunks, vectors)
+    for chunk in chunks:
+        await _upsert_chunk(chunk, doc.id, session)
+    doc.indexed_at = datetime.now(timezone.utc)
+    await session.commit()
+    logger.info("Indexed %s: %d chunks", metadata.celex, len(chunks))
+    return len(chunks)
+
+
+async def _fetch_subdivisions(
+    metadata: DocumentMetadata,
+    parser: DocumentParser,
+    cellar: CellarRestClient,
+    use_live_fetch: bool,
+) -> list[dict]:
+    if metadata.celex in SAMPLE_ARTICLES:
+        samples = SAMPLE_ARTICLES[metadata.celex]
+        return [{"title": metadata.title, "celex": metadata.celex, **s} for s in samples]
+    if not use_live_fetch:
+        return []
+    try:
+        content = await cellar.fetch_by_celex(metadata.celex, metadata.language)
+        return parser.parse(content, metadata.celex, "html")
+    except Exception as exc:
+        logger.warning("Live fetch failed for %s: %s", metadata.celex, exc)
+        return []
+
+
+async def _upsert_document(metadata: DocumentMetadata, session: AsyncSession) -> Document:
+    result = await session.execute(
+        select(Document).where(
+            Document.celex == metadata.celex,
+            Document.language == metadata.language,
+        )
+    )
+    existing = result.scalar_one_or_none()
+    if existing:
+        return existing
+    doc = Document(
+        celex=metadata.celex,
+        cellar_id=metadata.cellar_id,
+        eli_uri=metadata.eli_uri,
+        doc_type=metadata.doc_type,
+        language=metadata.language,
+        title=metadata.title,
+        short_title=metadata.short_title,
+        is_in_force=metadata.is_in_force,
+        is_consolidated=metadata.is_consolidated,
+        version_type=metadata.version_type.value,
+        oj_reference=metadata.oj_reference,
+        corrigendum_celex=metadata.corrigendum_celex,
+    )
+    session.add(doc)
+    await session.flush()
+    return doc
+
+
+async def _upsert_chunk(chunk, document_id: uuid.UUID, session: AsyncSession) -> None:
+    result = await session.execute(select(Chunk).where(Chunk.chunk_id == chunk.chunk_id))
+    if result.scalar_one_or_none():
+        return
+    session.add(Chunk(
+        chunk_id=chunk.chunk_id,
+        document_id=document_id,
+        celex=chunk.celex,
+        article_ref=chunk.article_number,
+        text_hash=chunk.text_hash,
+    ))

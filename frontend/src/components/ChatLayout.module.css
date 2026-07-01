@@ -1,0 +1,12 @@
+.chatLayout {
+  display: flex;
+  flex-direction: column;
+  min-height: calc(100vh - var(--space-16));
+  max-height: calc(100vh - var(--space-8));
+}
+
+.chatBody {
+  flex: 1;
+  overflow-y: auto;
+  min-height: 0;
+}

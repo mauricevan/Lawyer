@@ -1,0 +1,66 @@
+.header {
+  margin-bottom: var(--space-8);
+}
+
+.back {
+  display: inline-block;
+  margin-bottom: var(--space-4);
+  text-decoration: none;
+  font-size: 0.875rem;
+}
+
+.title {
+  font-size: var(--text-2xl);
+  margin: 0 0 var(--space-2);
+  line-height: 1.2;
+}
+
+.celex {
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-4);
+}
+
+.eurlexLink {
+  font-weight: 500;
+}
+
+.section {
+  margin-top: var(--space-8);
+}
+
+.section h2 {
+  font-size: var(--text-lg);
+  margin-bottom: var(--space-4);
+}
+
+.versionList,
+.relationList {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+.versionItem {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-3);
+  align-items: center;
+  padding: var(--space-3) 0;
+  border-bottom: 1px solid var(--color-border);
+}
+
+.versionType {
+  font-size: 0.75rem;
+  text-transform: uppercase;
+  background: var(--color-bg);
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+}
+
+.badge {
+  background: var(--color-success-bg);
+  color: var(--color-success);
+  font-size: 0.75rem;
+  padding: var(--space-2);
+  border-radius: var(--radius-md);
+}

@@ -1,0 +1,48 @@
+.fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 var(--space-6);
+}
+
+.legend {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin-bottom: var(--space-3);
+}
+
+.options {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.option {
+  display: inline-flex;
+  align-items: center;
+  padding: var(--space-2) var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  cursor: pointer;
+  font-size: var(--text-sm);
+  font-weight: 500;
+  min-height: 44px;
+  transition: border-color var(--duration-normal);
+}
+
+.option:hover {
+  border-color: var(--color-primary-hover);
+}
+
+.selected {
+  border-color: var(--color-primary);
+  background: #ebf4ff;
+}
+
+.radio {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}

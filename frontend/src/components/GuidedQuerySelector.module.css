@@ -1,0 +1,62 @@
+.fieldset {
+  border: none;
+  padding: 0;
+  margin: 0 0 var(--space-6);
+}
+
+.legend {
+  font-size: var(--text-lg);
+  font-weight: 600;
+  margin-bottom: var(--space-4);
+  color: var(--color-text-primary);
+}
+
+.grid {
+  display: grid;
+  gap: var(--space-3);
+}
+
+@media (min-width: 768px) {
+  .grid {
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+.option {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  padding: var(--space-4);
+  border: 2px solid var(--color-border);
+  border-radius: var(--radius-md);
+  background: var(--color-surface);
+  cursor: pointer;
+  transition: border-color var(--duration-normal);
+  min-height: 44px;
+}
+
+.option:hover {
+  border-color: var(--color-primary-hover);
+}
+
+.selected {
+  border-color: var(--color-primary);
+  background: #ebf4ff;
+}
+
+.radio {
+  position: absolute;
+  opacity: 0;
+  width: 0;
+  height: 0;
+}
+
+.label {
+  font-weight: 600;
+  margin-bottom: var(--space-2);
+}
+
+.description {
+  font-size: 0.875rem;
+  color: var(--color-text-secondary);
+}

@@ -1,0 +1,55 @@
+# Fase 4+ services — uncomment when scaling beyond 50K documents
+services:
+  redis:
+    image: redis:7-alpine
+    ports:
+      - "6379:6379"
+    healthcheck:
+      test: ["CMD", "redis-cli", "ping"]
+      interval: 5s
+      timeout: 5s
+      retries: 5
+
+  minio:
+    image: minio/minio:latest
+    command: server /data --console-address ":9001"
+    ports:
+      - "9000:9000"
+      - "9001:9001"
+    environment:
+      MINIO_ROOT_USER: minioadmin
+      MINIO_ROOT_PASSWORD: minioadmin
+    volumes:
+      - minio_data:/data
+
+  celery-worker:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    command: celery -A ingestion.src.celery_app worker --loglevel=info
+    env_file:
+      - .env
+    environment:
+      DATABASE_URL: postgresql+asyncpg://lawyer:lawyer_dev@postgres:5432/lawyer
+      REDIS_URL: redis://redis:6379/0
+    depends_on:
+      - redis
+      - postgres
+    volumes:
+      - ./backend:/app/backend
+      - ./ingestion:/app/ingestion
+      - ./shared:/app/shared
+
+  celery-beat:
+    build:
+      context: .
+      dockerfile: docker/Dockerfile.backend
+    command: celery -A ingestion.src.celery_app beat --loglevel=info
+    env_file:
+      - .env
+    depends_on:
+      - redis
+      - celery-worker
+
+volumes:
+  minio_data:

@@ -1,0 +1,105 @@
+.thread {
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-6);
+  flex: 1;
+  overflow-y: auto;
+  padding-bottom: var(--space-4);
+}
+
+.message {
+  display: flex;
+  gap: var(--space-3);
+  align-items: flex-start;
+}
+
+.user {
+  flex-direction: row-reverse;
+}
+
+.role {
+  flex-shrink: 0;
+  width: 2.25rem;
+  height: 2.25rem;
+  border-radius: 50%;
+  background: var(--color-primary);
+  color: white;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 0.65rem;
+  font-weight: 600;
+  text-align: center;
+  line-height: 1.1;
+  padding: var(--space-1);
+}
+
+.user .role {
+  background: var(--color-accent);
+}
+
+.bubble {
+  flex: 1;
+  max-width: min(75ch, 85%);
+  padding: var(--space-4);
+  border-radius: var(--radius-lg);
+  background: var(--color-surface);
+  border: 1px solid var(--color-border);
+}
+
+.user .bubble {
+  background: #ebf4ff;
+  border-color: var(--color-primary);
+}
+
+.pending .bubble {
+  opacity: 0.85;
+}
+
+.text {
+  margin: 0;
+  line-height: 1.6;
+}
+
+.text h2 {
+  font-size: var(--text-lg);
+  margin: var(--space-3) 0 var(--space-2);
+}
+
+.text h2:first-child {
+  margin-top: 0;
+}
+
+.text p {
+  margin: 0 0 var(--space-3);
+}
+
+.text ul,
+.text ol {
+  margin: 0 0 var(--space-3);
+  padding-left: var(--space-6);
+}
+
+.typing {
+  margin: 0;
+  color: var(--color-text-secondary);
+  font-style: italic;
+}
+
+.citations {
+  margin-top: var(--space-4);
+  display: flex;
+  flex-direction: column;
+  gap: var(--space-3);
+}
+
+.sourcesLabel {
+  font-size: var(--text-sm);
+  font-weight: 600;
+  color: var(--color-text-secondary);
+  margin: 0 0 var(--space-2);
+}
+
+.scrollAnchor {
+  height: 1px;
+}

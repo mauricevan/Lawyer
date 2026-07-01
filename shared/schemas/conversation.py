@@ -1,0 +1,44 @@
+"""Conversation message schemas."""
+from datetime import datetime
+from typing import Any
+
+from pydantic import BaseModel, Field
+
+from shared.schemas.citation import Citation
+
+
+class Message(BaseModel):
+    """A single message in a conversation thread."""
+
+    id: str
+    role: str
+    content: str
+    citations: list[Citation] = Field(default_factory=list)
+    created_at: datetime
+
+
+class ConversationSummary(BaseModel):
+    """Summary for conversation list / dossiers."""
+
+    id: str
+    title: str
+    query_mode: str = "open"
+    is_saved: bool = False
+    created_at: datetime
+    updated_at: datetime
+    message_count: int = 0
+
+
+class CreateConversationRequest(BaseModel):
+    """Request to start a new conversation."""
+
+    query_mode: str = "open"
+    title: str | None = None
+
+
+class RetrievalStatusEvent(BaseModel):
+    """SSE event during query processing."""
+
+    step: str
+    message: str
+    detail: dict[str, Any] | None = None
