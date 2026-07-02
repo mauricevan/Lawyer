@@ -31,7 +31,7 @@ class LegalChunker:
             for i, token_text in enumerate(token_chunks):
                 prefix = self._build_prefix(metadata, article, sub_type)
                 full_text = f"{prefix}\n{token_text}"
-                chunk_id = f"{metadata.celex}_{article or 'body'}_{i}"
+                chunk_id = f"{metadata.celex}_{metadata.language}_{article or 'body'}_{i}"
                 chunks.append(DocumentChunk(
                     chunk_id=chunk_id,
                     celex=metadata.celex,

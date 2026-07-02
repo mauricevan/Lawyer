@@ -30,11 +30,21 @@ Zie: [language-fallback-matrix.md](./language-fallback-matrix.md)
 ## Validatie
 
 ```bash
+./scripts/qa/run-ingest-multilingual-seed.sh    # native FR/DE/ES corpus (EXP-001)
 PYTHONPATH=. python3 backend/scripts/build_multilingual_eval_fixture.py
 ./scripts/qa/run-multilingual-eval.sh
 ```
 
-Drempel per taal: Recall@5 ≥ 0.70 (pilotfase).
+Drempel per taal: Recall@5 ≥ 0.85 (native corpus, `eval-thresholds.yaml`).
+
+Stub-reindex (bijv. AI Act FR na eerdere partial ingest):
+
+```bash
+PYTHONPATH=. python3 ingestion/scripts/ingest_multilingual_seed.py \
+  --languages fr --celex 32024R1689 --force-reindex
+```
+
+Vóór eerste ingest: `cd backend && PYTHONPATH=.. alembic upgrade head` (chunks.text + FTS).
 
 ## UI
 

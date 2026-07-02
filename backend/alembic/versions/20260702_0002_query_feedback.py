@@ -3,6 +3,7 @@ from typing import Sequence, Union
 
 from alembic import op
 import sqlalchemy as sa
+from sqlalchemy import inspect
 from sqlalchemy.dialects import postgresql
 
 revision: str = "20260702_0002"
@@ -12,6 +13,8 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
+    if "query_feedback" in inspect(op.get_bind()).get_table_names():
+        return
     op.create_table(
         "query_feedback",
         sa.Column("id", postgresql.UUID(as_uuid=True), primary_key=True),

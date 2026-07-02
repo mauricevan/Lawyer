@@ -10,8 +10,10 @@ experiments:
     effort: 5
     success_metric: "multilingual recall_at_5 >= 0.85"
     max_weeks: 6
-    status: proposed
+    status: done
+    outcome: "Native FR/DE/ES ingest live; multilingual recall@5 1.0 (2026-07-02)"
     stop_go: go_if_metric_met
+    script: scripts/qa/run-ingest-multilingual-seed.sh
 
   - id: EXP-002
     title: Reranker model swap A/B

@@ -3,7 +3,7 @@
 | Datum | Dataset | Versie | Wijziging | Owner |
 |---|---|---|---|---|
 | 2026-07-02 | eval_questions_nl | 2026.07.02 | Domain-veld toegevoegd per vraag | backend |
-| 2026-07-02 | eval_questions_multilingual | 2026.07.02 | FR/DE/ES fixture (15 vragen) | backend |
+| 2026-07-02 | multilingual_seed | 2026.07.02 | FR/DE/ES native seed (GDPR, AI Act, DORA) | ingestion |
 | 2026-07-02 | domain_registry | 2026.07.02 | 8 domeinen + go/pilot/no_go | product |
 | 2026-07-02 | language_registry | 2026.07.02 | FR/DE/ES activatie | backend |
 | 2026-07-01 | curated_corpus | 2026.07.01 | Baseline seedset plan5 I1 | product |

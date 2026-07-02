@@ -1,0 +1,32 @@
+# Legal terminology glossary per language (plan11 AA)
+version: "2026.07.02"
+
+terms:
+  gdpr:
+    nl: Algemene verordening gegevensbescherming
+    en: General Data Protection Regulation
+    fr: Règlement général sur la protection des données
+    de: Datenschutz-Grundverordnung
+    es: Reglamento general de protección de datos
+    celex: "32016R0679"
+
+  ai_act:
+    nl: Verordening kunstmatige intelligentie
+    en: Artificial Intelligence Act
+    fr: Règlement sur l'intelligence artificielle
+    de: Verordnung über künstliche Intelligenz
+    es: Reglamento de inteligencia artificial
+    celex: "32024R1689"
+
+  dora:
+    nl: Digital Operational Resilience Act
+    en: Digital Operational Resilience Act
+    fr: Règlement sur la résilience opérationnelle numérique
+    de: Verordnung über die digitale operationale Resilienz
+    es: Reglamento de resiliencia operativa digital
+    celex: "32022R2554"
+
+usage:
+  router_hints: ingestion/src/data/legal_term_hints.py
+  disclaimers: shared/legal/disclaimers.py
+  eval_fixture: backend/tests/fixtures/rag_eval_multilingual.json

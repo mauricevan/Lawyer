@@ -67,8 +67,10 @@ async def run_ingest(args: argparse.Namespace) -> dict[str, int]:
         for document in documents:
             celex = document.celex
             if celex in force_celex or args.force_reindex:
-                await purge_document_index(celex, session)
-            elif args.skip_existing and await is_document_indexed(celex, session):
+                await purge_document_index(celex, session, document.language)
+            elif args.skip_existing and await is_document_indexed(
+                celex, session, document.language
+            ):
                 stats["skipped"] += 1
                 logger.info("Skipping indexed document %s", celex)
                 continue

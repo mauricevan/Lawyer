@@ -3,6 +3,7 @@ from typing import Sequence, Union
 
 from alembic import op
 import sqlalchemy as sa
+from sqlalchemy import inspect
 
 revision: str = "20260702_0003"
 down_revision: Union[str, None] = "20260702_0002"
@@ -11,6 +12,9 @@ depends_on: Union[str, Sequence[str], None] = None
 
 
 def upgrade() -> None:
+    columns = {col["name"] for col in inspect(op.get_bind()).get_columns("ingestion_jobs")}
+    if "queue_profile" in columns:
+        return
     op.add_column(
         "ingestion_jobs",
         sa.Column("queue_profile", sa.String(length=32), server_default="high", nullable=False),

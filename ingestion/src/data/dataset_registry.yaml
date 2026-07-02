@@ -28,6 +28,11 @@ datasets:
     version: "2026.07.02"
     owner: backend
 
+  multilingual_seed:
+    path: ingestion/src/data/multilingual_seed.yaml
+    version: "2026.07.02"
+    owner: ingestion
+
   embedding_model:
     path: backend/src/services/embedding_service.py
     version: "multilingual-e5-large"

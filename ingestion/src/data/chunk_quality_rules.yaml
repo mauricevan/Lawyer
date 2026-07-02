@@ -7,5 +7,5 @@ required_document_fields:
   - doc_type
 forbidden_text_markers:
   - lorem ipsum
-  - javascript:
+  - "javascript:"
   - click here

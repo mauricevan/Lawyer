@@ -10,9 +10,9 @@
         "count": 100.0
       },
       "baseline": {
-        "recall_at_5": 0.8,
-        "mrr": 0.7,
-        "count": 100
+        "recall_at_5": 1.0,
+        "mrr": 1.0,
+        "count": 100.0
       },
       "passed": true,
       "regressions": []
@@ -25,9 +25,9 @@
         "count": 15.0
       },
       "baseline": {
-        "recall_at_5": 0.7,
-        "mrr": 0.65,
-        "count": 15
+        "recall_at_5": 1.0,
+        "mrr": 1.0,
+        "count": 15.0
       },
       "passed": true,
       "regressions": []

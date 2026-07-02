@@ -16,10 +16,18 @@ FAILED_LOG_DIR = Path(__file__).resolve().parents[1] / "logs"
 DEFAULT_FAILED_LOG = FAILED_LOG_DIR / "failed_celex.json"
 
 
-async def is_document_indexed(celex: str, session: AsyncSession) -> bool:
-    """Return True when the document has been indexed with at least one chunk."""
+async def is_document_indexed(
+    celex: str,
+    session: AsyncSession,
+    language: str = "nl",
+) -> bool:
+    """Return True when the CELEX+language pair has indexed chunks."""
     result = await session.execute(
-        select(Document).where(Document.celex == celex, Document.indexed_at.is_not(None))
+        select(Document).where(
+            Document.celex == celex,
+            Document.language == language,
+            Document.indexed_at.is_not(None),
+        )
     )
     document = result.scalar_one_or_none()
     if not document:
@@ -30,16 +38,31 @@ async def is_document_indexed(celex: str, session: AsyncSession) -> bool:
     return chunk_count.scalar_one_or_none() is not None
 
 
-async def purge_document_index(celex: str, session: AsyncSession) -> None:
-    """Remove chunks from PostgreSQL and Qdrant so a document can be re-indexed."""
-    result = await session.execute(select(Document).where(Document.celex == celex))
-    document = result.scalar_one_or_none()
-    if document:
+async def purge_document_index(
+    celex: str,
+    session: AsyncSession,
+    language: str | None = None,
+) -> None:
+    """Remove chunks for CELEX, optionally scoped to one language."""
+    query = select(Document).where(Document.celex == celex)
+    if language:
+        query = query.where(Document.language == language)
+    result = await session.execute(query)
+    documents = result.scalars().all()
+    qdrant = QdrantService()
+    for document in documents:
+        chunk_rows = await session.execute(
+            select(Chunk).where(Chunk.document_id == document.id)
+        )
+        for chunk in chunk_rows.scalars().all():
+            qdrant.delete_by_chunk_id(chunk.chunk_id)
         await session.execute(delete(Chunk).where(Chunk.document_id == document.id))
         document.indexed_at = None
-    QdrantService().delete_by_celex(celex)
+    if not language and not documents:
+        qdrant.delete_by_celex(celex)
     await session.commit()
-    logger.info("Purged index for %s", celex)
+    scope = f"{celex}:{language}" if language else celex
+    logger.info("Purged index for %s", scope)
 
 
 def write_failed_log(failures: list[dict[str, str]], path: Path | None = None) -> Path:

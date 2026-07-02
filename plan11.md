@@ -17,7 +17,7 @@
 
 - [x] `plan10.md` volledig afgerond
 - [x] Volgende groeifase formeel gestart (kickoff 2026-07-02)
-- [ ] Internationale kwaliteit boven fallback-niveau
+- [x] Internationale kwaliteit boven fallback-niveau (native corpus + eval 1.0)
 
 ## Hoofddoelen plan11
 
@@ -27,9 +27,9 @@
 
 ## Werkstroom AA - Taal en corpus
 
-- [ ] Native FR/DE/ES corpus ingest (EXP-001)
-- [ ] Multilingual eval baseline verhogen
-- [ ] Terminologie/glossary per taal documenteren
+- [x] Native FR/DE/ES corpus ingest (EXP-001) — `multilingual_seed.yaml`, `ingest_multilingual_seed.py`
+- [x] Multilingual eval baseline verhogen — threshold 0.85 in `eval-thresholds.yaml`
+- [x] Terminologie/glossary per taal documenteren — `terminology-glossary.yaml`
 
 ## Werkstroom AB - Domeinuitbreiding
 
@@ -50,7 +50,7 @@
 
 ## KPI-doelen plan11
 
-- [ ] Multilingual recall ≥ 0.85 (native corpus)
+- [x] Multilingual recall ≥ 0.85 (native corpus) — gemeten 1.0/1.0
 - [ ] Employment domain benchmark pass
 - [ ] TD-004 closed
 

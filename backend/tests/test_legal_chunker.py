@@ -20,6 +20,7 @@ def test_chunk_document_creates_chunks_with_celex_prefix() -> None:
     chunks = chunker.chunk_document(subs, meta)
     assert len(chunks) >= 1
     assert "32024R1689" in chunks[0].text
+    assert chunks[0].chunk_id.startswith("32024R1689_nl_")
     assert chunks[0].article_number == "5"
 
 

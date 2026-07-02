@@ -1,0 +1,37 @@
+# Multilingual seed corpus — EXP-001 (plan11 AA)
+version: "2026.07.02"
+languages: [fr, de, es]
+
+documents:
+  - celex: "32016R0679"
+    short_title: GDPR
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 119/1"
+    titles:
+      fr: "Règlement (UE) 2016/679 relatif à la protection des personnes physiques (RGPD)"
+      de: "Verordnung (EU) 2016/679 zum Schutz natürlicher Personen (DSGVO)"
+      es: "Reglamento (UE) 2016/679 relativo a la protección de datos (RGPD)"
+
+  - celex: "32024R1689"
+    short_title: AI Act
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 2024/1689"
+    titles:
+      fr: "Règlement (UE) 2024/1689 sur l'intelligence artificielle (AI Act)"
+      de: "Verordnung (EU) 2024/1689 über künstliche Intelligenz (AI Act)"
+      es: "Reglamento (UE) 2024/1689 sobre inteligencia artificial (AI Act)"
+
+  - celex: "32022R2554"
+    short_title: DORA
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 166/1"
+    titles:
+      fr: "Règlement (UE) 2022/2554 sur la résilience opérationnelle numérique (DORA)"
+      de: "Verordnung (EU) 2022/2554 über die digitale operationale Resilienz (DORA)"
+      es: "Reglamento (UE) 2022/2554 sobre resiliencia operativa digital (DORA)"

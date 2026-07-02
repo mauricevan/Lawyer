@@ -213,3 +213,14 @@ class QdrantService:
             )
         except Exception as exc:
             logger.warning("Qdrant delete failed for %s: %s", celex, exc)
+
+    def delete_by_chunk_id(self, chunk_id: str) -> None:
+        """Remove a single vector point by chunk_id payload key."""
+        try:
+            point_id = str(uuid.uuid5(uuid.NAMESPACE_DNS, chunk_id))
+            self._client.delete(
+                collection_name=self._collection,
+                points_selector=[point_id],
+            )
+        except Exception as exc:
+            logger.warning("Qdrant delete failed for chunk %s: %s", chunk_id, exc)
