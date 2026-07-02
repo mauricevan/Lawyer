@@ -29,6 +29,8 @@ export interface AnswerResponse {
   citations: Citation[];
   disclaimer: string;
   retrieval_route?: RetrievalRoute;
+  confidence_score?: number;
+  verification_questions?: string[];
 }
 
 export interface QueryRequest {
@@ -75,6 +77,7 @@ export interface ChatMessage {
   role: "user" | "assistant";
   content: string;
   citations?: Citation[];
+  verificationQuestions?: string[];
   isPending?: boolean;
 }
 

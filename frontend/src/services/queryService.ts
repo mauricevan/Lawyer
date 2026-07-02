@@ -89,6 +89,8 @@ export function streamQuery(
                   (detail.disclaimer as string) ||
                   getDisclaimer(request.audience || "layperson"),
                 retrieval_route: detail.retrieval_route as AnswerResponse["retrieval_route"],
+                confidence_score: detail.confidence_score as number | undefined,
+                verification_questions: (detail.verification_questions as string[]) || [],
               });
             }
           }

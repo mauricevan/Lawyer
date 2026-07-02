@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.src.config import settings
 from backend.src.services.answer_policy_service import AnswerPolicyService
+from backend.src.services.answer_quality_service import answer_quality_service
 from backend.src.services.bm25_service import Bm25Service
 from backend.src.services.chunk_quality_service import ChunkQualityService
 from backend.src.services.citation_formatter import CitationFormatter
@@ -79,12 +80,15 @@ class RagService:
             answer_text, citations, results, request.audience,
         )
         self._enrich_citations(citations, results)
+        quality = answer_quality_service.package(request, results, retrieval_route, len(citations))
         response = AnswerResponse(
             answer=answer_text,
             conversation_id=request.conversation_id or "",
             citations=citations,
             disclaimer=disclaimer,
             retrieval_route=retrieval_route,
+            confidence_score=quality["confidence_score"],  # type: ignore[arg-type]
+            verification_questions=quality["verification_questions"],  # type: ignore[arg-type]
         )
         return response, chunk_ids, results
 
@@ -125,6 +129,7 @@ class RagService:
             answer_text, citations, consolidated, request.audience,
         )
         self._enrich_citations(citations, consolidated)
+        quality = answer_quality_service.package(request, consolidated, retrieval_route, len(citations))
         yield {
             "step": "complete",
             "message": "Klaar",
@@ -134,6 +139,8 @@ class RagService:
                 "citations": [c.model_dump(mode="json") for c in citations],
                 "disclaimer": disclaimer,
                 "retrieval_route": retrieval_route,
+                "confidence_score": quality["confidence_score"],
+                "verification_questions": quality["verification_questions"],
             },
         }
 

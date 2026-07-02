@@ -48,3 +48,5 @@ class AnswerResponse(BaseModel):
     citations: list[Citation] = Field(default_factory=list)
     disclaimer: str = "Dit is geen juridisch advies."
     retrieval_route: RetrievalRoute | None = None
+    confidence_score: float | None = None
+    verification_questions: list[str] = Field(default_factory=list)

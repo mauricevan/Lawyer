@@ -5,6 +5,7 @@ import Markdown from "react-markdown";
 import type { Audience, ChatMessage } from "@/models/types";
 import { CitationSources } from "./CitationSources";
 import { FeedbackPanel } from "./FeedbackPanel";
+import { VerificationQuestions } from "./VerificationQuestions";
 import styles from "./ChatThread.module.css";
 
 interface Props {
@@ -50,6 +51,9 @@ export function ChatThread({ messages, audience = "layperson", conversationId }:
             )}
             {!msg.isPending && msg.citations && msg.citations.length > 0 && (
               <CitationSources citations={msg.citations} audience={audience} />
+            )}
+            {!msg.isPending && msg.verificationQuestions && msg.verificationQuestions.length > 0 && (
+              <VerificationQuestions questions={msg.verificationQuestions} />
             )}
             {!msg.isPending && msg.role === "assistant" && (
               <FeedbackPanel conversationId={conversationId} messageId={msg.id} />

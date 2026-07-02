@@ -9,6 +9,7 @@ from backend.src.models.tables import AuditLog, Document, IngestionJob, LiveCach
 from backend.src.services.metrics_service import metrics_service
 from backend.src.services.qdrant_service import QdrantService
 from backend.src.services.cache_cleanup_service import CacheCleanupService
+from backend.src.services.citation_reliability_service import citation_reliability_service
 from backend.src.services.feature_flag_service import FeatureFlagService
 from backend.src.dependencies.auth import require_permission
 from backend.src.security.rbac_matrix import Permission
@@ -124,4 +125,7 @@ async def cleanup_expired_cache(session: AsyncSession = Depends(get_db)) -> dict
 
 @router.get("/metrics", dependencies=[Depends(require_permission(Permission.ADMIN_READ))])
 async def get_runtime_metrics() -> dict:
-    return metrics_service.snapshot()
+    return {
+        **metrics_service.snapshot(),
+        "citation_reliability": citation_reliability_service.snapshot(),
+    }

@@ -92,6 +92,7 @@ export default function GesprekPage() {
                   role: "assistant",
                   content: answer.answer,
                   citations: answer.citations,
+                  verificationQuestions: answer.verification_questions,
                 }
               : msg,
           ),

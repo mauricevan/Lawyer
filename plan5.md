@@ -35,10 +35,10 @@
 
 ### H2. Kwaliteitsverbetering
 
-- [ ] Top 20 terugkerende foutpatronen aanpakken
-- [ ] Prompt en contextstrategie iteratief verbeteren
-- [ ] Citation betrouwbaarheid monitoren per release
-- [ ] Verificatievragen toevoegen bij onzeker antwoord
+- [x] Top 20 terugkerende foutpatronen aanpakken
+- [x] Prompt en contextstrategie iteratief verbeteren
+- [x] Citation betrouwbaarheid monitoren per release
+- [x] Verificatievragen toevoegen bij onzeker antwoord
 
 ## Werkstroom I - Domein- en taaluitbreiding
 
