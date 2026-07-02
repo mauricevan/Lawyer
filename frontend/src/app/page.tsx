@@ -10,7 +10,7 @@ import { QueryFilterControls } from "@/components/QueryFilterControls";
 import { RetrievalRouteBadge } from "@/components/RetrievalRouteBadge";
 import { RetrievalStatus } from "@/components/RetrievalStatus";
 import { LegalFooter } from "@/components/LegalFooter";
-import type { Audience, ChatMessage, QueryMode, RetrievalEvent, RetrievalRoute } from "@/models/types";
+import type { Audience, ChatMessage, QueryMode, RetrievalEvent, RetrievalRoute, SupportedLanguage } from "@/models/types";
 import {
   getExampleQuestions,
   getPopularQuestions,
@@ -54,7 +54,9 @@ export default function HomePage() {
   const [lockedMode, setLockedMode] = useState<QueryMode | null>(null);
   const [domainFilter, setDomainFilter] = useState("");
   const [timeContext, setTimeContext] = useState<"current" | "historical">("current");
+  const [language, setLanguage] = useState<SupportedLanguage>("auto");
   const [retrievalRoute, setRetrievalRoute] = useState<RetrievalRoute | undefined>();
+  const [lockedLanguage, setLockedLanguage] = useState<SupportedLanguage | null>(null);
 
   const isChatActive = messages.length > 0;
   const activeAudience = lockedAudience ?? audience;
@@ -68,6 +70,7 @@ export default function HomePage() {
     setQuestion("");
     setLockedAudience(null);
     setLockedMode(null);
+    setLockedLanguage(null);
     setRetrievalRoute(undefined);
   };
 
@@ -79,6 +82,9 @@ export default function HomePage() {
 
     if (!lockedAudience) setLockedAudience(audience);
     if (!lockedMode) setLockedMode(queryMode);
+    if (!lockedLanguage) setLockedLanguage(language);
+
+    const activeLanguage = lockedLanguage ?? language;
 
     setIsLoading(true);
     setError(null);
@@ -97,7 +103,7 @@ export default function HomePage() {
         question: queryText.trim(),
         query_mode: lockedMode ?? queryMode,
         audience: lockedAudience ?? audience,
-        language: "nl",
+        language: activeLanguage,
         conversation_id: conversationId,
         filters: {
           domain: domainFilter || undefined,
@@ -179,7 +185,7 @@ export default function HomePage() {
           variant="sticky"
         />
 
-        <LegalFooter audience={activeAudience} compact />
+        <LegalFooter audience={activeAudience} language={lockedLanguage ?? language} compact />
       </main>
     );
   }
@@ -203,8 +209,10 @@ export default function HomePage() {
         <QueryFilterControls
           domain={domainFilter}
           timeContext={timeContext}
+          language={language}
           onDomainChange={setDomainFilter}
           onTimeContextChange={setTimeContext}
+          onLanguageChange={setLanguage}
         />
 
         <div className={styles.questionSection}>
@@ -237,7 +245,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <LegalFooter audience={audience} />
+      <LegalFooter audience={audience} language={language} />
     </main>
   );
 }

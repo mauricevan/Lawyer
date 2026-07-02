@@ -1,4 +1,6 @@
+import { LanguageSelector } from "@/components/LanguageSelector";
 import styles from "./QueryFilterControls.module.css";
+import type { SupportedLanguage } from "@/models/types";
 
 const DOMAINS = [
   { id: "", label: "Alle domeinen" },
@@ -13,15 +15,19 @@ const DOMAINS = [
 interface Props {
   domain: string;
   timeContext: "current" | "historical";
+  language: SupportedLanguage;
   onDomainChange: (domain: string) => void;
   onTimeContextChange: (timeContext: "current" | "historical") => void;
+  onLanguageChange: (language: SupportedLanguage) => void;
 }
 
 export function QueryFilterControls({
   domain,
   timeContext,
+  language,
   onDomainChange,
   onTimeContextChange,
+  onLanguageChange,
 }: Props) {
   return (
     <fieldset className={styles.fieldset}>
@@ -62,6 +68,7 @@ export function QueryFilterControls({
           </button>
         </div>
       </div>
+      <LanguageSelector language={language} onChange={onLanguageChange} />
     </fieldset>
   );
 }

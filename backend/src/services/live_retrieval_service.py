@@ -9,6 +9,7 @@ import httpx
 from backend.src.config import settings
 from backend.src.security.ssrf_guard import SecurityValidationError, assert_url_allowed, validate_celex
 from backend.src.services.live_chunk_builder import LiveChunkBuilder
+from backend.src.services.language_resolution_service import LanguageResolutionService
 from ingestion.src.clients.sparql_client import SparqlClient
 
 logger = logging.getLogger(__name__)
@@ -22,6 +23,7 @@ class LiveRetrievalService:
     def __init__(self) -> None:
         self._sparql = SparqlClient(timeout=settings.live_fallback_timeout_seconds)
         self._chunk_builder = LiveChunkBuilder()
+        self._language = LanguageResolutionService()
 
     async def fallback_chunks(
         self,
@@ -31,29 +33,38 @@ class LiveRetrievalService:
     ) -> list[dict[str, Any]]:
         if not settings.enable_live_fallback:
             return []
-        celex = celex_hint or self._extract_celex(question) or await self._discover_celex(question, language)
-        if not celex and language.lower() == "nl":
-            celex = await self._discover_celex(question, "en")
+        celex = celex_hint or self._extract_celex(question) or await self._discover_with_fallback(question, language)
         if not celex:
             return []
         try:
             celex = validate_celex(celex)
         except SecurityValidationError:
             return []
-        metadata = await self._fetch_sparql_metadata(celex, language)
-        title, html = await self._fetch_document_html(celex, language)
-        if metadata and metadata.get("title"):
-            title = metadata["title"]
-        if not html:
-            return []
-        parsed = self._chunk_builder.build_from_html(celex, html, language, title, metadata)
-        if parsed:
-            return parsed
-        return self._build_chunks_from_plain_text(celex, title, html.decode("utf-8", errors="ignore"), language, metadata)
+        for lang in self._language.fallback_chain(language):
+            metadata = await self._fetch_sparql_metadata(celex, lang)
+            title, html = await self._fetch_document_html(celex, lang)
+            if metadata and metadata.get("title"):
+                title = metadata["title"]
+            if not html:
+                continue
+            parsed = self._chunk_builder.build_from_html(celex, html, lang, title, metadata)
+            if parsed:
+                return parsed
+            return self._build_chunks_from_plain_text(
+                celex, title, html.decode("utf-8", errors="ignore"), lang, metadata,
+            )
+        return []
 
     def _extract_celex(self, question: str) -> str | None:
         match = re.search(r"\b\d{5}[A-Z]\d{4}\b", question.upper())
         return match.group(0) if match else None
+
+    async def _discover_with_fallback(self, question: str, language: str) -> str | None:
+        for lang in self._language.fallback_chain(language):
+            celex = await self._discover_celex(question, lang)
+            if celex:
+                return celex
+        return None
 
     async def _discover_celex(self, question: str, language: str) -> str | None:
         try:

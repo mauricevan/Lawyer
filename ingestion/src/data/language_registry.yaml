@@ -1,0 +1,36 @@
+# Language registry — phased rollout and fallback chains (plan5 I2)
+languages:
+  nl:
+    label: "Nederlands"
+    status: go
+    fts_config: dutch
+    cellar_uri: NLD
+    fallback_chain: [en]
+
+  en:
+    label: "English"
+    status: go
+    fts_config: english
+    cellar_uri: ENG
+    fallback_chain: []
+
+  fr:
+    label: "Français"
+    status: go
+    fts_config: french
+    cellar_uri: FRA
+    fallback_chain: [en]
+
+  de:
+    label: "Deutsch"
+    status: go
+    fts_config: german
+    cellar_uri: DEU
+    fallback_chain: [en]
+
+  es:
+    label: "Español"
+    status: go
+    fts_config: spanish
+    cellar_uri: SPA
+    fallback_chain: [en]

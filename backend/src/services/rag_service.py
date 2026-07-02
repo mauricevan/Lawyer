@@ -70,8 +70,9 @@ class RagService:
             request.question, results, history, request.query_mode, request.audience,
         )
         citations = self._source_consistency.filter_citations(citations, results)
+        query_language = routed.filters.language if routed.filters else routed.language
         answer_text, citations, disclaimer = self._answer_policy.finalize_answer(
-            answer_text, citations, results, request.audience,
+            answer_text, citations, results, request.audience, query_language or "nl",
         )
         self._enrich_citations(citations, results)
         quality = answer_quality_service.package(request, results, retrieval_route, len(citations))
@@ -119,8 +120,9 @@ class RagService:
             request.question, consolidated, history, request.query_mode, request.audience,
         )
         citations = self._source_consistency.filter_citations(citations, consolidated)
+        query_language = routed.filters.language if routed.filters else routed.language
         answer_text, citations, disclaimer = self._answer_policy.finalize_answer(
-            answer_text, citations, consolidated, request.audience,
+            answer_text, citations, consolidated, request.audience, query_language or "nl",
         )
         self._enrich_citations(citations, consolidated)
         quality = answer_quality_service.package(request, consolidated, retrieval_route, len(citations))
@@ -238,7 +240,10 @@ class RagService:
             "in_force_only": existing.get("in_force_only", route.time_context != "historical"),
             "consolidated_preferred": existing.get("consolidated_preferred", True),
         }
-        return request.model_copy(update={"filters": QueryFilters(**merged_filters)})
+        return request.model_copy(update={
+            "language": route.language,
+            "filters": QueryFilters(**merged_filters),
+        })
 
     def _apply_post_filters(self, chunks: list[dict[str, Any]], filters: QueryFilters | None) -> list[dict[str, Any]]:
         if not filters:

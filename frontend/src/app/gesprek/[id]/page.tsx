@@ -8,7 +8,7 @@ import { ChatComposer } from "@/components/ChatComposer";
 import { ChatThread } from "@/components/ChatThread";
 import { SourcesSidebar } from "@/components/SourcesSidebar";
 import { RetrievalStatus } from "@/components/RetrievalStatus";
-import type { Audience, ChatMessage, Citation, QueryMode, RetrievalEvent } from "@/models/types";
+import type { Audience, ChatMessage, Citation, QueryMode, RetrievalEvent, SupportedLanguage } from "@/models/types";
 import {
   getConversation,
   streamQuery,
@@ -44,6 +44,7 @@ export default function GesprekPage() {
   const [events, setEvents] = useState<RetrievalEvent[]>([]);
   const [allCitations, setAllCitations] = useState<Citation[]>([]);
   const [isReady, setIsReady] = useState(false);
+  const [language, setLanguage] = useState<SupportedLanguage>("auto");
   const audience: Audience = "layperson";
 
   useEffect(() => {
@@ -79,7 +80,7 @@ export default function GesprekPage() {
         conversation_id: id,
         query_mode: queryMode,
         audience,
-        language: "nl",
+        language,
       },
       (event) => setEvents((prev) => [...prev, event]),
       async (answer) => {
@@ -155,7 +156,7 @@ export default function GesprekPage() {
         isFollowUp
         variant="sticky"
       />
-      <LegalFooter audience={audience} compact />
+      <LegalFooter audience={audience} language={language} compact />
     </main>
   );
 }

@@ -1,5 +1,6 @@
 export type QueryMode = "open" | "compliance" | "compare" | "updates";
 export type Audience = "layperson" | "professional";
+export type SupportedLanguage = "auto" | "nl" | "en" | "fr" | "de" | "es";
 export type RetrievalRoute = "local" | "live_fallback" | "hybrid" | "cache";
 
 export interface TrustIndicator {
@@ -38,12 +39,12 @@ export interface QueryRequest {
   conversation_id?: string;
   query_mode: QueryMode;
   audience?: Audience;
-  language?: string;
+  language?: SupportedLanguage;
   filters?: {
     domain?: string;
     doc_type?: string;
     celex?: string;
-    language?: string;
+    language?: SupportedLanguage;
     time_context?: "current" | "historical";
     in_force_only?: boolean;
     consolidated_preferred?: boolean;

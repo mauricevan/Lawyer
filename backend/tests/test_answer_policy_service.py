@@ -20,6 +20,12 @@ def test_enforce_citations_keeps_existing() -> None:
     assert citations == existing
 
 
+def test_finalize_adds_localized_disclaimer() -> None:
+    policy = AnswerPolicyService()
+    _, _, disclaimer = policy.finalize_answer("Réponse.", [], [], "layperson", "fr")
+    assert "avocat" in disclaimer.lower()
+
+
 def test_finalize_adds_disclaimer_and_insufficient_notice() -> None:
     policy = AnswerPolicyService()
     answer, citations, disclaimer = policy.finalize_answer(

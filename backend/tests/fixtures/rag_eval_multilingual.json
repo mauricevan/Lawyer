@@ -1,0 +1,122 @@
+[
+  {
+    "question": "Que prévoit GDPR?",
+    "expected_celex": [
+      "32016R0679"
+    ],
+    "min_hits": 1,
+    "language": "fr"
+  },
+  {
+    "question": "Quelles obligations impose GDPR?",
+    "expected_celex": [
+      "32016R0679"
+    ],
+    "min_hits": 1,
+    "language": "fr"
+  },
+  {
+    "question": "Que prévoit AI Act?",
+    "expected_celex": [
+      "32024R1689"
+    ],
+    "min_hits": 1,
+    "language": "fr"
+  },
+  {
+    "question": "Quelles obligations impose AI Act?",
+    "expected_celex": [
+      "32024R1689"
+    ],
+    "min_hits": 1,
+    "language": "fr"
+  },
+  {
+    "question": "Que prévoit DORA?",
+    "expected_celex": [
+      "32022R2554"
+    ],
+    "min_hits": 1,
+    "language": "fr"
+  },
+  {
+    "question": "Was regelt GDPR?",
+    "expected_celex": [
+      "32016R0679"
+    ],
+    "min_hits": 1,
+    "language": "de"
+  },
+  {
+    "question": "Welche Pflichten gelten nach GDPR?",
+    "expected_celex": [
+      "32016R0679"
+    ],
+    "min_hits": 1,
+    "language": "de"
+  },
+  {
+    "question": "Was regelt AI Act?",
+    "expected_celex": [
+      "32024R1689"
+    ],
+    "min_hits": 1,
+    "language": "de"
+  },
+  {
+    "question": "Welche Pflichten gelten nach AI Act?",
+    "expected_celex": [
+      "32024R1689"
+    ],
+    "min_hits": 1,
+    "language": "de"
+  },
+  {
+    "question": "Was regelt DORA?",
+    "expected_celex": [
+      "32022R2554"
+    ],
+    "min_hits": 1,
+    "language": "de"
+  },
+  {
+    "question": "¿Qué regula GDPR?",
+    "expected_celex": [
+      "32016R0679"
+    ],
+    "min_hits": 1,
+    "language": "es"
+  },
+  {
+    "question": "¿Qué obligaciones impone GDPR?",
+    "expected_celex": [
+      "32016R0679"
+    ],
+    "min_hits": 1,
+    "language": "es"
+  },
+  {
+    "question": "¿Qué regula AI Act?",
+    "expected_celex": [
+      "32024R1689"
+    ],
+    "min_hits": 1,
+    "language": "es"
+  },
+  {
+    "question": "¿Qué obligaciones impone AI Act?",
+    "expected_celex": [
+      "32024R1689"
+    ],
+    "min_hits": 1,
+    "language": "es"
+  },
+  {
+    "question": "¿Qué regula DORA?",
+    "expected_celex": [
+      "32022R2554"
+    ],
+    "min_hits": 1,
+    "language": "es"
+  }
+]

@@ -2,6 +2,7 @@
 from dataclasses import dataclass, field
 import re
 
+from backend.src.services.language_resolution_service import LanguageResolutionService
 from ingestion.src.data.domain_registry_loader import get_domain_keywords
 from ingestion.src.data.legal_term_hints import match_primary_celex_hint
 
@@ -42,6 +43,9 @@ class QueryRoute:
 class QueryRouterService:
     """Determines legal retrieval strategy based on user intent."""
 
+    def __init__(self) -> None:
+        self._language = LanguageResolutionService()
+
     def route(self, question: str, preferred_language: str = "nl") -> QueryRoute:
         question_lower = question.lower()
         domains = self._match_categories(question_lower, DOMAIN_KEYWORDS)
@@ -49,13 +53,14 @@ class QueryRouterService:
         time_context = self._infer_time_context(question_lower)
         celex_hint = self._extract_celex(question)
         keywords = self._extract_keywords(question)
+        language = self._language.resolve(preferred_language, question)
         return QueryRoute(
             domains=domains,
             doc_types=doc_types,
             time_context=time_context,
             keywords=keywords,
             celex_hint=celex_hint,
-            language=(preferred_language or "nl").lower(),
+            language=language,
         )
 
     def _match_categories(

@@ -5,9 +5,9 @@ from typing import Any
 from sqlalchemy import text
 from sqlalchemy.ext.asyncio import AsyncSession
 
-logger = logging.getLogger(__name__)
+from ingestion.src.data.language_registry_loader import get_fts_config
 
-TS_CONFIG = {"nl": "dutch", "en": "english"}
+logger = logging.getLogger(__name__)
 
 
 class PostgresSearchService:
@@ -23,7 +23,7 @@ class PostgresSearchService:
         cleaned = query.strip()
         if len(cleaned) < 3:
             return []
-        config = TS_CONFIG.get((language or "nl").lower(), "simple")
+        config = get_fts_config(language or "nl")
         try:
             async with session.begin_nested():
                 result = await session.execute(

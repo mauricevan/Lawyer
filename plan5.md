@@ -51,10 +51,10 @@
 
 ### I2. Nieuwe talen
 
-- [ ] FR/DE/ES gefaseerd activeren
-- [ ] Taaldetectie en fallbackpaden valideren
-- [ ] Meertalige evaluatieset uitbreiden
-- [ ] Lokalisatie van UI en disclaimers controleren
+- [x] FR/DE/ES gefaseerd activeren
+- [x] Taaldetectie en fallbackpaden valideren
+- [x] Meertalige evaluatieset uitbreiden
+- [x] Lokalisatie van UI en disclaimers controleren
 
 ## Werkstroom J - Continue levering
 

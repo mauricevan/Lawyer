@@ -32,10 +32,11 @@ class AnswerPolicyService:
         citations: list[Citation],
         chunks: list[dict],
         audience: str,
+        language: str = "nl",
     ) -> tuple[str, list[Citation], str]:
         citations = self.enforce_citations(citations, chunks)
         answer = self._ensure_insufficient_notice(answer_text, chunks, audience)
-        return answer, citations, get_disclaimer(audience)  # type: ignore[arg-type]
+        return answer, citations, get_disclaimer(audience, language)  # type: ignore[arg-type]
 
     def _ensure_insufficient_notice(
         self,

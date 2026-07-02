@@ -9,9 +9,10 @@ import httpx
 
 logger = logging.getLogger(__name__)
 
+from ingestion.src.data.language_registry_loader import get_cellar_uri
+
 SPARQL_ENDPOINT = "https://publications.europa.eu/webapi/rdf/sparql"
 DEFAULT_LIMIT = 100
-LANGUAGE_URI = {"nl": "NLD", "en": "ENG"}
 MAX_RETRIES = 3
 
 
@@ -43,7 +44,7 @@ class SparqlClient:
         return {"results": {"bindings": []}}
 
     async def fetch_work_by_celex(self, celex: str, language: str = "nl") -> dict[str, str] | None:
-        lang_uri = LANGUAGE_URI.get(language.lower(), "NLD")
+        lang_uri = get_cellar_uri(language)
         query = f"""
         PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
         SELECT ?title ?modified WHERE {{
@@ -68,7 +69,7 @@ class SparqlClient:
         terms = [term.lower() for term in re.findall(r"[A-Za-zÀ-ÿ]{4,}", question)[:3]]
         if not terms:
             return None
-        lang_uri = LANGUAGE_URI.get(language.lower(), "NLD")
+        lang_uri = get_cellar_uri(language)
         filters = " && ".join(
             f'CONTAINS(LCASE(STR(?title)), "{term}")' for term in terms[:2]
         )
