@@ -1,0 +1,54 @@
+# KPI catalog — leading and lagging indicators (plan10 X)
+version: "2026.07.02"
+refresh_cadence: annual
+
+indicators:
+  - id: eval_recall
+    type: lagging
+    label: Retrieval Recall@5
+    source: docs/data/eval-reports/latest.json
+    target: 0.80
+    corrective_playbook: docs/cycle/kpi-corrective-actions.md#retrieval
+
+  - id: eval_multilingual
+    type: lagging
+    label: Multilingual Recall@5
+    source: docs/data/eval-reports/latest.json
+    target: 0.70
+    corrective_playbook: docs/cycle/kpi-corrective-actions.md#multilingual
+
+  - id: release_eval_pass_rate
+    type: leading
+    label: Release eval pass before deploy
+    source: scripts/qa/run-release-eval-suite.sh
+    target: 1.0
+    corrective_playbook: docs/cycle/kpi-corrective-actions.md#release-gate
+
+  - id: open_p1_debt
+    type: leading
+    label: Open P1 debt items
+    source: docs/ops/technical-debt-register.md
+    target: 0
+    direction: lower_is_better
+    corrective_playbook: docs/cycle/kpi-corrective-actions.md#debt
+
+  - id: high_strategic_risks
+    type: leading
+    label: Risks with exposure >= 12
+    source: docs/risk/strategic-risk-register.yaml
+    target: 2
+    direction: lower_is_better
+    corrective_playbook: docs/cycle/kpi-corrective-actions.md#risk
+
+  - id: active_experiments
+    type: leading
+    label: Active experiments within budget
+    source: docs/product/experiment-backlog.yaml
+    target: 2
+    direction: lower_is_better
+    corrective_playbook: docs/cycle/kpi-corrective-actions.md#innovation
+
+annual_refresh:
+  owner: product
+  script: scripts/ops/run-kpi-catalog-review.sh
+  last_refresh: "2026-07-02"

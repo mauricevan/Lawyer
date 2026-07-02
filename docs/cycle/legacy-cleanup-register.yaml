@@ -1,0 +1,31 @@
+# Legacy task cleanup register (plan10 W)
+version: "2026.07.02"
+
+items:
+  - id: LEG-001
+    title: plan4.md unchecked exit items
+    status: consolidated
+    resolution: docs/product/plan4-exit-gap.md
+    target_quarter: Q3-2026
+
+  - id: LEG-002
+    title: Duplicate eval scripts (retrieval vs release suite)
+    status: open
+    resolution: Document when to use each in release-standards.md
+    target_quarter: Q3-2026
+
+  - id: LEG-003
+    title: plan6 KPI targets unmeasured
+    status: open
+    resolution: Log first measurement in plan6-kpi-targets.yaml
+    target_quarter: Q4-2026
+
+  - id: LEG-004
+    title: TD-009 ADR map (partially done)
+    status: done
+    resolution: docs/adr/ README + 0001-0003
+    target_quarter: Q3-2026
+
+rules:
+  max_open_items: 10
+  quarterly_close_minimum: 2

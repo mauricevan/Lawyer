@@ -1,0 +1,49 @@
+# Next cycle themes for plan11 (plan10 Y)
+version: "2026.07.02"
+next_plan: plan11.md
+
+themes:
+  - id: THEME-001
+    title: International domain expansion
+    priority: 1
+    impact: 5
+    effort: 4
+    kpi_link: multilingual_quality
+    notes: Native FR/DE/ES corpus beyond NL fallback
+
+  - id: THEME-002
+    title: Employment domain go-live
+    priority: 2
+    impact: 4
+    effort: 3
+    kpi_link: domain_coverage
+    notes: EXP-003 productization
+
+  - id: THEME-003
+    title: Local compliance documentation
+    priority: 3
+    impact: 4
+    effort: 3
+    kpi_link: regulatory_radar
+    notes: National implementation gaps messaging
+
+  - id: THEME-004
+    title: Integration eval in CI
+    priority: 4
+    impact: 3
+    effort: 3
+    kpi_link: release_eval_pass_rate
+    notes: TD-004 closure
+
+capacity_prep:
+  quarter: Q4-2026
+  mode: healthy
+  feature_hours_per_week: 20
+  innovation_hours: 4
+  debt_hours: 6
+
+formal_start:
+  decision: approved
+  date: "2026-07-02"
+  kickoff_doc: docs/cycle/plan11-kickoff.md
+  approver: solo-engineering

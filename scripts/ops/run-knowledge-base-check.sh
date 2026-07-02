@@ -30,6 +30,8 @@ required=(
   docs/product/portfolio-board-cadence.md
   docs/product/prioritization-model.yaml
   docs/risk/strategic-risk-register.yaml
+  docs/cycle/plan-transition-playbook.md
+  docs/cycle/kpi-catalog.yaml
   docs/adr/README.md
   observability/runbooks/top-5-incidents.md
 )

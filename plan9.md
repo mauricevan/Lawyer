@@ -61,4 +61,4 @@
 
 ## Overdrachtsregel naar plan10
 
-- [ ] Plan10 start na kwartaal board review + strategic risk review groen
+- [x] Plan10 gestart — continuous cycle, KPI catalog, plan11 prep (2026-07-02)

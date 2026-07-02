@@ -28,9 +28,9 @@ healthy = allocation.get("healthy", {})
 if not healthy:
     raise SystemExit("FAIL: portfolio-metrics missing capacity_allocation.healthy")
 total = sum(healthy.values())
-if abs(total - 100) > 1:
-    raise SystemExit(f"FAIL: healthy allocation sums to {total}, expected ~100")
-print(f"OK: capacity_allocation healthy = {total}%")
+if abs(total - 1.0) > 0.01:
+    raise SystemExit(f"FAIL: healthy allocation sums to {total}, expected 1.0")
+print(f"OK: capacity_allocation healthy = {total}")
 
 roadmap = Path("docs/product/quarterly-roadmap.md").read_text(encoding="utf-8")
 if "debt" not in roadmap.lower():

@@ -1,0 +1,30 @@
+# Plan relevance review schedule (plan10 W)
+version: "2026.07.02"
+
+reviews:
+  - plan_file: plan7.md
+    last_reviewed: "2026-07-02"
+    still_relevant: true
+    notes: "Data governance active"
+
+  - plan_file: plan8.md
+    last_reviewed: "2026-07-02"
+    still_relevant: true
+    notes: "Operating model adopted"
+
+  - plan_file: plan9.md
+    last_reviewed: "2026-07-02"
+    still_relevant: true
+    notes: "Portfolio + risk live"
+
+  - plan_file: plan10.md
+    last_reviewed: "2026-07-02"
+    still_relevant: true
+    notes: "Cycle standardization in progress"
+
+cadence:
+  frequency: quarterly
+  owner: engineering
+  script: scripts/ops/run-cycle-planning-review.sh
+
+stale_threshold_days: 120

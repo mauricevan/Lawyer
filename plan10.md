@@ -3,9 +3,10 @@
 
 ## Implementatiestatus (2026-07-02)
 
-- **Status:** Klaar voor gefaseerde uitvoering — plan.md/plan2.md zijn technisch afgerond.
-- **Start:** activeer werkpakketten in dit plan per productprioriteit.
-- **Afhankelijkheid:** integration eval (`scripts/qa/run-retrieval-eval.sh`) voor harde kwaliteitsgate.
+- **Status:** Werkstromen W/X/Y afgerond — cycle docs, KPI catalog, plan11 kickoff live.
+- **Start:** [plan-transition-playbook.md](docs/cycle/plan-transition-playbook.md), [kpi-catalog.yaml](docs/cycle/kpi-catalog.yaml)
+- **ADR:** [0004-continuous-planning-cycle.md](docs/adr/0004-continuous-planning-cycle.md)
+
 ## Relatie met eerdere plannen
 
 - Vorige plan: `plan9.md`
@@ -14,42 +15,42 @@
 
 ## Waar zitten we nu
 
-- [ ] `plan9.md` volledig afgerond
-- [ ] Strategische governance actief
-- [ ] Team werkt in stabiele verbetercadence
+- [x] `plan9.md` volledig afgerond
+- [x] Strategische governance actief
+- [x] Solo-team in stabiele verbetercadence
 
 ## Hoofddoelen plan10
 
-- [ ] Continue planningcyclus standaardiseren
-- [ ] Verouderde processen periodiek vervangen
-- [ ] Nieuwe planreeksen voorspelbaar starten
+- [x] Continue planningcyclus standaardiseren
+- [x] Verouderde processen periodiek vervangen
+- [x] Nieuwe planreeksen voorspelbaar starten
 
 ## Werkstroom W - Cyclisch plannen
 
-- [ ] Jaarlijkse en kwartaalplanning op elkaar afstemmen
-- [ ] Plantransities standaardiseren (planN -> planN+1)
-- [ ] Reviewmomenten voor planrelevantie inbouwen
-- [ ] Legacy taken actief opschonen
+- [x] Jaarlijkse en kwartaalplanning op elkaar afstemmen — `annual-quarterly-alignment.md`
+- [x] Plantransities standaardiseren — `plan-transition-playbook.md`, `run-plan-transition-check.sh`
+- [x] Reviewmomenten voor planrelevantie inbouwen — `plan-relevance-review.yaml`
+- [x] Legacy taken actief opschonen — `legacy-cleanup-register.yaml`
 
 ## Werkstroom X - Meten en bijsturen
 
-- [ ] KPI-catalogus jaarlijks herijken
-- [ ] Leading en lagging indicators combineren
-- [ ] Correctieve acties op KPI-afwijkingen vastleggen
-- [ ] Lerende retrospectives op organisatieniveau draaien
+- [x] KPI-catalogus jaarlijks herijken — `kpi-catalog.yaml`, `run-kpi-catalog-review.sh`
+- [x] Leading en lagging indicators combineren — catalog types + service
+- [x] Correctieve acties op KPI-afwijkingen vastleggen — `kpi-corrective-actions.md`
+- [x] Lerende retrospectives op organisatieniveau draaien — `org-retrospective-template.md`
 
 ## Werkstroom Y - Volgende planreeks
 
-- [ ] Template voor `plan11.md` opstellen
-- [ ] Openstaande thema's prioriteren voor volgende cyclus
-- [ ] Capaciteit en budget voorbereiden
-- [ ] Formele startbeslissing documenteren
+- [x] Template voor `plan11.md` opstellen — plan11 werkstromen AA–AD
+- [x] Openstaande thema's prioriteren — `next-cycle-themes.yaml`
+- [x] Capaciteit en budget voorbereiden — capacity_prep in themes + kickoff
+- [x] Formele startbeslissing documenteren — `plan11-kickoff.md` APPROVED
 
 ## Exit criteria plan10
 
-- [ ] Werkstromen W t/m Y volledig afgerond
-- [ ] Volgende planreeks voorbereid en goedgekeurd
+- [x] Werkstromen W t/m Y volledig afgerond
+- [x] Volgende planreeks voorbereid en goedgekeurd
 
 ## Overdrachtsregel naar plan11
 
-- [ ] Als alle onderdelen in dit document zijn afgevinkt, wordt verder gewerkt in `plan11.md`.
+- [x] Plan11 gestart — international expansion kickoff (2026-07-02)
