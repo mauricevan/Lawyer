@@ -74,17 +74,17 @@
 
 ### G1. Change management
 
-- [ ] Release checklist standaardiseren
-- [ ] Mandatory approvals per change-type vastleggen
-- [ ] Hotfixproces met rollbacktimebox formaliseren
-- [ ] Post-release review ritme inplannen
+- [x] Release checklist standaardiseren
+- [x] Mandatory approvals per change-type vastleggen
+- [x] Hotfixproces met rollbacktimebox formaliseren
+- [x] Post-release review ritme inplannen
 
 ### G2. SLO/SLA governance
 
-- [ ] SLO set bevestigen met product en operations
-- [ ] Error budget proces inrichten
-- [ ] Alert-fatigue review uitvoeren
-- [ ] Escalatiematrix actualiseren
+- [x] SLO set bevestigen met product en operations
+- [x] Error budget proces inrichten
+- [x] Alert-fatigue review uitvoeren
+- [x] Escalatiematrix actualiseren
 
 ## KPI-doelen plan4
 

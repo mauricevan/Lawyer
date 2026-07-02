@@ -44,6 +44,19 @@ cd frontend && npm install && npm run dev
 
 ## Observability
 
+```bash
+./scripts/observability/verify-stack.sh
+```
+
+## Release governance
+
+```bash
+./scripts/ops/run-release-checklist.sh   # vóór productie-deploy
+./scripts/ops/run-hotfix-rollback.sh     # incident mitigatie
+```
+
+Zie `docs/ops/` voor checklist, SLO's, escalatie en hotfix-runbooks.
+
 Met de volledige stack draaien metrics en dashboards automatisch mee:
 
 ```bash
