@@ -160,7 +160,7 @@ export default function HomePage() {
         </header>
 
         <div className={chatStyles.chatBody}>
-          <ChatThread messages={messages} audience={activeAudience} />
+          <ChatThread messages={messages} audience={activeAudience} conversationId={conversationId} />
           <RetrievalStatus events={events} isLoading={isLoading} audience={activeAudience} />
           {error && (
             <p className={styles.error} role="alert">

@@ -139,7 +139,7 @@ export default function GesprekPage() {
 
       <div className={styles.layout}>
         <div className={`${styles.main} ${chatStyles.chatBody}`}>
-          <ChatThread messages={messages} audience={audience} />
+          <ChatThread messages={messages} audience={audience} conversationId={id} />
           <RetrievalStatus events={events} isLoading={isLoading} audience={audience} />
         </div>
         <SourcesSidebar citations={allCitations} />

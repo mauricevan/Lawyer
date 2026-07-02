@@ -4,11 +4,13 @@ import { useEffect, useRef } from "react";
 import Markdown from "react-markdown";
 import type { Audience, ChatMessage } from "@/models/types";
 import { CitationSources } from "./CitationSources";
+import { FeedbackPanel } from "./FeedbackPanel";
 import styles from "./ChatThread.module.css";
 
 interface Props {
   messages: ChatMessage[];
   audience?: Audience;
+  conversationId?: string;
 }
 
 const ROLE_LABELS = {
@@ -16,7 +18,7 @@ const ROLE_LABELS = {
   professional: { user: "U", assistant: "Assistent" },
 } as const;
 
-export function ChatThread({ messages, audience = "layperson" }: Props) {
+export function ChatThread({ messages, audience = "layperson", conversationId }: Props) {
   const bottomRef = useRef<HTMLDivElement>(null);
   const labels = ROLE_LABELS[audience];
 
@@ -48,6 +50,9 @@ export function ChatThread({ messages, audience = "layperson" }: Props) {
             )}
             {!msg.isPending && msg.citations && msg.citations.length > 0 && (
               <CitationSources citations={msg.citations} audience={audience} />
+            )}
+            {!msg.isPending && msg.role === "assistant" && (
+              <FeedbackPanel conversationId={conversationId} messageId={msg.id} />
             )}
           </div>
         </div>

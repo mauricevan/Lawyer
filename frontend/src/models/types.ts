@@ -77,3 +77,12 @@ export interface ChatMessage {
   citations?: Citation[];
   isPending?: boolean;
 }
+
+export type FeedbackCategory = "incorrect" | "incomplete" | "source_issue" | "ux" | "positive";
+
+export interface FeedbackRequest {
+  rating: number;
+  category?: FeedbackCategory;
+  comment?: string;
+  conversation_id?: string;
+}

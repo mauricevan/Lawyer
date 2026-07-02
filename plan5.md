@@ -28,10 +28,10 @@
 
 ### H1. Feedback systeem
 
-- [ ] Feedbacktaxonomie (onjuist, onvolledig, bronprobleem, UX) finaliseren
-- [ ] Feedback in productflow laagdrempelig maken
-- [ ] Prioriteringsregels voor feedback naar backlog vastleggen
-- [ ] Wekelijkse triage-cadence afdwingen
+- [x] Feedbacktaxonomie (onjuist, onvolledig, bronprobleem, UX) finaliseren
+- [x] Feedback in productflow laagdrempelig maken
+- [x] Prioriteringsregels voor feedback naar backlog vastleggen
+- [x] Wekelijkse triage-cadence afdwingen
 
 ### H2. Kwaliteitsverbetering
 

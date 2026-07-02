@@ -46,7 +46,7 @@ jobs:
       - name: Dependency vulnerability scan
         run: pip-audit -r backend/requirements.txt --strict --desc on
       - name: Run security regression tests
-        run: pytest backend/tests/test_ssrf_guard.py backend/tests/test_auth_service.py backend/tests/test_security_rbac.py backend/tests/test_rbac_service.py backend/tests/test_audit_completeness_service.py backend/tests/test_audit_retention_service.py backend/tests/test_data_retention_service.py backend/tests/test_data_classification.py backend/tests/test_input_validation.py backend/tests/test_input_validation_audit.py -v
+        run: pytest backend/tests/test_ssrf_guard.py backend/tests/test_auth_service.py backend/tests/test_security_rbac.py backend/tests/test_rbac_service.py backend/tests/test_audit_completeness_service.py backend/tests/test_audit_retention_service.py backend/tests/test_data_retention_service.py backend/tests/test_data_classification.py backend/tests/test_input_validation.py backend/tests/test_input_validation_audit.py backend/tests/test_feedback_route.py -v
 
   secret-scan:
     runs-on: ubuntu-latest
