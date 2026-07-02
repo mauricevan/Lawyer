@@ -7,14 +7,14 @@ Werkregel: elke taak wordt pas afgevinkt als code, tests, lint en documentatie g
 
 ## Doorstroom naar vervolgplannen
 
-- [ ] Zodra alle fases in dit document volledig zijn afgevinkt, gaat de uitvoering verplicht verder in `plan2.md`.
+- [x] Zodra alle fases in dit document volledig zijn afgevinkt, gaat de uitvoering verplicht verder in `plan2.md`.
 - [ ] Als `plan2.md` volledig is afgevinkt, gaat de uitvoering verplicht verder in `plan3.md`.
 - [ ] Dit patroon blijft gelden voor volgende planbestanden (`plan4.md`, `plan5.md`, enzovoort) wanneer extra uitwerking nodig is.
 - [ ] Elk nieuw planbestand start met een korte verwijzing naar het voorgaande plan en een status van openstaande punten.
 
 ## Plan-keten overzicht (waar zijn we nu)
 
-- [ ] Huidig actief plan: `plan.md`
+- [x] Huidig actief plan: `plan.md`
 - [ ] Volgende plan: `plan2.md`
 - [ ] Daarna: `plan3.md`
 - [ ] Daarna: `plan4.md`
@@ -24,19 +24,39 @@ Werkregel: elke taak wordt pas afgevinkt als code, tests, lint en documentatie g
 - [ ] Daarna: `plan8.md`
 - [ ] Daarna: `plan9.md`
 - [ ] Daarna: `plan10.md`
-- [ ] Indien nodig daarna: `plan11.md`
+- [ ] Daarna: `plan11.md`
+- [ ] Daarna: `plan12.md`
+- [ ] Daarna: `plan13.md`
+- [ ] Daarna: `plan14.md`
+- [ ] Daarna: `plan15.md`
+- [ ] Daarna: `plan16.md`
+- [ ] Daarna: `plan17.md`
+- [ ] Daarna: `plan18.md`
+- [ ] Daarna: `plan19.md`
+- [ ] Daarna: `plan20.md`
+- [ ] Daarna: `plan21.md`
+- [ ] Daarna: `plan22.md`
+- [ ] Daarna: `plan23.md`
+- [ ] Daarna: `plan24.md`
+- [ ] Daarna: `plan25.md`
+- [ ] Daarna: `plan26.md`
+- [ ] Daarna: `plan27.md`
+- [ ] Daarna: `plan28.md`
+- [ ] Daarna: `plan29.md`
+- [ ] Daarna: `plan30.md`
+- [ ] Indien nodig daarna: `plan31.md`
 
 ## Statusoverzicht
 
-- [ ] Fase 0 - Baseline en voorbereiding
-- [ ] Fase 1 - Query Router en beslislaag
-- [ ] Fase 2 - Live fallback via EUR-Lex/CELLAR
-- [ ] Fase 3 - Cachelagen en auto-upgrade
-- [ ] Fase 4 - Retrieval kwaliteit (BM25 + RRF + reranking)
-- [ ] Fase 5 - Frontend transparantie en UX
-- [ ] Fase 6 - Security, compliance en auditability
-- [ ] Fase 7 - CI/CD, monitoring en operations
-- [ ] Fase 8 - Evaluatie, pilot en release-go/no-go
+- [x] Fase 0 - Baseline en voorbereiding
+- [x] Fase 1 - Query Router en beslislaag
+- [x] Fase 2 - Live fallback via EUR-Lex/CELLAR
+- [x] Fase 3 - Cachelagen en auto-upgrade
+- [x] Fase 4 - Retrieval kwaliteit (BM25 + RRF + reranking)
+- [x] Fase 5 - Frontend transparantie en UX
+- [x] Fase 6 - Security, compliance en auditability
+- [x] Fase 7 - CI/CD, monitoring en operations
+- [x] Fase 8 - Evaluatie, pilot en release-go/no-go
 
 ## Teamrollen en ownership
 
@@ -93,7 +113,7 @@ Werkregel: elke taak wordt pas afgevinkt als code, tests, lint en documentatie g
 
 ### 1.2 Router-service
 
-- [ ] `QueryRouterService` toevoegen in backend services
+- [x] `QueryRouterService` toevoegen in backend services
 - [ ] Integreren in `rag_service` voor retrievalstrategie-keuze
 - [ ] Drempelwaarden instelbaar maken via config
 - [ ] Router-uitkomst loggen met request-id
@@ -151,7 +171,7 @@ Werkregel: elke taak wordt pas afgevinkt als code, tests, lint en documentatie g
 
 ### 3.2 Persistente cache
 
-- [ ] `live_cache` tabel migratie toevoegen
+- [x] `live_cache` tabel migratie toevoegen
 - [ ] Velden: query_hash, celex, chunk_text, qdrant_id, hit_count, expires_at
 - [ ] Hit-count verhoging en TTL-verlenging implementeren
 - [ ] Opschoningstaak op verlopen records plannen
@@ -180,7 +200,7 @@ Werkregel: elke taak wordt pas afgevinkt als code, tests, lint en documentatie g
 
 ### 4.2 RRF fusie
 
-- [ ] RRF utility toevoegen (configureerbare `k`)
+- [x] RRF utility toevoegen (configureerbare `k`)
 - [ ] Vector + BM25 resultaten samenvoegen met deduplicatie
 - [ ] Rankingregressies meten tegen baseline
 - [ ] Telemetrie toevoegen per rankcomponent
@@ -202,7 +222,7 @@ Werkregel: elke taak wordt pas afgevinkt als code, tests, lint en documentatie g
 
 ### 5.1 Query controls
 
-- [ ] Domeinfilter in UI toevoegen
+- [x] Domeinfilter in UI toevoegen
 - [ ] Tijdcontext toggle (`huidig` of `historisch`) toevoegen
 - [ ] Request model uitbreiden en backward compatible houden
 - [ ] Validatie en defaultwaarden aan UI-zijde toevoegen
@@ -238,7 +258,7 @@ Werkregel: elke taak wordt pas afgevinkt als code, tests, lint en documentatie g
 
 ### 6.2 Audit logging
 
-- [ ] `audit_log` tabel migratie toevoegen
+- [x] `audit_log` tabel migratie toevoegen
 - [ ] Velden: user/session, vraag, intent, route, chunks, model, latency
 - [ ] Request-id chaining end-to-end implementeren
 - [ ] PII-minimalisatie in logs afdwingen
@@ -260,21 +280,21 @@ Werkregel: elke taak wordt pas afgevinkt als code, tests, lint en documentatie g
 
 ### 7.1 Test automation
 
-- [ ] Nieuwe unit en integratietests in CI opnemen
+- [x] Nieuwe unit en integratietests in CI opnemen
 - [ ] Retrieval regressietests opnemen in pull request checks
 - [ ] Flaky tests detecteren en stabiliseren
 - [ ] Minimale coverage-doelen vastleggen
 
 ### 7.2 Observability
 
-- [ ] Metrics: latency, fallback-ratio, cache hit-rate, 429-rate, LLM error-rate
-- [ ] Dashboards opzetten voor backend en retrieval
-- [ ] Alerts op drempelwaarden configureren
-- [ ] Runbook aanmaken voor top 5 incidenttypes
+- [x] Metrics: latency, fallback-ratio, cache hit-rate, 429-rate, LLM error-rate
+- [x] Dashboards opzetten voor backend en retrieval
+- [x] Alerts op drempelwaarden configureren
+- [x] Runbook aanmaken voor top 5 incidenttypes
 
 ### 7.3 Release en rollback
 
-- [ ] Feature flags introduceren voor risicovolle onderdelen
+- [x] Feature flags introduceren voor risicovolle onderdelen
 - [ ] Canary of gefaseerde uitrolprocedure beschrijven
 - [ ] Rollback-procedure testen
 - [ ] Post-release verificatiechecklist toevoegen
@@ -289,7 +309,7 @@ Werkregel: elke taak wordt pas afgevinkt als code, tests, lint en documentatie g
 
 ### 8.1 Evaluatieset en scoring
 
-- [ ] Testset met minimaal 100 vragen afgerond
+- [x] Testset met minimaal 100 vragen afgerond
 - [ ] Domeindekking (financieel, datarecht, duurzaamheid, mededinging, arbeidsrecht)
 - [ ] Retrieval metrics automatisch berekend
 - [ ] Antwoordkwaliteit periodiek beoordeeld
@@ -297,7 +317,7 @@ Werkregel: elke taak wordt pas afgevinkt als code, tests, lint en documentatie g
 ### 8.2 Pilot readiness
 
 - [ ] Pilot gebruikersgroep en scenario's vastgelegd
-- [ ] Feedbackcaptatie in product geactiveerd
+- [x] Feedbackcaptatie in product geactiveerd
 - [ ] Triageritme voor feedback afgesproken
 - [ ] Verbeterbacklog uit pilotfeedback aangemaakt
 

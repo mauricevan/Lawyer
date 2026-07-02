@@ -7,9 +7,15 @@ from fastapi.responses import StreamingResponse
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.src.database import SessionLocal
+from backend.src.dependencies.auth import require_permission
+from backend.src.security.rbac_matrix import Permission
 from backend.src.services.conversation_service import ConversationService
 
-router = APIRouter(prefix="/export", tags=["export"])
+router = APIRouter(
+    prefix="/export",
+    tags=["export"],
+    dependencies=[Depends(require_permission(Permission.EXPORT))],
+)
 service = ConversationService()
 
 

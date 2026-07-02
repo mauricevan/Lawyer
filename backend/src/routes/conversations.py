@@ -5,10 +5,16 @@ from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.src.database import SessionLocal
+from backend.src.dependencies.auth import require_permission
+from backend.src.security.rbac_matrix import Permission
 from backend.src.services.conversation_service import ConversationService
 from shared.schemas.conversation import ConversationSummary, CreateConversationRequest
 
-router = APIRouter(prefix="/conversations", tags=["conversations"])
+router = APIRouter(
+    prefix="/conversations",
+    tags=["conversations"],
+    dependencies=[Depends(require_permission(Permission.CONVERSATIONS))],
+)
 service = ConversationService()
 
 

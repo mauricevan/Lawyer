@@ -2,6 +2,8 @@
 import logging
 from typing import Any
 
+from backend.src.config import settings
+
 logger = logging.getLogger(__name__)
 
 
@@ -11,14 +13,16 @@ class RerankerService:
     def __init__(self) -> None:
         self._model = None
 
-    def rerank(self, query: str, results: list[dict[str, Any]], top_k: int = 8) -> list[dict[str, Any]]:
+    def rerank(self, query: str, results: list[dict[str, Any]], top_k: int | None = None) -> list[dict[str, Any]]:
         if not results:
             return []
+        limit = top_k or settings.rerank_top_k
+        candidates = results[: settings.rerank_candidate_limit]
         try:
-            return self._rerank_cross_encoder(query, results, top_k)
+            return self._rerank_cross_encoder(query, candidates, limit)
         except Exception as exc:
             logger.warning("Reranker fallback to score order: %s", exc)
-            return results[:top_k]
+            return candidates[:limit]
 
     def _rerank_cross_encoder(
         self, query: str, results: list[dict[str, Any]], top_k: int

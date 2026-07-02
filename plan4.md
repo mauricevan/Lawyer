@@ -1,5 +1,11 @@
 # Implementatieplan Deel 4 - Enterprise hardening, governance en compliance
 
+
+## Implementatiestatus (2026-07-02)
+
+- **Status:** Klaar voor gefaseerde uitvoering — plan.md/plan2.md zijn technisch afgerond.
+- **Start:** activeer werkpakketten in dit plan per productprioriteit.
+- **Afhankelijkheid:** integration eval (`scripts/qa/run-retrieval-eval.sh`) voor harde kwaliteitsgate.
 ## Relatie met eerdere plannen
 
 - Vorige plan: `plan3.md`
@@ -22,10 +28,10 @@
 
 ### E1. Toegangsbeheer en authz
 
-- [ ] RBAC matrix op endpointniveau vastleggen
-- [ ] Service-layer autorisatiechecks testen
-- [ ] Admin debugfeatures afschermen
-- [ ] Security regression suite opnemen in CI
+- [x] RBAC matrix op endpointniveau vastleggen
+- [x] Service-layer autorisatiechecks testen
+- [x] Admin debugfeatures afschermen
+- [x] Security regression suite opnemen in CI
 
 ### E2. Secret en key management
 
@@ -37,25 +43,25 @@
 ### E3. Applicatiebeveiliging
 
 - [ ] Input validatie coverage audit
-- [ ] SSRF/Injection/XSS checks op fallback en parsing flow
-- [ ] Dependency vulnerability scan in release-gates opnemen
+- [x] SSRF/Injection/XSS checks op fallback en parsing flow
+- [x] Dependency vulnerability scan in release-gates opnemen
 - [ ] Pentest bevindingen verwerken
 
 ## Werkstroom F - Compliance en data governance
 
 ### F1. Data lifecycle
 
-- [ ] Data-classificatie (PII, pseudo-PII, niet-PII) valideren
-- [ ] Retentiebeleid technisch afdwingen
+- [x] Data-classificatie (PII, pseudo-PII, niet-PII) valideren
+- [x] Retentiebeleid technisch afdwingen
 - [ ] Verwijderingsverzoeken proces documenteren
-- [ ] Audit van bewaartermijnen uitvoeren
+- [x] Audit van bewaartermijnen uitvoeren
 
 ### F2. Audittrail en verantwoordbaarheid
 
-- [ ] Auditlog completeness check (vraag, route, chunks, model)
+- [x] Auditlog completeness check (vraag, route, chunks, model)
 - [ ] Onveranderbaarheid/log-integriteitstrategie bepalen
-- [ ] Toegangsbeheer voor auditdata instellen
-- [ ] Maandelijkse auditrapportage format vastleggen
+- [x] Toegangsbeheer voor auditdata instellen
+- [x] Maandelijkse auditrapportage format vastleggen
 
 ### F3. Juridische en product disclaimers
 

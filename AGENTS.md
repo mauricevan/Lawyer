@@ -1,5 +1,7 @@
-#  AI AGENT CODE MANIFEST
+# AI AGENT CODE MANIFEST
+
 ### *Niet onderhandelen. Dit is hoe wij bouwen.*
+
 **Versie 1.0 — Vastgesteld door de CEO**
 
 ---
@@ -9,7 +11,11 @@
 Elke regel code die jij schrijft representeert dit bedrijf.  
 Slechte code kost geld. Technische schuld doodt bedrijven.  
 Jij bent geen typemachine — jij bent een engineer met verantwoordelijkheid.  
-**Denk eerst. Schrijf daarna.**
+**Denk eerst. Schrijf daarna.**  
+
+**Let op voor elke nieuwe taak die je gaat uivoeren zorg en bepaal dat er genoeg context grote over is anders run eerst een context compact**
+
+**indien een taak gedaan is en goed met bewijs gestest is, maak een commit naar github.**
 
 ---
 
@@ -93,6 +99,7 @@ Schending van dit principe = onmiddellijk refactoren voordat verder wordt gegaan
 Elke substantiële wijziging doorloopt deze checklist **voordat** het gecommit wordt:
 
 ### ✅ Zelf-review (verplicht, altijd)
+
 - [ ] Voldoet de code aan de 250-regel limiet per bestand?
 - [ ] Is er dubbele logica die kan worden samengetrokken?
 - [ ] Zijn alle functies kleiner dan 20 regels?
@@ -102,6 +109,7 @@ Elke substantiële wijziging doorloopt deze checklist **voordat** het gecommit w
 - [ ] Is de code leesbaar zonder extra uitleg nodig te hebben?
 
 ### 🔍 Architectuur-check
+
 - [ ] Volgt de code de 3-lagenstructuur?
 - [ ] Is de nieuwe code op de juiste plek in de mappenstructuur?
 - [ ] Zijn er geen cirkelvormige afhankelijkheden geïntroduceerd?
@@ -113,19 +121,24 @@ Elke substantiële wijziging doorloopt deze checklist **voordat** het gecommit w
 > *Geen test = geen productie. Dit is geen beleid, dit is zelfrespect.*
 
 ### Teststrategie (verplicht):
+
 - **Unit tests** voor elke utility-functie en service-methode
 - **Integratietests** voor elke API-endpoint en datasource-connectie
 - **Edge case tests**: lege input, null-waarden, extreme getallen, verkeerde datatypes
 
 ### Minimale testdekking:
-| Laag | Minimaal |
-|---|---|
-| Utils / Helpers | **90%** |
-| Services / Logica | **80%** |
-| API Endpoints | **75%** |
-| UI Components | **60%** |
+
+
+| Laag              | Minimaal |
+| ----------------- | -------- |
+| Utils / Helpers   | **90%**  |
+| Services / Logica | **80%**  |
+| API Endpoints     | **75%**  |
+| UI Components     | **60%**  |
+
 
 ### Testregel:
+
 - Testbestand staat altijd naast of in `/tests` met dezelfde naam + `.test` of `_test`
 - Tests draaien **lokaal groen** voordat iets gecommit wordt
 - Een falende test is een **stopbord**, geen gele kaart
@@ -223,11 +236,11 @@ Dit manifest is niet optioneel. Dit is hoe wij overleven.
 **Bouw het goed. Bouw het één keer.**
 
 ---
+
 *Vastgesteld door de CEO — Bijgewerkt: 2026 — Alle teams, alle projecten, zonder uitzondering.*
 
-
-
 # FRONTEND DESIGN SPECIFICATIE
+
 ## Het Handvest van de Drie Disciplines
 
 > Dit document is het fundament. Geen regel code wordt geschreven voordat elk onderdeel hiervan is doorgelezen, begrepen en geaccordeerd. Het is opgesteld vanuit drie perspectieven: **gedragspsychologie**, **visueel ontwerp**, en **frontend engineering**.
@@ -235,6 +248,7 @@ Dit manifest is niet optioneel. Dit is hoe wij overleven.
 ---
 
 ## DEEL 1 — GEDRAGSPSYCHOLOGIE
+
 *Hoe mensen zien, lezen, voelen en beslissen*
 
 ### 1.1 Cognitieve belasting (Cognitive Load)
@@ -261,15 +275,17 @@ Dit manifest is niet optioneel. Dit is hoe wij overleven.
 
 ### 1.4 Emotie en kleur (psychologische werking)
 
-| Kleur | Psychologische associatie | Gebruik |
-|---|---|---|
-| Blauw | Vertrouwen, rust, betrouwbaarheid | Banken, SaaS, gezondheidszorg |
-| Groen | Groei, veiligheid, succes | Bevestigingen, duurzaamheid, finance |
-| Rood | Urgentie, gevaar, energie | Foutmeldingen, uitverkoop-CTA's |
-| Oranje | Vriendelijkheid, actie, warmte | CTA-knoppen, jonge doelgroepen |
-| Paars | Luxe, creativiteit, mysterie | Premium producten, mode |
-| Zwart | Autoriteit, elegantie, luxe | High-end merken |
-| Wit/Grijs | Neutraliteit, ruimte, helderheid | Achtergronden, adempauzes |
+
+| Kleur     | Psychologische associatie         | Gebruik                              |
+| --------- | --------------------------------- | ------------------------------------ |
+| Blauw     | Vertrouwen, rust, betrouwbaarheid | Banken, SaaS, gezondheidszorg        |
+| Groen     | Groei, veiligheid, succes         | Bevestigingen, duurzaamheid, finance |
+| Rood      | Urgentie, gevaar, energie         | Foutmeldingen, uitverkoop-CTA's      |
+| Oranje    | Vriendelijkheid, actie, warmte    | CTA-knoppen, jonge doelgroepen       |
+| Paars     | Luxe, creativiteit, mysterie      | Premium producten, mode              |
+| Zwart     | Autoriteit, elegantie, luxe       | High-end merken                      |
+| Wit/Grijs | Neutraliteit, ruimte, helderheid  | Achtergronden, adempauzes            |
+
 
 - **Kleur is nooit de enige informatiedrager.** Kleurblinde gebruikers (~8% mannen) mogen geen informatie missen. Combineer altijd kleur met vorm, tekst of icoon.
 - Gebruik **maximaal 3 kleuren** in de primaire UI (primair, accent, neutraal). Statuskleuren (succes, fout, waarschuwing, info) zijn aanvullend.
@@ -284,6 +300,7 @@ Dit manifest is niet optioneel. Dit is hoe wij overleven.
 ---
 
 ## DEEL 2 — VISUEEL ONTWERP
+
 *De taal van het oog*
 
 ### 2.1 Kleurensysteem
@@ -307,6 +324,7 @@ KLEURARCHITECTUUR (definieer vóór aanvang):
 ```
 
 **Regels:**
+
 - Geen hardcoded hexwaarden in componenten — altijd CSS custom properties.
 - Lichte modus EN donkere modus worden tegelijkertijd ontworpen, nooit achteraf.
 - Contrastverhouding tekst op achtergrond: minimaal **4.5:1** (normaal), **3:1** (grote tekst ≥18px bold of ≥24px).
@@ -333,6 +351,7 @@ TYPE SCHAAL (modular scale, voorkeur ratio 1.25 of 1.333):
 ```
 
 **Regels:**
+
 - **Nooit** minder dan `16px` voor bodytekst — op geen enkel apparaat.
 - Regellengte (line-length) maximaal **65–75 tekens** per regel voor optimale leesbaarheid.
 - Regelafstand (line-height): `1.5` voor body, `1.2` voor koppen.
@@ -360,6 +379,7 @@ SPATIE SCHAAL (basis 4px):
 ```
 
 **Grid:**
+
 - Desktop: **12-kolommen grid**, 24px gutter, max-breedte `1280px` of `1440px`, gecentreerd.
 - Tablet: **8 kolommen**, 20px gutter.
 - Mobiel: **4 kolommen**, 16px gutter, 16px marge links/rechts.
@@ -368,6 +388,7 @@ SPATIE SCHAAL (basis 4px):
 ### 2.4 Componenten — visuele standaarden
 
 #### Knoppen
+
 ```
 Primaire knop:    hoge contrast, merkkleur, duidelijke hover/active-state
 Secundaire knop:  outline of ghost, subtiel
@@ -379,6 +400,7 @@ Border-radius: consistent in het hele systeem (kies: 0 / 4px / 8px / 12px / pill
 ```
 
 #### Formuliervelden
+
 ```
 Hoogte: minimaal 44px op mobiel, 40px op desktop
 Label: altijd zichtbaar BOVEN het veld, nooit alleen placeholder
@@ -389,6 +411,7 @@ Disabled-state: verminderd contrast, geen pointer-events
 ```
 
 #### Kaarten (cards)
+
 ```
 Consistente padding: --space-6 of --space-8
 Border-radius: zelfde als rest van systeem
@@ -413,11 +436,13 @@ Hover-state indien klikbaar: subtiele elevatie of kleurverschuiving
 ---
 
 ## DEEL 3 — FRONTEND ENGINEERING
+
 *Wat de browser ziet en hoe het presteert*
 
 ### 3.1 Responsive design — de absolute regels
 
 **Breakpoints (mobile-first):**
+
 ```css
 /* Default: mobiel (320px–767px) */
 
@@ -428,6 +453,7 @@ Hover-state indien klikbaar: subtiele elevatie of kleurverschuiving
 ```
 
 **Verboden gedrag:**
+
 - ❌ Vaste `px`-breedtes op containers zonder `max-width`
 - ❌ Horizontale scroll op enig schermformaat
 - ❌ Tekstafbreuk (`word-break`) tenzij technisch onvermijdelijk
@@ -436,6 +462,7 @@ Hover-state indien klikbaar: subtiele elevatie of kleurverschuiving
 - ❌ Hover-only functionaliteit (touchscreens kennen geen hover)
 
 **Verplicht gedrag:**
+
 - ✅ `box-sizing: border-box` globaal
 - ✅ Alle tekstgroottes in `rem` (relatief aan root), nooit in `px`
 - ✅ Alle spatiëring flexibel via `clamp()` of procentuele waarden
@@ -485,15 +512,18 @@ p, li, h1, h2, h3, h4, h5, h6 {
 
 ### 3.4 Performance — Core Web Vitals als design-eis
 
-| Metric | Doel | Wat het meet |
-|---|---|---|
-| **LCP** (Largest Contentful Paint) | < 2.5 seconden | Laadsnelheid grootste element |
-| **FID** / **INP** (Interaction to Next Paint) | < 200ms | Reactietijd op interactie |
-| **CLS** (Cumulative Layout Shift) | < 0.1 | Onverwachte layout-verschuiving |
-| **TTFB** (Time to First Byte) | < 800ms | Serverreactietijd |
-| **FCP** (First Contentful Paint) | < 1.8 seconden | Eerste zichtbare content |
+
+| Metric                                        | Doel           | Wat het meet                    |
+| --------------------------------------------- | -------------- | ------------------------------- |
+| **LCP** (Largest Contentful Paint)            | < 2.5 seconden | Laadsnelheid grootste element   |
+| **FID** / **INP** (Interaction to Next Paint) | < 200ms        | Reactietijd op interactie       |
+| **CLS** (Cumulative Layout Shift)             | < 0.1          | Onverwachte layout-verschuiving |
+| **TTFB** (Time to First Byte)                 | < 800ms        | Serverreactietijd               |
+| **FCP** (First Contentful Paint)              | < 1.8 seconden | Eerste zichtbare content        |
+
 
 **Performance-regels:**
+
 - Geen ongeoptimaliseerde afbeeldingen. Gebruik WebP of AVIF als standaard.
 - Fonts: maximaal 2 varianten laden (bijv. Regular + Bold). Geen volledige font-families preloaden.
 - Critical CSS inline in `<head>`. Niet-kritieke CSS asynchroon laden.
@@ -519,6 +549,7 @@ BESTANDSSTRUCTUUR:
 ```
 
 **Specificiteitsregels:**
+
 - Gebruik **BEM-naamgeving** of een gelijkwaardig systeem — geen kale elementselectors in componenten.
 - Nooit `!important` gebruiken, tenzij in utility-classes die bedoeld zijn om alles te overschrijven.
 - CSS custom properties zijn de enige bron van waarheid voor kleuren, fonts en spacing.
@@ -536,6 +567,7 @@ BESTANDSSTRUCTUUR:
 ```
 
 **Animatieprincipes:**
+
 - Duur: **150–300ms** voor micro-interacties, **300–500ms** voor grotere overgangen.
 - Easing: nooit lineair. Gebruik `ease-out` voor elementen die verschijnen, `ease-in` voor elementen die verdwijnen.
 - Geen animatie puur voor decoratie — elke beweging communiceert iets (richting, hiërarchie, feedback).
@@ -573,6 +605,7 @@ BESTANDSSTRUCTUUR:
 ```
 
 **Donkere modus-regels:**
+
 - Gebruik geen puur zwart (`#000000`) als achtergrond — gebruik een donker grijs (`#0f0f0f` tot `#1a1a1a`).
 - Verlaag de helderheid van afbeeldingen en illustraties in donkere modus (`filter: brightness(0.85)`).
 - Schaduwen werken niet op donkere achtergronden — vervang door subtiele borders of glow-effecten.
@@ -673,6 +706,7 @@ Laadtijddrempels:
 ---
 
 ## DEEL 6 — TESTPROTOCOL
+
 *Controleer vóór elke release*
 
 ### 6.1 Apparaattesten
@@ -904,8 +938,8 @@ TOEGANKELIJKHEID
 **Opgesteld door:** Gedragspsychologie × Visueel Ontwerp × Frontend Engineering  
 **Status:** Template — invullen per project
 
-
 # Backend AI Agent — Engineering Standards & Non-Negotiable Rules
+
 > Issued by the CEO. These rules are absolute. No exceptions. No shortcuts. No "I'll fix it later."
 > Every AI agent working on this backend must read, understand, and comply with every rule in this document — before writing a single line of code. Violations are not tolerated.
 
@@ -927,6 +961,7 @@ If you are ever unsure whether something is "good enough," it isn't. Ask, or cho
 ## 1. Security — Absolute Rules
 
 ### 1.1 Authentication & Authorization
+
 - Every API endpoint must be protected by authentication **by default.** Unauthenticated endpoints are an explicit, documented exception — never the default.
 - Authorization checks must happen **inside the service/controller layer**, not just at the gateway. Never assume the caller is trusted.
 - Use short-lived tokens (JWT or equivalent). Refresh tokens must be stored securely (HttpOnly cookies or equivalent — never in localStorage).
@@ -934,29 +969,34 @@ If you are ever unsure whether something is "good enough," it isn't. Ask, or cho
 - Implement **role-based access control (RBAC)** from day one, even if there is currently only one role.
 
 ### 1.2 Input Validation
+
 - **All input is untrusted.** Validate every field — type, length, format, range — at the entry point (controller/handler layer), before any business logic or database interaction.
 - Use a validation library (Zod, Joi, Pydantic, etc.). Never write manual `if` chains for validation.
 - Reject unknown fields. Do not silently ignore extra data — strip it explicitly or throw an error.
 - Never trust data that comes from the client, even if it came from your own frontend.
 
 ### 1.3 Injection Prevention
+
 - Never construct SQL queries with string concatenation. Use **parameterized queries or an ORM exclusively.**
 - Never pass unsanitized user input to a shell command, file path, or eval-equivalent function.
 - Sanitize all output that will be rendered in a frontend to prevent XSS.
 
 ### 1.4 Secrets & Configuration
+
 - **Zero secrets in code.** No API keys, passwords, tokens, or credentials in source files, comments, or commit history — ever.
 - All secrets are loaded from environment variables or a secrets manager (e.g. Vault, AWS Secrets Manager, Doppler).
 - Provide a `.env.example` file with placeholder values and documentation. Never commit `.env`.
 - Rotate secrets if there is any suspicion of exposure. Document the rotation procedure.
 
 ### 1.5 Data Protection
+
 - Passwords are always hashed using bcrypt, Argon2, or scrypt. Never MD5, never SHA1, never plain text.
 - Sensitive fields (PII, financial data) must be encrypted at rest.
 - Log the minimum necessary. **Never log passwords, tokens, full credit card numbers, or PII.**
 - Implement data retention policies — don't keep data longer than needed.
 
 ### 1.6 Transport Security
+
 - HTTPS everywhere. HTTP is not acceptable in any environment that handles real data.
 - Set security headers: `Strict-Transport-Security`, `Content-Security-Policy`, `X-Content-Type-Options`, `X-Frame-Options`, `Referrer-Policy`.
 - Apply rate limiting to all public endpoints. Implement stricter limits on authentication endpoints to prevent brute-force attacks.
@@ -966,6 +1006,7 @@ If you are ever unsure whether something is "good enough," it isn't. Ask, or cho
 ## 2. Stability — The System Must Never Fall Over
 
 ### 2.1 Error Handling
+
 - **No unhandled exceptions.** Every async operation is wrapped in try/catch or uses a central error handler. Unhandled promise rejections crash Node processes — this is unacceptable in production.
 - All errors are caught, logged with context, and returned as a structured error response. Never leak stack traces or internal error details to the client.
 - Distinguish between **operational errors** (bad input, resource not found — return to client gracefully) and **programmer errors** (bugs — log with full context, alert, and fail safely).
@@ -981,6 +1022,7 @@ If you are ever unsure whether something is "good enough," it isn't. Ask, or cho
   ```
 
 ### 2.2 Database Integrity
+
 - Use **transactions** for any operation that touches more than one table or requires atomicity. A crash mid-operation must never leave the database in a corrupt state.
 - Every foreign key relationship must be enforced at the database level — not just in application code.
 - Write **database migrations** for all schema changes. Never alter a production schema manually. Migrations must be reversible (include a `down` migration).
@@ -988,12 +1030,14 @@ If you are ever unsure whether something is "good enough," it isn't. Ask, or cho
 - Never run raw `DELETE` or `UPDATE` without a `WHERE` clause. Add a safeguard or linter rule that prevents this.
 
 ### 2.3 Resilience & Graceful Degradation
+
 - Assume external services (payment providers, email, third-party APIs) **will fail**. Implement timeouts, retries with exponential backoff, and circuit breakers.
 - Long-running or heavy tasks must be offloaded to a **job queue** (e.g. BullMQ, Celery, SQS). Never block an HTTP request with work that takes more than a few hundred milliseconds.
 - Implement health check endpoints (`/health`, `/ready`) that verify database connectivity and critical dependencies — not just that the process is running.
 - Design for **graceful shutdown**: on `SIGTERM`, finish in-flight requests, close database connections cleanly, and drain the job queue before exiting.
 
 ### 2.4 Idempotency
+
 - All write operations that may be retried (payments, order creation, emails) must be **idempotent**. Use idempotency keys or check-before-write patterns.
 - API endpoints that trigger side effects must be safe to call multiple times without duplicating the effect.
 
@@ -1002,23 +1046,27 @@ If you are ever unsure whether something is "good enough," it isn't. Ask, or cho
 ## 3. Code Quality — Refactor-Safe, Maintainable, Predictable
 
 ### 3.1 Structure & Architecture
+
 - Follow a clear, consistent layered architecture: **Routes → Controllers → Services → Repositories/Data Access.** Business logic lives in the service layer only. Never put business logic in a controller or database query.
 - One responsibility per module. A file that does authentication and sends emails and calculates prices is a liability.
 - Keep functions short and focused. If a function requires more than one scroll to read, it needs to be split.
 - **No magic numbers or magic strings.** All constants are named and centralized.
 
 ### 3.2 TypeScript / Type Safety (if applicable)
+
 - **Strict mode is on.** `strict: true` in `tsconfig.json`. No exceptions.
 - No `any`. If you don't know the type, use `unknown` and narrow it explicitly.
 - All API request and response shapes are typed with shared schema definitions. No implicit `object` types crossing API boundaries.
 
 ### 3.3 Dependencies
+
 - Every dependency must be justified. Adding a 2MB library to parse a date is not acceptable.
 - Pin dependency versions in production. Use a lockfile (`package-lock.json`, `yarn.lock`, `poetry.lock`) and commit it.
 - Audit dependencies regularly for known vulnerabilities (`npm audit`, `pip audit`, Dependabot, Snyk).
 - Never use a package with zero maintenance, zero tests, or owned by a single unknown person for a critical function.
 
 ### 3.4 Testing
+
 - **No untested code in production.** Every service-layer function must have unit tests. Every critical user flow must have an integration test.
 - Tests must be isolated — no test depends on the state left by another test.
 - Mock external services in tests. Tests must not call real payment APIs, real email servers, or real third-party services.
@@ -1026,6 +1074,7 @@ If you are ever unsure whether something is "good enough," it isn't. Ask, or cho
 - Aim for high coverage on business logic. Coverage alone is not the goal — meaningful assertions are.
 
 ### 3.5 Logging & Observability
+
 - Use structured logging (JSON output). Every log entry includes: timestamp, severity level, request ID, user ID (if available), and the relevant context.
 - Log at the right level: `DEBUG` for development noise, `INFO` for normal operations, `WARN` for unexpected but recoverable situations, `ERROR` for failures that need attention.
 - Instrument key operations: request duration, database query times, queue depths, error rates. These are your early warning system.
@@ -1095,3 +1144,4 @@ Before submitting or merging any backend change, the agent must confirm:
 
 > **Final word from the CEO:**
 > Security and stability are not features. They are the foundation. A backend that is fast but insecure is a liability. A backend that is feature-rich but unstable is a liability. We build systems that work — correctly, safely, and reliably — under all conditions, at all times. That is the standard. Hold it.
+

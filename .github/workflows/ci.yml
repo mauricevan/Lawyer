@@ -1,0 +1,56 @@
+name: CI
+
+on:
+  push:
+  pull_request:
+
+jobs:
+  backend-tests:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install backend dependencies
+        run: pip install -r backend/requirements.txt
+      - name: Run backend unit tests
+        run: pytest backend/tests -v -m "not integration"
+      - name: Run API e2e tests
+        run: pytest backend/tests/test_query_api_e2e.py -v
+
+  frontend-tests:
+    runs-on: ubuntu-latest
+    defaults:
+      run:
+        working-directory: frontend
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-node@v4
+        with:
+          node-version: "20"
+          cache: npm
+          cache-dependency-path: frontend/package-lock.json
+      - run: npm ci
+      - run: npm test -- --run
+
+  security-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - uses: actions/setup-python@v5
+        with:
+          python-version: "3.12"
+      - name: Install backend dependencies
+        run: pip install -r backend/requirements.txt pip-audit
+      - name: Dependency vulnerability scan
+        run: pip-audit -r backend/requirements.txt --strict --desc on
+      - name: Run security regression tests
+        run: pytest backend/tests/test_ssrf_guard.py backend/tests/test_auth_service.py backend/tests/test_security_rbac.py backend/tests/test_rbac_service.py backend/tests/test_audit_completeness_service.py backend/tests/test_audit_retention_service.py backend/tests/test_data_retention_service.py backend/tests/test_data_classification.py -v
+
+  secret-scan:
+    runs-on: ubuntu-latest
+    steps:
+      - uses: actions/checkout@v4
+      - run: chmod +x scripts/security/check-secrets.sh
+      - run: ./scripts/security/check-secrets.sh all

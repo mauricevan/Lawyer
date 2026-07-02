@@ -83,6 +83,7 @@ export function streamQuery(
                   (c) => normalizeCitation({ ...c, celex: c.celex || "" }),
                 ),
                 disclaimer: getDisclaimer(request.audience || "layperson"),
+                retrieval_route: detail.retrieval_route as AnswerResponse["retrieval_route"],
               });
             }
           }

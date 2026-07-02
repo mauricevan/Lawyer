@@ -14,6 +14,7 @@ from backend.src.services.embedding_service import get_embedding_service
 from backend.src.services.qdrant_service import QdrantService
 from ingestion.src.chunkers.legal_chunker import LegalChunker
 from ingestion.src.clients.cellar_rest_client import CellarRestClient
+from ingestion.src.content.fallback_subdivisions import build_fallback_subdivisions, needs_fallback
 from ingestion.src.data.sample_articles import SAMPLE_ARTICLES
 from ingestion.src.parsers.document_parser import DocumentParser
 from shared.schemas.document import DocumentMetadata
@@ -34,6 +35,8 @@ async def ingest_document(
     chunker = LegalChunker()
     client = cellar or CellarRestClient()
     subdivisions = await _fetch_subdivisions(metadata, parser, client, use_live_fetch)
+    if needs_fallback(subdivisions):
+        subdivisions = build_fallback_subdivisions(metadata)
     if not subdivisions:
         logger.warning("No content for %s", metadata.celex)
         return 0
@@ -66,7 +69,8 @@ async def _fetch_subdivisions(
         return []
     try:
         content = await cellar.fetch_by_celex(metadata.celex, metadata.language)
-        return parser.parse(content, metadata.celex, "html")
+        content_type = "xml" if content[:5] == b"<?xml" else "html"
+        return parser.parse(content, metadata.celex, content_type)
     except Exception as exc:
         logger.warning("Live fetch failed for %s: %s", metadata.celex, exc)
         return []
@@ -110,5 +114,6 @@ async def _upsert_chunk(chunk, document_id: uuid.UUID, session: AsyncSession) ->
         document_id=document_id,
         celex=chunk.celex,
         article_ref=chunk.article_number,
+        text=chunk.text[:8000],
         text_hash=chunk.text_hash,
     ))

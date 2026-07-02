@@ -1,5 +1,11 @@
 # Implementatieplan Deel 9 - Strategische roadmap, innovatie en portfolio sturing
 
+
+## Implementatiestatus (2026-07-02)
+
+- **Status:** Klaar voor gefaseerde uitvoering — plan.md/plan2.md zijn technisch afgerond.
+- **Start:** activeer werkpakketten in dit plan per productprioriteit.
+- **Afhankelijkheid:** integration eval (`scripts/qa/run-retrieval-eval.sh`) voor harde kwaliteitsgate.
 ## Relatie met eerdere plannen
 
 - Vorige plan: `plan8.md`

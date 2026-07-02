@@ -1,0 +1,6 @@
+#!/usr/bin/env bash
+# Run secret scan on staged files before each commit.
+set -euo pipefail
+
+ROOT="$(git rev-parse --show-toplevel)"
+exec "$ROOT/scripts/security/check-secrets.sh" staged

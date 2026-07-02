@@ -1,0 +1,25 @@
+# Use when host PostgreSQL already listens on :5432.
+# Starts an isolated Postgres container on the Docker network only (no host port publish).
+services:
+  backend:
+    ports: !override
+      - "8001:8000"
+    depends_on: !override
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  celery-worker:
+    depends_on: !override
+      postgres:
+        condition: service_healthy
+      qdrant:
+        condition: service_healthy
+      redis:
+        condition: service_healthy
+
+  postgres:
+    ports: !override []

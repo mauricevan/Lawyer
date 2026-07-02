@@ -6,8 +6,10 @@ import { ChatComposer } from "@/components/ChatComposer";
 import { ChatThread } from "@/components/ChatThread";
 import { GuidedQuerySelector } from "@/components/GuidedQuerySelector";
 import { ExampleQuestions } from "@/components/ExampleQuestions";
+import { QueryFilterControls } from "@/components/QueryFilterControls";
+import { RetrievalRouteBadge } from "@/components/RetrievalRouteBadge";
 import { RetrievalStatus } from "@/components/RetrievalStatus";
-import type { Audience, ChatMessage, QueryMode, RetrievalEvent } from "@/models/types";
+import type { Audience, ChatMessage, QueryMode, RetrievalEvent, RetrievalRoute } from "@/models/types";
 import {
   getDisclaimer,
   getExampleQuestions,
@@ -50,6 +52,9 @@ export default function HomePage() {
   const [conversationId, setConversationId] = useState<string | undefined>();
   const [lockedAudience, setLockedAudience] = useState<Audience | null>(null);
   const [lockedMode, setLockedMode] = useState<QueryMode | null>(null);
+  const [domainFilter, setDomainFilter] = useState("");
+  const [timeContext, setTimeContext] = useState<"current" | "historical">("current");
+  const [retrievalRoute, setRetrievalRoute] = useState<RetrievalRoute | undefined>();
 
   const isChatActive = messages.length > 0;
   const activeAudience = lockedAudience ?? audience;
@@ -63,6 +68,7 @@ export default function HomePage() {
     setQuestion("");
     setLockedAudience(null);
     setLockedMode(null);
+    setRetrievalRoute(undefined);
   };
 
   const runQuery = (queryText: string) => {
@@ -78,6 +84,7 @@ export default function HomePage() {
     setError(null);
     setEvents([]);
     setQuestion("");
+    setRetrievalRoute(undefined);
 
     setMessages((prev) => [
       ...prev,
@@ -92,10 +99,23 @@ export default function HomePage() {
         audience: lockedAudience ?? audience,
         language: "nl",
         conversation_id: conversationId,
+        filters: {
+          domain: domainFilter || undefined,
+          time_context: timeContext,
+          in_force_only: timeContext === "current",
+        },
       },
-      (event) => setEvents((prev) => [...prev, event]),
+      (event) => {
+        setEvents((prev) => [...prev, event]);
+        if (event.step === "found" && event.detail?.retrieval_route) {
+          setRetrievalRoute(event.detail.retrieval_route as RetrievalRoute);
+        }
+      },
       (answer) => {
         setIsLoading(false);
+        if (answer.retrieval_route) {
+          setRetrievalRoute(answer.retrieval_route);
+        }
         if (answer.conversation_id) {
           setConversationId(answer.conversation_id);
         }
@@ -131,6 +151,7 @@ export default function HomePage() {
                 {activeAudience === "layperson" ? "Begrijpelijke uitleg" : "Juridische modus"}
               </span>
               {lockedMode && <span className={styles.badge}>{MODE_LABELS[lockedMode]}</span>}
+              <RetrievalRouteBadge route={retrievalRoute} />
             </div>
           </div>
           <button type="button" className={styles.newChatBtn} onClick={resetConversation}>
@@ -176,6 +197,13 @@ export default function HomePage() {
           selectedMode={queryMode}
           audience={audience}
           onModeChange={setQueryMode}
+        />
+
+        <QueryFilterControls
+          domain={domainFilter}
+          timeContext={timeContext}
+          onDomainChange={setDomainFilter}
+          onTimeContextChange={setTimeContext}
         />
 
         <div className={styles.questionSection}>

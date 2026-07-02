@@ -20,10 +20,61 @@ uvicorn backend.src.main:app --reload --port 8000
 cd frontend && npm install && npm run dev
 ```
 
+## Secret hygiene
+
+- Gebruik alleen placeholders in `.env.example`; zet nooit echte secrets in git.
+- Houd `.env` lokaal en deel het niet via commits, screenshots of terminal dumps.
+- Na mogelijke blootstelling: roteer direct `OPENROUTER_API_KEY`, `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `EU_LOGIN_PASSWORD`, en `JWT_SECRET`.
+- Gebruik voor productie unieke secrets per omgeving (dev/staging/prod), nooit hergebruik.
+
+```bash
+# Eenmalig: pre-commit hook activeren
+./scripts/security/install-hooks.sh
+
+# Handmatig scannen (optioneel)
+./scripts/security/check-secrets.sh
+./scripts/security/check-secrets.sh all
+```
+
 - Frontend: http://localhost:3000
 - API: http://localhost:8000/docs
+- Prometheus: http://localhost:9090
+- Grafana: http://localhost:3001 (`admin` / `sloten` lokaal; override via `GRAFANA_ADMIN_PASSWORD`)
 
-## Schaal (fase 4+)
+## Observability
+
+Met de volledige stack draaien metrics en dashboards automatisch mee:
+
+```bash
+docker compose up -d backend prometheus grafana celery-worker
+```
+
+Als poort `5432` al door lokale PostgreSQL wordt gebruikt:
+
+```bash
+docker compose -f docker-compose.yml -f docker-compose.local.yml up -d
+```
+
+Verificatie:
+
+```bash
+BACKEND_URL=http://127.0.0.1:8001 ./scripts/observability/verify-stack.sh
+```
+
+- Backend exposeert Prometheus metrics op `GET /metrics`
+- Prometheus scrapet `backend:8000` (zie `observability/prometheus/prometheus.yml`)
+- Grafana laadt datasource + dashboard `Lawyer RAG Overview` uit `observability/grafana/`
+- Basis alerts staan in `observability/prometheus/alerts.yml` (backend down, fallback failures, ingest enqueue failures)
+
+## Schaal (plan3)
+
+```bash
+# Load test (backend moet draaien)
+python3 scripts/qa/loadtest_queries.py --url http://127.0.0.1:8001/api/v1/query --requests 20
+
+# Celery workers: high-priority + batch queue
+docker compose up -d celery-worker celery-worker-batch
+```
 
 ```bash
 docker compose -f docker-compose.yml -f docker-compose.scale.yml up -d
@@ -32,5 +83,11 @@ docker compose -f docker-compose.yml -f docker-compose.scale.yml up -d
 ## Tests
 
 ```bash
-PYTHONPATH=. pytest backend/tests -v
+PYTHONPATH=. pytest backend/tests -v -m "not integration"
+```
+
+Database migraties:
+
+```bash
+cd backend && alembic upgrade head
 ```

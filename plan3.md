@@ -1,5 +1,11 @@
 # Implementatieplan Deel 3 - Schaalfase en prestatie-optimalisatie
 
+
+## Implementatiestatus (2026-07-02)
+
+- **Status:** Werkstroom A/B/D deels uitgevoerd (queues, DLQ, backpressure, retrieval budget, Qdrant indexes, loadtest script).
+- **Open:** soak tests, KPI-validatie op productie, werkstroom C kostenmodel.
+- **Volgende:** plan4 enterprise hardening na 2 weken stabiel productiegedrag.
 ## Relatie met eerdere plannen
 
 - Vorige plan: `plan2.md`
@@ -8,8 +14,8 @@
 
 ## Waar zitten we nu
 
-- [ ] `plan.md` volledig afgerond
-- [ ] `plan2.md` volledig afgerond
+- [x] `plan.md` volledig afgerond
+- [x] `plan2.md` volledig afgerond
 - [ ] Start `plan3.md` bevestigd door product en tech lead
 
 ## Hoofddoelen plan3

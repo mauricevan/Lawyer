@@ -8,14 +8,18 @@ from qdrant_client.models import (
     Distance,
     FieldCondition,
     Filter,
+    HnswConfigDiff,
     MatchValue,
+    PayloadSchemaType,
     PointStruct,
     VectorParams,
 )
 
 from backend.src.config import settings
 from backend.src.services.embedding_service import EMBEDDING_DIM
+from backend.src.utils.qdrant_filters import build_qdrant_filter
 from shared.schemas.document import DocumentChunk
+from shared.schemas.query import QueryFilters
 
 logger = logging.getLogger(__name__)
 
@@ -36,8 +40,28 @@ class QdrantService:
             self._client.create_collection(
                 collection_name=self._collection,
                 vectors_config=VectorParams(size=EMBEDDING_DIM, distance=Distance.COSINE),
+                hnsw_config=HnswConfigDiff(
+                    m=settings.qdrant_hnsw_m,
+                    ef_construct=settings.qdrant_hnsw_ef_construct,
+                ),
             )
             logger.info("Created Qdrant collection: %s", self._collection)
+        self._ensure_payload_indexes()
+
+    def _ensure_payload_indexes(self) -> None:
+        for field_name, schema in (
+            ("celex", PayloadSchemaType.KEYWORD),
+            ("language", PayloadSchemaType.KEYWORD),
+            ("is_in_force", PayloadSchemaType.BOOL),
+        ):
+            try:
+                self._client.create_payload_index(
+                    collection_name=self._collection,
+                    field_name=field_name,
+                    field_schema=schema,
+                )
+            except Exception:
+                pass
 
     def upsert_chunks(
         self, chunks: list[DocumentChunk], vectors: list[list[float]]
@@ -69,18 +93,10 @@ class QdrantService:
         limit: int = 50,
         language: str | None = None,
         in_force_only: bool = True,
+        filters: QueryFilters | None = None,
     ) -> list[dict[str, Any]]:
         self.ensure_collection()
-        must_conditions = []
-        if language:
-            must_conditions.append(
-                FieldCondition(key="language", match=MatchValue(value=language))
-            )
-        if in_force_only:
-            must_conditions.append(
-                FieldCondition(key="is_in_force", match=MatchValue(value=True))
-            )
-        query_filter = Filter(must=must_conditions) if must_conditions else None
+        query_filter = build_qdrant_filter(filters, language, in_force_only)
         response = self._client.query_points(
             collection_name=self._collection,
             query=query_vector,

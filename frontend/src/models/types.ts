@@ -1,5 +1,6 @@
 export type QueryMode = "open" | "compliance" | "compare" | "updates";
 export type Audience = "layperson" | "professional";
+export type RetrievalRoute = "local" | "live_fallback" | "hybrid" | "cache";
 
 export interface TrustIndicator {
   is_consolidated: boolean;
@@ -27,6 +28,7 @@ export interface AnswerResponse {
   conversation_id: string;
   citations: Citation[];
   disclaimer: string;
+  retrieval_route?: RetrievalRoute;
 }
 
 export interface QueryRequest {
@@ -35,6 +37,15 @@ export interface QueryRequest {
   query_mode: QueryMode;
   audience?: Audience;
   language?: string;
+  filters?: {
+    domain?: string;
+    doc_type?: string;
+    celex?: string;
+    language?: string;
+    time_context?: "current" | "historical";
+    in_force_only?: boolean;
+    consolidated_preferred?: boolean;
+  };
 }
 
 export interface Message {

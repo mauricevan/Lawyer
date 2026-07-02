@@ -7,14 +7,18 @@ from shared.schemas.citation import Citation
 
 QueryMode = Literal["open", "compliance", "compare", "updates"]
 Audience = Literal["layperson", "professional"]
+RetrievalRoute = Literal["local", "live_fallback", "hybrid", "cache"]
 
 
 class QueryFilters(BaseModel):
     """Optional filters for retrieval."""
 
+    domain: str | None = None
     doc_type: str | None = None
+    celex: str | None = None
     language: str | None = None
     year: int | None = None
+    time_context: Literal["current", "historical"] | None = None
     in_force_only: bool = True
     consolidated_preferred: bool = True
 
@@ -37,3 +41,4 @@ class AnswerResponse(BaseModel):
     conversation_id: str
     citations: list[Citation] = Field(default_factory=list)
     disclaimer: str = "Dit is geen juridisch advies."
+    retrieval_route: RetrievalRoute | None = None

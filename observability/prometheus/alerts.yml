@@ -1,0 +1,34 @@
+groups:
+  - name: lawyer-backend
+    rules:
+      - alert: LawyerBackendDown
+        expr: up{job="lawyer-backend"} == 0
+        for: 2m
+        labels:
+          severity: critical
+        annotations:
+          summary: Lawyer backend metrics endpoint is unreachable
+          description: Prometheus cannot scrape backend:8000/metrics for more than 2 minutes.
+
+      - alert: LawyerHighFallbackFailureRate
+        expr: |
+          (
+            rate(lawyer_fallback_attempts_total[5m])
+            -
+            rate(lawyer_fallback_success_total[5m])
+          ) > 0.05
+        for: 10m
+        labels:
+          severity: warning
+        annotations:
+          summary: Elevated live fallback failure rate
+          description: Live fallback attempts exceed successes over the last 10 minutes.
+
+      - alert: LawyerIngestEnqueueFailures
+        expr: rate(lawyer_ingest_enqueue_total{result="failed"}[10m]) > 0
+        for: 5m
+        labels:
+          severity: warning
+        annotations:
+          summary: Celery ingest enqueue failures detected
+          description: Auto-upgrade ingest tasks are failing to enqueue.

@@ -3,6 +3,7 @@ import styles from "./RetrievalStatus.module.css";
 
 const STEP_ICONS: Record<string, string> = {
   search: "🔍",
+  router: "🧭",
   found: "📄",
   versions: "⚖️",
   generating: "✍️",

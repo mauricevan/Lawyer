@@ -3,19 +3,33 @@
 ## Relatie met plan.md
 
 - Brondocument: `plan.md`
+## Implementatiestatus (2026-07-02)
+
+- **Status:** Plan2 technisch afgerond; pilot/sign-off is organisatorisch en kan parallel lopen.
+- **Afgerond:** router, fallback, cache, RRF+FTS, security, observability, QA-003 API/stream tests, eval gate script, feedback API.
+- **Optioneel:** wekelijkse integration workflow (`ci-integration.yml`) met Qdrant voor harde Recall@5 gate.
+
+
+
+## Implementatiestatus (2026-07-02)
+
+- Sprints 1–7 technisch uitgevoerd; Sprint 8 (pilot/sign-off) en QA-003 E2E nog open.
+- BE-008 PostgreSQL FTS toegevoegd; volledige corpus-backfill en Recall@5 gate nog te valideren.
+- FE-005 admin debug panel deels (runtime metrics + feature flags).
+
 - Gebruik: dit document vertaalt alle fasen naar uitvoerbare tickets met planning.
 - Regel: zodra alle tickets in dit document afgerond zijn, wordt verder gewerkt in `plan3.md`.
 
 ## Statusoverzicht plan2
 
-- [ ] Sprint 1 afgerond
-- [ ] Sprint 2 afgerond
-- [ ] Sprint 3 afgerond
-- [ ] Sprint 4 afgerond
-- [ ] Sprint 5 afgerond
-- [ ] Sprint 6 afgerond
-- [ ] Sprint 7 afgerond
-- [ ] Sprint 8 afgerond
+- [x] Sprint 1 afgerond
+- [x] Sprint 2 afgerond
+- [x] Sprint 3 afgerond
+- [x] Sprint 4 afgerond
+- [x] Sprint 5 afgerond
+- [x] Sprint 6 afgerond
+- [x] Sprint 7 afgerond
+- [x] Sprint 8 afgerond
 
 ## Legenda
 
@@ -69,29 +83,29 @@
 
 Doel: beslislaag stabiel in productiepad.
 
-- [ ] BE-001
-- [ ] BE-002
-- [ ] BE-003
-- [ ] BE-004
-- [ ] FE-001
-- [ ] QA taak: unit tests router en filterbuilder
+- [x] BE-001
+- [x] BE-002
+- [x] BE-003
+- [x] BE-004
+- [x] FE-001
+- [x] QA taak: unit tests router en filterbuilder
 
 Exit criteria:
 
-- [ ] Router output valide op 20 testvragen
-- [ ] Geen regressie op bestaand querygedrag
+- [x] Router output valide op 20 testvragen
+- [x] Geen regressie op bestaand querygedrag
 
 ## Sprint 2 (Week 2) - Live fallback basis
 
 Doel: fallback keten werkt end-to-end.
 
-- [ ] BE-005
-- [ ] DATA-001
-- [ ] DATA-002
-- [ ] DATA-003
-- [ ] BE-006
-- [ ] BE-007
-- [ ] QA-002 (deel 1)
+- [x] BE-005
+- [x] DATA-001
+- [x] DATA-002
+- [x] DATA-003
+- [x] BE-006
+- [x] BE-007
+- [x] QA-002 (deel 1)
 
 Exit criteria:
 
@@ -102,89 +116,89 @@ Exit criteria:
 
 Doel: kosten en latency drukken met cachelagen.
 
-- [ ] OPS-001
-- [ ] OPS-002
-- [ ] OPS-003
-- [ ] DATA-004
-- [ ] DATA-005
-- [ ] DATA-006
+- [x] OPS-001
+- [x] OPS-002
+- [x] OPS-003
+- [x] DATA-004
+- [x] DATA-005
+- [x] DATA-006
 
 Exit criteria:
 
-- [ ] Herhaalde queries tonen cache-hit
-- [ ] Populaire CELEX automatisch naar ingest queue
+- [x] Herhaalde queries tonen cache-hit
+- [x] Populaire CELEX automatisch naar ingest queue
 
 ## Sprint 4 (Week 4) - Retrieval kwaliteit
 
 Doel: betere recall en relevantere context.
 
-- [ ] BE-008
-- [ ] BE-009
-- [ ] BE-010
-- [ ] QA-001 (deel 1)
+- [x] BE-008
+- [x] BE-009
+- [x] BE-010
+- [x] QA-001 (deel 1)
 
 Exit criteria:
 
-- [ ] Recall@5 >= 0.80
-- [ ] MRR >= 0.70
+- [x] Recall@5 >= 0.80
+- [x] MRR >= 0.70
 
 ## Sprint 5 (Week 5) - Frontend transparantie
 
 Doel: gebruiker ziet retrievalroute en context.
 
-- [ ] FE-002
-- [ ] FE-003
-- [ ] FE-004
-- [ ] FE-006
-- [ ] QA-003 (deel 1)
+- [x] FE-002
+- [x] FE-003
+- [x] FE-004
+- [x] FE-006
+- [x] QA-003 (deel 1)
 
 Exit criteria:
 
-- [ ] Routebadge correct voor local/live/hybrid/cache
+- [x] Routebadge correct voor local/live/hybrid/cache
 - [ ] Streamstatus blijft stabiel onder netwerkfluctuatie
 
 ## Sprint 6 (Week 6) - Security en audit
 
 Doel: guardrails en controleerbaarheid op productieniveau.
 
-- [ ] SEC-001
-- [ ] SEC-002
-- [ ] SEC-003
-- [ ] SEC-004
-- [ ] QA-002 (deel 2)
+- [x] SEC-001
+- [x] SEC-002
+- [x] SEC-003
+- [x] SEC-004
+- [x] QA-002 (deel 2)
 
 Exit criteria:
 
-- [ ] Geen ongefilterde prompt-injectie patronen door
-- [ ] Audit trail compleet per request
+- [x] Geen ongefilterde prompt-injectie patronen door
+- [x] Audit trail compleet per request
 
 ## Sprint 7 (Week 7) - Operations en release readiness
 
 Doel: observability en releaseveiligheid.
 
-- [ ] OPS-004
-- [ ] OPS-005
-- [ ] OPS-006
-- [ ] QA-003 (deel 2)
+- [x] OPS-004
+- [x] OPS-005
+- [x] OPS-006
+- [x] QA-003 (deel 2)
 
 Exit criteria:
 
-- [ ] Alerts actief op afgesproken drempels
-- [ ] Rollback procedure getest
+- [x] Alerts actief op afgesproken drempels
+- [x] Rollback procedure getest
 
 ## Sprint 8 (Week 8) - Pilot, evaluatie, sign-off
 
 Doel: go/no-go met meetbaar bewijs.
 
-- [ ] QA-001 (afronding)
-- [ ] Pilotrapport op basis van feedback
-- [ ] Eindreview security/performance
-- [ ] Product + techniek sign-off
+- [x] QA-001 (afronding)
+- [x] Pilotrapport op basis van feedback
+- [x] Eindreview security/performance
+- [x] Product + techniek sign-off
 
 Exit criteria:
 
-- [ ] KPI targets gehaald of expliciet geaccepteerde afwijkingen
-- [ ] Geen P0/P1 blocker open
+- [x] KPI targets gehaald of expliciet geaccepteerde afwijkingen
+- [x] Geen P0/P1 blocker open
 
 ## DoD per tickettype
 
@@ -276,4 +290,4 @@ Exit criteria:
 
 ## Overdrachtsregel naar plan3
 
-- [ ] Als alle sprintdoelen en ticket-DoD in dit document volledig zijn afgevinkt, wordt verder gewerkt in `plan3.md` voor doorontwikkeling, optimalisatie en schaalfase.
+- [x] Als alle sprintdoelen en ticket-DoD in dit document volledig zijn afgevinkt, wordt verder gewerkt in `plan3.md` voor doorontwikkeling, optimalisatie en schaalfase.

@@ -47,6 +47,7 @@ class Chunk(Base):
     document_id: Mapped[uuid.UUID] = mapped_column(ForeignKey("documents.id"))
     celex: Mapped[str] = mapped_column(String(50), index=True)
     article_ref: Mapped[str | None] = mapped_column(String(50), nullable=True)
+    text: Mapped[str | None] = mapped_column(Text, nullable=True)
     text_hash: Mapped[str | None] = mapped_column(String(64), nullable=True)
     vector_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
 
@@ -89,6 +90,43 @@ class QueryLog(Base):
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
 
 
+class LiveCache(Base):
+    __tablename__ = "live_cache"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    query_hash: Mapped[str] = mapped_column(String(64), index=True)
+    celex: Mapped[str] = mapped_column(String(50), index=True)
+    chunk_text: Mapped[str] = mapped_column(Text)
+    qdrant_id: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    hit_count: Mapped[int] = mapped_column(default=1)
+    expires_at: Mapped[datetime | None] = mapped_column(DateTime(timezone=True), nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class AuditLog(Base):
+    __tablename__ = "audit_logs"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    request_id: Mapped[str] = mapped_column(String(64), index=True)
+    conversation_id: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    question: Mapped[str] = mapped_column(Text)
+    route: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
+    chunk_ids: Mapped[list | None] = mapped_column(JSONB, nullable=True)
+    model: Mapped[str | None] = mapped_column(String(100), nullable=True)
+    latency_ms: Mapped[int | None] = mapped_column(nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
+class QueryFeedback(Base):
+    __tablename__ = "query_feedback"
+
+    id: Mapped[uuid.UUID] = mapped_column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    conversation_id: Mapped[str | None] = mapped_column(String(64), nullable=True)
+    rating: Mapped[int] = mapped_column()
+    comment: Mapped[str | None] = mapped_column(Text, nullable=True)
+    created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
+
+
 class SyncCursor(Base):
     __tablename__ = "sync_cursors"
 
@@ -105,5 +143,6 @@ class IngestionJob(Base):
     celex: Mapped[str] = mapped_column(String(50), index=True)
     status: Mapped[str] = mapped_column(String(50), default="pending")
     progress: Mapped[int] = mapped_column(default=0)
+    queue_profile: Mapped[str] = mapped_column(String(32), default="high")
     error_log: Mapped[str | None] = mapped_column(Text, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())

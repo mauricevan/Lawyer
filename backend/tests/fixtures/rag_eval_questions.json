@@ -1,77 +1,702 @@
 [
   {
-    "question": "Wat mag ik niet met AI volgens de AI Act?",
-    "expected_celex": ["32024R1689"],
+    "question": "Wat regelt AI Act?",
+    "expected_celex": [
+      "32024R1689"
+    ],
     "min_hits": 1
   },
   {
-    "question": "Wat is high-risk AI?",
-    "expected_celex": ["32024R1689"],
+    "question": "Welke verplichtingen gelden onder AI Act?",
+    "expected_celex": [
+      "32024R1689"
+    ],
     "min_hits": 1
   },
   {
-    "question": "Wat verandert DORA voor financiële instellingen?",
-    "expected_celex": ["32022R2554"],
+    "question": "Wat is het doel van AI Act?",
+    "expected_celex": [
+      "32024R1689"
+    ],
     "min_hits": 1
   },
   {
-    "question": "Mag ik persoonsgegevens naar de Verenigde Staten sturen?",
-    "expected_celex": ["32016R0679", "32023D1795"],
+    "question": "Wat regelt DSA?",
+    "expected_celex": [
+      "32022R2065"
+    ],
     "min_hits": 1
   },
   {
-    "question": "Wat zijn de GDPR-grondslagen voor verwerking?",
-    "expected_celex": ["32016R0679"],
+    "question": "Welke verplichtingen gelden onder DSA?",
+    "expected_celex": [
+      "32022R2065"
+    ],
     "min_hits": 1
   },
   {
-    "question": "Welke cyberbeveiligingsplichten gelden onder NIS2?",
-    "expected_celex": ["32022L2555"],
+    "question": "Wat is het doel van DSA?",
+    "expected_celex": [
+      "32022R2065"
+    ],
     "min_hits": 1
   },
   {
-    "question": "Wat zijn de verplichtingen van zeer grote onlineplatformen onder de DSA?",
-    "expected_celex": ["32022R2065"],
+    "question": "Wat regelt DMA?",
+    "expected_celex": [
+      "32022R1925"
+    ],
     "min_hits": 1
   },
   {
-    "question": "Wat is marktmisbruik volgens MAR?",
-    "expected_celex": ["32014R0596"],
+    "question": "Welke verplichtingen gelden onder DMA?",
+    "expected_celex": [
+      "32022R1925"
+    ],
     "min_hits": 1
   },
   {
-    "question": "Wat regelt MiFID II over beleggingsdiensten?",
-    "expected_celex": ["32014L0065"],
+    "question": "Wat is het doel van DMA?",
+    "expected_celex": [
+      "32022R1925"
+    ],
     "min_hits": 1
   },
   {
-    "question": "Wat is de Data Act over IoT-gegevens?",
-    "expected_celex": ["32023R2854"],
+    "question": "Wat regelt DGA?",
+    "expected_celex": [
+      "32022R0868"
+    ],
     "min_hits": 1
   },
   {
-    "question": "Welke transparantieplichten gelden voor AI-chatbots?",
-    "expected_celex": ["32024R1689"],
+    "question": "Welke verplichtingen gelden onder DGA?",
+    "expected_celex": [
+      "32022R0868"
+    ],
     "min_hits": 1
   },
   {
-    "question": "Wat houdt de Cyber Resilience Act in voor producenten?",
-    "expected_celex": ["32024R2847"],
+    "question": "Wat is het doel van DGA?",
+    "expected_celex": [
+      "32022R0868"
+    ],
     "min_hits": 1
   },
   {
-    "question": "Wat zijn de witwasplichten voor banken?",
-    "expected_celex": ["32015L0849", "32018L0843", "32024R1624"],
+    "question": "Wat regelt Data Act?",
+    "expected_celex": [
+      "32023R2854"
+    ],
     "min_hits": 1
   },
   {
-    "question": "Wat regelt de ePrivacy-richtlijn over cookies?",
-    "expected_celex": ["32002L0058"],
+    "question": "Welke verplichtingen gelden onder Data Act?",
+    "expected_celex": [
+      "32023R2854"
+    ],
     "min_hits": 1
   },
   {
-    "question": "Wat zijn de duurzaamheidsrapporteringsplichten onder CSRD?",
-    "expected_celex": ["32022L2464"],
+    "question": "Wat is het doel van Data Act?",
+    "expected_celex": [
+      "32023R2854"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt CRA?",
+    "expected_celex": [
+      "32024R2847"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder CRA?",
+    "expected_celex": [
+      "32024R2847"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van CRA?",
+    "expected_celex": [
+      "32024R2847"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt Chips Act?",
+    "expected_celex": [
+      "32023R1781"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder Chips Act?",
+    "expected_celex": [
+      "32023R1781"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van Chips Act?",
+    "expected_celex": [
+      "32023R1781"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt P2B?",
+    "expected_celex": [
+      "32019R1150"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder P2B?",
+    "expected_celex": [
+      "32019R1150"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van P2B?",
+    "expected_celex": [
+      "32019R1150"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt Portability?",
+    "expected_celex": [
+      "32017R1128"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder Portability?",
+    "expected_celex": [
+      "32017R1128"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van Portability?",
+    "expected_celex": [
+      "32017R1128"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt Digital Europe?",
+    "expected_celex": [
+      "32021R0104"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder Digital Europe?",
+    "expected_celex": [
+      "32021R0104"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van Digital Europe?",
+    "expected_celex": [
+      "32021R0104"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt Open Data?",
+    "expected_celex": [
+      "32019L1024"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder Open Data?",
+    "expected_celex": [
+      "32019L1024"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van Open Data?",
+    "expected_celex": [
+      "32019L1024"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt EECC?",
+    "expected_celex": [
+      "32018L1972"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder EECC?",
+    "expected_celex": [
+      "32018L1972"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van EECC?",
+    "expected_celex": [
+      "32018L1972"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt BEREC?",
+    "expected_celex": [
+      "32018R1971"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder BEREC?",
+    "expected_celex": [
+      "32018R1971"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van BEREC?",
+    "expected_celex": [
+      "32018R1971"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt Open Internet?",
+    "expected_celex": [
+      "32015R2120"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder Open Internet?",
+    "expected_celex": [
+      "32015R2120"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van Open Internet?",
+    "expected_celex": [
+      "32015R2120"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt Services Directive?",
+    "expected_celex": [
+      "32006L0043"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder Services Directive?",
+    "expected_celex": [
+      "32006L0043"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van Services Directive?",
+    "expected_celex": [
+      "32006L0043"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt EHDS?",
+    "expected_celex": [
+      "32023R2859"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder EHDS?",
+    "expected_celex": [
+      "32023R2859"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van EHDS?",
+    "expected_celex": [
+      "32023R2859"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt Cyber Solidarity?",
+    "expected_celex": [
+      "32024R0903"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder Cyber Solidarity?",
+    "expected_celex": [
+      "32024R0903"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van Cyber Solidarity?",
+    "expected_celex": [
+      "32024R0903"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt Data Spaces?",
+    "expected_celex": [
+      "32022R0867"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder Data Spaces?",
+    "expected_celex": [
+      "32022R0867"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van Data Spaces?",
+    "expected_celex": [
+      "32022R0867"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt Transparent Work?",
+    "expected_celex": [
+      "32019L1152"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder Transparent Work?",
+    "expected_celex": [
+      "32019L1152"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van Transparent Work?",
+    "expected_celex": [
+      "32019L1152"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt Prospectus?",
+    "expected_celex": [
+      "32017R1129"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder Prospectus?",
+    "expected_celex": [
+      "32017R1129"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van Prospectus?",
+    "expected_celex": [
+      "32017R1129"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt DSA Structure?",
+    "expected_celex": [
+      "32022R1926"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder DSA Structure?",
+    "expected_celex": [
+      "32022R1926"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van DSA Structure?",
+    "expected_celex": [
+      "32022R1926"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt Copyright DSM?",
+    "expected_celex": [
+      "32024R1682"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder Copyright DSM?",
+    "expected_celex": [
+      "32024R1682"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van Copyright DSM?",
+    "expected_celex": [
+      "32024R1682"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt Copyright Directive?",
+    "expected_celex": [
+      "32019L0790"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder Copyright Directive?",
+    "expected_celex": [
+      "32019L0790"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van Copyright Directive?",
+    "expected_celex": [
+      "32019L0790"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt AI Act Corrigendum?",
+    "expected_celex": [
+      "32024R1689R(01)"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder AI Act Corrigendum?",
+    "expected_celex": [
+      "32024R1689R(01)"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van AI Act Corrigendum?",
+    "expected_celex": [
+      "32024R1689R(01)"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt Consumer Cooperation?",
+    "expected_celex": [
+      "32017R2394"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder Consumer Cooperation?",
+    "expected_celex": [
+      "32017R2394"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van Consumer Cooperation?",
+    "expected_celex": [
+      "32017R2394"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt GDPR?",
+    "expected_celex": [
+      "32016R0679"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder GDPR?",
+    "expected_celex": [
+      "32016R0679"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van GDPR?",
+    "expected_celex": [
+      "32016R0679"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt EUDPR?",
+    "expected_celex": [
+      "32018R1725"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder EUDPR?",
+    "expected_celex": [
+      "32018R1725"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van EUDPR?",
+    "expected_celex": [
+      "32018R1725"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt LED?",
+    "expected_celex": [
+      "32016L0680"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder LED?",
+    "expected_celex": [
+      "32016L0680"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van LED?",
+    "expected_celex": [
+      "32016L0680"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt ePrivacy?",
+    "expected_celex": [
+      "32002L0058"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder ePrivacy?",
+    "expected_celex": [
+      "32002L0058"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van ePrivacy?",
+    "expected_celex": [
+      "32002L0058"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt Data FWD?",
+    "expected_celex": [
+      "32018R1807"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder Data FWD?",
+    "expected_celex": [
+      "32018R1807"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van Data FWD?",
+    "expected_celex": [
+      "32018R1807"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt DPF Adequacy?",
+    "expected_celex": [
+      "32023D1795"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder DPF Adequacy?",
+    "expected_celex": [
+      "32023D1795"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van DPF Adequacy?",
+    "expected_celex": [
+      "32023D1795"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt UK Adequacy?",
+    "expected_celex": [
+      "32021D0914"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder UK Adequacy?",
+    "expected_celex": [
+      "32021D0914"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van UK Adequacy?",
+    "expected_celex": [
+      "32021D0914"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt GDPR Comitology?",
+    "expected_celex": [
+      "32018R1860"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke verplichtingen gelden onder GDPR Comitology?",
+    "expected_celex": [
+      "32018R1860"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is het doel van GDPR Comitology?",
+    "expected_celex": [
+      "32018R1860"
+    ],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt eIDAS?",
+    "expected_celex": [
+      "32018R1724"
+    ],
     "min_hits": 1
   }
 ]

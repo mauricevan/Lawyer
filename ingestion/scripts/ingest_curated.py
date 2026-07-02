@@ -66,7 +66,7 @@ async def run_ingest(args: argparse.Namespace) -> dict[str, int]:
     async with session_factory() as session:
         for document in documents:
             celex = document.celex
-            if celex in force_celex:
+            if celex in force_celex or args.force_reindex:
                 await purge_document_index(celex, session)
             elif args.skip_existing and await is_document_indexed(celex, session):
                 stats["skipped"] += 1
@@ -87,6 +87,7 @@ async def run_ingest(args: argparse.Namespace) -> dict[str, int]:
             except Exception as exc:
                 stats["failed"] += 1
                 failures.append({"celex": celex, "error": str(exc)})
+                await session.rollback()
                 logger.exception("Failed to ingest %s", celex)
 
     if failures:
@@ -111,6 +112,7 @@ def _build_parser() -> argparse.ArgumentParser:
         help="Re-index AI Act (32024R1689) with full live text",
     )
     parser.add_argument("--no-force-ai-act", action="store_false", dest="force_ai_act")
+    parser.add_argument("--force-reindex", action="store_true", help="Purge and rebuild every document")
     parser.add_argument("--failed-log", type=str, default=str(DEFAULT_FAILED_LOG))
     return parser
 
