@@ -23,6 +23,10 @@ required=(
   docs/data/eval-thresholds.yaml
   docs/data/prompt-change-control.md
   docs/data/experiment-policy.md
+  docs/engineering/definition-of-done.md
+  docs/engineering/release-standards.md
+  docs/engineering/quality-gates.yaml
+  docs/org/component-ownership-matrix.yaml
   docs/adr/README.md
   observability/runbooks/top-5-incidents.md
 )

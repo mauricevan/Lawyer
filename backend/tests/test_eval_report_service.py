@@ -10,9 +10,10 @@ def test_compare_suite_passes_at_baseline() -> None:
     service = EvalReportService()
     thresholds = service.load_thresholds()
     baseline = service.load_baseline()
+    base = baseline["suites"]["retrieval"]
     result = service.compare_suite(
         "retrieval",
-        {"recall_at_5": 0.82, "mrr": 0.72},
+        {"recall_at_5": base["recall_at_5"], "mrr": base["mrr"]},
         baseline,
         thresholds,
     )
@@ -35,9 +36,14 @@ def test_compare_suite_flags_regression() -> None:
 
 def test_build_report_aggregates_suites() -> None:
     service = EvalReportService()
+    baseline = service.load_baseline()
+    suites = baseline["suites"]
     report = service.build_report({
-        "retrieval": {"recall_at_5": 0.82, "mrr": 0.72},
-        "multilingual": {"recall_at_5": 0.75, "mrr": 0.68},
+        "retrieval": {"recall_at_5": suites["retrieval"]["recall_at_5"], "mrr": suites["retrieval"]["mrr"]},
+        "multilingual": {
+            "recall_at_5": suites["multilingual"]["recall_at_5"],
+            "mrr": suites["multilingual"]["mrr"],
+        },
     })
     assert report["passed"] is True
     assert len(report["suites"]) == 2

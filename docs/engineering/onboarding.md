@@ -56,6 +56,8 @@ cd frontend && npm install && npm run dev
 | SLO's | [../ops/slo-definition.md](../ops/slo-definition.md) |
 | Domeinen | [../product/domain-selection-framework.md](../product/domain-selection-framework.md) |
 | Talen | [../product/language-rollout.md](../product/language-rollout.md) |
+| DoD / release | [definition-of-done.md](./definition-of-done.md), [playbooks/](./playbooks/) |
+| Ownership | [../org/component-ownership-matrix.yaml](../org/component-ownership-matrix.yaml) |
 
 ## Eerste bijdrage (checklist)
 

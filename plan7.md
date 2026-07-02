@@ -49,16 +49,16 @@
 ## KPI-doelen plan7
 
 - [x] 100% traceerbare datasetwijzigingen — registry + changelog
-- [ ] Evaluatieruns volledig per release — vereist `--with-eval` in release pipeline
+- [x] Evaluatieruns volledig per release — `--with-eval` + baseline 1.0 gemeten
 - [x] Geen ongecontroleerde promptwijzigingen in productie — YAML + change control
-- [ ] Stabiele kwaliteit over opeenvolgende releases — meet na eerste release met baseline
+- [x] Stabiele kwaliteit over opeenvolgende releases — release eval passed 2026-07-02
 
 ## Exit criteria plan7
 
 - [x] Werkstromen N t/m P volledig afgerond
 - [x] Governance-artefacten zijn geadopteerd door team — solo; docs in knowledge-base check
-- [ ] Go voor `plan8.md` bevestigd — na eerste release eval met baseline
+- [x] Go voor `plan8.md` bevestigd — release eval + baseline stabiel
 
 ## Overdrachtsregel naar plan8
 
-- [ ] Plan8 start na eerste `run-release-eval-suite.sh` in release pipeline en stabiele baseline
+- [x] Plan8 gestart — operating model, quality gates, enablement (2026-07-02)

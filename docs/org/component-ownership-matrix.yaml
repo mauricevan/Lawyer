@@ -1,0 +1,88 @@
+# Component ownership matrix (plan8 Q)
+version: "2026.07.02"
+
+teams:
+  backend:
+    owner: backend
+    on_call_primary: backend
+    slack: "#lawyer-backend"
+  frontend:
+    owner: frontend
+    on_call_primary: frontend
+    slack: "#lawyer-frontend"
+  ingestion:
+    owner: data
+    on_call_primary: backend
+    slack: "#lawyer-data"
+  platform:
+    owner: platform
+    on_call_primary: platform
+    slack: "#lawyer-ops"
+
+components:
+  - id: rag_pipeline
+    team: backend
+    backup_team: platform
+    consumers: [frontend, admin]
+    paths:
+      - backend/src/services/rag_service.py
+      - backend/src/services/query_router_service.py
+      - backend/src/services/live_retrieval_service.py
+      - backend/src/services/query_cache_service.py
+
+  - id: answer_policy
+    team: backend
+    backup_team: backend
+    consumers: [frontend]
+    paths:
+      - backend/src/services/answer_policy_service.py
+      - backend/src/services/answer_quality_service.py
+      - backend/src/services/llm_service.py
+
+  - id: query_api
+    team: backend
+    backup_team: platform
+    consumers: [frontend]
+    paths:
+      - backend/src/routes/query.py
+      - shared/schemas/query.py
+
+  - id: auth_security
+    team: backend
+    backup_team: platform
+    consumers: [frontend, admin]
+    paths:
+      - backend/src/dependencies/auth.py
+      - backend/src/security/ssrf_guard.py
+      - backend/src/routes/auth.py
+
+  - id: ingest_pipeline
+    team: ingestion
+    backup_team: backend
+    consumers: [backend]
+    paths:
+      - ingestion/src/indexer.py
+      - ingestion/src/validators/
+      - ingestion/src/data/
+
+  - id: frontend_chat
+    team: frontend
+    backup_team: backend
+    consumers: [end_users]
+    paths:
+      - frontend/src/components/
+      - frontend/src/services/
+
+  - id: platform_ops
+    team: platform
+    backup_team: backend
+    consumers: [all]
+    paths:
+      - scripts/ops/
+      - scripts/platform/
+      - docker-compose.yml
+
+solo_mode:
+  note: "Eén engineer dekt alle teams; matrix definieert escalatie bij groei."
+  default_responder: backend
+  pair_review: docs/engineering/pair-review-policy.md

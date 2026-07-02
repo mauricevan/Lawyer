@@ -1,0 +1,52 @@
+# Cross-team interface SLAs (plan8 Q)
+version: "2026.07.02"
+
+interfaces:
+  query_api:
+    owner: backend
+    consumer: frontend
+    contract: shared/schemas/query.py
+    slo:
+      p95_latency_ms: 8000
+      availability_monthly: 0.995
+      error_rate_max: 0.02
+    escalation: docs/ops/escalation-matrix.md
+
+  ready_health:
+    owner: platform
+    consumer: all
+    endpoints: ["/health", "/ready"]
+    slo:
+      probe_interval_seconds: 30
+      ready_timeout_ms: 2000
+
+  ingest_index:
+    owner: ingestion
+    consumer: backend
+    slo:
+      max_index_lag_hours: 24
+      chunk_quality_reject_rate_max: 0.05
+    contract: ingestion/src/data/chunk_quality_rules.yaml
+
+  release_eval:
+    owner: backend
+    consumer: platform
+    slo:
+      recall_at_5_min: 0.80
+      mrr_min: 0.70
+      multilingual_recall_min: 0.70
+    script: scripts/qa/run-release-eval-suite.sh
+
+  admin_audit:
+    owner: backend
+    consumer: compliance
+    slo:
+      audit_write_success: 0.999
+    paths:
+      - backend/src/services/audit_service.py
+      - backend/src/routes/admin.py
+
+breach_process:
+  - Log in docs/engineering/incident-learnings.md
+  - Notify consumer team within 4 business hours
+  - Hotfix or rollback within SLA in docs/ops/hotfix-runbook.md

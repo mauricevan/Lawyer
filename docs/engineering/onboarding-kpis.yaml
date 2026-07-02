@@ -1,0 +1,33 @@
+# Onboarding KPI targets (plan8 S)
+version: "2026.07.02"
+
+targets:
+  day1_stack_green:
+    description: "Health, ready, unit tests groen"
+    max_hours: 8
+    checks:
+      - scripts/ops/run-knowledge-base-check.sh
+
+  day2_first_pr:
+    description: "Eerste gemergde bijdrage"
+    max_hours: 16
+    playbook: docs/engineering/playbooks/first-contribution.md
+
+  week1_release_aware:
+    description: "Kan release playbook volgen"
+    max_days: 5
+    playbook: docs/engineering/playbooks/release.md
+
+  week2_critical_path:
+    description: "Begrijpt RAG + auth flow (quiz of walkthrough)"
+    max_days: 10
+    docs:
+      - docs/engineering/onboarding.md
+
+measurement:
+  script: scripts/ops/run-enablement-check.sh
+  review_cadence: quarterly
+  owner: platform
+
+solo_baseline:
+  note: "Solo engineer voldoet aan week1 bij plan-voltooiing; KPI's zijn template voor hire #2."

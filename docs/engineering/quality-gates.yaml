@@ -1,0 +1,53 @@
+# Harmonized quality gates (plan8 R)
+version: "2026.07.02"
+
+gates:
+  unit_tests:
+    scope: all
+    command: pytest backend/tests -m "not integration" -q
+    required_on: [pr, release]
+
+  frontend_tests:
+    scope: frontend
+    command: npm test -- --run
+    working_dir: frontend
+    required_on: [pr]
+
+  security_regression:
+    scope: backend
+    command: pytest backend/tests/test_ssrf_guard.py backend/tests/test_auth_service.py backend/tests/test_security_rbac.py -q
+    required_on: [pr]
+
+  secret_scan:
+    scope: repo
+    script: scripts/security/check-secrets.sh
+    required_on: [pr, release]
+
+  pair_review:
+    scope: critical_paths
+    script: scripts/ops/check-pair-review.sh
+    required_on: [merge_main]
+
+  knowledge_base:
+    scope: docs
+    script: scripts/ops/run-knowledge-base-check.sh
+    required_on: [release]
+
+  release_eval:
+    scope: retrieval
+    script: scripts/qa/run-release-eval-suite.sh
+    required_on: [release]
+    requires_stack: true
+
+  quality_audit:
+    scope: governance
+    script: scripts/ops/run-quality-gate-audit.sh
+    required_on: [release]
+
+ci_mapping:
+  workflow: .github/workflows/ci.yml
+  jobs: [backend-tests, frontend-tests, security-scan, secret-scan]
+
+solo_overrides:
+  pair_review_ack_env: PAIR_REVIEW_ACK
+  release_eval_note: "Draai lokaal met stack; CI blijft unit-only tot integration runner."
