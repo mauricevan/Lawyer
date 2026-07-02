@@ -1,0 +1,11 @@
+"""{{ServiceName}} service — generated scaffold (plan6 M4)."""
+
+
+class {{ServiceName}}Service:
+    """Single-purpose service placeholder."""
+
+    def execute(self, payload: str) -> str:
+        """Return processed payload."""
+        if not payload.strip():
+            raise ValueError("payload is required")
+        return payload.strip()

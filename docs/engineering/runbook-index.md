@@ -49,6 +49,9 @@ Centrale index — houd links actueel bij nieuwe runbooks.
 ./scripts/ops/run-knowledge-base-check.sh
 ./scripts/ops/check-pair-review.sh
 ./scripts/ops/run-plan5-kpi-snapshot.sh
+./scripts/platform/run-self-service.sh
+./scripts/ops/run-release-pipeline.sh
+./scripts/dev/bootstrap.sh
 ```
 
 ## Onderhoud

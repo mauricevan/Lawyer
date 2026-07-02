@@ -4,6 +4,10 @@ on:
   push:
   pull_request:
 
+concurrency:
+  group: ci-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   backend-tests:
     runs-on: ubuntu-latest
@@ -12,12 +16,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
       - name: Install backend dependencies
         run: pip install -r backend/requirements.txt
       - name: Run backend unit tests
-        run: pytest backend/tests -v -m "not integration"
+        run: pytest backend/tests -q -m "not integration"
       - name: Run API e2e tests
-        run: pytest backend/tests/test_query_api_e2e.py -v
+        run: pytest backend/tests/test_query_api_e2e.py -q
 
   frontend-tests:
     runs-on: ubuntu-latest
@@ -41,12 +47,14 @@ jobs:
       - uses: actions/setup-python@v5
         with:
           python-version: "3.12"
+          cache: pip
+          cache-dependency-path: backend/requirements.txt
       - name: Install backend dependencies
         run: pip install -r backend/requirements.txt pip-audit
       - name: Dependency vulnerability scan
         run: pip-audit -r backend/requirements.txt --strict --desc on
       - name: Run security regression tests
-        run: pytest backend/tests/test_ssrf_guard.py backend/tests/test_auth_service.py backend/tests/test_security_rbac.py backend/tests/test_rbac_service.py backend/tests/test_audit_completeness_service.py backend/tests/test_audit_retention_service.py backend/tests/test_data_retention_service.py backend/tests/test_data_classification.py backend/tests/test_input_validation.py backend/tests/test_input_validation_audit.py backend/tests/test_feedback_route.py backend/tests/test_answer_policy_service.py -v
+        run: pytest backend/tests/test_ssrf_guard.py backend/tests/test_auth_service.py backend/tests/test_security_rbac.py backend/tests/test_rbac_service.py backend/tests/test_audit_completeness_service.py backend/tests/test_audit_retention_service.py backend/tests/test_data_retention_service.py backend/tests/test_data_classification.py backend/tests/test_input_validation.py backend/tests/test_input_validation_audit.py backend/tests/test_feedback_route.py backend/tests/test_answer_policy_service.py -q
 
   secret-scan:
     runs-on: ubuntu-latest

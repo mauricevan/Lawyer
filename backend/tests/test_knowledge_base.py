@@ -14,6 +14,10 @@ def test_onboarding_pack_exists() -> None:
     assert (_REPO_ROOT / "docs/product/plan5-kpi-scorecard.md").is_file()
 
 
+def test_knowledge_base_includes_plan6() -> None:
+    assert (_REPO_ROOT / "docs/platform/self-service-ops.md").is_file()
+
+
 def test_critical_components_registered() -> None:
     data = yaml.safe_load((_ENGINEERING / "critical-components.yaml").read_text(encoding="utf-8"))
     ids = {item["id"] for item in data["components"]}

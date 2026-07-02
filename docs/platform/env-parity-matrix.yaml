@@ -1,0 +1,27 @@
+# Environment parity matrix (plan6 K4)
+environments:
+  development:
+  staging:
+  production:
+
+required_all:
+  - DATABASE_URL
+  - QDRANT_URL
+  - QDRANT_COLLECTION
+  - JWT_SECRET
+  - APP_ENV
+  - CORS_ORIGINS
+  - REDIS_URL
+
+staging_overrides:
+  JWT_AUTH_REQUIRED: "true"
+  APP_ENV: staging
+
+production_overrides:
+  JWT_AUTH_REQUIRED: "true"
+  APP_ENV: production
+
+must_not_match_production:
+  - JWT_SECRET
+  - ADMIN_API_KEY
+  - OPENROUTER_API_KEY

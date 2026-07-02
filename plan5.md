@@ -89,4 +89,4 @@ Gedetailleerd: [plan5-kpi-scorecard.md](docs/product/plan5-kpi-scorecard.md) · 
 
 ## Overdrachtsregel naar plan6
 
-- [ ] Plan6 start na eind-Q3 KPI-review (scorecard §6) en feedback-baseline of gedocumenteerde mitigatie
+- [x] Plan6 start — mitigatie op feedback-KPI's; zie [plan6.md](plan6.md)

@@ -1,0 +1,15 @@
+"""Tests for {{ServiceName}}Service."""
+import pytest
+
+from backend.src.services.{{service_snake}}_service import {{ServiceName}}Service
+
+
+def test_execute_returns_trimmed_payload() -> None:
+    service = {{ServiceName}}Service()
+    assert service.execute("  hello  ") == "hello"
+
+
+def test_execute_rejects_empty_payload() -> None:
+    service = {{ServiceName}}Service()
+    with pytest.raises(ValueError):
+        service.execute("   ")

@@ -56,7 +56,8 @@ cd frontend && npm install && npm run dev
 ```
 
 Zie `docs/ops/` voor checklist, SLO's, escalatie en hotfix-runbooks.  
-Nieuwe engineers: start bij [`docs/engineering/onboarding.md`](docs/engineering/onboarding.md).
+Nieuwe engineers: start bij [`docs/engineering/onboarding.md`](docs/engineering/onboarding.md).  
+Platform scripts: [`docs/platform/self-service-ops.md`](docs/platform/self-service-ops.md).
 
 Met de volledige stack draaien metrics en dashboards automatisch mee:
 

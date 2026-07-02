@@ -1,0 +1,12 @@
+# Plan6 KPI targets
+targets:
+  deployment_lead_time_minutes: 30
+  mttr_minutes: 60
+  ci_duration_minutes: 12
+  manual_ops_per_sprint: 3
+
+measurement:
+  deployment_lead_time: release_pipeline_start_to_health_ok
+  mttr: incident_open_to_mitigated
+  ci_duration: github_actions_ci_workflow
+  manual_ops: sprint_retro_count

@@ -11,6 +11,8 @@ required=(
   docs/engineering/onboarding.md
   docs/product/plan5-kpi-scorecard.md
   docs/product/plan4-exit-gap.md
+  docs/platform/self-service-ops.md
+  docs/platform/env-parity-matrix.yaml
   docs/engineering/runbook-index.md
   docs/engineering/troubleshooting.md
   docs/engineering/pair-review-policy.md
