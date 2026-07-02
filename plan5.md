@@ -60,10 +60,10 @@
 
 ### J1. Roadmap en portfolio
 
-- [ ] Kwartaalroadmap met objective metrics opzetten
-- [ ] Capaciteitsmodel voor features versus reliability vastleggen
-- [ ] Technische schuld expliciet opnemen in planning
-- [ ] Quarterly architecture review ritme inplannen
+- [x] Kwartaalroadmap met objective metrics opzetten
+- [x] Capaciteitsmodel voor features versus reliability vastleggen
+- [x] Technische schuld expliciet opnemen in planning
+- [x] Quarterly architecture review ritme inplannen
 
 ### J2. Team en kennisborging
 

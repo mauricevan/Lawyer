@@ -1,0 +1,69 @@
+# Objective portfolio metrics (plan5 J1)
+# Used for quarterly roadmap scoring and capacity decisions.
+
+quarter: Q3-2026
+review_cadence: quarterly
+
+objectives:
+  - id: retrieval_quality
+    label: Retrieval Recall@5
+    target: 0.80
+    floor: 0.75
+    source: scripts/qa/run-retrieval-eval.sh
+    owner: backend
+
+  - id: multilingual_quality
+    label: Multilingual Recall@5 (FR/DE/ES)
+    target: 0.70
+    floor: 0.65
+    source: scripts/qa/run-multilingual-eval.sh
+    owner: backend
+
+  - id: domain_coverage
+    label: Go-domains passing benchmark
+    target: 5
+    floor: 5
+    source: scripts/qa/run-domain-benchmark.sh
+    owner: product
+
+  - id: query_latency_p95
+    label: Query p95 latency (seconds)
+    target: 8.0
+    floor: 10.0
+    direction: lower_is_better
+    source: prometheus:lawyer_query_duration_seconds
+    owner: ops
+
+  - id: availability
+    label: Ready endpoint success rate
+    target: 0.995
+    floor: 0.99
+    source: prometheus:lawyer_ready_success_rate
+    owner: ops
+
+  - id: negative_feedback_ratio
+    label: Negative feedback share
+    target: 0.15
+    floor: 0.25
+    direction: lower_is_better
+    source: admin_metrics:feedback_negative_ratio
+    owner: product
+
+  - id: citation_reliability
+    label: Citation reliability score (avg)
+    target: 0.85
+    floor: 0.75
+    source: admin_metrics:citation_reliability
+    owner: backend
+
+capacity_allocation:
+  healthy:
+    reliability: 0.20
+    features: 0.50
+    debt: 0.15
+    ops_governance: 0.15
+  budget_burn:
+    reliability: 0.45
+    features: 0.20
+    debt: 0.20
+    ops_governance: 0.15

@@ -38,4 +38,4 @@ Uitvoeren binnen **48 uur** na elke productie-release.
 
 - **Elke release:** korte review (15 min)
 - **Maandelijks:** aggregate trends in product note
-- **Per kwartaal:** koppeling aan architecture review (plan5 J1)
+- **Per kwartaal:** koppeling aan [architecture review](./architecture-review.md) (plan5 J1)
