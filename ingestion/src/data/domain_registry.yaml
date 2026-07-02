@@ -1,0 +1,100 @@
+# Domain registry — selection criteria, seeds, and go/no-go status (plan5 I1)
+domains:
+  ai:
+    label: "AI & digital platforms"
+    cluster: ai_digital
+    keywords: ["ai act", "kunstmatige intelligentie", "high-risk ai", "foundation model", "dsa", "dma"]
+    selection:
+      question_volume: high
+      risk: high
+      impact: high
+    benchmark:
+      min_recall_at_5: 0.80
+    status: go
+
+  privacy:
+    label: "Privacy & gegevensbescherming"
+    cluster: privacy_data
+    keywords: ["gdpr", "avg", "privacy", "persoonsgegevens", "gegevensbescherming"]
+    selection:
+      question_volume: high
+      risk: high
+      impact: high
+    benchmark:
+      min_recall_at_5: 0.80
+    status: go
+
+  cyber:
+    label: "Cybersecurity & NIS2"
+    cluster: cyber_nis
+    keywords: ["nis2", "cyber", "netwerkbeveiliging", "informatiebeveiliging"]
+    selection:
+      question_volume: medium
+      risk: high
+      impact: high
+    benchmark:
+      min_recall_at_5: 0.75
+    status: go
+
+  finance:
+    label: "Financieel toezicht"
+    cluster: financial
+    keywords: ["dora", "mifid", "psd2", "bank", "financieel", "mica"]
+    selection:
+      question_volume: high
+      risk: high
+      impact: high
+    benchmark:
+      min_recall_at_5: 0.80
+    status: go
+
+  consumer:
+    label: "Consumentenrecht & AV"
+    cluster: consumer_av
+    keywords: ["consument", "garantie", "oneerlijke handelspraktijken", "av"]
+    selection:
+      question_volume: medium
+      risk: medium
+      impact: medium
+    benchmark:
+      min_recall_at_5: 0.75
+    status: go
+
+  sustainability:
+    label: "Duurzaamheid & CSRD"
+    cluster: financial
+    keywords: ["csrd", "esg", "duurzaamheidsrapportering", "duurzaamheid"]
+    seed_celex: ["32022R2554"]
+    selection:
+      question_volume: medium
+      risk: medium
+      impact: high
+    benchmark:
+      min_recall_at_5: 0.70
+    status: pilot
+
+  employment:
+    label: "Arbeidsrecht EU"
+    cluster: consumer_av
+    keywords: ["arbeidsrecht", "arbeidsovereenkomst", "werkgever", "werknemer"]
+    seed_celex: ["32019L1152"]
+    selection:
+      question_volume: medium
+      risk: medium
+      impact: medium
+    benchmark:
+      min_recall_at_5: 0.70
+    status: pilot
+
+  competition:
+    label: "Mededingingsrecht"
+    cluster: financial
+    keywords: ["mededinging", "kartel", "concentratie", "antitrust"]
+    seed_celex: ["32014R0330"]
+    selection:
+      question_volume: low
+      risk: high
+      impact: medium
+    benchmark:
+      min_recall_at_5: 0.70
+    status: no_go

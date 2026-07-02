@@ -27,20 +27,14 @@ from backend.src.utils.context_dedup import deduplicate_chunks
 from backend.src.utils.qdrant_filters import doc_type_matches_celex
 from backend.src.utils.retrieval_budget import RetrievalBudget, RetrievalBudgetExceeded
 from ingestion.src.data.legal_term_hints import match_celex_hints
+from ingestion.src.data.domain_registry_loader import get_domain_keywords
 from backend.src.utils.rrf_fusion import reciprocal_rank_fusion
 from shared.schemas.query import AnswerResponse, QueryFilters, QueryRequest
 
 logger = logging.getLogger(__name__)
 
 RETRIEVAL_CANDIDATE_LIMIT = 200
-DOMAIN_KEYWORDS: dict[str, tuple[str, ...]] = {
-    "privacy": ("gdpr", "avg", "privacy", "persoonsgegevens"),
-    "ai": ("ai act", "kunstmatige intelligentie", "high-risk"),
-    "finance": ("dora", "mifid", "bank", "financieel"),
-    "sustainability": ("csrd", "esg", "duurzaamheid"),
-    "employment": ("arbeidsrecht", "werknemer", "werkgever"),
-    "competition": ("mededinging", "kartel", "antitrust"),
-}
+DOMAIN_KEYWORDS = get_domain_keywords()
 
 
 class RagService:

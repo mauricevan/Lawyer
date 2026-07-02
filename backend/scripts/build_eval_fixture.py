@@ -3,6 +3,7 @@ import json
 from pathlib import Path
 
 from ingestion.src.data.curated_loader import load_curated_documents
+from ingestion.src.data.domain_registry_loader import resolve_domain_for_celex
 
 OUTPUT = Path(__file__).resolve().parents[1] / "tests" / "fixtures" / "rag_eval_questions.json"
 QUESTION_TEMPLATES = (
@@ -22,6 +23,7 @@ def build_questions(limit: int = 100) -> list[dict]:
                 "question": template.format(label=label),
                 "expected_celex": [document.celex],
                 "min_hits": 1,
+                "domain": resolve_domain_for_celex(document.celex),
             })
             if len(rows) >= limit:
                 return rows

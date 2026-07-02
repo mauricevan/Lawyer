@@ -44,10 +44,10 @@
 
 ### I1. Nieuwe juridische domeinen
 
-- [ ] Selectiekader opstellen (vraagvolume, risico, impact)
-- [ ] Per domein curated seedset samenstellen
-- [ ] Domeinbenchmarks op retrieval en answerkwaliteit draaien
-- [ ] Go/no-go per domein formeel beslissen
+- [x] Selectiekader opstellen (vraagvolume, risico, impact)
+- [x] Per domein curated seedset samenstellen
+- [x] Domeinbenchmarks op retrieval en answerkwaliteit draaien
+- [x] Go/no-go per domein formeel beslissen
 
 ### I2. Nieuwe talen
 

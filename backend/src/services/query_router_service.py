@@ -2,16 +2,10 @@
 from dataclasses import dataclass, field
 import re
 
+from ingestion.src.data.domain_registry_loader import get_domain_keywords
 from ingestion.src.data.legal_term_hints import match_primary_celex_hint
 
-DOMAIN_KEYWORDS: dict[str, tuple[str, ...]] = {
-    "privacy": ("gdpr", "avg", "privacy", "persoonsgegevens", "gegevensbescherming"),
-    "ai": ("ai act", "kunstmatige intelligentie", "high-risk ai", "foundation model"),
-    "finance": ("dora", "mifid", "psd2", "bank", "financieel"),
-    "sustainability": ("csrd", "esg", "duurzaamheidsrapportering", "duurzaamheid"),
-    "employment": ("arbeidsrecht", "arbeidsovereenkomst", "werkgever", "werknemer"),
-    "competition": ("mededinging", "kartel", "concentratie", "antitrust"),
-}
+DOMAIN_KEYWORDS = get_domain_keywords()
 
 DOC_TYPE_KEYWORDS: dict[str, tuple[str, ...]] = {
     "regulation": ("verordening", "regulation"),
