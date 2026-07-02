@@ -32,7 +32,12 @@ class EmbeddingService:
 
     def _embed_local(self, texts: list[str], is_query: bool) -> list[list[float]]:
         model = self._get_local_model()
-        return model.encode(texts, normalize_embeddings=True).tolist()
+        return model.encode(
+            texts,
+            normalize_embeddings=True,
+            show_progress_bar=False,
+            batch_size=64,
+        ).tolist()
 
     def _embed_openai(self, texts: list[str]) -> list[list[float]]:
         from openai import OpenAI

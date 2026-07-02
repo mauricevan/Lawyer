@@ -1,0 +1,77 @@
+[
+  {
+    "question": "Wat mag ik niet met AI volgens de AI Act?",
+    "expected_celex": ["32024R1689"],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is high-risk AI?",
+    "expected_celex": ["32024R1689"],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat verandert DORA voor financiële instellingen?",
+    "expected_celex": ["32022R2554"],
+    "min_hits": 1
+  },
+  {
+    "question": "Mag ik persoonsgegevens naar de Verenigde Staten sturen?",
+    "expected_celex": ["32016R0679", "32023D1795"],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat zijn de GDPR-grondslagen voor verwerking?",
+    "expected_celex": ["32016R0679"],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke cyberbeveiligingsplichten gelden onder NIS2?",
+    "expected_celex": ["32022L2555"],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat zijn de verplichtingen van zeer grote onlineplatformen onder de DSA?",
+    "expected_celex": ["32022R2065"],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is marktmisbruik volgens MAR?",
+    "expected_celex": ["32014R0596"],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt MiFID II over beleggingsdiensten?",
+    "expected_celex": ["32014L0065"],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat is de Data Act over IoT-gegevens?",
+    "expected_celex": ["32023R2854"],
+    "min_hits": 1
+  },
+  {
+    "question": "Welke transparantieplichten gelden voor AI-chatbots?",
+    "expected_celex": ["32024R1689"],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat houdt de Cyber Resilience Act in voor producenten?",
+    "expected_celex": ["32024R2847"],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat zijn de witwasplichten voor banken?",
+    "expected_celex": ["32015L0849", "32018L0843", "32024R1624"],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat regelt de ePrivacy-richtlijn over cookies?",
+    "expected_celex": ["32002L0058"],
+    "min_hits": 1
+  },
+  {
+    "question": "Wat zijn de duurzaamheidsrapporteringsplichten onder CSRD?",
+    "expected_celex": ["32022L2464"],
+    "min_hits": 1
+  }
+]

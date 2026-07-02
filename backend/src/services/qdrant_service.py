@@ -93,9 +93,55 @@ class QdrantService:
             for point in response.points
         ]
 
+    def search_by_celex(
+        self,
+        celex_values: set[str],
+        limit: int = 12,
+        language: str | None = "nl",
+        in_force_only: bool = True,
+    ) -> list[dict[str, Any]]:
+        """Fetch chunks directly by CELEX for lexical fallback cases."""
+        if not celex_values:
+            return []
+        self.ensure_collection()
+        celex_conditions = [
+            FieldCondition(key="celex", match=MatchValue(value=celex))
+            for celex in celex_values
+        ]
+        must_conditions: list[FieldCondition] = []
+        if language:
+            must_conditions.append(
+                FieldCondition(key="language", match=MatchValue(value=language))
+            )
+        if in_force_only:
+            must_conditions.append(
+                FieldCondition(key="is_in_force", match=MatchValue(value=True))
+            )
+        query_filter = Filter(must=must_conditions, should=celex_conditions)
+        points, _ = self._client.scroll(
+            collection_name=self._collection,
+            scroll_filter=query_filter,
+            limit=limit,
+            with_payload=True,
+            with_vectors=False,
+        )
+        return [{"score": 1.0, **(point.payload or {})} for point in points]
+
     def count_points(self) -> int:
         try:
             info = self._client.get_collection(self._collection)
             return info.points_count or 0
         except Exception:
             return 0
+
+    def delete_by_celex(self, celex: str) -> None:
+        """Remove all vector points for a CELEX identifier."""
+        try:
+            self._client.delete(
+                collection_name=self._collection,
+                points_selector=Filter(
+                    must=[FieldCondition(key="celex", match=MatchValue(value=celex))]
+                ),
+            )
+        except Exception as exc:
+            logger.warning("Qdrant delete failed for %s: %s", celex, exc)

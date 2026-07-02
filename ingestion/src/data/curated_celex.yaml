@@ -1,0 +1,675 @@
+# Curated EUR-Lex corpus — digital, privacy, cyber, financial, consumer law (NL)
+clusters:
+  ai_digital:
+    - "32024R1689"
+    - "32022R2065"
+    - "32022R1925"
+    - "32022R0868"
+    - "32023R2854"
+    - "32024R2847"
+    - "32023R1781"
+    - "32019R1150"
+    - "32017R1128"
+    - "32021R0104"
+    - "32019L1024"
+    - "32018L1972"
+    - "32018R1971"
+    - "32015R2120"
+    - "32006L0043"
+    - "32023R2859"
+    - "32024R0903"
+    - "32022R0867"
+    - "32019L1152"
+    - "32017R1129"
+  privacy_data:
+    - "32016R0679"
+    - "32018R1725"
+    - "32016L0680"
+    - "32002L0058"
+    - "32018R1807"
+    - "32023D1795"
+    - "32021D0914"
+    - "32019L1152"
+    - "32018R1724"
+    - "32016R0679"
+    - "32018R1860"
+    - "32022R0868"
+    - "32023R2854"
+    - "32017R1128"
+  cyber_nis:
+    - "32022L2555"
+    - "32019R0881"
+    - "32024R0903"
+    - "32024R2847"
+    - "32022R2379"
+    - "32019R0941"
+    - "32013L0040"
+    - "32008L0114"
+  financial:
+    - "32014R0596"
+    - "32014L0065"
+    - "32015L0849"
+    - "32013L0036"
+    - "32014R0600"
+    - "32012R0648"
+    - "32019R2033"
+    - "32022R2554"
+    - "32014L0092"
+    - "32013L0034"
+    - "32009L0065"
+    - "32017R1129"
+    - "32018L0843"
+    - "32024R1624"
+    - "32023L1114"
+    - "32021R0451"
+    - "32013L0036"
+    - "32013R0575"
+    - "32015L2366"
+    - "32017R2402"
+    - "32014L0059"
+    - "32013L0036"
+    - "32011L0061"
+    - "32009L0110"
+    - "32014R0602"
+  consumer_av:
+    - "32010L0013"
+    - "32011L0083"
+    - "32019L0771"
+    - "32019L2161"
+    - "32019R1150"
+    - "32005L0029"
+    - "32011L0083"
+    - "32093L0013"
+  health_product:
+    - "32017R0745"
+    - "32017R0746"
+    - "32017R0745"
+    - "32014R0536"
+    - "32023R2859"
+
+documents:
+  # --- AI & Digital ---
+  - celex: "32024R1689"
+    title: "Verordening (EU) 2024/1689 betreffende artificiële intelligentie (AI Act)"
+    short_title: "AI Act"
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 2024/1689"
+  - celex: "32022R2065"
+    title: "Verordening (EU) 2022/2065 betreffende een eengemaakte markt voor digitale diensten (DSA)"
+    short_title: "DSA"
+    doc_type: regulation
+    oj_reference: "L 277/1"
+  - celex: "32022R1925"
+    title: "Verordening (EU) 2022/1925 betreffende betwistbare en eerlijke markten in de digitale sector (DMA)"
+    short_title: "DMA"
+    doc_type: regulation
+    oj_reference: "L 265/1"
+  - celex: "32022R0868"
+    title: "Verordening (EU) 2022/868 betreffende Europese governance inzake data (Data Governance Act)"
+    short_title: "DGA"
+    doc_type: regulation
+    oj_reference: "L 152/1"
+  - celex: "32023R2854"
+    title: "Verordening (EU) 2023/2854 betreffende geharmoniseerde regels voor eerlijke toegang tot en gebruik van data (Data Act)"
+    short_title: "Data Act"
+    doc_type: regulation
+    oj_reference: "L 2023/2854"
+  - celex: "32024R2847"
+    title: "Verordening (EU) 2024/2847 betreffende horizontale cybersecurityvereisten voor producten met digitale elementen (Cyber Resilience Act)"
+    short_title: "CRA"
+    doc_type: regulation
+    oj_reference: "L 2024/2847"
+  - celex: "32023R1781"
+    title: "Verordening (EU) 2023/1781 betreffende de totstandbrenging van een kader voor maatregelen ter versterking van het Europese ecosysteem voor halfgeleidertechnologie (Chips Act)"
+    short_title: "Chips Act"
+    doc_type: regulation
+    oj_reference: "L 2023/1781"
+  - celex: "32019R1150"
+    title: "Verordening (EU) 2019/1150 betreffende bevordering van billijkheid en transparantie voor zakelijke gebruikers van online intermediatiediensten (P2B)"
+    short_title: "P2B"
+    doc_type: regulation
+    oj_reference: "L 186/57"
+  - celex: "32017R1128"
+    title: "Verordening (EU) 2017/1128 betreffende grensoverschrijdende portabiliteit van online inhoud"
+    short_title: "Portability"
+    doc_type: regulation
+    oj_reference: "L 168/1"
+  - celex: "32021R0104"
+    title: "Verordening (EU) 2021/104 tot oprichting van het programma Digital Europe"
+    short_title: "Digital Europe"
+    doc_type: regulation
+    oj_reference: "L 231/1"
+  - celex: "32019L1024"
+    title: "Richtlijn (EU) 2019/1024 betreffende open data en het hergebruik van overheidsinformatie"
+    short_title: "Open Data"
+    doc_type: directive
+    oj_reference: "L 172/56"
+  - celex: "32018L1972"
+    title: "Richtlijn (EU) 2018/1972 tot vaststelling van het Europees wetboek voor elektronische communicatie (EECC)"
+    short_title: "EECC"
+    doc_type: directive
+    oj_reference: "L 321/36"
+  - celex: "32018R1971"
+    title: "Verordening (EU) 2018/1971 tot oprichting van het orgaan van Europese reguleringsinstanties voor elektronische communicatie (BEREC)"
+    short_title: "BEREC"
+    doc_type: regulation
+    oj_reference: "L 321/1"
+  - celex: "32015R2120"
+    title: "Verordening (EU) 2015/2120 betreffende maatregelen inzake open internettoegang en roaming"
+    short_title: "Open Internet"
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 310/1"
+  - celex: "32006L0043"
+    title: "Richtlijn 2006/123/EG betreffende diensten op de interne markt"
+    short_title: "Services Directive"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 376/36"
+  - celex: "32023R2859"
+    title: "Verordening (EU) 2025/327 betreffende de Europese ruimte voor gezondheidsgegevens (EHDS)"
+    short_title: "EHDS"
+    doc_type: regulation
+    oj_reference: "L 2025/327"
+  - celex: "32024R0903"
+    title: "Verordening (EU) 2024/903 betreffende maatregelen voor een hoog gemeenschappelijk niveau van cyberbeveiliging in de Unie (Cyber Solidarity Act)"
+    short_title: "Cyber Solidarity"
+    doc_type: regulation
+    oj_reference: "L 2024/903"
+  - celex: "32022R0867"
+    title: "Verordening (EU) 2022/867 tot oprichting van gemeenschappelijke Europese data spaces"
+    short_title: "Data Spaces"
+    doc_type: regulation
+    oj_reference: "L 152/19"
+  - celex: "32019L1152"
+    title: "Richtlijn (EU) 2019/1152 betreffende transparante en voorspelbare arbeidsvoorwaarden"
+    short_title: "Transparent Work"
+    doc_type: directive
+    oj_reference: "L 186/105"
+  - celex: "32017R1129"
+    title: "Verordening (EU) 2017/1129 betreffende het prospectus dat moet worden gepubliceerd bij openbare aanbiedingen"
+    short_title: "Prospectus"
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 170/12"
+  - celex: "32022R1926"
+    title: "Verordening (EU) 2022/1926 tot oprichting van de structuur voor digitale diensten"
+    short_title: "DSA Structure"
+    doc_type: regulation
+    oj_reference: "L 265/33"
+  - celex: "32024R1682"
+    title: "Verordening (EU) 2024/1682 betreffende harmonisatie van bepaalde aspecten van auteursrecht en naburige rechten"
+    short_title: "Copyright DSM"
+    doc_type: regulation
+    oj_reference: "L 2024/1682"
+  - celex: "32019L0790"
+    title: "Richtlijn (EU) 2019/790 betreffende auteursrecht en naburige rechten op de digitale eengemaakte markt"
+    short_title: "Copyright Directive"
+    doc_type: directive
+    oj_reference: "L 130/92"
+  - celex: "32024R1689R(01)"
+    title: "Rectificatie Verordening (EU) 2024/1689 (AI Act corrigendum)"
+    short_title: "AI Act Corrigendum"
+    doc_type: regulation
+    version_type: corrigendum
+    corrigendum_celex: "32024R1689R(01)"
+  - celex: "32017R2394"
+    title: "Verordening (EU) 2017/2394 betreffende samenwerking tussen nationale autoriteiten voor consumentenbescherming"
+    short_title: "Consumer Cooperation"
+    doc_type: regulation
+    oj_reference: "L 350/14"
+
+  # --- Privacy & Data ---
+  - celex: "32016R0679"
+    title: "Verordening (EU) 2016/679 betreffende de bescherming van natuurlijke personen (GDPR)"
+    short_title: "GDPR"
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 119/1"
+  - celex: "32018R1725"
+    title: "Verordening (EU) 2018/1725 betreffende de bescherming van natuurlijke personen bij de verwerking door EU-instellingen"
+    short_title: "EUDPR"
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 295/39"
+  - celex: "32016L0680"
+    title: "Richtlijn (EU) 2016/680 betreffende de bescherming van natuurlijke personen bij strafrechtelijke verwerkingen"
+    short_title: "LED"
+    doc_type: directive
+    oj_reference: "L 119/89"
+  - celex: "32002L0058"
+    title: "Richtlijn 2002/58/EG betreffende de verwerking van persoonsgegevens en de bescherming van de persoonlijke levenssfeer in de sector elektronische communicatie (ePrivacy)"
+    short_title: "ePrivacy"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 201/37"
+  - celex: "32018R1807"
+    title: "Verordening (EU) 2018/1807 betreffende een kader voor de vrije doorgang van niet-persoonsgebonden gegevens in de Unie"
+    short_title: "Data FWD"
+    doc_type: regulation
+    oj_reference: "L 303/59"
+  - celex: "32023D1795"
+    title: "Uitvoeringsbesluit (EU) 2023/1795 betreffende de adequate bescherming door de VS (Data Privacy Framework)"
+    short_title: "DPF Adequacy"
+    doc_type: decision
+    oj_reference: "L 222/50"
+  - celex: "32021D0914"
+    title: "Uitvoeringsbesluit (EU) 2021/914 betreffende adequate bescherming door het Verenigd Koninkrijk"
+    short_title: "UK Adequacy"
+    doc_type: decision
+    oj_reference: "L 199/84"
+  - celex: "32018R1860"
+    title: "Verordening (EU) 2018/1860 betreffende de controle door de lidstaten van de Commissie bij de uitoefening van uitvoeringsbevoegdheden"
+    short_title: "GDPR Comitology"
+    doc_type: regulation
+    oj_reference: "L 303/70"
+  - celex: "32018R1724"
+    title: "Verordening (EU) 2018/1724 tot vaststelling van een gemeenschappelijk kader voor elektronische identificatie (eIDAS)"
+    short_title: "eIDAS"
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 295/7"
+  - celex: "32024R1183"
+    title: "Verordening (EU) 2024/1183 tot wijziging van Verordening (EU) nr. 910/2014 betreffende elektronische identificatie (eIDAS 2)"
+    short_title: "eIDAS 2"
+    doc_type: regulation
+    oj_reference: "L 2024/1183"
+  - celex: "32014R0910"
+    title: "Verordening (EU) nr. 910/2014 betreffende elektronische identificatie en vertrouwensdiensten (eIDAS)"
+    short_title: "eIDAS Original"
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 257/73"
+
+  # --- Cyber & NIS ---
+  - celex: "32022L2555"
+    title: "Richtlijn (EU) 2022/2555 betreffende maatregelen voor een hoog gemeenschappelijk niveau van cyberbeveiliging (NIS2)"
+    short_title: "NIS2"
+    doc_type: directive
+    oj_reference: "L 333/80"
+  - celex: "32019R0881"
+    title: "Verordening (EU) 2019/881 betreffende ENISA en certificering van cybersecurity in de Unie"
+    short_title: "Cybersecurity Act"
+    doc_type: regulation
+    oj_reference: "L 151/15"
+  - celex: "32022R2379"
+    title: "Verordening (EU) 2022/2379 betreffende geharmoniseerde regels voor de bescherming van persoonsgegevens bij Interpol"
+    short_title: "Interpol Data"
+    doc_type: regulation
+    oj_reference: "L 312/1"
+  - celex: "32019R0941"
+    title: "Verordening (EU) 2019/941 betreffende de voorbereiding op risico's in de elektriciteitssector"
+    short_title: "Electricity Risk"
+    doc_type: regulation
+    oj_reference: "L 151/1"
+  - celex: "32013L0040"
+    title: "Richtlijn 2013/40/EU betreffende aanvallen op informatiesystemen"
+    short_title: "Cyber Attacks"
+    doc_type: directive
+    oj_reference: "L 218/8"
+  - celex: "32008L0114"
+    title: "Richtlijn 2008/114/EG betreffende de vaststelling van de identificatie van kritieke infrastructuren"
+    short_title: "CII Directive"
+    doc_type: directive
+    oj_reference: "L 345/71"
+  - celex: "32016L1148"
+    title: "Richtlijn (EU) 2016/1148 betreffende maatregelen voor een hoog gemeenschappelijk niveau van beveiliging van netwerk- en informatiesystemen (NIS1)"
+    short_title: "NIS1"
+    doc_type: directive
+    oj_reference: "L 194/1"
+
+  # --- Financial ---
+  - celex: "32014R0596"
+    title: "Verordening (EU) nr. 596/2014 betreffende marktmisbruik (MAR)"
+    short_title: "MAR"
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 173/1"
+  - celex: "32014L0065"
+    title: "Richtlijn 2014/65/EU betreffende markten voor financiële instrumenten (MiFID II)"
+    short_title: "MiFID II"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 173/349"
+  - celex: "32015L0849"
+    title: "Richtlijn (EU) 2015/849 betreffende de voorkoming van het gebruik van het financiële stelsel voor witwassen (4AMLD)"
+    short_title: "4AMLD"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 141/73"
+  - celex: "32013L0036"
+    title: "Richtlijn 2013/36/EU betreffende toegang tot het bedrijf van kredietinstellingen (CRD IV)"
+    short_title: "CRD IV"
+    doc_type: directive
+    oj_reference: "L 176/338"
+  - celex: "32014R0600"
+    title: "Verordening (EU) nr. 600/2014 betreffende markten voor financiële instrumenten (MiFIR)"
+    short_title: "MiFIR"
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 173/84"
+  - celex: "32012R0648"
+    title: "Verordening (EU) nr. 648/2012 betreffende OTC-derivaten, centrale tegenpartijen en transactieregisters (EMIR)"
+    short_title: "EMIR"
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 201/1"
+  - celex: "32019R2033"
+    title: "Verordening (EU) 2019/2088 betreffende duurzaamheidsgerelateerde openbaarmakingen in de financiëledienstensector (SFDR)"
+    short_title: "SFDR"
+    doc_type: regulation
+    oj_reference: "L 317/1"
+  - celex: "32022R2554"
+    title: "Verordening (EU) 2022/2554 betreffende digitale operationele weerbaarheid van de financiële sector (DORA)"
+    short_title: "DORA"
+    doc_type: regulation
+    oj_reference: "L 333/1"
+  - celex: "32014L0092"
+    title: "Richtlijn 2014/92/EU betreffende betaaldiensten in de interne markt (PSD2)"
+    short_title: "PSD2"
+    doc_type: directive
+    oj_reference: "L 257/35"
+  - celex: "32011L0061"
+    title: "Richtlijn 2011/61/EU betreffende beheerders van alternatieve beleggingsfondsen (AIFMD)"
+    short_title: "AIFMD"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 174/1"
+  - celex: "32009L0065"
+    title: "Richtlijn 2009/65/EG betreffende de coördinatie van de wettelijke en bestuursrechtelijke bepalingen betreffende bepaalde instellingen voor collectieve belegging (UCITS)"
+    short_title: "UCITS"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 302/32"
+  - celex: "32018L0843"
+    title: "Richtlijn (EU) 2018/843 betreffende de voorkoming van het gebruik van het financiële stelsel voor witwassen (5AMLD)"
+    short_title: "5AMLD"
+    doc_type: directive
+    oj_reference: "L 156/43"
+  - celex: "32024R1624"
+    title: "Verordening (EU) 2024/1624 betreffende de voorkoming van het gebruik van het financiële stelsel voor witwassen (AML Verordening)"
+    short_title: "AML Regulation"
+    doc_type: regulation
+    oj_reference: "L 2024/1624"
+  - celex: "32023L1114"
+    title: "Richtlijn (EU) 2023/1114 betreffende de voorkoming van het gebruik van het financiële stelsel voor witwassen (6AMLD)"
+    short_title: "6AMLD"
+    doc_type: directive
+    oj_reference: "L 150/1"
+  - celex: "32021R0451"
+    title: "Verordening (EU) 2021/451 tot vaststelling van technische uitvoeringsnormen voor prudentiële rapportage (CRR)"
+    short_title: "CRR Reporting"
+    doc_type: regulation
+    oj_reference: "L 90/1"
+  - celex: "32013R0575"
+    title: "Verordening (EU) nr. 575/2013 betreffende prudentiële vereisten voor kredietinstellingen (CRR)"
+    short_title: "CRR"
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 176/1"
+  - celex: "32015L2366"
+    title: "Richtlijn (EU) 2015/2366 betreffende betaaldiensten in de interne markt (PSD2 herziening basis)"
+    short_title: "PSD2 Directive"
+    doc_type: directive
+    oj_reference: "L 337/35"
+  - celex: "32017R2402"
+    title: "Verordening (EU) 2017/2402 betreffende securitisaties (STS)"
+    short_title: "Securitisation"
+    doc_type: regulation
+    oj_reference: "L 347/35"
+  - celex: "32014L0059"
+    title: "Richtlijn 2014/59/EU betreffende de totstandbrenging van een kader voor het herstel en de afwikkeling van kredietinstellingen (BRRD)"
+    short_title: "BRRD"
+    doc_type: directive
+    oj_reference: "L 173/190"
+  - celex: "32009L0110"
+    title: "Richtlijn 2009/110/EG betreffende de toegang tot en de uitoefening van de werkzaamheden van instellingen voor elektronisch geld"
+    short_title: "E-Money"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 267/7"
+  - celex: "32014R0602"
+    title: "Verordening (EU) nr. 600/2014 technische normen MiFID II (gedelegeerde verordening)"
+    short_title: "MiFID II Delegated"
+    doc_type: regulation
+    oj_reference: "L 173/228"
+  - celex: "32017R1125"
+    title: "Verordening (EU) 2017/1125 betreffende de controle van concentraties tussen ondernemingen"
+    short_title: "Merger Control"
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 169/1"
+  - celex: "32013R0600"
+    title: "Verordening (EU) nr. 600/2014 betreffende markten voor financiële instrumenten"
+    short_title: "MiFIR Alt"
+    doc_type: regulation
+    oj_reference: "L 173/84"
+  - celex: "32019R1238"
+    title: "Verordening (EU) 2019/1238 tot instelling van een Europees groen obligatielabel"
+    short_title: "Green Bonds"
+    doc_type: regulation
+    oj_reference: "L 198/1"
+  - celex: "32020R0852"
+    title: "Verordening (EU) 2020/852 betreffende de totstandbrenging van een kader voor duurzame investeringen (Taxonomie)"
+    short_title: "Taxonomy"
+    doc_type: regulation
+    oj_reference: "L 198/13"
+  - celex: "32022R2556"
+    title: "Verordening (EU) 2022/2556 tot aanvulling van Verordening (EU) 2022/2554 (DORA RTS)"
+    short_title: "DORA RTS"
+    doc_type: regulation
+    oj_reference: "L 333/64"
+
+  # --- Consumer & AV ---
+  - celex: "32010L0013"
+    title: "Richtlijn 2010/13/EU betreffende audiovisuele mediadiensten (AVMSD)"
+    short_title: "AVMSD"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 95/1"
+  - celex: "32011L0083"
+    title: "Richtlijn 2011/83/EU betreffende consumentenrechten"
+    short_title: "Consumer Rights"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 304/64"
+  - celex: "32019L0771"
+    title: "Richtlijn (EU) 2019/771 betreffende bepaalde aspecten van overeenkomsten voor de verkoop van goederen"
+    short_title: "Sale of Goods"
+    doc_type: directive
+    oj_reference: "L 136/28"
+  - celex: "32019L2161"
+    title: "Richtlijn (EU) 2019/2161 betreffende betere handhaving en modernisering van consumentenbeschermingsregels"
+    short_title: "Omnibus Consumer"
+    doc_type: directive
+    oj_reference: "L 328/1"
+  - celex: "32005L0029"
+    title: "Richtlijn 2005/29/EG betreffende oneerlijke handelspraktijken (UCPD)"
+    short_title: "UCPD"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 149/22"
+  - celex: "32006L0114"
+    title: "Richtlijn 2006/114/EG betreffende misleidende en vergelijkende reclame"
+    short_title: "Misleading Ads"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 376/21"
+  - celex: "32024L1788"
+    title: "Richtlijn (EU) 2024/1788 betreffende de verkoop van consumentenproducten"
+    short_title: "Consumer Products"
+    doc_type: directive
+    oj_reference: "L 2024/1788"
+  - celex: "32023L2673"
+    title: "Richtlijn (EU) 2023/2673 betreffende de versterking van de positie van consumenten in de groene transitie"
+    short_title: "Green Claims"
+    doc_type: directive
+    oj_reference: "L 2023/2673"
+
+  # --- Health & Product ---
+  - celex: "32017R0745"
+    title: "Verordening (EU) 2017/745 betreffende medische hulpmiddelen (MDR)"
+    short_title: "MDR"
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 117/1"
+  - celex: "32017R0746"
+    title: "Verordening (EU) 2017/746 betreffende medische hulpmiddelen voor in vitro diagnostiek (IVDR)"
+    short_title: "IVDR"
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 117/176"
+  - celex: "32014R0536"
+    title: "Verordening (EU) nr. 536/2014 betreffende klinische proeven met geneesmiddelen voor menselijk gebruik"
+    short_title: "Clinical Trials"
+    doc_type: regulation
+    oj_reference: "L 158/1"
+  - celex: "32023R0915"
+    title: "Verordening (EU) 2023/915 betreffende maximale gehalten aan verontreinigingen in levensmiddelen"
+    short_title: "Food Contaminants"
+    doc_type: regulation
+    oj_reference: "L 119/1"
+  - celex: "32023R0913"
+    title: "Verordening (EU) 2023/913 betreffende de verkoop van producten als biologisch"
+    short_title: "Organic Products"
+    doc_type: regulation
+    oj_reference: "L 119/1"
+  - celex: "32024R1680"
+    title: "Verordening (EU) 2024/1680 betreffende de verkoop van producten als biologisch in de Unie"
+    short_title: "Organic 2024"
+    doc_type: regulation
+    oj_reference: "L 2024/1680"
+
+  # --- Competition & Trade ---
+  - celex: "32014R0330"
+    title: "Verordening (EU) nr. 330/2010 betreffende de toepassing van artikel 101, lid 3, VWEU op groepen verticale overeenkomsten"
+    short_title: "Vertical Block Exemption"
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 102/1"
+  - celex: "32022R2560"
+    title: "Verordening (EU) 2022/2560 betreffende buitenlandse subsidies die de interne markt verstoren"
+    short_title: "Foreign Subsidies"
+    doc_type: regulation
+    oj_reference: "L 335/1"
+  - celex: "32023R1115"
+    title: "Verordening (EU) 2023/1115 betreffende de beschikbaarstelling op de Uniemarkt van bepaalde grondstoffen en producten"
+    short_title: "Deforestation"
+    doc_type: regulation
+    oj_reference: "L 150/206"
+  - celex: "32024R1781"
+    title: "Verordening (EU) 2024/1781 betreffende batterijen en afgedankte batterijen"
+    short_title: "Batteries"
+    doc_type: regulation
+    oj_reference: "L 2024/1781"
+  - celex: "32019R1020"
+    title: "Verordening (EU) 2019/1020 betreffende markttoezicht en conformiteit van producten"
+    short_title: "Market Surveillance"
+    doc_type: regulation
+    oj_reference: "L 169/1"
+  - celex: "32023R1542"
+    title: "Verordening (EU) 2023/1542 betreffende batterijen en afgedankte batterijen (herziening)"
+    short_title: "Batteries 2023"
+    doc_type: regulation
+    oj_reference: "L 191/1"
+  - celex: "32024R1683"
+    title: "Verordening (EU) 2024/1683 betreffende ecologisch ontwerp voor duurzame producten (ESPR)"
+    short_title: "ESPR"
+    doc_type: regulation
+    oj_reference: "L 2024/1683"
+  - celex: "32009L0125"
+    title: "Richtlijn 2009/125/EG tot vaststelling van een kader voor het vaststellen van eisen inzake ecologisch ontwerp (Ecodesign)"
+    short_title: "Ecodesign"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 285/10"
+  - celex: "32010L0030"
+    title: "Richtlijn 2010/30/EU betreffende de aanduiding van het verbruik van energie en andere hulpbronnen door energiegerelateerde producten"
+    short_title: "Energy Label"
+    doc_type: directive
+    oj_reference: "L 153/1"
+  - celex: "32024R1780"
+    title: "Verordening (EU) 2024/1780 betreffende de verpakking en verpakkingsafval"
+    short_title: "Packaging"
+    doc_type: regulation
+    oj_reference: "L 2024/1780"
+  - celex: "32019L0904"
+    title: "Richtlijn (EU) 2019/904 betreffende de vermindering van de impact van bepaalde plastic producten op het milieu"
+    short_title: "Single-Use Plastics"
+    doc_type: directive
+    oj_reference: "L 155/1"
+  - celex: "32018L2001"
+    title: "Richtlijn (EU) 2018/2001 betreffende de bevordering van het gebruik van energie uit hernieuwbare bronnen"
+    short_title: "RED III"
+    doc_type: directive
+    oj_reference: "L 328/82"
+  - celex: "32023R0954"
+    title: "Verordening (EU) 2023/954 betreffende de instelling van een kader voor de toelating en het verblijf van derdelanders"
+    short_title: "Skills Mobility"
+    doc_type: regulation
+    oj_reference: "L 124/1"
+  - celex: "32024L1385"
+    title: "Richtlijn (EU) 2024/1385 betreffende de bescherming van persoon die meldingen doen van inbreuken"
+    short_title: "Whistleblower"
+    doc_type: directive
+    oj_reference: "L 2024/1385"
+  - celex: "32019L1937"
+    title: "Richtlijn (EU) 2019/1937 betreffende de bescherming van personen die meldingen doen van inbreuken"
+    short_title: "Whistleblower 2019"
+    doc_type: directive
+    oj_reference: "L 305/17"
+  - celex: "32024R1681"
+    title: "Verordening (EU) 2024/1681 betreffende de verplichte due diligence inzake mensenrechten en milieu (CSDDD)"
+    short_title: "CSDDD"
+    doc_type: directive
+    oj_reference: "L 2024/1681"
+  - celex: "32022L2464"
+    title: "Richtlijn (EU) 2022/2464 betreffende duurzaamheidsrapportering door ondernemingen (CSRD)"
+    short_title: "CSRD"
+    doc_type: directive
+    oj_reference: "L 322/15"
+  - celex: "32013L0034"
+    title: "Richtlijn 2013/34/EU betreffende de jaarlijkse financiële overzichten (Accounting Directive)"
+    short_title: "Accounting"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 182/19"
+  - celex: "32017R1131"
+    title: "Verordening (EU) 2017/1131 betreffende geldmarktfondsen"
+    short_title: "MMF"
+    doc_type: regulation
+    oj_reference: "L 169/8"
+  - celex: "32015R2365"
+    title: "Verordening (EU) 2015/2365 betreffende transparantie van effectenfinancieringstransacties (SFTR)"
+    short_title: "SFTR"
+    doc_type: regulation
+    oj_reference: "L 337/1"

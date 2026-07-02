@@ -20,26 +20,31 @@ from shared.schemas.document import DocumentMetadata
 
 logger = logging.getLogger(__name__)
 
+UPSERT_BATCH_SIZE = 64
+
 
 async def ingest_document(
     metadata: DocumentMetadata,
     session: AsyncSession,
     use_live_fetch: bool = True,
+    cellar: CellarRestClient | None = None,
 ) -> int:
     """Fetch, parse, chunk, embed and store one document. Returns chunk count."""
     parser = DocumentParser()
     chunker = LegalChunker()
-    cellar = CellarRestClient()
-    subdivisions = await _fetch_subdivisions(metadata, parser, cellar, use_live_fetch)
+    client = cellar or CellarRestClient()
+    subdivisions = await _fetch_subdivisions(metadata, parser, client, use_live_fetch)
     if not subdivisions:
         logger.warning("No content for %s", metadata.celex)
         return 0
     doc = await _upsert_document(metadata, session)
     chunks = chunker.chunk_document(subdivisions, metadata)
     embeddings = get_embedding_service()
-    vectors = embeddings.embed_passages([c.text for c in chunks])
     qdrant = QdrantService()
-    qdrant.upsert_chunks(chunks, vectors)
+    for start in range(0, len(chunks), UPSERT_BATCH_SIZE):
+        batch = chunks[start : start + UPSERT_BATCH_SIZE]
+        vectors = embeddings.embed_passages([c.text for c in batch])
+        qdrant.upsert_chunks(batch, vectors)
     for chunk in chunks:
         await _upsert_chunk(chunk, doc.id, session)
     doc.indexed_at = datetime.now(timezone.utc)

@@ -14,6 +14,16 @@ from shared.schemas.query import AnswerResponse, QueryRequest
 
 logger = logging.getLogger(__name__)
 
+RETRIEVAL_CANDIDATE_LIMIT = 200
+
+# Lightweight lexical hints to rescue sparse-but-important regulations.
+LEGAL_TERM_CELEX_HINTS: dict[str, str] = {
+    "dora": "32022R2554",
+    "digitale operationele weerbaarheid": "32022R2554",
+    "csrd": "32022L2464",
+    "duurzaamheidsrapportering": "32022L2464",
+}
+
 
 class RagService:
     """Orchestrates hybrid search, reranking, and LLM answer generation."""
@@ -117,12 +127,22 @@ class RagService:
         filters = request.filters
         lang = filters.language if filters else request.language
         in_force = filters.in_force_only if filters else True
-        dense = self._qdrant.search(vector, limit=50, language=lang, in_force_only=in_force)
+        dense = self._qdrant.search(
+            vector,
+            limit=RETRIEVAL_CANDIDATE_LIMIT,
+            language=lang,
+            in_force_only=in_force,
+        )
         bm25 = self._bm25_search(request.question, dense)
-        merged = self._merge_results(dense, bm25)
+        hint_hits = self._hint_search(request.question, lang, in_force)
+        merged = self._merge_results(hint_hits, dense, bm25)
         if filters and filters.consolidated_preferred:
             merged = self._trust.prefer_consolidated(merged)
-        return self._reranker.rerank(request.question, merged, top_k=8)
+        reranked = self._reranker.rerank(request.question, merged, top_k=8)
+        if hint_hits:
+            # Preserve explicit legal-term intent chunks (e.g. DORA/CSRD) in final context.
+            return self._merge_results(hint_hits, reranked)[:8]
+        return reranked
 
     def _bm25_search(self, query: str, candidates: list[dict]) -> list[dict]:
         celex_match = re.search(r"\b\d{5}[A-Z]\d{4}\b", query)
@@ -131,12 +151,32 @@ class RagService:
         celex = celex_match.group()
         return [c for c in candidates if celex in c.get("celex", "") or celex in c.get("text", "")]
 
-    def _merge_results(self, dense: list[dict], bm25: list[dict]) -> list[dict]:
+    def _hint_search(
+        self,
+        query: str,
+        language: str | None,
+        in_force_only: bool,
+    ) -> list[dict]:
+        query_lower = query.lower()
+        target_celex = {
+            celex for hint, celex in LEGAL_TERM_CELEX_HINTS.items() if hint in query_lower
+        }
+        if not target_celex:
+            return []
+        return self._qdrant.search_by_celex(
+            celex_values=target_celex,
+            limit=12,
+            language=language,
+            in_force_only=in_force_only,
+        )
+
+    def _merge_results(self, *result_groups: list[dict]) -> list[dict]:
         seen = set()
         merged = []
-        for r in dense + bm25:
-            cid = r.get("chunk_id")
-            if cid and cid not in seen:
-                seen.add(cid)
-                merged.append(r)
+        for group in result_groups:
+            for result in group:
+                cid = result.get("chunk_id")
+                if cid and cid not in seen:
+                    seen.add(cid)
+                    merged.append(result)
         return merged
