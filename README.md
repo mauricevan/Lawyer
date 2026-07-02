@@ -55,7 +55,8 @@ cd frontend && npm install && npm run dev
 ./scripts/ops/run-hotfix-rollback.sh     # incident mitigatie
 ```
 
-Zie `docs/ops/` voor checklist, SLO's, escalatie en hotfix-runbooks.
+Zie `docs/ops/` voor checklist, SLO's, escalatie en hotfix-runbooks.  
+Nieuwe engineers: start bij [`docs/engineering/onboarding.md`](docs/engineering/onboarding.md).
 
 Met de volledige stack draaien metrics en dashboards automatisch mee:
 

@@ -1,0 +1,37 @@
+# Critical components — pair review scope (plan5 J2)
+components:
+  - id: rag_pipeline
+    label: Hybrid RAG orchestration
+    paths:
+      - backend/src/services/rag_service.py
+      - backend/src/services/query_router_service.py
+      - backend/src/services/live_retrieval_service.py
+      - backend/src/services/query_cache_service.py
+
+  - id: answer_policy
+    label: Answer policy and citations
+    paths:
+      - backend/src/services/answer_policy_service.py
+      - backend/src/services/answer_quality_service.py
+      - backend/src/services/citation_builder_service.py
+      - backend/src/services/source_consistency_service.py
+
+  - id: auth_security
+    label: Authentication and SSRF
+    paths:
+      - backend/src/dependencies/auth.py
+      - backend/src/security/ssrf_guard.py
+      - backend/src/routes/auth.py
+      - backend/src/services/auth_service.py
+
+  - id: query_api
+    label: Public query API surface
+    paths:
+      - backend/src/routes/query.py
+      - shared/schemas/query.py
+
+  - id: admin_surface
+    label: Admin and audit
+    paths:
+      - backend/src/routes/admin.py
+      - backend/src/services/audit_service.py

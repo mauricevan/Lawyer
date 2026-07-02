@@ -21,6 +21,18 @@ pytest backend/tests -m "not integration" -q
 echo "→ Frontend unit tests"
 (cd frontend && npm test -- --run)
 
+echo "→ Knowledge base check"
+chmod +x scripts/ops/run-knowledge-base-check.sh scripts/ops/check-pair-review.sh
+./scripts/ops/run-knowledge-base-check.sh
+
+if ! PAIR_REVIEW_ACK="${PAIR_REVIEW_ACK:-}" ./scripts/ops/check-pair-review.sh; then
+  if [[ "${PAIR_REVIEW_ACK:-}" == "yes" ]]; then
+  echo "WARN: pair review ACK set but critical paths changed — ensure checklist completed"
+  else
+    echo "NOTE: critical paths changed; set PAIR_REVIEW_ACK=yes after pair review if intentional"
+  fi
+fi
+
 echo ""
 echo "PASS: All automated release gates succeeded."
 echo "Manual steps: see docs/ops/release-checklist.md"

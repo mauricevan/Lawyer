@@ -67,10 +67,10 @@
 
 ### J2. Team en kennisborging
 
-- [ ] Onboarding pack voor nieuwe engineers bijwerken
-- [ ] Runbooks, ADRs en troubleshooting gids up-to-date houden
-- [ ] Pair review op kritieke componenten afdwingen
-- [ ] Incident learnings terugkoppelen in coding standards
+- [x] Onboarding pack voor nieuwe engineers bijwerken
+- [x] Runbooks, ADRs en troubleshooting gids up-to-date houden
+- [x] Pair review op kritieke componenten afdwingen
+- [x] Incident learnings terugkoppelen in coding standards
 
 ## KPI-doelen plan5
 
@@ -81,7 +81,7 @@
 
 ## Exit criteria plan5
 
-- [ ] Werkstromen H, I en J afgerond
+- [x] Werkstromen H, I en J afgerond
 - [ ] Kwartaaldoelen gehaald of met mitigatie herpland
 - [ ] Team heeft continue verbetercyclus operationeel
 

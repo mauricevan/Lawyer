@@ -208,6 +208,18 @@ Elke substantiële wijziging doorloopt deze checklist **voordat** het gecommit w
 - Als iets niet kan worden opgelost binnen de regels van dit manifest — **meld het**, los het niet stilletjes op op een slechte manier.
 - **Refactor als je slechte code ziet**, ook als het niet de opdracht was. We laten geen puinhoop achter.
 
+### 13.1 Incident learnings (plan5 J2)
+
+Vóór wijzigingen aan retrieval, auth, of live fallback: lees `docs/engineering/incident-learnings.md`.
+
+- **Live EUR-Lex:** verifieer usable content — geen antwoord op lege 202/HTML.
+- **Retrieval onzeker:** confidence + verificatievragen; geen bron = disclaimer + escalatie.
+- **Externe URLs:** alleen via `ssrf_guard` allowlist.
+- **Secrets:** nooit in git; pre-commit scan moet groen blijven.
+- **Kritieke paden:** pair review volgens `docs/engineering/pair-review-policy.md`.
+
+Nieuwe incident-lessen → tabel in `incident-learnings.md` + runbook-update indien nodig.
+
 ---
 
 ## 14. DEFINITIE VAN "KLAAR"

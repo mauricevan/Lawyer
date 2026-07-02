@@ -17,6 +17,8 @@ required_docs=(
   docs/ops/capacity-model.md
   docs/ops/technical-debt-register.md
   docs/ops/architecture-review.md
+  docs/engineering/onboarding.md
+  docs/engineering/runbook-index.md
 )
 
 for doc in "${required_docs[@]}"; do
@@ -58,8 +60,13 @@ echo "→ Backend unit tests"
 pytest backend/tests -m "not integration" -q
 
 echo ""
+echo "→ Knowledge base check"
+chmod +x scripts/ops/run-knowledge-base-check.sh
+./scripts/ops/run-knowledge-base-check.sh
+
+echo ""
 echo "→ Portfolio planning tests"
-pytest backend/tests/test_portfolio_planning.py -q
+pytest backend/tests/test_portfolio_planning.py backend/tests/test_knowledge_base.py -q
 
 echo ""
 echo "=== Review reminders ==="
