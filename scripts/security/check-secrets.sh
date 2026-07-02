@@ -20,6 +20,7 @@ PLACEHOLDER_MARKERS=(
   "your_anthropic_api_key_here"
   "your_openai_api_key_here"
   "change_me_in_production_use_long_random_string"
+  "change_me_grafana_admin_password"
   "example"
   "placeholder"
   "changeme"
@@ -67,7 +68,7 @@ scan_env_assignments() {
 
   while IFS= read -r line || [[ -n "$line" ]]; do
     line_no=$((line_no + 1))
-    if [[ "$line" =~ ^[[:space:]]*(OPENROUTER_API_KEY|ANTHROPIC_API_KEY|OPENAI_API_KEY|JWT_SECRET|EU_LOGIN_PASSWORD)[[:space:]]*=[[:space:]]*(.+) ]]; then
+    if [[ "$line" =~ ^[[:space:]]*(OPENROUTER_API_KEY|ANTHROPIC_API_KEY|OPENAI_API_KEY|JWT_SECRET|ADMIN_API_KEY|GRAFANA_ADMIN_PASSWORD|EU_LOGIN_PASSWORD)[[:space:]]*=[[:space:]]*(.+) ]]; then
       local value="${BASH_REMATCH[2]}"
       value="${value%\"}"
       value="${value#\"}"

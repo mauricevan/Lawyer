@@ -52,5 +52,6 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - uses: actions/checkout@v4
-      - run: chmod +x scripts/security/check-secrets.sh
+      - run: chmod +x scripts/security/check-secrets.sh scripts/security/check-log-output.sh
       - run: ./scripts/security/check-secrets.sh all
+      - run: ./scripts/security/check-log-output.sh

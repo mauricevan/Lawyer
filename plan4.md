@@ -35,10 +35,10 @@
 
 ### E2. Secret en key management
 
-- [ ] Secret inventory compleet maken
-- [ ] Rotatieprocedure oefenen (tabletop + test)
-- [ ] Geen secrets in logs/build output controleren
-- [ ] Incident playbook voor key exposure opstellen
+- [x] Secret inventory compleet maken
+- [x] Rotatieprocedure oefenen (tabletop + test)
+- [x] Geen secrets in logs/build output controleren
+- [x] Incident playbook voor key exposure opstellen
 
 ### E3. Applicatiebeveiliging
 

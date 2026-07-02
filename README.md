@@ -24,16 +24,17 @@ cd frontend && npm install && npm run dev
 
 - Gebruik alleen placeholders in `.env.example`; zet nooit echte secrets in git.
 - Houd `.env` lokaal en deel het niet via commits, screenshots of terminal dumps.
-- Na mogelijke blootstelling: roteer direct `OPENROUTER_API_KEY`, `ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, `EU_LOGIN_PASSWORD`, en `JWT_SECRET`.
-- Gebruik voor productie unieke secrets per omgeving (dev/staging/prod), nooit hergebruik.
+- Volledige inventaris en rotatie: [`docs/security/`](docs/security/).
+- Na mogelijke blootstelling: volg [`incident-key-exposure.md`](docs/security/incident-key-exposure.md).
 
 ```bash
 # Eenmalig: pre-commit hook activeren
 ./scripts/security/install-hooks.sh
 
-# Handmatig scannen (optioneel)
-./scripts/security/check-secrets.sh
+# Handmatig scannen
 ./scripts/security/check-secrets.sh all
+./scripts/security/check-log-output.sh
+./scripts/security/run-rotation-tabletop.sh
 ```
 
 - Frontend: http://localhost:3000
