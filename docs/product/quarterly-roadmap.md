@@ -12,7 +12,7 @@
 | Domeinuitbreiding | Go-domains benchmark | 5/5 pass | Groen |
 | Taaluitbreiding | FR/DE/ES Recall@5 | ≥ 0.70 | Groen (fixture) |
 | Betrouwbaarheid | Availability + p95 | SLO's | Monitoren |
-| Feedbacklus | Negatieve ratio | < 15% | Wacht op gebruikersdata |
+| Feedbacklus | Negatieve ratio | < 15% | Wacht op pilot — [plan5-kpi-scorecard.md](./plan5-kpi-scorecard.md) |
 
 ## Initiatieven (portfolio)
 

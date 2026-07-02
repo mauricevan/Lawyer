@@ -11,6 +11,7 @@ def test_onboarding_pack_exists() -> None:
     assert (_ENGINEERING / "onboarding.md").is_file()
     assert (_ENGINEERING / "runbook-index.md").is_file()
     assert (_ENGINEERING / "troubleshooting.md").is_file()
+    assert (_REPO_ROOT / "docs/product/plan5-kpi-scorecard.md").is_file()
 
 
 def test_critical_components_registered() -> None:

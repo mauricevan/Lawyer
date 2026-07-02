@@ -9,6 +9,8 @@ echo "=== Knowledge base check ==="
 
 required=(
   docs/engineering/onboarding.md
+  docs/product/plan5-kpi-scorecard.md
+  docs/product/plan4-exit-gap.md
   docs/engineering/runbook-index.md
   docs/engineering/troubleshooting.md
   docs/engineering/pair-review-policy.md

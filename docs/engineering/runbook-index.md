@@ -34,6 +34,8 @@ Centrale index — houd links actueel bij nieuwe runbooks.
 | Runbook | Wanneer |
 |---|---|
 | [feedback-triage.md](../product/feedback-triage.md) | Wekelijkse feedback |
+| [plan5-kpi-scorecard.md](../product/plan5-kpi-scorecard.md) | Maandelijks / kwartaal KPI |
+| [run-plan5-kpi-snapshot.sh](../../scripts/ops/run-plan5-kpi-snapshot.sh) | KPI meting |
 | [run-retrieval-eval.sh](../../scripts/qa/run-retrieval-eval.sh) | Release kwaliteitsgate |
 | [run-domain-benchmark.sh](../../scripts/qa/run-domain-benchmark.sh) | Domein go/no-go |
 | [run-multilingual-eval.sh](../../scripts/qa/run-multilingual-eval.sh) | Taaluitrol |
@@ -46,6 +48,7 @@ Centrale index — houd links actueel bij nieuwe runbooks.
 ./scripts/ops/run-quarterly-portfolio-review.sh
 ./scripts/ops/run-knowledge-base-check.sh
 ./scripts/ops/check-pair-review.sh
+./scripts/ops/run-plan5-kpi-snapshot.sh
 ```
 
 ## Onderhoud

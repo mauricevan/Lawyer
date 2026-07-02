@@ -3,7 +3,7 @@
 
 ## Implementatiestatus (2026-07-02)
 
-- **Status:** Klaar voor gefaseerde uitvoering — plan.md/plan2.md zijn technisch afgerond.
+- **Status:** Werkstromen H/I/J afgerond — KPI/exit gedocumenteerd in [plan5-kpi-scorecard.md](docs/product/plan5-kpi-scorecard.md).
 - **Start:** activeer werkpakketten in dit plan per productprioriteit.
 - **Afhankelijkheid:** integration eval (`scripts/qa/run-retrieval-eval.sh`) voor harde kwaliteitsgate.
 ## Relatie met eerdere plannen
@@ -14,15 +14,15 @@
 
 ## Waar zitten we nu
 
-- [ ] `plan4.md` volledig afgerond
-- [ ] Governance en security processen actief
-- [ ] Teamcapaciteit beschikbaar voor groeifase
+- [ ] `plan4.md` volledig afgerond — zie [plan4-exit-gap.md](docs/product/plan4-exit-gap.md)
+- [x] Governance en security processen actief
+- [ ] Teamcapaciteit beschikbaar voor groeifase — solo; zie [capacity-model.md](docs/ops/capacity-model.md)
 
 ## Hoofddoelen plan5
 
-- [ ] Productwaarde verhogen op basis van echte gebruikersdata
-- [ ] Nieuwe domeinen en talen gecontroleerd toevoegen
-- [ ] Organisatie in continue verbetercyclus brengen
+- [ ] Productwaarde verhogen op basis van echte gebruikersdata — instrumentatie klaar, pilot volgt
+- [x] Nieuwe domeinen en talen gecontroleerd toevoegen
+- [x] Organisatie in continue verbetercyclus brengen
 
 ## Werkstroom H - Productverbetering op feedback
 
@@ -74,17 +74,19 @@
 
 ## KPI-doelen plan5
 
-- [ ] Gebruikersfeedback score stijgt kwartaal-op-kwartaal
-- [ ] Negatieve feedbackratio daalt trendmatig
-- [ ] Nieuwe domeinen halen minimale kwaliteitsdrempels
-- [ ] Regressies per release binnen afgesproken grens
+Gedetailleerd: [plan5-kpi-scorecard.md](docs/product/plan5-kpi-scorecard.md) · snapshot: `./scripts/ops/run-plan5-kpi-snapshot.sh`
+
+- [ ] Gebruikersfeedback score stijgt kwartaal-op-kwartaal — ⏳ baseline na pilot (≥30 entries)
+- [ ] Negatieve feedbackratio daalt trendmatig — ⏳ zelfde
+- [x] Nieuwe domeinen halen minimale kwaliteitsdrempels — registry + benchmark scripts
+- [ ] Regressies per release binnen afgesproken grens — ⏳ eerste releases Q3 tellen mee
 
 ## Exit criteria plan5
 
 - [x] Werkstromen H, I en J afgerond
-- [ ] Kwartaaldoelen gehaald of met mitigatie herpland
-- [ ] Team heeft continue verbetercyclus operationeel
+- [ ] Kwartaaldoelen gehaald of met mitigatie herpland — mitigatieplan in scorecard §5
+- [x] Team heeft continue verbetercyclus operationeel — triage, release gate, kwartaalreview
 
 ## Overdrachtsregel naar plan6
 
-- [ ] Als alle onderdelen in dit document zijn afgevinkt en extra roadmap nodig is, wordt verder gewerkt in `plan6.md`.
+- [ ] Plan6 start na eind-Q3 KPI-review (scorecard §6) en feedback-baseline of gedocumenteerde mitigatie

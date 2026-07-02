@@ -41,6 +41,22 @@ objectives:
     source: prometheus:lawyer_ready_success_rate
     owner: ops
 
+  - id: positive_feedback_score
+    label: Mean feedback rating
+    target: 4.0
+    floor: 3.5
+    direction: higher_is_better
+    source: db:query_feedback.avg_rating
+    owner: product
+
+  - id: regression_rate
+    label: Release regression rate
+    target: 0.10
+    floor: 0.20
+    direction: lower_is_better
+    source: ops:post_release_review
+    owner: ops
+
   - id: negative_feedback_ratio
     label: Negative feedback share
     target: 0.15
