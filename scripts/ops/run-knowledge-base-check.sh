@@ -27,6 +27,9 @@ required=(
   docs/engineering/release-standards.md
   docs/engineering/quality-gates.yaml
   docs/org/component-ownership-matrix.yaml
+  docs/product/portfolio-board-cadence.md
+  docs/product/prioritization-model.yaml
+  docs/risk/strategic-risk-register.yaml
   docs/adr/README.md
   observability/runbooks/top-5-incidents.md
 )

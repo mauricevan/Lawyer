@@ -1,0 +1,52 @@
+# Strategic risk register (plan9 V)
+version: "2026.07.02"
+review_cadence: quarterly
+
+risks:
+  - id: RISK-001
+    category: vendor
+    title: LLM provider dependency (OpenRouter / Anthropic)
+    likelihood: 3
+    impact: 4
+    owner: backend
+    mitigation: env-switchable provider + fallback answer path
+    review: docs/risk/vendor-model-risk.md
+
+  - id: RISK-002
+    category: model
+    title: Embedding model drift or HF outage
+    likelihood: 2
+    impact: 4
+    owner: backend
+    mitigation: pinned model revision + local cache warmup
+
+  - id: RISK-003
+    category: regulatory
+    title: EU AI Act obligations for legal assistant UX
+    likelihood: 3
+    impact: 5
+    owner: product
+    mitigation: disclaimers + human escalation path
+    review: docs/risk/regulatory-radar.yaml
+
+  - id: RISK-004
+    category: continuity
+    title: Qdrant or Postgres single-point failure
+    likelihood: 2
+    impact: 5
+    owner: platform
+    mitigation: docs/risk/continuity-plan.md
+
+  - id: RISK-005
+    category: data
+    title: Stale EUR-Lex corpus vs live law
+    likelihood: 4
+    impact: 4
+    owner: ingestion
+    mitigation: live fallback + reindex cadence
+
+scoring:
+  exposure: "likelihood * impact"
+  escalate_if: 12
+
+report_template: docs/risk/strategic-risk-report-template.md

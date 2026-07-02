@@ -1,0 +1,47 @@
+# Experiment backlog (plan9 U)
+version: "2026.07.02"
+
+experiments:
+  - id: EXP-001
+    title: Native multilingual corpus ingest
+    hypothesis: "FR/DE/ES chunks verbeteren recall vs NL-fallback alleen"
+    owner: ingestion
+    impact: 5
+    effort: 5
+    success_metric: "multilingual recall_at_5 >= 0.85"
+    max_weeks: 6
+    status: proposed
+    stop_go: go_if_metric_met
+
+  - id: EXP-002
+    title: Reranker model swap A/B
+    hypothesis: "Cross-encoder verhoogt MRR zonder latency regressie"
+    owner: backend
+    impact: 4
+    effort: 3
+    success_metric: "mrr +0.05 vs baseline, p95 < 10s"
+    max_weeks: 3
+    status: proposed
+    stop_go: go_if_metric_met
+
+  - id: EXP-003
+    title: Employment domain go-live
+    hypothesis: "Employment cluster haalt domain benchmark >= 0.70"
+    owner: product
+    impact: 4
+    effort: 3
+    success_metric: "run-domain-benchmark employment pass"
+    max_weeks: 4
+    status: active
+    stop_go: go_if_metric_met
+
+stop_go_criteria:
+  go_if_metric_met:
+    description: Promote to roadmap initiative
+    requires_eval: true
+  pivot:
+    description: Adjust hypothesis, max 1 pivot per experiment
+  stop:
+    description: Archive learnings in experiment log
+
+productization_path: docs/product/innovation-productization.md

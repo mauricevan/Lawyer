@@ -1,0 +1,34 @@
+# Regulatory impact radar (plan9 V)
+version: "2026.07.02"
+
+signals:
+  - id: REG-001
+    topic: EU AI Act transparency
+    relevance: high
+    product_area: disclaimers, confidence scores
+    action: maintain layperson/professional modes + escalation path
+    owner: product
+
+  - id: REG-002
+    topic: GDPR legal basis for query logging
+    relevance: medium
+    product_area: audit logs, feedback
+    action: data retention policy review quarterly
+    owner: backend
+
+  - id: REG-003
+    topic: EUR-Lex copyright / reuse
+    relevance: medium
+    product_area: ingestion, citations
+    action: cite official sources only; no full-text redistribution
+    owner: product
+
+  - id: REG-004
+    topic: National implementation gaps in answers
+    relevance: high
+    product_area: RAG scope messaging
+    action: product-limitations.md + legal escalation
+    owner: product
+
+review_cadence: quarterly
+escalation: docs/legal/escalation-path.md

@@ -46,6 +46,9 @@ Centrale index — houd links actueel bij nieuwe runbooks.
 ./scripts/ops/run-release-checklist.sh
 ./scripts/ops/run-hotfix-rollback.sh
 ./scripts/ops/run-quarterly-portfolio-review.sh
+./scripts/ops/run-portfolio-board-review.sh
+./scripts/ops/run-innovation-pipeline-check.sh
+./scripts/ops/run-strategic-risk-review.sh
 ./scripts/ops/run-knowledge-base-check.sh
 ./scripts/ops/check-pair-review.sh
 ./scripts/ops/run-plan5-kpi-snapshot.sh

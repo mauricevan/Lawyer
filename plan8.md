@@ -61,4 +61,4 @@
 
 ## Overdrachtsregel naar plan9
 
-- [ ] Plan9 start na kwartaalportfolio review met quality gate audit groen
+- [x] Plan9 gestart — portfolio governance, innovatiepipeline, strategic risk (2026-07-02)

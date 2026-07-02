@@ -8,7 +8,8 @@
 
 | Doel | Metric | Target | Status |
 |---|---|---|---|
-| Plan5 afronden | J1 + J2 afgevinkt | 100% | In uitvoering |
+| Plan5 afronden | J1 + J2 afgevinkt | 100% | Done |
+| Plan7–9 governance | Data + delivery + portfolio | Live | Groen |
 | Domeinuitbreiding | Go-domains benchmark | 5/5 pass | Groen |
 | Taaluitbreiding | FR/DE/ES Recall@5 | ≥ 0.70 | Groen (fixture) |
 | Betrouwbaarheid | Availability + p95 | SLO's | Monitoren |

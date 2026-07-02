@@ -1,0 +1,27 @@
+# Prioritization model — impact × risk × effort (plan9 T)
+version: "2026.07.02"
+
+weights:
+  impact: 0.40
+  risk_reduction: 0.35
+  effort_inverse: 0.25
+
+scales:
+  impact:
+    1: minimal user or SLO effect
+    3: measurable KPI movement
+    5: strategic objective unlock
+  risk_reduction:
+    1: nice-to-have hardening
+    3: reduces known debt or incident class
+    5: removes P0/P1 exposure
+  effort:
+    1: "≤ 1 day (S)"
+    3: "≤ 3 days (M)"
+    5: "more than 3 days (L)"
+
+formula: "(impact * w_i) + (risk_reduction * w_r) + ((6 - effort) * w_e)"
+tie_breaker: lower effort wins
+
+minimum_score_to_schedule: 2.5
+wind_down_threshold: 2.0

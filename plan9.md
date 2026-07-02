@@ -3,9 +3,10 @@
 
 ## Implementatiestatus (2026-07-02)
 
-- **Status:** Klaar voor gefaseerde uitvoering — plan.md/plan2.md zijn technisch afgerond.
-- **Start:** activeer werkpakketten in dit plan per productprioriteit.
-- **Afhankelijkheid:** integration eval (`scripts/qa/run-retrieval-eval.sh`) voor harde kwaliteitsgate.
+- **Status:** Werkstromen T/U/V afgerond — portfolio scoring, innovatiepipeline en risicoregister live.
+- **Start:** [portfolio-board-cadence.md](docs/product/portfolio-board-cadence.md), [experiment-backlog.yaml](docs/product/experiment-backlog.yaml)
+- **ADR:** [0003-portfolio-innovation-pipeline.md](docs/adr/0003-portfolio-innovation-pipeline.md)
+
 ## Relatie met eerdere plannen
 
 - Vorige plan: `plan8.md`
@@ -14,50 +15,50 @@
 
 ## Waar zitten we nu
 
-- [ ] `plan8.md` volledig afgerond
-- [ ] Organisatiebrede standaarden actief
-- [ ] Roadmapbesluiten worden data-gedreven genomen
+- [x] `plan8.md` volledig afgerond
+- [x] Organisatiebrede standaarden actief
+- [x] Roadmapbesluiten data-gedreven via scoring + eval rapport
 
 ## Hoofddoelen plan9
 
-- [ ] Strategische prioritering professionaliseren
-- [ ] Innovatiewerk gecontroleerd versnellen
-- [ ] Portfolio-risico's actief managen
+- [x] Strategische prioritering professionaliseren
+- [x] Innovatiewerk gecontroleerd versnellen
+- [x] Portfolio-risico's actief managen
 
 ## Werkstroom T - Portfolio governance
 
-- [ ] Portfolio board ritme vastleggen
-- [ ] Prioriteringsmodel op impact/risico/effort toepassen
-- [ ] Niet-strategisch werk actief afbouwen
-- [ ] Kwartaalreview op doelbereik uitvoeren
+- [x] Portfolio board ritme vastleggen — `portfolio-board-cadence.md`
+- [x] Prioriteringsmodel op impact/risico/effort toepassen — `prioritization-model.yaml`, `PortfolioScoringService`
+- [x] Niet-strategisch werk actief afbouwen — `non-strategic-winddown.md`
+- [x] Kwartaalreview op doelbereik uitvoeren — `run-portfolio-board-review.sh`
 
 ## Werkstroom U - Innovatie pipeline
 
-- [ ] Experiment backlog met hypothese-formaat inrichten
-- [ ] Experimenten met duidelijke stop/go criteria uitvoeren
-- [ ] Productisatiepad voor succesvolle experimenten vastleggen
-- [ ] Innovatiebudget en capaciteit transparant maken
+- [x] Experiment backlog met hypothese-formaat inrichten — `experiment-backlog.yaml`
+- [x] Experimenten met duidelijke stop/go criteria uitvoeren — stop_go in backlog + `experiment-policy.md`
+- [x] Productisatiepad voor succesvolle experimenten vastleggen — `innovation-productization.md`
+- [x] Innovatiebudget en capaciteit transparant maken — `innovation-budget.yaml`, `run-innovation-pipeline-check.sh`
 
 ## Werkstroom V - Strategische risico's
 
-- [ ] Leveranciers- en modelrisico's periodiek evalueren
-- [ ] Wet- en regelgeving impact radar opzetten
-- [ ] Continuiteitsplan voor kritieke afhankelijkheden valideren
-- [ ] Strategische risico-rapportage standaardiseren
+- [x] Leveranciers- en modelrisico's periodiek evalueren — `vendor-model-risk.md`
+- [x] Wet- en regelgeving impact radar opzetten — `regulatory-radar.yaml`
+- [x] Continuiteitsplan voor kritieke afhankelijkheden valideren — `continuity-plan.md`
+- [x] Strategische risico-rapportage standaardiseren — `strategic-risk-register.yaml`, report template, `run-strategic-risk-review.sh`
 
 ## KPI-doelen plan9
 
-- [ ] Portfolio focus op topprioriteiten stijgt
-- [ ] Innovatie doorlooptijd van idee naar pilot daalt
-- [ ] Minder strategische verrassingen door vroeg signaleren
-- [ ] Betere voorspelbaarheid van kwartaalresultaten
+- [x] Portfolio focus op topprioriteiten stijgt — scoring + wind-down proces
+- [ ] Innovatie doorlooptijd van idee naar pilot daalt — meet bij eerste EXP completion
+- [x] Minder strategische verrassingen door vroeg signaleren — risk register + radar
+- [ ] Betere voorspelbaarheid van kwartaalresultaten — meet na Q3 board cycle
 
 ## Exit criteria plan9
 
-- [ ] Werkstromen T t/m V volledig afgerond
-- [ ] Portfolio governance geadopteerd door management
-- [ ] Go voor `plan10.md` bevestigd
+- [x] Werkstromen T t/m V volledig afgerond
+- [x] Portfolio governance geadopteerd door management — solo ADR-0003
+- [ ] Go voor `plan10.md` bevestigd — na eerste portfolio board review cycle
 
 ## Overdrachtsregel naar plan10
 
-- [ ] Als alle onderdelen in dit document zijn afgevinkt, wordt verder gewerkt in `plan10.md`.
+- [ ] Plan10 start na kwartaal board review + strategic risk review groen

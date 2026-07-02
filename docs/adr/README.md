@@ -3,6 +3,8 @@
 | ADR | Titel | Status |
 |---|---|---|
 | [0001](./0001-portfolio-planning-cadence.md) | Portfolio planning & quarterly review | Accepted |
+| [0002](./0002-solo-operating-model.md) | Solo-first operating model | Accepted |
+| [0003](./0003-portfolio-innovation-pipeline.md) | Portfolio scoring & innovation pipeline | Accepted |
 
 ## Nieuwe ADR aanmaken
 

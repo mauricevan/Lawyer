@@ -1,0 +1,21 @@
+# Innovation capacity budget (plan9 U)
+version: "2026.07.02"
+quarter: Q3-2026
+
+allocation:
+  innovation_pct_of_features: 0.10
+  max_active_experiments: 2
+  max_weeks_per_experiment: 6
+
+healthy_mode_hours_per_week: 40
+innovation_hours_per_week: 4
+
+rules:
+  - New experiment requires scored backlog entry
+  - Stop active experiment before starting third
+  - Productization needs eval gate + DoD
+
+transparency:
+  backlog: docs/product/experiment-backlog.yaml
+  policy: docs/data/experiment-policy.md
+  review_script: scripts/ops/run-innovation-pipeline-check.sh
