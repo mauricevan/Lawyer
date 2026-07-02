@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { LegalFooter } from "@/components/LegalFooter";
 import { ChatComposer } from "@/components/ChatComposer";
 import { ChatThread } from "@/components/ChatThread";
 import { SourcesSidebar } from "@/components/SourcesSidebar";
@@ -153,6 +154,7 @@ export default function GesprekPage() {
         isFollowUp
         variant="sticky"
       />
+      <LegalFooter audience={audience} compact />
     </main>
   );
 }

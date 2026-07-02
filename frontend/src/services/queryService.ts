@@ -7,6 +7,9 @@ import type {
   QueryRequest,
   RetrievalEvent,
 } from "@/models/types";
+import { getDisclaimer } from "@/content/legalDisclaimers";
+
+export { getDisclaimer };
 
 export function normalizeCitation(citation: Partial<Citation> & { celex: string }): Citation {
   return {
@@ -82,7 +85,9 @@ export function streamQuery(
                 citations: ((detail.citations as Partial<Citation>[]) || []).map(
                   (c) => normalizeCitation({ ...c, celex: c.celex || "" }),
                 ),
-                disclaimer: getDisclaimer(request.audience || "layperson"),
+                disclaimer:
+                  (detail.disclaimer as string) ||
+                  getDisclaimer(request.audience || "layperson"),
                 retrieval_route: detail.retrieval_route as AnswerResponse["retrieval_route"],
               });
             }
@@ -191,14 +196,4 @@ export function getPopularQuestions(
   audience: "layperson" | "professional" = "layperson",
 ): string[] {
   return audience === "layperson" ? POPULAR_QUESTIONS_LAY : POPULAR_QUESTIONS_PRO;
-}
-
-export function getDisclaimer(audience: "layperson" | "professional" = "layperson"): string {
-  if (audience === "professional") {
-    return "Dit is geen juridisch advies. Controleer altijd de bron op EUR-Lex.";
-  }
-  return (
-    "Dit is algemene informatie op basis van EUR-Lex, geen persoonlijk juridisch advies. " +
-    "Bij twijfel: raadpleeg een advocaat."
-  );
 }

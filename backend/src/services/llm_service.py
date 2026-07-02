@@ -5,6 +5,7 @@ import logging
 import httpx
 
 from backend.src.config import settings
+from backend.src.services.citation_builder_service import CitationBuilderService
 from shared.schemas.citation import Citation
 
 logger = logging.getLogger(__name__)
@@ -67,6 +68,9 @@ LAYPERSON_MODE_HINTS = {
 class LlmService:
     """Generates answers with structured citations."""
 
+    def __init__(self) -> None:
+        self._citation_builder = CitationBuilderService()
+
     async def generate_answer(
         self,
         question: str,
@@ -84,7 +88,7 @@ class LlmService:
         except Exception as exc:
             logger.error("LLM call failed (%s): %s", settings.llm_provider, exc)
             text = self._fallback_answer(question, context_chunks, audience)
-        citations = self._extract_citations(context_chunks)
+        citations = self._citation_builder.from_chunks(context_chunks)
         return text, citations
 
     def _system_prompt(self, audience: str) -> str:
@@ -159,25 +163,6 @@ class LlmService:
         user_content = f"{follow_up}{mode_hint}\n\nContext:\n{context}\n\nVraag: {question}"
         messages.append({"role": "user", "content": user_content})
         return messages
-
-    def _extract_citations(self, chunks: list[dict]) -> list[Citation]:
-        seen = set()
-        citations = []
-        for c in chunks:
-            key = (c.get("celex"), c.get("article_number"))
-            if key in seen:
-                continue
-            seen.add(key)
-            celex = c.get("celex", "")
-            citations.append(Citation(
-                celex=celex,
-                article=str(c.get("article_number")) if c.get("article_number") else None,
-                title=c.get("title"),
-                excerpt=c.get("text", "")[:400],
-                eli_uri=c.get("eli_uri"),
-                eurlex_url=f"https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:{celex}",
-            ))
-        return citations[:8]
 
     def _fallback_answer(
         self, question: str, chunks: list[dict], audience: str = "layperson"

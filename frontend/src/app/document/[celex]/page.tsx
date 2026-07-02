@@ -3,6 +3,7 @@
 import { useEffect, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
+import { LegalFooter } from "@/components/LegalFooter";
 import { TrustCard } from "@/components/TrustCard";
 import { getDocument } from "@/services/queryService";
 import type { Citation } from "@/models/types";
@@ -123,6 +124,8 @@ export default function DocumentPage() {
           </ul>
         </section>
       )}
+
+      <LegalFooter />
     </main>
   );
 }

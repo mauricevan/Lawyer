@@ -1,6 +1,6 @@
 import Markdown from "react-markdown";
 import type { AnswerResponse, Audience } from "@/models/types";
-import { getDisclaimer } from "@/services/queryService";
+import { getDisclaimer } from "@/content/legalDisclaimers";
 import { CitationSources } from "./CitationSources";
 import styles from "./AnswerPanel.module.css";
 

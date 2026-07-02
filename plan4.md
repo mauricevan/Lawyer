@@ -65,10 +65,10 @@
 
 ### F3. Juridische en product disclaimers
 
-- [ ] Disclaimer consistent in alle interfaces tonen
-- [ ] Bronnenplicht afdwingen in antwoordtemplate
-- [ ] Escalatiepad naar menselijke jurist beschrijven
-- [ ] Uitzonderingen en beperkingen documenteren
+- [x] Disclaimer consistent in alle interfaces tonen
+- [x] Bronnenplicht afdwingen in antwoordtemplate
+- [x] Escalatiepad naar menselijke jurist beschrijven
+- [x] Uitzonderingen en beperkingen documenteren
 
 ## Werkstroom G - Release governance
 

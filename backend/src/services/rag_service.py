@@ -6,6 +6,7 @@ from typing import Any
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.src.config import settings
+from backend.src.services.answer_policy_service import AnswerPolicyService
 from backend.src.services.bm25_service import Bm25Service
 from backend.src.services.chunk_quality_service import ChunkQualityService
 from backend.src.services.citation_formatter import CitationFormatter
@@ -59,6 +60,7 @@ class RagService:
         self._source_consistency = SourceConsistencyService()
         self._quality = ChunkQualityService()
         self._flags = FeatureFlagService()
+        self._answer_policy = AnswerPolicyService()
 
     async def query(
         self,
@@ -73,13 +75,15 @@ class RagService:
             request.question, results, history, request.query_mode, request.audience,
         )
         citations = self._source_consistency.filter_citations(citations, results)
-        for cite, chunk in zip(citations, results[: len(citations)]):
-            self._trust.enrich_citation(cite, chunk)
-            cite.legal_citation = self._citations.to_legal_format(cite)
+        answer_text, citations, disclaimer = self._answer_policy.finalize_answer(
+            answer_text, citations, results, request.audience,
+        )
+        self._enrich_citations(citations, results)
         response = AnswerResponse(
             answer=answer_text,
             conversation_id=request.conversation_id or "",
             citations=citations,
+            disclaimer=disclaimer,
             retrieval_route=retrieval_route,
         )
         return response, chunk_ids, results
@@ -117,9 +121,10 @@ class RagService:
             request.question, consolidated, history, request.query_mode, request.audience,
         )
         citations = self._source_consistency.filter_citations(citations, consolidated)
-        for cite, chunk in zip(citations, consolidated[: len(citations)]):
-            self._trust.enrich_citation(cite, chunk)
-            cite.legal_citation = self._citations.to_legal_format(cite)
+        answer_text, citations, disclaimer = self._answer_policy.finalize_answer(
+            answer_text, citations, consolidated, request.audience,
+        )
+        self._enrich_citations(citations, consolidated)
         yield {
             "step": "complete",
             "message": "Klaar",
@@ -127,6 +132,7 @@ class RagService:
                 "answer": answer_text,
                 "conversation_id": request.conversation_id,
                 "citations": [c.model_dump(mode="json") for c in citations],
+                "disclaimer": disclaimer,
                 "retrieval_route": retrieval_route,
             },
         }
@@ -203,6 +209,13 @@ class RagService:
         await self._cache.set(cache_key, reranked)
         metrics_service.record_route(route)
         return reranked, route
+
+    def _enrich_citations(self, citations: list, chunks: list[dict]) -> None:
+        chunk_map = {chunk.get("celex"): chunk for chunk in chunks}
+        for cite in citations:
+            chunk = chunk_map.get(cite.celex) or (chunks[0] if chunks else {})
+            self._trust.enrich_citation(cite, chunk)
+            cite.legal_citation = self._citations.to_legal_format(cite)
 
     def _should_live_fallback(self, chunks: list[dict[str, Any]]) -> bool:
         if not self._flags.is_live_fallback_enabled():

@@ -9,9 +9,9 @@ import { ExampleQuestions } from "@/components/ExampleQuestions";
 import { QueryFilterControls } from "@/components/QueryFilterControls";
 import { RetrievalRouteBadge } from "@/components/RetrievalRouteBadge";
 import { RetrievalStatus } from "@/components/RetrievalStatus";
+import { LegalFooter } from "@/components/LegalFooter";
 import type { Audience, ChatMessage, QueryMode, RetrievalEvent, RetrievalRoute } from "@/models/types";
 import {
-  getDisclaimer,
   getExampleQuestions,
   getPopularQuestions,
   streamQuery,
@@ -178,7 +178,7 @@ export default function HomePage() {
           variant="sticky"
         />
 
-        <p className={styles.disclaimerCompact}>{getDisclaimer(activeAudience)}</p>
+        <LegalFooter audience={activeAudience} compact />
       </main>
     );
   }
@@ -236,7 +236,7 @@ export default function HomePage() {
         </div>
       </div>
 
-      <p className={styles.disclaimer}>{getDisclaimer(audience)}</p>
+      <LegalFooter audience={audience} />
     </main>
   );
 }
