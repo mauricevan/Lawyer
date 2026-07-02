@@ -1,11 +1,10 @@
 """Conversation CRUD and dossier management."""
-import uuid
-
 from fastapi import APIRouter, Depends, HTTPException
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.src.database import SessionLocal
 from backend.src.dependencies.auth import require_permission
+from backend.src.security.fastapi_params import ConversationIdPath, TitleQuery
 from backend.src.security.rbac_matrix import Permission
 from backend.src.services.conversation_service import ConversationService
 from shared.schemas.conversation import ConversationSummary, CreateConversationRequest
@@ -34,7 +33,7 @@ async def create_conversation(
 
 @router.get("/{conversation_id}")
 async def get_conversation(
-    conversation_id: str,
+    conversation_id: ConversationIdPath,
     session: AsyncSession = Depends(get_db),
 ) -> dict:
     conv = await service.get_conversation(session, conversation_id)
@@ -69,8 +68,8 @@ async def list_conversations(
 
 @router.post("/{conversation_id}/save")
 async def save_conversation(
-    conversation_id: str,
-    title: str | None = None,
+    conversation_id: ConversationIdPath,
+    title: TitleQuery = None,
     session: AsyncSession = Depends(get_db),
 ) -> dict:
     await service.save_conversation(session, conversation_id, title)
@@ -79,7 +78,7 @@ async def save_conversation(
 
 @router.get("/{conversation_id}/share")
 async def share_conversation(
-    conversation_id: str,
+    conversation_id: ConversationIdPath,
     session: AsyncSession = Depends(get_db),
 ) -> dict:
     conv = await service.get_conversation(session, conversation_id)

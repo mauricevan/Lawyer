@@ -12,6 +12,7 @@ from backend.src.services.cache_cleanup_service import CacheCleanupService
 from backend.src.services.feature_flag_service import FeatureFlagService
 from backend.src.dependencies.auth import require_permission
 from backend.src.security.rbac_matrix import Permission
+from backend.src.security.fastapi_params import PageLimit
 from backend.src.services.redis_cache_service import RedisCacheService
 
 router = APIRouter(prefix="/admin", tags=["admin"])
@@ -62,7 +63,7 @@ async def get_stats(session: AsyncSession = Depends(get_db)) -> dict:
 @router.get("/ingestion-jobs", dependencies=[Depends(require_permission(Permission.ADMIN_READ))])
 async def list_ingestion_jobs(
     session: AsyncSession = Depends(get_db),
-    limit: int = 50,
+    limit: PageLimit = 50,
 ) -> list[dict]:
     result = await session.execute(
         select(IngestionJob).order_by(IngestionJob.created_at.desc()).limit(limit)

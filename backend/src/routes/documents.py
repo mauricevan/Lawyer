@@ -1,10 +1,12 @@
 """Document deep-dive endpoints."""
 from fastapi import APIRouter, Depends, HTTPException
-from sqlalchemy import select
+from sqlalchemy import func, select
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.src.database import SessionLocal
 from backend.src.models.tables import Document
+from backend.src.security.fastapi_params import PageLimit, PageOffset
+from backend.src.security.ssrf_guard import SecurityValidationError, validate_celex
 from ingestion.src.clients.cellar_rest_client import CellarRestClient
 from ingestion.src.clients.sparql_client import SparqlClient
 
@@ -23,6 +25,10 @@ async def get_document(
     celex: str,
     session: AsyncSession = Depends(get_db),
 ) -> dict:
+    try:
+        celex = validate_celex(celex)
+    except SecurityValidationError as exc:
+        raise HTTPException(status_code=422, detail=str(exc)) from exc
     result = await session.execute(
         select(Document).where(Document.celex == celex)
     )
@@ -54,15 +60,15 @@ async def get_document(
 @router.get("")
 async def list_documents(
     session: AsyncSession = Depends(get_db),
-    limit: int = 50,
-    offset: int = 0,
+    limit: PageLimit = 50,
+    offset: PageOffset = 0,
 ) -> dict:
     result = await session.execute(
         select(Document).offset(offset).limit(limit)
     )
     docs = result.scalars().all()
-    total_result = await session.execute(select(Document))
-    total = len(total_result.scalars().all())
+    total_result = await session.execute(select(func.count()).select_from(Document))
+    total = total_result.scalar() or 0
     return {
         "total": total,
         "documents": [

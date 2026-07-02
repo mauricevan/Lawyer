@@ -9,6 +9,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from backend.src.database import SessionLocal
 from backend.src.dependencies.auth import require_permission
 from backend.src.security.rbac_matrix import Permission
+from backend.src.security.fastapi_params import ConversationIdPath
 from backend.src.services.conversation_service import ConversationService
 
 router = APIRouter(
@@ -26,7 +27,7 @@ async def get_db() -> AsyncSession:
 
 @router.get("/pdf/{conversation_id}")
 async def export_pdf(
-    conversation_id: str,
+    conversation_id: ConversationIdPath,
     session: AsyncSession = Depends(get_db),
 ) -> StreamingResponse:
     content = await _build_export_content(session, conversation_id)
@@ -40,7 +41,7 @@ async def export_pdf(
 
 @router.get("/docx/{conversation_id}")
 async def export_docx(
-    conversation_id: str,
+    conversation_id: ConversationIdPath,
     session: AsyncSession = Depends(get_db),
 ) -> StreamingResponse:
     content = await _build_export_content(session, conversation_id)

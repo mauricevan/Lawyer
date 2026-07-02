@@ -4,6 +4,12 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 from shared.schemas.citation import Citation
+from shared.schemas.validation_patterns import (
+    CELEX_PATTERN,
+    FILTER_TEXT_PATTERN,
+    LANGUAGE_PATTERN,
+    UUID_PATTERN,
+)
 
 QueryMode = Literal["open", "compliance", "compare", "updates"]
 Audience = Literal["layperson", "professional"]
@@ -13,11 +19,11 @@ RetrievalRoute = Literal["local", "live_fallback", "hybrid", "cache"]
 class QueryFilters(BaseModel):
     """Optional filters for retrieval."""
 
-    domain: str | None = None
-    doc_type: str | None = None
-    celex: str | None = None
-    language: str | None = None
-    year: int | None = None
+    domain: str | None = Field(default=None, max_length=64, pattern=FILTER_TEXT_PATTERN)
+    doc_type: str | None = Field(default=None, max_length=64, pattern=FILTER_TEXT_PATTERN)
+    celex: str | None = Field(default=None, max_length=32, pattern=CELEX_PATTERN)
+    language: str | None = Field(default=None, max_length=8, pattern=LANGUAGE_PATTERN)
+    year: int | None = Field(default=None, ge=1950, le=2100)
     time_context: Literal["current", "historical"] | None = None
     in_force_only: bool = True
     consolidated_preferred: bool = True
@@ -27,11 +33,11 @@ class QueryRequest(BaseModel):
     """Incoming query from the frontend."""
 
     question: str = Field(..., min_length=3, max_length=2000)
-    conversation_id: str | None = None
+    conversation_id: str | None = Field(default=None, pattern=UUID_PATTERN)
     query_mode: QueryMode = "open"
     audience: Audience = "layperson"
     filters: QueryFilters | None = None
-    language: str = "nl"
+    language: str = Field(default="nl", min_length=2, max_length=8, pattern=LANGUAGE_PATTERN)
 
 
 class AnswerResponse(BaseModel):

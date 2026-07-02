@@ -1,6 +1,8 @@
 """Pilot feedback capture for query quality."""
 from fastapi import APIRouter, Depends
 from pydantic import BaseModel, Field
+
+from shared.schemas.validation_patterns import UUID_PATTERN
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.src.database import SessionLocal
@@ -18,7 +20,7 @@ router = APIRouter(
 class FeedbackRequest(BaseModel):
     rating: int = Field(..., ge=1, le=5)
     comment: str | None = Field(default=None, max_length=1000)
-    conversation_id: str | None = Field(default=None, max_length=64)
+    conversation_id: str | None = Field(default=None, pattern=UUID_PATTERN)
 
 
 async def get_db() -> AsyncSession:

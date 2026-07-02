@@ -7,6 +7,7 @@ from backend.src.dependencies.auth import require_permission
 from backend.src.security.rbac_matrix import Permission
 from backend.src.services.audit_query_service import AuditQueryService
 from backend.src.services.audit_retention_service import AuditRetentionService
+from backend.src.security.fastapi_params import PageLimit, PageOffset, SampleSize
 
 router = APIRouter(prefix="/admin/audit", tags=["admin-audit"])
 audit_query = AuditQueryService()
@@ -21,18 +22,18 @@ async def get_db() -> AsyncSession:
 @router.get("/logs")
 async def list_audit_logs(
     session: AsyncSession = Depends(get_db),
-    limit: int = 50,
-    offset: int = 0,
+    limit: PageLimit = 50,
+    offset: PageOffset = 0,
     _principal=Depends(require_permission(Permission.ADMIN_READ)),
 ) -> dict:
     logs = await audit_query.list_logs(session, limit=limit, offset=offset)
-    return {"items": logs, "limit": min(max(limit, 1), 200), "offset": max(offset, 0)}
+    return {"items": logs, "limit": limit, "offset": offset}
 
 
 @router.get("/completeness")
 async def audit_completeness(
     session: AsyncSession = Depends(get_db),
-    sample_size: int = 100,
+    sample_size: SampleSize = 100,
     _principal=Depends(require_permission(Permission.ADMIN_READ)),
 ) -> dict:
     return await audit_query.completeness_sample(session, sample_size=sample_size)

@@ -42,10 +42,10 @@
 
 ### E3. Applicatiebeveiliging
 
-- [ ] Input validatie coverage audit
+- [x] Input validatie coverage audit
 - [x] SSRF/Injection/XSS checks op fallback en parsing flow
 - [x] Dependency vulnerability scan in release-gates opnemen
-- [ ] Pentest bevindingen verwerken
+- [x] Pentest bevindingen verwerken
 
 ## Werkstroom F - Compliance en data governance
 

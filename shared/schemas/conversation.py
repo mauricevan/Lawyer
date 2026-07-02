@@ -1,6 +1,6 @@
 """Conversation message schemas."""
 from datetime import datetime
-from typing import Any
+from typing import Any, Literal
 
 from pydantic import BaseModel, Field
 
@@ -32,8 +32,8 @@ class ConversationSummary(BaseModel):
 class CreateConversationRequest(BaseModel):
     """Request to start a new conversation."""
 
-    query_mode: str = "open"
-    title: str | None = None
+    query_mode: Literal["open", "compliance", "compare", "updates"] = "open"
+    title: str | None = Field(default=None, max_length=200)
 
 
 class RetrievalStatusEvent(BaseModel):
