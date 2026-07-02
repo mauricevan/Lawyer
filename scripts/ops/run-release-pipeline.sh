@@ -24,8 +24,9 @@ else
 fi
 
 if [[ "$RUN_EVAL" == true ]]; then
-  echo "→ Retrieval eval gate"
-  PYTHONPATH=. ./scripts/qa/run-retrieval-eval.sh
+  echo "→ Release eval suite (baseline comparison)"
+  chmod +x scripts/qa/run-release-eval-suite.sh
+  PYTHONPATH=. ./scripts/qa/run-release-eval-suite.sh
 fi
 
 echo ""

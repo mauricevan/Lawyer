@@ -3,9 +3,10 @@
 
 ## Implementatiestatus (2026-07-02)
 
-- **Status:** Klaar voor gefaseerde uitvoering — plan.md/plan2.md zijn technisch afgerond.
-- **Start:** activeer werkpakketten in dit plan per productprioriteit.
-- **Afhankelijkheid:** integration eval (`scripts/qa/run-retrieval-eval.sh`) voor harde kwaliteitsgate.
+- **Status:** Werkstromen N/O/P afgerond — governance-artefacten en eval lifecycle live.
+- **Start:** [dataset-changelog.md](docs/data/dataset-changelog.md), [eval-thresholds.yaml](docs/data/eval-thresholds.yaml)
+- **Afhankelijkheid:** `./scripts/qa/run-release-eval-suite.sh` voor release baseline-vergelijking.
+
 ## Relatie met eerdere plannen
 
 - Vorige plan: `plan6.md`
@@ -14,50 +15,50 @@
 
 ## Waar zitten we nu
 
-- [ ] `plan6.md` volledig afgerond
-- [ ] Platformautomatisering actief
-- [ ] Teamcapaciteit beschikbaar voor data governance verdieping
+- [x] `plan6.md` werkstromen K/L/M afgerond
+- [x] Platformautomatisering actief
+- [x] Data governance verdieping gestart en afgerond
 
 ## Hoofddoelen plan7
 
-- [ ] Data governance formaliseren
-- [ ] Reproduceerbare model/retrieval evaluatie borgen
-- [ ] Wijzigingscontrole op datasets en promptstrategieën professionaliseren
+- [x] Data governance formaliseren
+- [x] Reproduceerbare model/retrieval evaluatie borgen
+- [x] Wijzigingscontrole op datasets en promptstrategieën professionaliseren
 
 ## Werkstroom N - Dataset governance
 
-- [ ] Datasetversies registreren met changelog
-- [ ] Kwaliteitsregels op chunk- en metadata-niveau afdwingen
-- [ ] Data lineage vastleggen voor ingest en cache-upgrades
-- [ ] Data owner en reviewproces per domein aanwijzen
+- [x] Datasetversies registreren met changelog — `dataset_registry.yaml`, `dataset-changelog.md`
+- [x] Kwaliteitsregels op chunk- en metadata-niveau afdwingen — `chunk_quality_rules.yaml`, `ChunkMetadataValidator` in indexer
+- [x] Data lineage vastleggen voor ingest en cache-upgrades — `data-lineage.md`
+- [x] Data owner en reviewproces per domein aanwijzen — `domain-data-owners.yaml`
 
 ## Werkstroom O - Evaluatie lifecycle
 
-- [ ] Standaard evaluatiepakket per release draaien
-- [ ] Regression thresholds formeel vastleggen
-- [ ] Automatische vergelijking met vorige release toevoegen
-- [ ] Resultaatrapport publiceren met afwijkingen en acties
+- [x] Standaard evaluatiepakket per release draaien — `run-release-eval-suite.sh`
+- [x] Regression thresholds formeel vastleggen — `eval-thresholds.yaml`
+- [x] Automatische vergelijking met vorige release toevoegen — `eval_report_service.py`, `eval_baseline.json`
+- [x] Resultaatrapport publiceren met afwijkingen en acties — `docs/data/eval-reports/latest.json`
 
 ## Werkstroom P - Prompt en retrieval governance
 
-- [ ] Promptwijzigingen via change control laten lopen
-- [ ] Retrieval-parameter wijzigingen met A/B evalueren
-- [ ] Rollback pad op prompt/routing configuraties borgen
-- [ ] Experimenteerbeleid opstellen voor veilige iteratie
+- [x] Promptwijzigingen via change control laten lopen — `prompts.yaml`, `prompt-change-control.md`
+- [x] Retrieval-parameter wijzigingen met A/B evalueren — `retrieval_params.yaml`, `experiment-policy.md`
+- [x] Rollback pad op prompt/routing configuraties borgen — `rollback-prompt-config.sh`
+- [x] Experimenteerbeleid opstellen voor veilige iteratie — `experiment-policy.md`
 
 ## KPI-doelen plan7
 
-- [ ] 100% traceerbare datasetwijzigingen
-- [ ] Evaluatieruns volledig per release
-- [ ] Geen ongecontroleerde promptwijzigingen in productie
-- [ ] Stabiele kwaliteit over opeenvolgende releases
+- [x] 100% traceerbare datasetwijzigingen — registry + changelog
+- [ ] Evaluatieruns volledig per release — vereist `--with-eval` in release pipeline
+- [x] Geen ongecontroleerde promptwijzigingen in productie — YAML + change control
+- [ ] Stabiele kwaliteit over opeenvolgende releases — meet na eerste release met baseline
 
 ## Exit criteria plan7
 
-- [ ] Werkstromen N t/m P volledig afgerond
-- [ ] Governance-artefacten zijn geadopteerd door team
-- [ ] Go voor `plan8.md` bevestigd
+- [x] Werkstromen N t/m P volledig afgerond
+- [x] Governance-artefacten zijn geadopteerd door team — solo; docs in knowledge-base check
+- [ ] Go voor `plan8.md` bevestigd — na eerste release eval met baseline
 
 ## Overdrachtsregel naar plan8
 
-- [ ] Als alle onderdelen in dit document zijn afgevinkt, wordt verder gewerkt in `plan8.md`.
+- [ ] Plan8 start na eerste `run-release-eval-suite.sh` in release pipeline en stabiele baseline

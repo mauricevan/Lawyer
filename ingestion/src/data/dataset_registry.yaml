@@ -1,0 +1,39 @@
+# Dataset registry (plan7 N)
+version: "2026.07.02"
+
+datasets:
+  curated_corpus:
+    path: ingestion/src/data/curated_celex.yaml
+    version: "2026.07.01"
+    owner: product
+    description: Curated EUR-Lex CELEX seedset
+
+  domain_registry:
+    path: ingestion/src/data/domain_registry.yaml
+    version: "2026.07.02"
+    owner: product
+
+  language_registry:
+    path: ingestion/src/data/language_registry.yaml
+    version: "2026.07.02"
+    owner: backend
+
+  eval_questions_nl:
+    path: backend/tests/fixtures/rag_eval_questions.json
+    version: "2026.07.02"
+    owner: backend
+
+  eval_questions_multilingual:
+    path: backend/tests/fixtures/rag_eval_multilingual.json
+    version: "2026.07.02"
+    owner: backend
+
+  embedding_model:
+    path: backend/src/services/embedding_service.py
+    version: "multilingual-e5-large"
+    owner: backend
+
+lineage:
+  ingest: curated_corpus → cellar_fetch → chunker → postgres + qdrant
+  cache_upgrade: query → live_fallback → live_cache table → redis
+  eval: eval_fixtures → rag_service._retrieve → metrics

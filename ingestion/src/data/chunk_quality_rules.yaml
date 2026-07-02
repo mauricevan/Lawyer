@@ -1,0 +1,11 @@
+# Chunk and metadata quality rules (plan7 N)
+min_chunk_chars: 80
+required_document_fields:
+  - celex
+  - title
+  - language
+  - doc_type
+forbidden_text_markers:
+  - lorem ipsum
+  - javascript:
+  - click here

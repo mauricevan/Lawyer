@@ -1,0 +1,15 @@
+# Data owners per domain (plan7 N)
+owners:
+  ai: { name: product, review_cadence: quarterly }
+  privacy: { name: product, review_cadence: quarterly }
+  cyber: { name: backend, review_cadence: quarterly }
+  finance: { name: product, review_cadence: quarterly }
+  consumer: { name: product, review_cadence: quarterly }
+  sustainability: { name: product, review_cadence: quarterly }
+  employment: { name: product, review_cadence: quarterly }
+  competition: { name: product, review_cadence: quarterly }
+
+review_process:
+  - Owner controleert seedset-wijzigingen in curated_celex.yaml
+  - Domain benchmark moet groen vóór status wijziging
+  - Changelog entry in dataset-changelog.md verplicht

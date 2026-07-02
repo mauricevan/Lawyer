@@ -1,0 +1,16 @@
+{
+  "version": "2026.07.02",
+  "captured_at": "2026-07-02",
+  "suites": {
+    "retrieval": {
+      "recall_at_5": 0.8,
+      "mrr": 0.7,
+      "count": 100
+    },
+    "multilingual": {
+      "recall_at_5": 0.7,
+      "mrr": 0.65,
+      "count": 15
+    }
+  }
+}

@@ -61,4 +61,4 @@
 
 ## Overdrachtsregel naar plan7
 
-- [ ] Plan7 start na plan6 KPI-review en eerste recovery drill in staging gelogd
+- [x] Plan7 gestart — data governance, eval lifecycle, prompt change control (2026-07-02)

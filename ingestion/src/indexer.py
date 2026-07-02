@@ -17,6 +17,7 @@ from ingestion.src.clients.cellar_rest_client import CellarRestClient
 from ingestion.src.content.fallback_subdivisions import build_fallback_subdivisions, needs_fallback
 from ingestion.src.data.sample_articles import SAMPLE_ARTICLES
 from ingestion.src.parsers.document_parser import DocumentParser
+from ingestion.src.validators.chunk_metadata_validator import ChunkMetadataValidator
 from shared.schemas.document import DocumentMetadata
 
 logger = logging.getLogger(__name__)
@@ -31,6 +32,11 @@ async def ingest_document(
     cellar: CellarRestClient | None = None,
 ) -> int:
     """Fetch, parse, chunk, embed and store one document. Returns chunk count."""
+    validator = ChunkMetadataValidator()
+    doc_errors = validator.validate_document(metadata)
+    if doc_errors:
+        logger.warning("Invalid metadata for %s: %s", metadata.celex, doc_errors)
+        return 0
     parser = DocumentParser()
     chunker = LegalChunker()
     client = cellar or CellarRestClient()
@@ -41,7 +47,10 @@ async def ingest_document(
         logger.warning("No content for %s", metadata.celex)
         return 0
     doc = await _upsert_document(metadata, session)
-    chunks = chunker.chunk_document(subdivisions, metadata)
+    chunks = validator.filter_valid_chunks(chunker.chunk_document(subdivisions, metadata))
+    if not chunks:
+        logger.warning("No valid chunks for %s after quality filter", metadata.celex)
+        return 0
     embeddings = get_embedding_service()
     qdrant = QdrantService()
     for start in range(0, len(chunks), UPSERT_BATCH_SIZE):

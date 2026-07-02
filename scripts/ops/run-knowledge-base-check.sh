@@ -18,6 +18,11 @@ required=(
   docs/engineering/pair-review-policy.md
   docs/engineering/incident-learnings.md
   docs/engineering/critical-components.yaml
+  docs/data/dataset-changelog.md
+  docs/data/data-lineage.md
+  docs/data/eval-thresholds.yaml
+  docs/data/prompt-change-control.md
+  docs/data/experiment-policy.md
   docs/adr/README.md
   observability/runbooks/top-5-incidents.md
 )

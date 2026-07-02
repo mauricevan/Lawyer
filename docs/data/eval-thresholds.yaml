@@ -1,0 +1,23 @@
+# Eval regression thresholds (plan7 O)
+version: "2026.07.02"
+
+suites:
+  retrieval:
+    recall_at_5_min: 0.80
+    mrr_min: 0.70
+    fixture: backend/tests/fixtures/rag_eval_questions.json
+    max_regression: 0.05
+
+  multilingual:
+    recall_at_5_min: 0.70
+    fixture: backend/tests/fixtures/rag_eval_multilingual.json
+    max_regression: 0.05
+
+  domain:
+    recall_at_5_min: 0.70
+    script: scripts/qa/run-domain-benchmark.sh
+
+release_policy:
+  block_on_regression: true
+  require_baseline_update_on_improvement: true
+  report_path: docs/data/eval-reports/latest.json

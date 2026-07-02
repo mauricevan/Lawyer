@@ -6,64 +6,26 @@ import httpx
 
 from backend.src.config import settings
 from backend.src.services.citation_builder_service import CitationBuilderService
+from shared.config.prompt_loader import (
+    get_follow_up_hint,
+    get_history_window,
+    get_mode_hint,
+    get_system_prompt,
+    load_prompt_config,
+)
 from shared.schemas.citation import Citation
 
 logger = logging.getLogger(__name__)
 
-SYSTEM_PROMPT = """Je bent een EU-juridisch onderzoeksassistent. Antwoord ALLEEN op basis van de verstrekte context.
-Citeer altijd met CELEX-nummer en artikelnummer. Geef gestructureerde antwoorden in het Nederlands.
-Als de context onvoldoende is, zeg dat expliciet en benoem welke bronnen ontbreken.
-Dit is geen juridisch advies."""
-
-LAYPERSON_SYSTEM_PROMPT = """Je bent een ervaren EU-jurist die een leek uitlegt wat de regels betekenen.
-Antwoord ALLEEN op basis van de verstrekte context. Gebruik begrijpelijk Nederlands (B1-niveau).
-Leg juridische termen direct uit in gewone taal. Gebruik GEEN CELEX-nummers in uw antwoordtekst.
-Als de context onvoldoende is, zeg dat expliciet en adviseer een echte advocaat te raadplegen.
-Dit is geen persoonlijk juridisch advies.
-
-Gebruik altijd deze markdown-structuur:
-
-## Kort antwoord
-(Eén of twee zinnen, direct antwoord op de vraag)
-
-## Uitleg
-(Begrijpelijke uitleg van de relevante regels)
-
-## Wat dit voor u kan betekenen
-(Praktische implicaties, voorwaarden, uitzonderingen)
-
-## Let op
-(Wanneer de context onvoldoende is, of wanneer een echte advocaat nodig is)"""
-
-FOLLOW_UP_HINT = (
-    "Dit is een vervolgvraag in een lopend gesprek. Houd rekening met eerdere "
-    "vragen en antwoorden. Beantwoord alleen de nieuwe vraag; herhaal geen volledige "
-    "disclaimers of eerder gegeven uitleg."
-)
-
-HISTORY_WINDOW = 10
+_config = load_prompt_config()
+SYSTEM_PROMPT = get_system_prompt("professional")
+LAYPERSON_SYSTEM_PROMPT = get_system_prompt("layperson")
+FOLLOW_UP_HINT = get_follow_up_hint()
+HISTORY_WINDOW = get_history_window()
+PROFESSIONAL_MODE_HINTS = _config["mode_hints"]["professional"]
+LAYPERSON_MODE_HINTS = _config["mode_hints"]["layperson"]
 
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
-
-PROFESSIONAL_MODE_HINTS = {
-    "compliance": "Geef een gestructureerd ja/nee antwoord met voorwaarden.",
-    "compare": "Vergelijk de artikelen systematisch in een tabelachtig formaat.",
-    "updates": "Focus op recente wijzigingen en inwerkingtreding.",
-    "open": "Beantwoord de vraag volledig en bondig.",
-}
-
-LAYPERSON_MODE_HINTS = {
-    "compliance": (
-        "Begin met ja, nee of misschien in gewone taal. Leg daarna uit onder welke voorwaarden."
-    ),
-    "compare": (
-        "Leg het verschil uit alsof u het aan een klant vertelt, niet als vergelijkingstabel."
-    ),
-    "updates": (
-        "Leg uit wat er recent is veranderd en wat dat praktisch betekent voor de gebruiker."
-    ),
-    "open": "Beantwoord de vraag volledig in begrijpelijke taal.",
-}
 
 
 class LlmService:
@@ -93,9 +55,7 @@ class LlmService:
         return text, citations
 
     def _system_prompt(self, audience: str) -> str:
-        if audience == "professional":
-            return SYSTEM_PROMPT
-        return LAYPERSON_SYSTEM_PROMPT
+        return get_system_prompt(audience)
 
     async def _call_llm(self, messages: list[dict], system_prompt: str) -> str:
         if settings.llm_provider == "anthropic":
@@ -150,17 +110,16 @@ class LlmService:
         return "\n\n".join(parts)
 
     def _mode_instruction(self, mode: str, audience: str = "layperson") -> str:
-        hints = PROFESSIONAL_MODE_HINTS if audience == "professional" else LAYPERSON_MODE_HINTS
-        return hints.get(mode, hints["open"])
+        return get_mode_hint(mode, audience)
 
     def _build_messages(
         self, question: str, context: str, mode_hint: str, history: list[dict] | None
     ) -> list[dict]:
         messages = []
         if history:
-            for msg in history[-HISTORY_WINDOW:]:
+            for msg in history[-get_history_window() :]:
                 messages.append({"role": msg["role"], "content": msg["content"]})
-        follow_up = f"{FOLLOW_UP_HINT}\n\n" if history else ""
+        follow_up = f"{get_follow_up_hint()}\n\n" if history else ""
         user_content = f"{follow_up}{mode_hint}\n\nContext:\n{context}\n\nVraag: {question}"
         messages.append({"role": "user", "content": user_content})
         return messages
