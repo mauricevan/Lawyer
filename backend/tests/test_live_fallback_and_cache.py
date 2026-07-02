@@ -12,6 +12,12 @@ class _FakeQdrantEmpty:
     def search_by_celex(self, *args, **kwargs):
         return []
 
+    def search_with_language_fallback(self, *args, **kwargs):
+        return self.search(*args, **kwargs)
+
+    def search_by_celex_with_language_fallback(self, *args, **kwargs):
+        return self.search_by_celex(*args, **kwargs)
+
 
 class _FakeReranker:
     def rerank(self, *args, **kwargs):

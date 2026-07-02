@@ -21,8 +21,9 @@ Bron: `ingestion/src/data/language_registry.yaml`
 ## Fallback-paden
 
 1. **PostgreSQL FTS** — taalspecifieke `ts_config`, anders `simple`
-2. **SPARQL/EUR-Lex** — gevraagde taal → `fallback_chain` (meestal `en`)
-3. **Live retrieval** — probeert elke taal in de chain tot HTML beschikbaar is
+2. **Qdrant retrieval** — gevraagde taal → registry chain → `nl` corpus-fallback
+3. **SPARQL/EUR-Lex** — gevraagde taal → `fallback_chain` (meestal `en`)
+4. **Live retrieval** — probeert elke taal in de chain tot HTML beschikbaar is
 
 Zie: [language-fallback-matrix.md](./language-fallback-matrix.md)
 

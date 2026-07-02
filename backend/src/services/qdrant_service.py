@@ -18,6 +18,7 @@ from qdrant_client.models import (
 from backend.src.config import settings
 from backend.src.services.embedding_service import EMBEDDING_DIM
 from backend.src.utils.qdrant_filters import build_qdrant_filter
+from backend.src.utils.retrieval_language_chain import retrieval_language_chain
 from shared.schemas.document import DocumentChunk
 from shared.schemas.query import QueryFilters
 
@@ -108,6 +109,57 @@ class QdrantService:
             {"score": point.score, **(point.payload or {})}
             for point in response.points
         ]
+
+    def search_with_language_fallback(
+        self,
+        query_vector: list[float],
+        limit: int = 50,
+        language: str | None = None,
+        in_force_only: bool = True,
+        filters: QueryFilters | None = None,
+        min_results: int = 1,
+    ) -> list[dict[str, Any]]:
+        """Search Qdrant, trying registry fallback chain plus corpus language."""
+        for lang in retrieval_language_chain(language):
+            attempt_filters = self._filters_for_language(filters, lang)
+            results = self.search(
+                query_vector,
+                limit=limit,
+                language=lang,
+                in_force_only=in_force_only,
+                filters=attempt_filters,
+            )
+            if len(results) >= min_results:
+                return results
+        return []
+
+    def search_by_celex_with_language_fallback(
+        self,
+        celex_values: set[str],
+        limit: int = 12,
+        language: str | None = "nl",
+        in_force_only: bool = True,
+    ) -> list[dict[str, Any]]:
+        """Fetch CELEX chunks, falling back across language chain."""
+        for lang in retrieval_language_chain(language):
+            results = self.search_by_celex(
+                celex_values=celex_values,
+                limit=limit,
+                language=lang,
+                in_force_only=in_force_only,
+            )
+            if results:
+                return results
+        return []
+
+    @staticmethod
+    def _filters_for_language(
+        filters: QueryFilters | None,
+        language: str,
+    ) -> QueryFilters | None:
+        if not filters:
+            return None
+        return filters.model_copy(update={"language": language})
 
     def search_by_celex(
         self,

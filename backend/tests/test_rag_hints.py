@@ -23,6 +23,15 @@ class _FakeQdrant:
         )
         return [{"chunk_id": "hint_chunk", "celex": next(iter(celex_values))}]
 
+    def search_by_celex_with_language_fallback(
+        self,
+        celex_values: set[str],
+        limit: int = 12,
+        language: str | None = "nl",
+        in_force_only: bool = True,
+    ) -> list[dict]:
+        return self.search_by_celex(celex_values, limit, language, in_force_only)
+
 
 def test_hint_search_routes_dora_to_celex_lookup():
     rag = RagService()

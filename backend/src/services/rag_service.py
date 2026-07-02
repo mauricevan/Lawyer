@@ -166,7 +166,9 @@ class RagService:
         vector = self._embeddings.embed_query(request.question)
         budget = RetrievalBudget(settings.retrieval_budget_seconds)
         budget.ensure("vector_search")
-        dense = self._qdrant.search(vector, limit=RETRIEVAL_CANDIDATE_LIMIT, language=lang, in_force_only=in_force, filters=filters)
+        dense = self._qdrant.search_with_language_fallback(
+            vector, limit=RETRIEVAL_CANDIDATE_LIMIT, language=lang, in_force_only=in_force, filters=filters,
+        )
         bm25_ranked = self._bm25.rank(request.question, dense, top_k=50)
         pg_ranked: list[dict[str, Any]] = []
         if session is not None:
@@ -266,7 +268,9 @@ class RagService:
         target_celex = match_celex_hints(query)
         if not target_celex:
             return []
-        return self._qdrant.search_by_celex(celex_values=target_celex, limit=12, language=language, in_force_only=in_force_only)
+        return self._qdrant.search_by_celex_with_language_fallback(
+            celex_values=target_celex, limit=12, language=language, in_force_only=in_force_only,
+        )
 
     def _merge_results(self, *result_groups: list[dict]) -> list[dict]:
         seen: set[str] = set()

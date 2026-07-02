@@ -1,0 +1,36 @@
+{
+  "version": "2026.07.02",
+  "passed": true,
+  "suites": [
+    {
+      "suite": "retrieval",
+      "current": {
+        "recall_at_5": 1.0,
+        "mrr": 1.0,
+        "count": 100.0
+      },
+      "baseline": {
+        "recall_at_5": 0.8,
+        "mrr": 0.7,
+        "count": 100
+      },
+      "passed": true,
+      "regressions": []
+    },
+    {
+      "suite": "multilingual",
+      "current": {
+        "recall_at_5": 1.0,
+        "mrr": 1.0,
+        "count": 15.0
+      },
+      "baseline": {
+        "recall_at_5": 0.7,
+        "mrr": 0.65,
+        "count": 15
+      },
+      "passed": true,
+      "regressions": []
+    }
+  ]
+}
