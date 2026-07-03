@@ -52,6 +52,7 @@ export function RetrievalExplainabilityPanel({ explainability }: Props) {
             <dd>{router.domain_cluster}</dd>
           </div>
         )}
+        {router.celex_hint && (
           <div>
             <dt>CELEX hint</dt>
             <dd>{router.celex_hint}</dd>
