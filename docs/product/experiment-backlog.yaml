@@ -23,8 +23,10 @@ experiments:
     effort: 3
     success_metric: "mrr +0.05 vs baseline, p95 < 10s"
     max_weeks: 3
-    status: proposed
+    status: active
     stop_go: go_if_metric_met
+    script: scripts/qa/run-reranker-ab-eval.sh
+    config: shared/config/reranker_models.yaml
 
   - id: EXP-003
     title: Employment domain go-live

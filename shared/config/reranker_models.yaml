@@ -1,0 +1,20 @@
+# Reranker model variants for EXP-002 A/B (plan12 AA)
+version: "2026.07.03"
+
+default_variant: control
+
+variants:
+  control:
+    model_id: cross-encoder/ms-marco-MiniLM-L-6-v2
+    description: Production baseline cross-encoder
+
+  candidate:
+    model_id: cross-encoder/ms-marco-MiniLM-L-12-v2
+    description: Larger cross-encoder for quality/latency trade-off test
+
+experiment:
+  id: EXP-002
+  mrr_lift_min: 0.05
+  mrr_ceiling: 0.95
+  p95_retrieval_ms_max: 10000
+  recall_regression_max: 0.01

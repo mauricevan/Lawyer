@@ -29,8 +29,8 @@
 
 ## Werkstroom AA - Reranking (EXP-002)
 
-- [ ] Reranker A/B experiment opzetten — model config + feature flag
-- [ ] MRR/latency benchmark script
+- [x] Reranker A/B experiment opzetten — `reranker_models.yaml` + `RERANKER_VARIANT`
+- [x] MRR/latency benchmark script — `run-reranker-ab-eval.sh`
 - [ ] Promotie of rollback documenteren in experiment-backlog
 
 ## Werkstroom AB - Explainability

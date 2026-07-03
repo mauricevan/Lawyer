@@ -25,6 +25,12 @@ suites:
     max_regression: 0.05
     note: offline CI seed; runs on every PR (TD-004)
 
+  reranker_ab:
+    script: scripts/qa/run-reranker-ab-eval.sh
+    config: shared/config/reranker_models.yaml
+    report: docs/data/eval-reports/reranker-ab-latest.json
+    note: EXP-002; requires live Qdrant corpus
+
 release_policy:
   block_on_regression: true
   require_baseline_update_on_improvement: true

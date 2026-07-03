@@ -5,6 +5,7 @@ parameters:
   rrf_k: { env: RRF_K, default: 60 }
   fallback_score_threshold: { env: FALLBACK_SCORE_THRESHOLD, default: 0.18 }
   rerank_top_k: { env: RERANK_TOP_K, default: 8 }
+  reranker_variant: { env: RERANKER_VARIANT, default: control }
   retrieval_budget_seconds: { env: RETRIEVAL_BUDGET_SECONDS, default: 8.0 }
   eval_recall_at_5_min: { env: EVAL_RECALL_AT_5_MIN, default: 0.80 }
   eval_mrr_min: { env: EVAL_MRR_MIN, default: 0.70 }

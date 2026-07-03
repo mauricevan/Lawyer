@@ -35,6 +35,7 @@ class Settings(BaseSettings):
     feature_flag_audit_logging: bool = True
     rerank_top_k: int = 8
     rerank_candidate_limit: int = 20
+    reranker_variant: str = "control"
     eval_recall_at_5_min: float = 0.80
     eval_mrr_min: float = 0.70
     retrieval_budget_seconds: float = 8.0
