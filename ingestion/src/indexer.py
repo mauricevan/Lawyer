@@ -94,6 +94,8 @@ async def _upsert_document(metadata: DocumentMetadata, session: AsyncSession) ->
     )
     existing = result.scalar_one_or_none()
     if existing:
+        if metadata.modified_at is not None:
+            existing.modified_at = metadata.modified_at
         return existing
     doc = Document(
         celex=metadata.celex,
@@ -108,6 +110,7 @@ async def _upsert_document(metadata: DocumentMetadata, session: AsyncSession) ->
         version_type=metadata.version_type.value,
         oj_reference=metadata.oj_reference,
         corrigendum_celex=metadata.corrigendum_celex,
+        modified_at=metadata.modified_at,
     )
     session.add(doc)
     await session.flush()

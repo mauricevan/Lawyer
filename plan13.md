@@ -29,9 +29,9 @@
 
 ## Werkstroom AA - Staleness detection
 
-- [ ] Staleness drempels definiëren — `document_lifecycle_policy.yaml`
-- [ ] Scan script `run-document-staleness-scan.sh`
-- [ ] Stale document report naar admin metrics
+- [x] Staleness drempels definiëren — `document_lifecycle_policy.yaml`
+- [x] Scan script `run-document-staleness-scan.sh`
+- [x] Stale document report naar admin metrics
 
 ## Werkstroom AB - Reindex automation
 

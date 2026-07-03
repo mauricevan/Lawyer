@@ -1,0 +1,15 @@
+# Document lifecycle policy (plan13 AA)
+version: "2026.07.03"
+
+staleness:
+  max_index_age_hours: 168
+  critical_index_age_hours: 720
+  modified_drift_is_stale: true
+
+scan_gates:
+  max_never_indexed: 0
+  max_critical: 0
+  max_stale: 25
+
+report:
+  path: docs/data/lifecycle-reports/staleness-latest.json
