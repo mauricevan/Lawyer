@@ -28,7 +28,8 @@ signals:
     relevance: high
     product_area: RAG scope messaging
     action: product-limitations.md + legal escalation
-    owner: product
+    status: mitigated
+    mitigation_doc: docs/legal/national-implementation-gaps.md
 
 review_cadence: quarterly
 escalation: docs/legal/escalation-path.md

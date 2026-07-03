@@ -25,7 +25,7 @@ themes:
     impact: 4
     effort: 3
     kpi_link: regulatory_radar
-    notes: National implementation gaps messaging
+    notes: National implementation gaps messaging — done (plan11 AC)
 
   - id: THEME-004
     title: Integration eval in CI

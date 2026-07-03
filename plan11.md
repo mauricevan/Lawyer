@@ -39,9 +39,9 @@
 
 ## Werkstroom AC - Compliance
 
-- [ ] Nationale implementatie gaps documenteren
-- [ ] Product-limitations per taal bijwerken
-- [ ] Legal escalation pad valideren
+- [x] Nationale implementatie gaps documenteren — `national-implementation-gaps.yaml`
+- [x] Product-limitations per taal bijwerken — `product-limitations.yaml` + frontend
+- [x] Legal escalation pad valideren — `run-legal-compliance-check.sh`
 
 ## Werkstroom AD - CI hardening
 

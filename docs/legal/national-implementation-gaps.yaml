@@ -1,0 +1,53 @@
+# National implementation gaps — EUR-Lex corpus scope (plan11 AC)
+version: "2026.07.03"
+scope: EU-level acts only; national transposition laws are not indexed unless explicitly ingested
+
+jurisdictions:
+  - code: NL
+    languages: [nl]
+    gap: "Nationale omzettingswetten en sectorale uitvoeringsregels ontbreken in de index"
+    examples: ["UAVG invulling", "Arbowetgeving na EU-richtlijnen"]
+    user_action: "Controleer wetten.overheid.nl of escaleer naar jurist"
+    escalation_trigger: national_transposition
+
+  - code: FR
+    languages: [fr]
+    gap: "Codes nationaux et décrets d'application non indexés par défaut"
+    examples: ["Code du travail", "Lois de transposition GDPR"]
+    user_action: "Vérifier Légifrance ou consulter un avocat"
+    escalation_trigger: national_transposition
+
+  - code: DE
+    languages: [de]
+    gap: "Nationale Umsetzungsgesetze und Landesrecht nicht im Korpus"
+    examples: ["BDSG", "ArbZG Umsetzung EU-Richtlinien"]
+    user_action: "Gesetze-im-Internet.de prüfen oder Jurist konsultieren"
+    escalation_trigger: national_transposition
+
+  - code: ES
+    languages: [es]
+    gap: "Leyes de transposición nacional y normativa autonómica fuera del índice"
+    examples: ["LOPDGDD", "Estatuto de los Trabajadores (ámbito nacional)"]
+    user_action: "Consultar BOE o asesor jurídico"
+    escalation_trigger: national_transposition
+
+  - code: EU
+    languages: [en, nl, fr, de, es]
+    gap: "Geconsolideerde EU-tekst kan achterlopen op corrigenda of nieuwe verordeningen"
+    examples: ["Inwerkingtreding bijlagen", "Gedelegeerde handelingen niet altijd geïndexeerd"]
+    user_action: "Verifieer datum en CELEX op EUR-Lex"
+    escalation_trigger: version_or_entry_into_force
+
+cross_cutting:
+  - id: GAP-001
+    topic: Sector-specific national rules
+    mitigation: disclaimer + product-limitations per taal
+  - id: GAP-002
+    topic: Court interpretation / case law
+    mitigation: escalation-path.md; geen jurisprudentie-index
+
+review_cadence: quarterly
+owner: product
+linked_docs:
+  - docs/legal/product-limitations.md
+  - docs/legal/escalation-path.md

@@ -40,6 +40,7 @@ Centrale index — houd links actueel bij nieuwe runbooks.
 | [run-domain-benchmark.sh](../../scripts/qa/run-domain-benchmark.sh) | Domein go/no-go |
 | [run-multilingual-eval.sh](../../scripts/qa/run-multilingual-eval.sh) | Taaluitrol |
 | [run-ingest-multilingual-seed.sh](../../scripts/qa/run-ingest-multilingual-seed.sh) | Native FR/DE/ES corpus |
+| [run-legal-compliance-check.sh](../../scripts/qa/run-legal-compliance-check.sh) | Compliance docs + escalation |
 
 ## Scripts
 

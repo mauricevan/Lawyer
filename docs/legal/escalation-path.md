@@ -1,10 +1,12 @@
 # Escalatiepad — menselijke jurist
 
+**Validatie:** `./scripts/qa/run-legal-compliance-check.sh` (plan11 AC)
+
 ## Wanneer escaleren
 
 - Bindende beslissingen (contracten, toezicht, geschillen)
 - Conflicterende bronnen of onduidelijke versie-inwerkingtreding
-- Nationale implementatie of sector-specifieke regels buiten de getoonde context
+- Nationale implementatie of sector-specifieke regels buiten de getoonde context — zie [national-implementation-gaps.md](./national-implementation-gaps.md)
 
 ## Stappen
 

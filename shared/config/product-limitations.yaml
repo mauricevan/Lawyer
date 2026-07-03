@@ -1,0 +1,28 @@
+# Product limitations copy per language (plan11 AC)
+version: "2026.07.03"
+languages:
+  nl:
+    - "Antwoorden zijn gebaseerd op geïndexeerde EUR-Lex/CELLAR-data en kunnen vertraagd zijn."
+    - "Live fallback levert mogelijk beperkte fragmenten bij trage EUR-Lex-responses."
+    - "Geen dekking van nationale omzettingswetgeving tenzij expliciet in bronnen aanwezig."
+    - "Historische versies kunnen onvolledig zijn; controleer inwerkingtreding op EUR-Lex."
+  en:
+    - "Answers are based on indexed EUR-Lex/CELLAR data and may be delayed."
+    - "Live fallback may return limited fragments when EUR-Lex is slow."
+    - "National transposition laws are not covered unless explicitly present in sources."
+    - "Historical versions may be incomplete; verify entry into force on EUR-Lex."
+  fr:
+    - "Les réponses reposent sur des données EUR-Lex/CELLAR indexées et peuvent être retardées."
+    - "Le repli en direct peut fournir des fragments limités si EUR-Lex est lent."
+    - "Pas de couverture des lois nationales de transposition sauf si présentes dans les sources."
+    - "Les versions historiques peuvent être incomplètes; vérifiez l'entrée en vigueur sur EUR-Lex."
+  de:
+    - "Antworten basieren auf indexierten EUR-Lex/CELLAR-Daten und können verzögert sein."
+    - "Live-Fallback kann begrenzte Fragmente liefern, wenn EUR-Lex langsam ist."
+    - "Nationale Umsetzungsgesetze sind nicht abgedeckt, sofern nicht in den Quellen."
+    - "Historische Fassungen können unvollständig sein; Inkrafttreten auf EUR-Lex prüfen."
+  es:
+    - "Las respuestas se basan en datos EUR-Lex/CELLAR indexados y pueden retrasarse."
+    - "El fallback en vivo puede devolver fragmentos limitados si EUR-Lex es lento."
+    - "No cubre leyes nacionales de transposición salvo que figuren en las fuentes."
+    - "Las versiones históricas pueden estar incompletas; verifique la entrada en vigor en EUR-Lex."
