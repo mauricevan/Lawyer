@@ -7,6 +7,7 @@
 | [0003](./0003-portfolio-innovation-pipeline.md) | Portfolio scoring & innovation pipeline | Accepted |
 | [0004](./0004-continuous-planning-cycle.md) | Continuous planning cycle | Accepted |
 | [0005](./0005-retrieval-intelligence-plan12.md) | Plan12 retrieval intelligence | Accepted |
+| [0006](./0006-document-lifecycle-plan13.md) | Plan13 document lifecycle | Accepted |
 
 ## Nieuwe ADR aanmaken
 

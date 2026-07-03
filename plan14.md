@@ -14,7 +14,7 @@
 
 ## Waar zitten we nu
 
-- [ ] `plan13.md` volledig afgerond
+- [ ] `plan13.md` volledig afgerond (gestart 2026-07-03)
 - [ ] Enterprise reliability traject gestart
 
 ## Hoofddoelen plan14

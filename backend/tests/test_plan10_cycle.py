@@ -48,6 +48,11 @@ def test_plan12_kickoff_approved() -> None:
     assert "APPROVED" in text
 
 
-def test_plan11_transition_validates() -> None:
+def test_plan12_transition_validates() -> None:
     service = CyclePlanningService()
-    assert not service.validate_plan_transition("plan11")
+    assert not service.validate_plan_transition("plan12")
+
+
+def test_plan13_kickoff_approved() -> None:
+    text = (_REPO / "docs/cycle/plan13-kickoff.md").read_text(encoding="utf-8")
+    assert "APPROVED" in text

@@ -1,11 +1,14 @@
 # Implementatieplan Deel 13 - Kennisbeheer en document lifecycle automation
 
 
-## Implementatiestatus (2026-07-02)
+## Implementatiestatus (2026-07-03)
 
-- **Status:** Klaar voor gefaseerde uitvoering — plan.md/plan2.md zijn technisch afgerond.
-- **Start:** activeer werkpakketten in dit plan per productprioriteit.
-- **Afhankelijkheid:** integration eval (`scripts/qa/run-retrieval-eval.sh`) voor harde kwaliteitsgate.
+- **Status:** Kickoff goedgekeurd — zie [plan13-kickoff.md](docs/cycle/plan13-kickoff.md)
+- **Exit review vorig plan:** [plan12-exit-review.md](docs/cycle/plan12-exit-review.md)
+- **Thema's:** [next-cycle-themes.yaml](docs/cycle/next-cycle-themes.yaml)
+- **ADR:** [0006-document-lifecycle-plan13.md](docs/adr/0006-document-lifecycle-plan13.md)
+- **Vorige plan:** `plan12.md` (afgerond 2026-07-03)
+
 ## Relatie met eerdere plannen
 
 - Vorige plan: `plan12.md`
@@ -14,8 +17,9 @@
 
 ## Waar zitten we nu
 
-- [ ] `plan12.md` volledig afgerond (gestart 2026-07-03)
-- [ ] Lifecycle governance actief
+- [x] `plan12.md` volledig afgerond
+- [x] Lifecycle traject formeel gestart (kickoff 2026-07-03)
+- [x] Eval gates live (release + longtail + CI integration)
 
 ## Hoofddoelen plan13
 
@@ -23,18 +27,42 @@
 - [ ] Verouderde inhoud gecontroleerd uitfaseren
 - [ ] Herkomst en versiebeheer maximaliseren
 
-## Werkstromen
+## Werkstroom AA - Staleness detection
 
-- [ ] Automatische verouderingsdetectie opzetten
-- [ ] Herindexeringsbeleid bij wetswijzigingen automatiseren
-- [ ] Deprecatie- en archiefstroom documenteren
-- [ ] Versieconflict-resolutieproces vastleggen
+- [ ] Staleness drempels definiëren — `document_lifecycle_policy.yaml`
+- [ ] Scan script `run-document-staleness-scan.sh`
+- [ ] Stale document report naar admin metrics
+
+## Werkstroom AB - Reindex automation
+
+- [ ] Reindex trigger bij `modified_at` > `indexed_at`
+- [ ] Integratie met `ingest_curated.py --force-reindex`
+- [ ] Reindex SLA en runbook bijwerken
+
+## Werkstroom AC - Deprecation & archive
+
+- [ ] Deprecatie-register — `document_deprecation_register.yaml`
+- [ ] Archiefstroom documenteren — `docs/data/document-lifecycle.md`
+- [ ] Soft-deprecate vlag op retrieval (exclude from default search)
+
+## Werkstroom AD - Version conflicts & metrics
+
+- [ ] Versieconflict-resolutie (consolidated vs corrigendum) vastleggen
+- [ ] Lifecycle metrics in admin dashboard
+- [ ] Lifecycle eval gate in release checklist
+
+## KPI-doelen plan13
+
+- [ ] Index freshness p95 < 72u na legal change
+- [ ] 100% curated docs hebben `indexed_at`
+- [ ] Deprecation register voor alle `no_go` / retired docs
 
 ## Exit criteria plan13
 
-- [ ] Werkstromen volledig afgerond
+- [ ] Werkstromen AA t/m AD afgerond
 - [ ] Lifecycle metrics operationeel
+- [ ] Go voor `plan14.md`
 
 ## Overdrachtsregel naar plan14
 
-- [ ] Als alle onderdelen in dit document zijn afgevinkt, wordt verder gewerkt in `plan14.md`.
+- [ ] Plan14 start na plan13 exit review + portfolio board

@@ -27,6 +27,11 @@ reviews:
     still_relevant: true
     notes: "International scale closed; retrieval intelligence in plan12"
 
+  - plan_file: plan12.md
+    last_reviewed: "2026-07-03"
+    still_relevant: true
+    notes: "Retrieval intelligence closed; lifecycle automation in plan13"
+
 cadence:
   frequency: quarterly
   owner: engineering

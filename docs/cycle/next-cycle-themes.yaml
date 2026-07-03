@@ -1,51 +1,51 @@
-# Next cycle themes for plan12 (plan11 exit)
+# Next cycle themes for plan13 (plan12 exit)
 version: "2026.07.03"
-next_plan: plan12.md
-previous_plan: plan11.md
+next_plan: plan13.md
+previous_plan: plan12.md
 
 themes:
-  - id: THEME-005
-    title: Advanced reranking intelligence
+  - id: THEME-009
+    title: Document staleness detection
     priority: 1
     impact: 5
     effort: 3
-    kpi_link: eval_recall
-    notes: EXP-002 cross-encoder A/B; MRR +0.05 target
+    kpi_link: index_freshness_hours
+    notes: Scan indexed_at vs modified_at; alert on drift
 
-  - id: THEME-006
-    title: Explainable retrieval output
+  - id: THEME-010
+    title: Automated reindex on legal change
     priority: 2
-    impact: 4
-    effort: 3
-    kpi_link: release_eval_pass_rate
-    notes: Score breakdown + route rationale in API
+    impact: 5
+    effort: 4
+    kpi_link: reindex_sla_hours
+    notes: Trigger ingest on CELEX/version bump
 
-  - id: THEME-007
-    title: Query routing refinement
+  - id: THEME-011
+    title: Deprecation and archive workflow
     priority: 3
     impact: 4
     effort: 3
-    kpi_link: eval_recall
-    notes: Intent library + domain clustering
+    kpi_link: deprecated_doc_count
+    notes: Registry-driven soft deprecate before purge
 
-  - id: THEME-008
-    title: Long-tail eval harness
+  - id: THEME-012
+    title: Lifecycle metrics and admin visibility
     priority: 4
     impact: 3
     effort: 2
-    kpi_link: eval_recall
-    notes: Edge-case fixture + benchmark script
+    kpi_link: lifecycle_coverage_pct
+    notes: Admin metrics + runbook integration
 
 capacity_prep:
-  quarter: Q4-2026
+  quarter: Q1-2027
   mode: healthy
-  feature_hours_per_week: 18
-  innovation_hours: 4
-  debt_hours: 6
+  feature_hours_per_week: 16
+  lifecycle_hours: 6
+  debt_hours: 8
 
 formal_start:
   decision: approved
   date: "2026-07-03"
-  kickoff_doc: docs/cycle/plan12-kickoff.md
-  exit_review_doc: docs/cycle/plan11-exit-review.md
+  kickoff_doc: docs/cycle/plan13-kickoff.md
+  exit_review_doc: docs/cycle/plan12-exit-review.md
   approver: solo-engineering
