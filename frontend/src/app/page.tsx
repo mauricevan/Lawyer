@@ -7,10 +7,11 @@ import { ChatThread } from "@/components/ChatThread";
 import { GuidedQuerySelector } from "@/components/GuidedQuerySelector";
 import { ExampleQuestions } from "@/components/ExampleQuestions";
 import { QueryFilterControls } from "@/components/QueryFilterControls";
+import { RetrievalExplainabilityPanel } from "@/components/RetrievalExplainabilityPanel";
 import { RetrievalRouteBadge } from "@/components/RetrievalRouteBadge";
 import { RetrievalStatus } from "@/components/RetrievalStatus";
 import { LegalFooter } from "@/components/LegalFooter";
-import type { Audience, ChatMessage, QueryMode, RetrievalEvent, RetrievalRoute, SupportedLanguage } from "@/models/types";
+import type { Audience, ChatMessage, QueryMode, RetrievalEvent, RetrievalExplainability, RetrievalRoute, SupportedLanguage } from "@/models/types";
 import {
   getExampleQuestions,
   getPopularQuestions,
@@ -56,6 +57,7 @@ export default function HomePage() {
   const [timeContext, setTimeContext] = useState<"current" | "historical">("current");
   const [language, setLanguage] = useState<SupportedLanguage>("auto");
   const [retrievalRoute, setRetrievalRoute] = useState<RetrievalRoute | undefined>();
+  const [retrievalExplainability, setRetrievalExplainability] = useState<RetrievalExplainability | undefined>();
   const [lockedLanguage, setLockedLanguage] = useState<SupportedLanguage | null>(null);
 
   const isChatActive = messages.length > 0;
@@ -72,6 +74,7 @@ export default function HomePage() {
     setLockedMode(null);
     setLockedLanguage(null);
     setRetrievalRoute(undefined);
+    setRetrievalExplainability(undefined);
   };
 
   const runQuery = (queryText: string) => {
@@ -91,6 +94,7 @@ export default function HomePage() {
     setEvents([]);
     setQuestion("");
     setRetrievalRoute(undefined);
+    setRetrievalExplainability(undefined);
 
     setMessages((prev) => [
       ...prev,
@@ -121,6 +125,9 @@ export default function HomePage() {
         setIsLoading(false);
         if (answer.retrieval_route) {
           setRetrievalRoute(answer.retrieval_route);
+        }
+        if (answer.retrieval_explainability) {
+          setRetrievalExplainability(answer.retrieval_explainability);
         }
         if (answer.conversation_id) {
           setConversationId(answer.conversation_id);
@@ -159,6 +166,9 @@ export default function HomePage() {
               </span>
               {lockedMode && <span className={styles.badge}>{MODE_LABELS[lockedMode]}</span>}
               <RetrievalRouteBadge route={retrievalRoute} />
+              {activeAudience === "professional" && (
+                <RetrievalExplainabilityPanel explainability={retrievalExplainability} />
+              )}
             </div>
           </div>
           <button type="button" className={styles.newChatBtn} onClick={resetConversation}>

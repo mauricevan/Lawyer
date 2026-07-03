@@ -22,6 +22,8 @@ export function normalizeCitation(citation: Partial<Citation> & { celex: string 
       citation.eurlex_url ||
       `https://eur-lex.europa.eu/legal-content/NL/TXT/?uri=CELEX:${citation.celex}`,
     legal_citation: citation.legal_citation || "",
+    retrieval_score: citation.retrieval_score,
+    rerank_score: citation.rerank_score,
     trust: citation.trust || {
       is_consolidated: false,
       is_in_force: true,
@@ -91,6 +93,7 @@ export function streamQuery(
                 retrieval_route: detail.retrieval_route as AnswerResponse["retrieval_route"],
                 confidence_score: detail.confidence_score as number | undefined,
                 verification_questions: (detail.verification_questions as string[]) || [],
+                retrieval_explainability: detail.retrieval_explainability as AnswerResponse["retrieval_explainability"],
               });
             }
           }

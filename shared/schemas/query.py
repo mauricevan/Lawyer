@@ -4,6 +4,7 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 from shared.schemas.citation import Citation
+from shared.schemas.retrieval_explainability import RetrievalExplainability
 from shared.schemas.validation_patterns import (
     CELEX_PATTERN,
     FILTER_TEXT_PATTERN,
@@ -50,3 +51,4 @@ class AnswerResponse(BaseModel):
     retrieval_route: RetrievalRoute | None = None
     confidence_score: float | None = None
     verification_questions: list[str] = Field(default_factory=list)
+    retrieval_explainability: RetrievalExplainability | None = None

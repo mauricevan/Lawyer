@@ -1,0 +1,35 @@
+{
+  "version": "2026-07-03",
+  "experiment_id": "EXP-002",
+  "passed": true,
+  "control": {
+    "recall_at_5": 1.0,
+    "mrr": 1.0,
+    "count": 102.0,
+    "variant": "control",
+    "model_id": "cross-encoder/ms-marco-MiniLM-L-6-v2",
+    "p95_retrieval_ms": 1342.9572000168264,
+    "avg_retrieval_ms": 1247.5533906744756
+  },
+  "candidate": {
+    "recall_at_5": 1.0,
+    "mrr": 1.0,
+    "count": 102.0,
+    "variant": "candidate",
+    "model_id": "cross-encoder/ms-marco-MiniLM-L-12-v2",
+    "p95_retrieval_ms": 1413.7439029291272,
+    "avg_retrieval_ms": 1332.580750312784
+  },
+  "gate": {
+    "passed": true,
+    "mrr_delta": 0.0,
+    "recall_delta": 0.0,
+    "reasons": [],
+    "thresholds": {
+      "mrr_lift_min": 0.05,
+      "mrr_ceiling": 0.95,
+      "p95_retrieval_ms_max": 10000.0,
+      "recall_regression_max": 0.01
+    }
+  }
+}

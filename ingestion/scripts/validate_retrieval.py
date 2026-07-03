@@ -20,7 +20,7 @@ async def main() -> int:
     failed = 0
     for item in questions:
         request = QueryRequest(question=item["question"], audience="professional")
-        results = await rag._retrieve(request)
+        results, _route = await rag._retrieve(request)
         retrieved = {r.get("celex", "") for r in results}
         expected = set(item["expected_celex"])
         hit = bool(retrieved.intersection(expected))

@@ -20,11 +20,19 @@ class _FakeQdrantEmpty:
 
 
 class _FakeReranker:
+    variant = "control"
+    model_id = "test"
+    last_latency_ms = 0.0
+
     def rerank(self, *args, **kwargs):
         return []
 
 
 class _FakeRerankerLowScore:
+    variant = "control"
+    model_id = "test"
+    last_latency_ms = 0.0
+
     def rerank(self, *args, **kwargs):
         return [{"chunk_id": "local:1", "score": 0.05, "text": "weak local"}]
 
@@ -40,12 +48,16 @@ class _FakeLive:
         }]
 
 
+def _patch_pipeline(rag: RagService, reranker: object) -> None:
+    rag._pipeline._qdrant = _FakeQdrantEmpty()
+    rag._pipeline._reranker = reranker
+    rag._pipeline._live = _FakeLive()
+
+
 @pytest.mark.asyncio
 async def test_retrieve_uses_live_fallback_when_local_empty():
     rag = RagService()
-    rag._qdrant = _FakeQdrantEmpty()
-    rag._reranker = _FakeReranker()
-    rag._live = _FakeLive()
+    _patch_pipeline(rag, _FakeReranker())
     request = QueryRequest(
         question="Wat zegt 32022R2554?",
         audience="professional",
@@ -59,9 +71,7 @@ async def test_retrieve_uses_live_fallback_when_local_empty():
 @pytest.mark.asyncio
 async def test_retrieve_uses_memory_cache_after_first_call():
     rag = RagService()
-    rag._qdrant = _FakeQdrantEmpty()
-    rag._reranker = _FakeReranker()
-    rag._live = _FakeLive()
+    _patch_pipeline(rag, _FakeReranker())
     request = QueryRequest(
         question="Wat zegt 32022R2554?",
         audience="professional",
@@ -76,9 +86,7 @@ async def test_retrieve_uses_memory_cache_after_first_call():
 @pytest.mark.asyncio
 async def test_retrieve_uses_live_fallback_for_low_score_results():
     rag = RagService()
-    rag._qdrant = _FakeQdrantEmpty()
-    rag._reranker = _FakeRerankerLowScore()
-    rag._live = _FakeLive()
+    _patch_pipeline(rag, _FakeRerankerLowScore())
     request = QueryRequest(
         question="Wat zegt 32022R2554?",
         audience="professional",

@@ -22,6 +22,30 @@ export interface Citation {
   eurlex_url: string;
   trust: TrustIndicator;
   legal_citation: string;
+  retrieval_score?: number;
+  rerank_score?: number;
+}
+
+export interface RetrievalExplainability {
+  route: RetrievalRoute;
+  query_language: string;
+  router: {
+    domains: string[];
+    doc_types: string[];
+    celex_hint?: string;
+    language: string;
+    time_context?: "current" | "historical";
+  };
+  reranker_variant: string;
+  rerank_latency_ms: number;
+  hybrid_rrf_enabled: boolean;
+  stage_counts: Record<string, number>;
+  sources: Array<{
+    chunk_id: string;
+    celex: string;
+    vector_score?: number;
+    rerank_score?: number;
+  }>;
 }
 
 export interface AnswerResponse {
@@ -32,6 +56,7 @@ export interface AnswerResponse {
   retrieval_route?: RetrievalRoute;
   confidence_score?: number;
   verification_questions?: string[];
+  retrieval_explainability?: RetrievalExplainability;
 }
 
 export interface QueryRequest {

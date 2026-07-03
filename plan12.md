@@ -31,13 +31,13 @@
 
 - [x] Reranker A/B experiment opzetten — `reranker_models.yaml` + `RERANKER_VARIANT`
 - [x] MRR/latency benchmark script — `run-reranker-ab-eval.sh`
-- [ ] Promotie of rollback documenteren in experiment-backlog
+- [x] Promotie of rollback documenteren in experiment-backlog — control default behouden
 
 ## Werkstroom AB - Explainability
 
-- [ ] Retrieval score breakdown in API-response
-- [ ] Route rationale (`hybrid`, `live_fallback`, taal) standaardiseren
-- [ ] Frontend bronpaneel uitbreiden met score/route metadata
+- [x] Retrieval score breakdown in API-response — `retrieval_explainability` + citation scores
+- [x] Route rationale (`hybrid`, `live_fallback`, taal) standaardiseren — `RetrievalExplainability`
+- [x] Frontend bronpaneel uitbreiden met score/route metadata — `RetrievalExplainabilityPanel`
 
 ## Werkstroom AC - Query routing
 

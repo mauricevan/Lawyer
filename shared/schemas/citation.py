@@ -28,3 +28,5 @@ class Citation(BaseModel):
     eurlex_url: str = ""
     trust: TrustIndicator = Field(default_factory=TrustIndicator)
     legal_citation: str = ""
+    retrieval_score: float | None = None
+    rerank_score: float | None = None

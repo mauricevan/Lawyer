@@ -89,6 +89,16 @@ export function TrustCard({ citation, audience = "layperson" }: Props) {
       )}
       {!isLayperson && (
         <>
+          {(citation.retrieval_score != null || citation.rerank_score != null) && (
+            <div className={styles.meta}>
+              {citation.retrieval_score != null && (
+                <span>Vector: {citation.retrieval_score.toFixed(2)}</span>
+              )}
+              {citation.rerank_score != null && (
+                <span>Rerank: {citation.rerank_score.toFixed(2)}</span>
+              )}
+            </div>
+          )}
           <div className={styles.meta}>
             {trust.last_modified && <span>Laatste update: {trust.last_modified}</span>}
             {trust.oj_reference && <span>OJ {trust.oj_reference}</span>}

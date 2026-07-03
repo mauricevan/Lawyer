@@ -56,7 +56,12 @@ class RerankerService:
         pairs = [(query, r.get("text", "")) for r in results]
         scores = model.predict(pairs)
         scored = sorted(zip(results, scores), key=lambda x: x[1], reverse=True)
-        return [r for r, _ in scored[:top_k]]
+        output: list[dict[str, Any]] = []
+        for result, score in scored[:top_k]:
+            chunk = dict(result)
+            chunk["rerank_score"] = float(score)
+            output.append(chunk)
+        return output
 
     def _get_model(self) -> Any:
         if self._model is not None:
