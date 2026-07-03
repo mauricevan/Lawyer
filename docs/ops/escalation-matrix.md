@@ -16,11 +16,16 @@
 
 ## Alert → severity mapping
 
-| Prometheus alert | Severity |
-|---|---|
-| `LawyerBackendDown` | P0 |
-| `LawyerHighFallbackFailureRate` | P2 |
-| `LawyerIngestEnqueueFailures` | P2 |
+| Prometheus alert | Severity | Runbook |
+|---|---|---|
+| `LawyerBackendDown` | P0 | [hotfix-runbook.md](./hotfix-runbook.md) |
+| `LawyerTier1ReadyDegraded` | P0 | [dependency-degradation-runbook.md](./dependency-degradation-runbook.md) |
+| `LawyerPostgresDown` | P0 | [dependency-degradation-runbook.md](./dependency-degradation-runbook.md) |
+| `LawyerQdrantDown` | P1 | [dependency-degradation-runbook.md](./dependency-degradation-runbook.md) |
+| `LawyerHighFallbackFailureRate` | P2 | [top-5-incidents.md](../../observability/runbooks/top-5-incidents.md) |
+| `LawyerIngestEnqueueFailures` | P2 | [top-5-incidents.md](../../observability/runbooks/top-5-incidents.md) |
+
+Policy: `shared/config/alert_runbook_policy.yaml` · Audit: `./scripts/ops/run-incident-playbook-audit.sh`
 
 ## Gerelateerd
 

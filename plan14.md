@@ -47,9 +47,9 @@
 
 ## Werkstroom AD - Incident response
 
-- [ ] Tier-1 alerts koppelen aan runbooks
-- [ ] Incident playbook audit script
-- [ ] Alert-runbook coverage metric in admin
+- [x] Tier-1 alerts koppelen aan runbooks
+- [x] Incident playbook audit script
+- [x] Alert-runbook coverage metric in admin
 
 ## KPI-doelen plan14
 
@@ -59,7 +59,7 @@
 
 ## Exit criteria plan14
 
-- [ ] Werkstromen AA t/m AD afgerond
+- [x] Werkstromen AA t/m AD afgerond
 - [ ] Reliability-doelen gehaald
 - [ ] Go voor `plan15.md`
 

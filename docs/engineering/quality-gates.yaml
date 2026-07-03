@@ -54,6 +54,11 @@ gates:
     script: scripts/ops/run-recovery-drill-gate.sh
     required_on: [quarterly, release]
 
+  incident_playbook_audit:
+    scope: reliability
+    script: scripts/ops/run-incident-playbook-audit.sh
+    required_on: [release]
+
   quality_audit:
     scope: governance
     script: scripts/ops/run-quality-gate-audit.sh

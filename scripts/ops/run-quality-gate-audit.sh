@@ -70,5 +70,12 @@ else
   exit 1
 fi
 
+if [[ -x scripts/ops/run-incident-playbook-audit.sh ]]; then
+  echo "OK: incident playbook audit script executable"
+else
+  echo "FAIL: run-incident-playbook-audit.sh not executable"
+  exit 1
+fi
+
 echo ""
 echo "PASS: Quality gate audit succeeded."

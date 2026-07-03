@@ -8,6 +8,7 @@
 |---|---|---|
 | Detect | Prometheus alerts | `observability/prometheus/alerts.yml` |
 | Triage | Top-5 runbooks | `observability/runbooks/top-5-incidents.md` |
+| Coverage audit | Tier-1 runbook links | `scripts/ops/run-incident-playbook-audit.sh` |
 | Mitigate | Hotfix rollback | `scripts/ops/run-hotfix-rollback.sh` |
 | Verify | Health + smoke | `scripts/ops/run-recovery-drill.sh` |
 | Learn | Incident learnings | `docs/engineering/incident-learnings.md` |

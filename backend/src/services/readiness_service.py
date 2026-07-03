@@ -6,6 +6,7 @@ from sqlalchemy import text
 from backend.src.config import settings
 from backend.src.database import SessionLocal
 from backend.src.services.metrics_service import metrics_service
+from backend.src.services.prometheus_exporter import sync_readiness_metrics
 from backend.src.services.qdrant_service import QdrantService
 from backend.src.services.redis_cache_service import RedisCacheService
 from backend.src.utils.readiness_config import load_readiness_policy
@@ -40,6 +41,7 @@ class ReadinessService:
     async def snapshot(self) -> dict[str, Any]:
         checks = await self.run_checks()
         is_ready = self.is_ready(checks)
+        sync_readiness_metrics(checks, is_ready)
         return {
             "status": "ready" if is_ready else "degraded",
             "checks": checks,

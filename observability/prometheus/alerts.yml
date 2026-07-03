@@ -6,9 +6,44 @@ groups:
         for: 2m
         labels:
           severity: critical
+          tier: "1"
         annotations:
           summary: Lawyer backend metrics endpoint is unreachable
           description: Prometheus cannot scrape backend:8000/metrics for more than 2 minutes.
+          runbook_url: docs/ops/hotfix-runbook.md
+
+      - alert: LawyerTier1ReadyDegraded
+        expr: lawyer_ready == 0
+        for: 3m
+        labels:
+          severity: critical
+          tier: "1"
+        annotations:
+          summary: Tier-1 readiness degraded
+          description: One or more Tier-1 dependencies failed /ready checks for 3 minutes.
+          runbook_url: docs/ops/dependency-degradation-runbook.md
+
+      - alert: LawyerPostgresDown
+        expr: lawyer_dependency_up{dependency="postgres"} == 0
+        for: 3m
+        labels:
+          severity: critical
+          tier: "1"
+        annotations:
+          summary: PostgreSQL dependency unavailable
+          description: Readiness probe reports postgres down for 3 minutes.
+          runbook_url: docs/ops/dependency-degradation-runbook.md
+
+      - alert: LawyerQdrantDown
+        expr: lawyer_dependency_up{dependency="qdrant"} == 0
+        for: 3m
+        labels:
+          severity: warning
+          tier: "1"
+        annotations:
+          summary: Qdrant dependency unavailable
+          description: Readiness probe reports qdrant down; live fallback may activate.
+          runbook_url: docs/ops/dependency-degradation-runbook.md
 
       - alert: LawyerHighFallbackFailureRate
         expr: |
@@ -20,15 +55,19 @@ groups:
         for: 10m
         labels:
           severity: warning
+          tier: "2"
         annotations:
           summary: Elevated live fallback failure rate
           description: Live fallback attempts exceed successes over the last 10 minutes.
+          runbook_url: observability/runbooks/top-5-incidents.md
 
       - alert: LawyerIngestEnqueueFailures
         expr: rate(lawyer_ingest_enqueue_total{result="failed"}[10m]) > 0
         for: 5m
         labels:
           severity: warning
+          tier: "2"
         annotations:
           summary: Celery ingest enqueue failures detected
           description: Auto-upgrade ingest tasks are failing to enqueue.
+          runbook_url: observability/runbooks/top-5-incidents.md

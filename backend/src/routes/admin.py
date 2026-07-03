@@ -15,6 +15,7 @@ from backend.src.dependencies.auth import require_permission
 from backend.src.security.rbac_matrix import Permission
 from backend.src.security.fastapi_params import PageLimit
 from backend.src.services.document_lifecycle_metrics_service import DocumentLifecycleMetricsService
+from backend.src.services.incident_response_service import IncidentResponseService
 from backend.src.services.readiness_service import ReadinessService
 from backend.src.services.redis_cache_service import RedisCacheService
 
@@ -47,10 +48,12 @@ async def get_stats(session: AsyncSession = Depends(get_db)) -> dict:
     lifecycle = await DocumentLifecycleMetricsService().build_summary(session)
     readiness_service = ReadinessService()
     readiness_report = await readiness_service.snapshot()
+    incident_response = IncidentResponseService()
     return {
         "documents_indexed": doc_count.scalar() or 0,
         "document_lifecycle": lifecycle,
         "readiness": readiness_service.summarize_admin(readiness_report),
+        "incident_response": incident_response.summarize_admin(),
         "vector_points": qdrant.count_points(),
         "queries_total": query_count.scalar() or 0,
         "live_cache_entries": cache_count.scalar() or 0,

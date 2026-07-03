@@ -1,0 +1,57 @@
+{
+  "suite": "incident_playbook_audit",
+  "passed": true,
+  "coverage": {
+    "tier1_alert_count": 4,
+    "linked_count": 4,
+    "coverage_ratio": 1.0,
+    "alerts": [
+      {
+        "id": "LawyerBackendDown",
+        "severity": "P0",
+        "runbook": "docs/ops/hotfix-runbook.md",
+        "playbook": "docs/engineering/playbooks/incident-response.md",
+        "runbook_exists": true,
+        "playbook_exists": true,
+        "prometheus_runbook_url": "docs/ops/hotfix-runbook.md",
+        "linked": true
+      },
+      {
+        "id": "LawyerTier1ReadyDegraded",
+        "severity": "P0",
+        "runbook": "docs/ops/dependency-degradation-runbook.md",
+        "playbook": "docs/engineering/playbooks/incident-response.md",
+        "runbook_exists": true,
+        "playbook_exists": true,
+        "prometheus_runbook_url": "docs/ops/dependency-degradation-runbook.md",
+        "linked": true
+      },
+      {
+        "id": "LawyerPostgresDown",
+        "severity": "P0",
+        "runbook": "docs/ops/dependency-degradation-runbook.md",
+        "playbook": "docs/engineering/playbooks/incident-response.md",
+        "runbook_exists": true,
+        "playbook_exists": true,
+        "prometheus_runbook_url": "docs/ops/dependency-degradation-runbook.md",
+        "linked": true
+      },
+      {
+        "id": "LawyerQdrantDown",
+        "severity": "P1",
+        "runbook": "docs/ops/dependency-degradation-runbook.md",
+        "playbook": "docs/engineering/playbooks/incident-response.md",
+        "runbook_exists": true,
+        "playbook_exists": true,
+        "prometheus_runbook_url": "docs/ops/dependency-degradation-runbook.md",
+        "linked": true
+      }
+    ]
+  },
+  "playbooks_ok": true,
+  "issues": [],
+  "gate": {
+    "min_coverage_ratio": 1.0,
+    "passed": true
+  }
+}
