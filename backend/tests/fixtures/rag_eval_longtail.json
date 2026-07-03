@@ -1,0 +1,165 @@
+[
+  {
+    "question": "Welke EU-regels gelden voor digitale operationele weerbaarheid bij banken?",
+    "expected_celex": [
+      "32022R2554"
+    ],
+    "min_hits": 1,
+    "category": "paraphrase"
+  },
+  {
+    "question": "Mag ik klantdata delen onder de privacyverordening van de EU?",
+    "expected_celex": [
+      "32016R0679"
+    ],
+    "min_hits": 1,
+    "category": "informal"
+  },
+  {
+    "question": "Welke eisen gelden voor AI-systemen met een hoog risico?",
+    "expected_celex": [
+      "32024R1689"
+    ],
+    "min_hits": 1,
+    "category": "paraphrase"
+  },
+  {
+    "question": "Welke rapportageplichten gelden voor duurzaamheid in jaarverslagen?",
+    "expected_celex": [
+      "32022L2464"
+    ],
+    "min_hits": 1,
+    "category": "vague"
+  },
+  {
+    "question": "Hoe lang mag een werknemer achter elkaar werken volgens EU-recht?",
+    "expected_celex": [
+      "32003L0088"
+    ],
+    "min_hits": 1,
+    "category": "vague"
+  },
+  {
+    "question": "Wat zijn de rechten van uitzendkrachten in de Europese Unie?",
+    "expected_celex": [
+      "32008L0104"
+    ],
+    "min_hits": 1,
+    "category": "paraphrase"
+  },
+  {
+    "question": "Moet een werkgever transparante en voorspelbare arbeidsvoorwaarden verstrekken?",
+    "expected_celex": [
+      "32019L1152"
+    ],
+    "min_hits": 1,
+    "category": "paraphrase"
+  },
+  {
+    "question": "Leg 32016R0679 uit in het kort voor een compliance-team.",
+    "expected_celex": [
+      "32016R0679"
+    ],
+    "min_hits": 1,
+    "category": "celex_explicit"
+  },
+  {
+    "question": "Welke verplichtingen stelt de EU aan ICT-weerbaarheid bij banken?",
+    "expected_celex": [
+      "32022R2554"
+    ],
+    "min_hits": 1,
+    "category": "cross_language",
+    "language": "nl"
+  },
+  {
+    "question": "Welke cybersecurity-verplichtingen gelden voor essentiële entiteiten onder NIS2?",
+    "expected_celex": [
+      "32022L2555"
+    ],
+    "min_hits": 1,
+    "category": "acronym"
+  },
+  {
+    "question": "Hoe werkt samenwerking tussen nationale consumentenautoriteiten in de EU?",
+    "expected_celex": [
+      "32017R2394"
+    ],
+    "min_hits": 1,
+    "category": "vague"
+  },
+  {
+    "question": "Welke ICT-risico-eisen gelden voor financiële instellingen onder DORA?",
+    "expected_celex": [
+      "32022R2554"
+    ],
+    "min_hits": 1,
+    "category": "compound"
+  },
+  {
+    "question": "Welke verordening behandelt foundation models en GPAI?",
+    "expected_celex": [
+      "32024R1689"
+    ],
+    "min_hits": 1,
+    "category": "technical"
+  },
+  {
+    "question": "Wat is gecorrigeerd in AI Act Corrigendum?",
+    "expected_celex": [
+      "32024R1689R(01)"
+    ],
+    "min_hits": 1,
+    "category": "corrigendum"
+  },
+  {
+    "question": "Regels over generatieve AI en chatbots in de Europese Unie",
+    "expected_celex": [
+      "32024R1689"
+    ],
+    "min_hits": 1,
+    "category": "vague"
+  },
+  {
+    "question": "Wanneer is verwerking van persoonsgegevens rechtmatig zonder toestemming?",
+    "expected_celex": [
+      "32016R0679"
+    ],
+    "min_hits": 1,
+    "category": "legal_concept"
+  },
+  {
+    "question": "Was sind die wichtigsten Pflichten unter DORA für Banken?",
+    "expected_celex": [
+      "32022R2554"
+    ],
+    "min_hits": 1,
+    "category": "cross_language",
+    "language": "de"
+  },
+  {
+    "question": "Wat gold historisch voor werktijden voordat de huidige EU-richtlijn gold?",
+    "expected_celex": [
+      "32003L0088"
+    ],
+    "min_hits": 1,
+    "category": "historical",
+    "time_context": "historical"
+  },
+  {
+    "question": "Hoe moet een onderneming omgaan met persoonsgegevens van sollicitanten?",
+    "expected_celex": [
+      "32016R0679"
+    ],
+    "min_hits": 1,
+    "category": "scenario"
+  },
+  {
+    "question": "Welke EU-wetgeving regelt netwerk- en informatiebeveiliging voor vitale sectoren?",
+    "expected_celex": [
+      "32022L2555"
+    ],
+    "min_hits": 1,
+    "category": "paraphrase"
+  }
+]

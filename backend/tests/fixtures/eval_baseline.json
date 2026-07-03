@@ -16,6 +16,11 @@
       "recall_at_5": 1.0,
       "mrr": 1.0,
       "count": 7.0
+    },
+    "longtail": {
+      "recall_at_5": 0.95,
+      "mrr": 0.836,
+      "count": 20.0
     }
   }
 }

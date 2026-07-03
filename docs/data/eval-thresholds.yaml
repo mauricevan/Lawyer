@@ -36,6 +36,15 @@ suites:
     fixture: backend/tests/fixtures/router_intent_eval.json
     config: shared/config/query_intent_library.yaml
 
+  longtail:
+    recall_at_5_min: 0.75
+    mrr_min: 0.65
+    fixture: backend/tests/fixtures/rag_eval_longtail.json
+    script: scripts/qa/run-longtail-eval.sh
+    report: docs/data/eval-reports/longtail-latest.json
+    max_regression: 0.05
+    note: edge-case paraphrase and vague queries (plan12 AD)
+
 release_policy:
   block_on_regression: true
   require_baseline_update_on_improvement: true

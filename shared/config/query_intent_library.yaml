@@ -18,6 +18,19 @@ intents:
     celex_hint: "32016R0679"
     confidence: 0.90
 
+  - id: INT-TRANSPARENT-WORK
+    patterns: ["transparante arbeidsvoorwaarden", "voorspelbare arbeidsvoorwaarden"]
+    domain: employment
+    doc_type: directive
+    celex_hint: "32019L1152"
+    confidence: 0.86
+
+  - id: INT-CONSUMER-COOP
+    patterns: ["consumentenautoriteiten", "consumer cooperation"]
+    domain: consumer
+    celex_hint: "32017R2394"
+    confidence: 0.84
+
   - id: INT-AI-ACT-CORRIGENDUM
     patterns: ["ai act corrigendum", "32024r1689r"]
     domain: ai

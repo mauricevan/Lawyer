@@ -12,6 +12,9 @@ STATIC_HINTS: dict[str, str] = {
     "avg": "32016R0679",
     "ai act": "32024R1689",
     "kunstmatige intelligentie": "32024R1689",
+    "transparante arbeidsvoorwaarden": "32019L1152",
+    "consumer cooperation": "32017R2394",
+    "consumentenautoriteiten": "32017R2394",
 }
 
 

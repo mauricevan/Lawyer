@@ -1,0 +1,22 @@
+{
+  "version": "2026-07-03",
+  "suite": "longtail",
+  "passed": true,
+  "summary": {
+    "recall_at_5": 0.95,
+    "mrr": 0.8363095238095237,
+    "count": 20.0
+  },
+  "thresholds": {
+    "recall_at_5_min": 0.75,
+    "mrr_min": 0.65,
+    "fixture": "backend/tests/fixtures/rag_eval_longtail.json",
+    "script": "scripts/qa/run-longtail-eval.sh",
+    "report": "docs/data/eval-reports/longtail-latest.json",
+    "max_regression": 0.05,
+    "note": "edge-case paraphrase and vague queries (plan12 AD)"
+  },
+  "failures": [],
+  "misses": [],
+  "count": 20
+}

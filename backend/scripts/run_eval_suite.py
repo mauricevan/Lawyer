@@ -9,7 +9,7 @@ from pathlib import Path
 from backend.src.services.eval_report_service import EvalReportService
 from backend.src.services.rag_service import RagService
 from backend.src.utils.retrieval_metrics import mean_reciprocal_rank, recall_at_k, summarize_eval_results
-from shared.schemas.query import QueryRequest
+from shared.schemas.query import QueryFilters, QueryRequest
 
 ROOT = Path(__file__).resolve().parents[2]
 REPORT_DIR = ROOT / "docs/data/eval-reports"
@@ -22,7 +22,14 @@ async def _run_fixture(path: Path, language: str = "nl") -> dict[str, float]:
     rows = []
     for item in items:
         lang = item.get("language", language)
-        request = QueryRequest(question=item["question"], language=lang)
+        filters = None
+        if item.get("time_context"):
+            filters = QueryFilters(
+                language=lang,
+                time_context=item["time_context"],
+                in_force_only=item["time_context"] != "historical",
+            )
+        request = QueryRequest(question=item["question"], language=lang, filters=filters)
         routed = rag._route_request(request)
         results, _ = await rag._retrieve(routed)
         retrieved = [r.get("celex", "") for r in results]
@@ -46,6 +53,7 @@ async def run_suite(ci_mode: bool = False) -> dict[str, dict[str, float]]:
         "multilingual": await _run_fixture(
             ROOT / "backend/tests/fixtures/rag_eval_multilingual.json", "fr"
         ),
+        "longtail": await _run_fixture(ROOT / "backend/tests/fixtures/rag_eval_longtail.json"),
     }
 
 
