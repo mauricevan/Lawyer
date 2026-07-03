@@ -10,7 +10,7 @@ Laatste evaluatie: draai `./scripts/qa/run-domain-benchmark.sh` na re-index.
 | finance | go | financial | 0.80 |
 | consumer | go | consumer_av | 0.75 |
 | sustainability | pilot | financial (+ CSRD seed) | 0.70 |
-| employment | pilot | consumer_av (+ arbeid seed) | 0.70 |
+| employment | go | employment_law | 0.75 |
 | competition | no_go | financial (+ competition seeds) | 0.70 |
 
 ## Vrijgaveproces
@@ -22,6 +22,6 @@ Laatste evaluatie: draai `./scripts/qa/run-domain-benchmark.sh` na re-index.
 
 ## Uitbreiding kandidaten
 
-- **employment** → meer arbeidsrichtlijnen toevoegen vóór `go`
+- **employment** → live (2026-07-03): 3 richtlijnen, benchmark 1.0
 - **competition** → dedicated cluster + ≥10 CELEX vóór herbeoordeling
 - **sustainability** → CSRD + ESRS delegaties uitbreiden

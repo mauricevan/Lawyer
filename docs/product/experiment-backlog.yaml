@@ -34,7 +34,8 @@ experiments:
     effort: 3
     success_metric: "run-domain-benchmark employment pass"
     max_weeks: 4
-    status: active
+    status: done
+    outcome: "Employment domain go; benchmark recall@5 1.0 (2026-07-03)"
     stop_go: go_if_metric_met
 
 stop_go_criteria:

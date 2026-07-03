@@ -75,16 +75,16 @@ domains:
 
   employment:
     label: "Arbeidsrecht EU"
-    cluster: consumer_av
-    keywords: ["arbeidsrecht", "arbeidsovereenkomst", "werkgever", "werknemer"]
-    seed_celex: ["32019L1152"]
+    cluster: employment_law
+    keywords: ["arbeidsrecht", "arbeidsovereenkomst", "werkgever", "werknemer", "arbeidstijd", "uitzend"]
+    seed_celex: ["32019L1152", "32003L0088", "32008L0104"]
     selection:
       question_volume: medium
       risk: medium
       impact: medium
     benchmark:
-      min_recall_at_5: 0.70
-    status: pilot
+      min_recall_at_5: 0.75
+    status: go
 
   competition:
     label: "Mededingingsrecht"

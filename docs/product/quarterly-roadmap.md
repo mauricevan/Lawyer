@@ -1,7 +1,7 @@
 # Kwartaalroadmap — Lawyer RAG (plan5 J1)
 
 **Huidig kwartaal:** Q3 2026 (jul–sep)  
-**Laatste update:** 2026-07-02  
+**Laatste update:** 2026-07-03  
 **Metrics-bron:** [portfolio-metrics.yaml](./portfolio-metrics.yaml)
 
 ## Strategische doelen Q3
@@ -20,7 +20,7 @@
 | # | Initiatief | Bucket | Owner | KPI-koppeling |
 |---|---|---|---|---|
 | 1 | Plan5 J2 kennisborging | ops_governance | engineering | onboarding + runbooks |
-| 2 | Employment domein → pilot→go | features | product | domain_coverage |
+| 2 | Employment domein → pilot→go | features | product | domain_coverage | Done (plan11 AB) |
 | 3 | Plan4 exit/sign-off documentatie | ops_governance | engineering | governance |
 | 4 | Retrieval eval CI gate op PR | reliability | backend | retrieval_quality |
 | 5 | Grafana dashboards per release | reliability | ops | query_latency_p95 |

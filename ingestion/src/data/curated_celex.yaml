@@ -19,7 +19,6 @@ clusters:
     - "32023R2859"
     - "32024R0903"
     - "32022R0867"
-    - "32019L1152"
     - "32017R1129"
   privacy_data:
     - "32016R0679"
@@ -29,7 +28,6 @@ clusters:
     - "32018R1807"
     - "32023D1795"
     - "32021D0914"
-    - "32019L1152"
     - "32018R1724"
     - "32016R0679"
     - "32018R1860"
@@ -80,6 +78,10 @@ clusters:
     - "32005L0029"
     - "32011L0083"
     - "32093L0013"
+  employment_law:
+    - "32019L1152"
+    - "32003L0088"
+    - "32008L0104"
   health_product:
     - "32017R0745"
     - "32017R0746"
@@ -190,6 +192,20 @@ documents:
     short_title: "Transparent Work"
     doc_type: directive
     oj_reference: "L 186/105"
+  - celex: "32003L0088"
+    title: "Richtlijn 2003/88/EG betreffende bepaalde aspecten van de arbeidstijdenorganisatie"
+    short_title: "Arbeidstijden"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 299/9"
+  - celex: "32008L0104"
+    title: "Richtlijn 2008/104/EG betreffende uitzendarbeid"
+    short_title: "Uitzendarbeid"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 327/9"
   - celex: "32017R1129"
     title: "Verordening (EU) 2017/1129 betreffende het prospectus dat moet worden gepubliceerd bij openbare aanbiedingen"
     short_title: "Prospectus"

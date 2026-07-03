@@ -21,7 +21,7 @@
 
 ## Hoofddoelen plan11
 
-- [ ] Internationale domeinuitbreiding uitvoeren
+- [ ] Internationale domeinuitbreiding uitvoeren — employment `go` (AB); overige domeinen volgen
 - [ ] Meertalige kwaliteit op niveau houden
 - [ ] Juridische dekking gecontroleerd vergroten
 
@@ -33,9 +33,9 @@
 
 ## Werkstroom AB - Domeinuitbreiding
 
-- [ ] Employment domein `pilot` → `go`
-- [ ] Domain benchmark opnieuw draaien
-- [ ] Eval fixture bijwerken
+- [x] Employment domein `pilot` → `go` — cluster `employment_law`, 3 richtlijnen
+- [x] Domain benchmark opnieuw draaien — recall@5 1.0
+- [x] Eval fixture bijwerken — seed-prioriteit in `build_eval_fixture.py`
 
 ## Werkstroom AC - Compliance
 
@@ -51,7 +51,7 @@
 ## KPI-doelen plan11
 
 - [x] Multilingual recall ≥ 0.85 (native corpus) — gemeten 1.0/1.0
-- [ ] Employment domain benchmark pass
+- [x] Employment domain benchmark pass — 1.0 recall@5 (9 vragen)
 - [ ] TD-004 closed
 
 ## Exit criteria plan11

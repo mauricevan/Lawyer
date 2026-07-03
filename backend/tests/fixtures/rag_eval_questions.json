@@ -1,5 +1,101 @@
 [
   {
+    "question": "Wat regelt Arbeidstijden?",
+    "expected_celex": [
+      "32003L0088"
+    ],
+    "min_hits": 1,
+    "domain": "employment"
+  },
+  {
+    "question": "Welke verplichtingen gelden onder Arbeidstijden?",
+    "expected_celex": [
+      "32003L0088"
+    ],
+    "min_hits": 1,
+    "domain": "employment"
+  },
+  {
+    "question": "Wat is het doel van Arbeidstijden?",
+    "expected_celex": [
+      "32003L0088"
+    ],
+    "min_hits": 1,
+    "domain": "employment"
+  },
+  {
+    "question": "Wat regelt Uitzendarbeid?",
+    "expected_celex": [
+      "32008L0104"
+    ],
+    "min_hits": 1,
+    "domain": "employment"
+  },
+  {
+    "question": "Welke verplichtingen gelden onder Uitzendarbeid?",
+    "expected_celex": [
+      "32008L0104"
+    ],
+    "min_hits": 1,
+    "domain": "employment"
+  },
+  {
+    "question": "Wat is het doel van Uitzendarbeid?",
+    "expected_celex": [
+      "32008L0104"
+    ],
+    "min_hits": 1,
+    "domain": "employment"
+  },
+  {
+    "question": "Wat regelt Transparent Work?",
+    "expected_celex": [
+      "32019L1152"
+    ],
+    "min_hits": 1,
+    "domain": "employment"
+  },
+  {
+    "question": "Welke verplichtingen gelden onder Transparent Work?",
+    "expected_celex": [
+      "32019L1152"
+    ],
+    "min_hits": 1,
+    "domain": "employment"
+  },
+  {
+    "question": "Wat is het doel van Transparent Work?",
+    "expected_celex": [
+      "32019L1152"
+    ],
+    "min_hits": 1,
+    "domain": "employment"
+  },
+  {
+    "question": "Wat regelt DORA?",
+    "expected_celex": [
+      "32022R2554"
+    ],
+    "min_hits": 1,
+    "domain": "sustainability"
+  },
+  {
+    "question": "Welke verplichtingen gelden onder DORA?",
+    "expected_celex": [
+      "32022R2554"
+    ],
+    "min_hits": 1,
+    "domain": "sustainability"
+  },
+  {
+    "question": "Wat is het doel van DORA?",
+    "expected_celex": [
+      "32022R2554"
+    ],
+    "min_hits": 1,
+    "domain": "sustainability"
+  },
+  {
     "question": "Wat regelt AI Act?",
     "expected_celex": [
       "32024R1689"
@@ -432,30 +528,6 @@
     "domain": "ai"
   },
   {
-    "question": "Wat regelt Transparent Work?",
-    "expected_celex": [
-      "32019L1152"
-    ],
-    "min_hits": 1,
-    "domain": "employment"
-  },
-  {
-    "question": "Welke verplichtingen gelden onder Transparent Work?",
-    "expected_celex": [
-      "32019L1152"
-    ],
-    "min_hits": 1,
-    "domain": "employment"
-  },
-  {
-    "question": "Wat is het doel van Transparent Work?",
-    "expected_celex": [
-      "32019L1152"
-    ],
-    "min_hits": 1,
-    "domain": "employment"
-  },
-  {
     "question": "Wat regelt Prospectus?",
     "expected_celex": [
       "32017R1129"
@@ -739,62 +811,6 @@
     "question": "Wat is het doel van DPF Adequacy?",
     "expected_celex": [
       "32023D1795"
-    ],
-    "min_hits": 1,
-    "domain": "privacy"
-  },
-  {
-    "question": "Wat regelt UK Adequacy?",
-    "expected_celex": [
-      "32021D0914"
-    ],
-    "min_hits": 1,
-    "domain": "privacy"
-  },
-  {
-    "question": "Welke verplichtingen gelden onder UK Adequacy?",
-    "expected_celex": [
-      "32021D0914"
-    ],
-    "min_hits": 1,
-    "domain": "privacy"
-  },
-  {
-    "question": "Wat is het doel van UK Adequacy?",
-    "expected_celex": [
-      "32021D0914"
-    ],
-    "min_hits": 1,
-    "domain": "privacy"
-  },
-  {
-    "question": "Wat regelt GDPR Comitology?",
-    "expected_celex": [
-      "32018R1860"
-    ],
-    "min_hits": 1,
-    "domain": "privacy"
-  },
-  {
-    "question": "Welke verplichtingen gelden onder GDPR Comitology?",
-    "expected_celex": [
-      "32018R1860"
-    ],
-    "min_hits": 1,
-    "domain": "privacy"
-  },
-  {
-    "question": "Wat is het doel van GDPR Comitology?",
-    "expected_celex": [
-      "32018R1860"
-    ],
-    "min_hits": 1,
-    "domain": "privacy"
-  },
-  {
-    "question": "Wat regelt eIDAS?",
-    "expected_celex": [
-      "32018R1724"
     ],
     "min_hits": 1,
     "domain": "privacy"
