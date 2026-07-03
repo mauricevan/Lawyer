@@ -6,6 +6,7 @@
 | [0002](./0002-solo-operating-model.md) | Solo-first operating model | Accepted |
 | [0003](./0003-portfolio-innovation-pipeline.md) | Portfolio scoring & innovation pipeline | Accepted |
 | [0004](./0004-continuous-planning-cycle.md) | Continuous planning cycle | Accepted |
+| [0005](./0005-retrieval-intelligence-plan12.md) | Plan12 retrieval intelligence | Accepted |
 
 ## Nieuwe ADR aanmaken
 

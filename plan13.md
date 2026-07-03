@@ -14,7 +14,7 @@
 
 ## Waar zitten we nu
 
-- [ ] `plan12.md` volledig afgerond
+- [ ] `plan12.md` volledig afgerond (gestart 2026-07-03)
 - [ ] Lifecycle governance actief
 
 ## Hoofddoelen plan13

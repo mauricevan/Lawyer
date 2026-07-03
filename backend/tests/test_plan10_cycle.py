@@ -41,3 +41,13 @@ def test_plan10_scripts_exist() -> None:
 def test_plan11_kickoff_approved() -> None:
     text = (_REPO / "docs/cycle/plan11-kickoff.md").read_text(encoding="utf-8")
     assert "APPROVED" in text
+
+
+def test_plan12_kickoff_approved() -> None:
+    text = (_REPO / "docs/cycle/plan12-kickoff.md").read_text(encoding="utf-8")
+    assert "APPROVED" in text
+
+
+def test_plan11_transition_validates() -> None:
+    service = CyclePlanningService()
+    assert not service.validate_plan_transition("plan11")

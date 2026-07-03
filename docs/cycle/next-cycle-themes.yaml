@@ -1,49 +1,51 @@
-# Next cycle themes for plan11 (plan10 Y)
-version: "2026.07.02"
-next_plan: plan11.md
+# Next cycle themes for plan12 (plan11 exit)
+version: "2026.07.03"
+next_plan: plan12.md
+previous_plan: plan11.md
 
 themes:
-  - id: THEME-001
-    title: International domain expansion
+  - id: THEME-005
+    title: Advanced reranking intelligence
     priority: 1
     impact: 5
-    effort: 4
-    kpi_link: multilingual_quality
-    notes: Native FR/DE/ES corpus beyond NL fallback
+    effort: 3
+    kpi_link: eval_recall
+    notes: EXP-002 cross-encoder A/B; MRR +0.05 target
 
-  - id: THEME-002
-    title: Employment domain go-live
+  - id: THEME-006
+    title: Explainable retrieval output
     priority: 2
     impact: 4
     effort: 3
-    kpi_link: domain_coverage
-    notes: EXP-003 productization
+    kpi_link: release_eval_pass_rate
+    notes: Score breakdown + route rationale in API
 
-  - id: THEME-003
-    title: Local compliance documentation
+  - id: THEME-007
+    title: Query routing refinement
     priority: 3
     impact: 4
     effort: 3
-    kpi_link: regulatory_radar
-    notes: National implementation gaps messaging — done (plan11 AC)
+    kpi_link: eval_recall
+    notes: Intent library + domain clustering
 
-  - id: THEME-004
-    title: Integration eval in CI
+  - id: THEME-008
+    title: Long-tail eval harness
     priority: 4
     impact: 3
-    effort: 3
-    kpi_link: release_eval_pass_rate
-    notes: TD-004 closure — done (plan11 AD)
+    effort: 2
+    kpi_link: eval_recall
+    notes: Edge-case fixture + benchmark script
 
 capacity_prep:
   quarter: Q4-2026
   mode: healthy
-  feature_hours_per_week: 20
+  feature_hours_per_week: 18
   innovation_hours: 4
   debt_hours: 6
 
 formal_start:
   decision: approved
-  date: "2026-07-02"
-  kickoff_doc: docs/cycle/plan11-kickoff.md
+  date: "2026-07-03"
+  kickoff_doc: docs/cycle/plan12-kickoff.md
+  exit_review_doc: docs/cycle/plan11-exit-review.md
   approver: solo-engineering

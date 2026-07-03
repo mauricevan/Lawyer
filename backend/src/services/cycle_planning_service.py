@@ -12,6 +12,7 @@ class CyclePlanningService:
     def __init__(self, cycle_root: Path | None = None) -> None:
         root = Path(__file__).resolve().parents[3]
         self._cycle_root = cycle_root or root / "docs/cycle"
+        self._repo_root = root
 
     def load_relevance_review(self) -> dict[str, Any]:
         path = self._cycle_root / "plan-relevance-review.yaml"
@@ -25,15 +26,24 @@ class CyclePlanningService:
 
     def validate_plan_transition(self, completed_plan: str) -> list[str]:
         errors: list[str] = []
-        plan_path = Path(__file__).resolve().parents[3] / f"{completed_plan}.md"
+        plan_path = self._repo_root / f"{completed_plan}.md"
         if not plan_path.is_file():
             errors.append(f"missing plan file: {completed_plan}.md")
-        kickoff = self._cycle_root / "plan11-kickoff.md"
-        if completed_plan == "plan9" and not kickoff.is_file():
-            errors.append("plan9→plan10: plan11-kickoff not required yet")
-        themes = self._cycle_root / "next-cycle-themes.yaml"
-        if not themes.is_file():
+        themes_path = self._cycle_root / "next-cycle-themes.yaml"
+        if not themes_path.is_file():
             errors.append("missing next-cycle-themes.yaml")
+            return errors
+        with open(themes_path, encoding="utf-8") as handle:
+            themes = yaml.safe_load(handle)
+        previous = themes.get("previous_plan", "")
+        expected = f"{completed_plan}.md"
+        if previous and previous != expected:
+            errors.append(f"next-cycle-themes previous_plan={previous} != {expected}")
+        start = themes.get("formal_start", {})
+        for key in ("kickoff_doc", "exit_review_doc"):
+            rel = start.get(key)
+            if rel and not (self._repo_root / rel).is_file():
+                errors.append(f"missing {key}: {rel}")
         return errors
 
     def stale_reviews(self, today: date | None = None) -> list[str]:

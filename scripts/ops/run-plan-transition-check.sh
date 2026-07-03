@@ -12,13 +12,25 @@ echo "=== Plan transition check: ${PLAN} ==="
 [[ -f "${PLAN}.md" ]] || { echo "FAIL: missing ${PLAN}.md"; exit 1; }
 echo "OK: ${PLAN}.md exists"
 
+readarray -t DYNAMIC_DOCS < <(python3 - <<'PY'
+import yaml
+from pathlib import Path
+
+data = yaml.safe_load(Path("docs/cycle/next-cycle-themes.yaml").read_text(encoding="utf-8"))
+start = data.get("formal_start", {})
+for key in ("kickoff_doc", "exit_review_doc"):
+    path = start.get(key)
+    if path:
+        print(path)
+PY
+)
+
 required=(
   docs/cycle/plan-transition-playbook.md
   docs/cycle/next-cycle-themes.yaml
-  docs/cycle/plan11-kickoff.md
 )
 
-for doc in "${required[@]}"; do
+for doc in "${required[@]}" "${DYNAMIC_DOCS[@]}"; do
   [[ -f "$doc" ]] || { echo "FAIL: missing $doc"; exit 1; }
   echo "OK: $doc"
 done
@@ -30,10 +42,7 @@ service = CyclePlanningService()
 errors = service.validate_plan_transition("${PLAN}")
 if errors:
     for err in errors:
-        if "not required" in err:
-            print(f"NOTE: {err}")
-        else:
-            raise SystemExit(f"FAIL: {err}")
+        raise SystemExit(f"FAIL: {err}")
 print("OK: transition artifacts valid")
 PY
 

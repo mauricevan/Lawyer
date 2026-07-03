@@ -1,11 +1,11 @@
 # Implementatieplan Deel 11 - Langetermijn schaal en internationale uitbreiding
 
 
-## Implementatiestatus (2026-07-02)
+## Implementatiestatus (2026-07-03)
 
-- **Status:** Kickoff goedgekeurd — zie [plan11-kickoff.md](docs/cycle/plan11-kickoff.md)
-- **Thema's:** [next-cycle-themes.yaml](docs/cycle/next-cycle-themes.yaml)
-- **Vorige plan:** `plan10.md` (cycle + transition live)
+- **Status:** Afgerond — zie [plan11-exit-review.md](docs/cycle/plan11-exit-review.md)
+- **Kickoff:** [plan11-kickoff.md](docs/cycle/plan11-kickoff.md) (2026-07-02)
+- **Opvolger:** `plan12.md` gestart 2026-07-03
 
 ## Relatie met eerdere plannen
 
@@ -18,12 +18,13 @@
 - [x] `plan10.md` volledig afgerond
 - [x] Volgende groeifase formeel gestart (kickoff 2026-07-02)
 - [x] Internationale kwaliteit boven fallback-niveau (native corpus + eval 1.0)
+- [x] Plan11 exit review + plan12 kickoff (2026-07-03)
 
 ## Hoofddoelen plan11
 
-- [ ] Internationale domeinuitbreiding uitvoeren — employment `go` (AB); overige domeinen volgen
-- [ ] Meertalige kwaliteit op niveau houden
-- [ ] Juridische dekking gecontroleerd vergroten
+- [x] Internationale domeinuitbreiding uitvoeren — employment `go` (AB); sustainability blijft `pilot`
+- [x] Meertalige kwaliteit op niveau houden — eval 1.0 FR/DE/ES
+- [x] Juridische dekking gecontroleerd vergroten — compliance docs + check script
 
 ## Werkstroom AA - Taal en corpus
 
@@ -57,9 +58,9 @@
 ## Exit criteria plan11
 
 - [x] Werkstromen AA t/m AD afgerond
-- [ ] Kwaliteitsdrempels gehaald
-- [ ] Go voor `plan12.md`
+- [x] Kwaliteitsdrempels gehaald — release + CI eval 1.0
+- [x] Go voor `plan12.md` — [plan12-kickoff.md](docs/cycle/plan12-kickoff.md) APPROVED
 
 ## Overdrachtsregel naar plan12
 
-- [ ] Plan12 start na plan11 exit review + portfolio board
+- [x] Plan12 gestart na plan11 exit review — [plan11-exit-review.md](docs/cycle/plan11-exit-review.md)
