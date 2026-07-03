@@ -145,6 +145,9 @@ class RagService:
             "time_context": existing.get("time_context") or route.time_context,
             "in_force_only": existing.get("in_force_only", route.time_context != "historical"),
             "consolidated_preferred": existing.get("consolidated_preferred", True),
+            "intent_id": route.intent_id,
+            "router_confidence": route.confidence,
+            "domain_cluster": route.domain_cluster,
         }
         return request.model_copy(update={
             "language": route.language,

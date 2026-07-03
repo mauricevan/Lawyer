@@ -34,7 +34,24 @@ export function RetrievalExplainabilityPanel({ explainability }: Props) {
             <dd>{router.domains.join(", ")}</dd>
           </div>
         )}
-        {router.celex_hint && (
+        {router.intent_id && (
+          <div>
+            <dt>Intent</dt>
+            <dd>{router.intent_id}</dd>
+          </div>
+        )}
+        {router.confidence != null && (
+          <div>
+            <dt>Confidence</dt>
+            <dd>{(router.confidence * 100).toFixed(0)}%</dd>
+          </div>
+        )}
+        {router.domain_cluster && (
+          <div>
+            <dt>Cluster</dt>
+            <dd>{router.domain_cluster}</dd>
+          </div>
+        )}
           <div>
             <dt>CELEX hint</dt>
             <dd>{router.celex_hint}</dd>

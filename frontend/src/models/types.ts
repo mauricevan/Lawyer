@@ -35,6 +35,9 @@ export interface RetrievalExplainability {
     celex_hint?: string;
     language: string;
     time_context?: "current" | "historical";
+    intent_id?: string;
+    confidence?: number;
+    domain_cluster?: string;
   };
   reranker_variant: string;
   rerank_latency_ms: number;

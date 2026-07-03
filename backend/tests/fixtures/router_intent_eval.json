@@ -1,0 +1,44 @@
+[
+  {
+    "question": "Welke verplichtingen uit DORA gelden voor banken?",
+    "expected_intent": "INT-DORA-COMPLIANCE",
+    "expected_domain": "finance",
+    "min_confidence": 0.9
+  },
+  {
+    "question": "Wat zegt de AVG over persoonsgegevens?",
+    "expected_intent": "INT-GDPR-DATA",
+    "expected_domain": "privacy",
+    "min_confidence": 0.85
+  },
+  {
+    "question": "Wat zijn high-risk AI systemen onder de AI Act?",
+    "expected_intent": "INT-AI-ACT-RISK",
+    "expected_domain": "ai",
+    "min_confidence": 0.85
+  },
+  {
+    "question": "Wat regelt de richtlijn over arbeidstijd?",
+    "expected_intent": "INT-EMPLOYMENT-HOURS",
+    "expected_domain": "employment",
+    "min_confidence": 0.85
+  },
+  {
+    "question": "Wat was historisch de oude versie van CSRD?",
+    "expected_intent": "INT-HISTORICAL-VERSION",
+    "expected_time_context": "historical",
+    "min_confidence": 0.7
+  },
+  {
+    "question": "Wat is het verschil tussen verordening en richtlijn?",
+    "expected_intent": "INT-COMPARE-DOCS",
+    "max_confidence": 0.75,
+    "expect_no_domain_lock": true
+  },
+  {
+    "question": "Hoe werkt EU-mededingingsrecht in the praktijk?",
+    "expected_domain": "competition",
+    "min_confidence": 0.45,
+    "expect_cluster": "financial"
+  }
+]

@@ -1,0 +1,76 @@
+# Query intent library for QueryRouterService (plan12 AC)
+version: "2026.07.03"
+
+low_confidence_threshold: 0.55
+
+intents:
+  - id: INT-DORA-COMPLIANCE
+    patterns: ["dora", "digitale operationele weerbaarheid", "32022r2554"]
+    domain: finance
+    doc_type: regulation
+    celex_hint: "32022R2554"
+    confidence: 0.92
+
+  - id: INT-GDPR-DATA
+    patterns: ["gdpr", "avg", "persoonsgegevens", "gegevensbescherming"]
+    domain: privacy
+    doc_type: regulation
+    celex_hint: "32016R0679"
+    confidence: 0.90
+
+  - id: INT-AI-ACT-CORRIGENDUM
+    patterns: ["ai act corrigendum", "32024r1689r"]
+    domain: ai
+    doc_type: regulation
+    celex_hint: "32024R1689R(01)"
+    confidence: 0.93
+
+  - id: INT-AI-ACT-RISK
+    patterns: ["ai act", "kunstmatige intelligentie", "high-risk ai", "32024r1689"]
+    domain: ai
+    doc_type: regulation
+    celex_hint: "32024R1689"
+    confidence: 0.91
+
+  - id: INT-CSRD-REPORTING
+    patterns: ["csrd", "duurzaamheidsrapportering", "32022l2464"]
+    domain: sustainability
+    doc_type: directive
+    celex_hint: "32022L2464"
+    confidence: 0.88
+
+  - id: INT-EMPLOYMENT-HOURS
+    patterns: ["arbeidstijd", "werkrooster", "32003l0088"]
+    domain: employment
+    doc_type: directive
+    celex_hint: "32003L0088"
+    confidence: 0.89
+
+  - id: INT-EMPLOYMENT-AGENCY
+    patterns: ["uitzend", "uitzendkracht", "32008l0104"]
+    domain: employment
+    doc_type: directive
+    celex_hint: "32008L0104"
+    confidence: 0.87
+
+  - id: INT-NIS2-CYBER
+    patterns: ["nis2", "netwerkbeveiliging", "cyberbeveiliging"]
+    domain: cyber
+    doc_type: directive
+    confidence: 0.84
+
+  - id: INT-CONSUMER-WARRANTY
+    patterns: ["consumentengarantie", "garantierecht", "oneerlijke handelspraktijken"]
+    domain: consumer
+    confidence: 0.80
+
+  - id: INT-COMPARE-DOCS
+    patterns: ["verschil tussen", "vergelijk", "compare"]
+    doc_type: regulation
+    confidence: 0.70
+    note: cross-domain compare; no domain lock
+
+  - id: INT-HISTORICAL-VERSION
+    patterns: ["historisch", "oude versie", "vroeger geldend"]
+    time_context: historical
+    confidence: 0.78

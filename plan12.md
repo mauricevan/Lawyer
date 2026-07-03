@@ -24,8 +24,8 @@
 ## Hoofddoelen plan12
 
 - [ ] Retrievalkwaliteit verder verhogen (MRR + recall op long-tail)
-- [ ] Explainability en reproduceerbaarheid verbeteren
-- [ ] Query-routing intelligentie verfijnen
+- [x] Explainability en reproduceerbaarheid verbeteren
+- [x] Query-routing intelligentie verfijnen
 
 ## Werkstroom AA - Reranking (EXP-002)
 
@@ -41,9 +41,9 @@
 
 ## Werkstroom AC - Query routing
 
-- [ ] Intentbibliotheek uitbreiden (`query_router_service`)
-- [ ] Domain-clustering voor lage-confidence queries
-- [ ] Router unit tests + eval cases voor edge intents
+- [x] Intentbibliotheek uitbreiden — `query_intent_library.yaml` + loader
+- [x] Domain-clustering voor lage-confidence queries — `DomainClusterService`
+- [x] Router unit tests + eval cases voor edge intents — `run-router-intent-eval.sh`
 
 ## Werkstroom AD - Long-tail eval
 

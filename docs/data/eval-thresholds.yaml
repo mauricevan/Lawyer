@@ -31,6 +31,11 @@ suites:
     report: docs/data/eval-reports/reranker-ab-latest.json
     note: EXP-002; requires live Qdrant corpus
 
+  router_intent:
+    script: scripts/qa/run-router-intent-eval.sh
+    fixture: backend/tests/fixtures/router_intent_eval.json
+    config: shared/config/query_intent_library.yaml
+
 release_policy:
   block_on_regression: true
   require_baseline_update_on_improvement: true

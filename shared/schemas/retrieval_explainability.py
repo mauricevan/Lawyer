@@ -14,6 +14,9 @@ class RouterDecision(BaseModel):
     celex_hint: str | None = None
     language: str = "nl"
     time_context: str | None = None
+    intent_id: str | None = None
+    confidence: float | None = None
+    domain_cluster: str | None = None
 
 
 class SourceScoreBreakdown(BaseModel):
