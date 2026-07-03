@@ -1,23 +1,38 @@
-# Recovery drill (plan6 L2)
+# Recovery drill (plan6 L2 · plan14 AC)
 
-**Cadans:** maandelijks in staging · na elke P0/P1 in productie  
+**Cadans:** maandelijks in staging · na elke P0/P1 in productie · **quarterly gate**  
 **Script:** `./scripts/ops/run-recovery-drill.sh`  
+**Quarterly gate:** `./scripts/ops/run-recovery-drill-gate.sh`  
+**Rapport:** `docs/data/reliability-reports/recovery-drill-latest.json`  
+**Policy:** `shared/config/recovery_drill_policy.yaml`  
 **Doel MTTR:** < 60 min ([plan6-kpi-targets.yaml](../platform/plan6-kpi-targets.yaml))
 
-## Stappen
+## Geautomatiseerde flow
 
-1. Noteer starttijd (incident ticket of drill log)
-2. Run `./scripts/ops/run-hotfix-rollback.sh --verify-only` — baseline health
-3. Simuleer degradatie: `./scripts/ops/rollback-features.sh`
-4. Restart backend (`docker compose restart backend`)
-5. Verify: `/health`, `/ready`, smoke query
-6. Noteer eindtijd → bereken MTTR
+Het script voert fasen uit en logt MTTR automatisch:
+
+1. `baseline_health` — `./scripts/ops/run-hotfix-rollback.sh --verify-only` (waarschuwing bij fail)
+2. `mitigation` — feature rollback + backend restart
+3. `recovery_verify` — health + `/ready` na mitigatie
+
+MTTR = duur van `mitigation` + `recovery_verify`.
+
+```bash
+# Live drill (stack moet draaien)
+./scripts/ops/run-recovery-drill.sh
+
+# CI / offline validatie
+SIMULATE=true ./scripts/ops/run-recovery-drill.sh
+
+# Quarterly ops gate (live indien backend bereikbaar, anders rapportleeftijd)
+./scripts/ops/run-recovery-drill-gate.sh
+```
 
 ## Succescriteria
 
+- [ ] MTTR < 60 min in drill rapport
 - [ ] Health binnen 5 min na mitigatie
-- [ ] Smoke query retourneert antwoord + citations
-- [ ] Geen open P0 alerts
+- [ ] Quarterly gate groen (`recovery_drill` in quality-gates.yaml)
 - [ ] Drill gelogd in weekly ops note
 
 ## Echte incidenten

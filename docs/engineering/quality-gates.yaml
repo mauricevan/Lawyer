@@ -49,6 +49,11 @@ gates:
     script: scripts/qa/run-failover-eval.sh
     required_on: [pr, release]
 
+  recovery_drill:
+    scope: reliability
+    script: scripts/ops/run-recovery-drill-gate.sh
+    required_on: [quarterly, release]
+
   quality_audit:
     scope: governance
     script: scripts/ops/run-quality-gate-audit.sh

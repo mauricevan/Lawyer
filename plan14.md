@@ -41,9 +41,9 @@
 
 ## Werkstroom AC - Recovery drill automation
 
-- [ ] `run-recovery-drill.sh` standaardiseren en automatiseren
-- [ ] MTTR logging in drill rapport
-- [ ] Quarterly ops gate voor recovery drill
+- [x] `run-recovery-drill.sh` standaardiseren en automatiseren
+- [x] MTTR logging in drill rapport
+- [x] Quarterly ops gate voor recovery drill
 
 ## Werkstroom AD - Incident response
 
@@ -54,7 +54,7 @@
 ## KPI-doelen plan14
 
 - [ ] Readiness check pass rate ≥ 99%
-- [ ] Recovery drill MTTR < 60 min
+- [x] Recovery drill MTTR < 60 min (gate + rapport)
 - [x] Failover test suite groen in CI
 
 ## Exit criteria plan14

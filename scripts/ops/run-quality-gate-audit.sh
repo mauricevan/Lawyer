@@ -63,5 +63,12 @@ else
   exit 1
 fi
 
+if [[ -x scripts/ops/run-recovery-drill-gate.sh ]]; then
+  echo "OK: recovery drill gate script executable"
+else
+  echo "FAIL: run-recovery-drill-gate.sh not executable"
+  exit 1
+fi
+
 echo ""
 echo "PASS: Quality gate audit succeeded."

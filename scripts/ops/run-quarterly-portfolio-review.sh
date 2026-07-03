@@ -60,6 +60,11 @@ echo "→ Backend unit tests"
 pytest backend/tests -m "not integration" -q
 
 echo ""
+echo "→ Recovery drill gate"
+chmod +x scripts/ops/run-recovery-drill-gate.sh
+CI=true ./scripts/ops/run-recovery-drill-gate.sh
+
+echo ""
 echo "→ Knowledge base check"
 chmod +x scripts/ops/run-knowledge-base-check.sh
 ./scripts/ops/run-knowledge-base-check.sh

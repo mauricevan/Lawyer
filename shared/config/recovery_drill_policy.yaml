@@ -1,0 +1,13 @@
+# Recovery drill policy (plan14 AC)
+version: "2026.07.03"
+
+gate:
+  max_mttr_minutes: 60
+  max_health_recovery_minutes: 5
+  max_report_age_days: 92
+
+report:
+  path: docs/data/reliability-reports/recovery-drill-latest.json
+
+simulate:
+  mttr_seconds: 45

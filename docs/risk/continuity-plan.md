@@ -26,7 +26,7 @@
 ## Quarterly validation
 
 ```bash
-./scripts/ops/run-recovery-drill.sh
+./scripts/ops/run-recovery-drill-gate.sh
 ./scripts/ops/run-strategic-risk-review.sh
 ```
 
