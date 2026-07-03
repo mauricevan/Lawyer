@@ -59,6 +59,11 @@ gates:
     script: scripts/platform/run-policy-registry-gate.sh
     required_on: [pr, release]
 
+  partner_api:
+    scope: integrations
+    script: scripts/platform/run-partner-api-gate.sh
+    required_on: [release]
+
   risk_acceptance:
     scope: governance
     script: scripts/platform/run-risk-acceptance-gate.sh

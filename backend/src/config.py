@@ -48,6 +48,7 @@ class Settings(BaseSettings):
     query_log_retention_days: int = 90
     feedback_retention_days: int = 365
     conversation_retention_days: int = 180
+    partner_pilot_api_key: str = ""
 
 
 settings = Settings()

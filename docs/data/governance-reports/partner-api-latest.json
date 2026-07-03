@@ -1,0 +1,11 @@
+{
+  "suite": "partner_api",
+  "passed": true,
+  "partner_count": 1,
+  "configured_keys": 0,
+  "tenant_isolation": {
+    "enabled": true,
+    "mode": "api_key",
+    "header": "X-Partner-Key"
+  }
+}

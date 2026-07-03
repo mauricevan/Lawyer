@@ -17,6 +17,7 @@ from backend.src.security.fastapi_params import PageLimit
 from backend.src.services.document_lifecycle_metrics_service import DocumentLifecycleMetricsService
 from backend.src.services.governance_report_service import GovernanceReportService
 from backend.src.services.incident_response_service import IncidentResponseService
+from backend.src.services.partner_api_service import PartnerApiService
 from backend.src.services.policy_registry_service import PolicyRegistryService
 from backend.src.services.risk_acceptance_service import RiskAcceptanceService
 from backend.src.services.readiness_service import ReadinessService
@@ -63,6 +64,7 @@ async def get_stats(session: AsyncSession = Depends(get_db)) -> dict:
             **governance.summarize_admin(),
             "policy_registry": policy_registry.summarize_admin(),
             "risk_acceptance": RiskAcceptanceService().summarize_admin(),
+            "partner_api": PartnerApiService().summarize_admin(),
         },
         "vector_points": qdrant.count_points(),
         "queries_total": query_count.scalar() or 0,

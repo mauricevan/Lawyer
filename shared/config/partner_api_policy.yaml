@@ -1,11 +1,23 @@
-version: 2026.07.03
-plan: plan16
+# Partner API policy (plan16 / plan31 AA)
+version: "2026.07.03"
+
 partners:
-- id: plan16-partners
-  status: active
+  - id: pilot-partner
+    tier: sandbox
+    api_key_env: PARTNER_PILOT_API_KEY
+    rate_limit_rpm: 60
+
 rate_limits:
-- id: plan16-rate_limits
-  status: active
+  default_rpm: 30
+  partner_rpm: 120
+
 tenant_isolation:
   enabled: true
   mode: api_key
+  header: X-Partner-Key
+
+gate:
+  min_partners_configured: 0
+
+report:
+  path: docs/data/governance-reports/partner-api-latest.json

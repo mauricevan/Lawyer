@@ -9,7 +9,7 @@ from slowapi.util import get_remote_address
 
 from backend.src.config import settings
 from backend.src.database import engine, init_db
-from backend.src.routes import admin, audit_admin, auth, conversations, documents, export, feedback, health, query, retention_admin
+from backend.src.routes import admin, audit_admin, auth, conversations, documents, export, feedback, health, partner, query, retention_admin
 
 
 @asynccontextmanager
@@ -48,3 +48,4 @@ app.include_router(admin.router, prefix="/api/v1")
 app.include_router(audit_admin.router, prefix="/api/v1")
 app.include_router(retention_admin.router, prefix="/api/v1")
 app.include_router(feedback.router, prefix="/api/v1")
+app.include_router(partner.router, prefix="/api/v1")
