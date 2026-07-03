@@ -1,0 +1,6 @@
+version: 2026.07.03
+plan: plan20
+series_report: docs/cycle/plan20-series-report.md
+rest_items:
+- id: plan20-rest_items
+  status: active

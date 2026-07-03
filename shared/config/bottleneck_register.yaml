@@ -1,0 +1,5 @@
+version: 2026.07.03
+plan: plan22
+bottlenecks:
+- id: plan22-bottlenecks
+  status: active

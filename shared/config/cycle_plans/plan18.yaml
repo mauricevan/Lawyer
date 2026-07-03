@@ -1,0 +1,15 @@
+version: 2026.07.03
+plan_id: plan18
+title: Compliance evolutie en regelgeving updates
+gate:
+  min_artifact_ratio: 1.0
+artifacts:
+- id: regulatory_watch_register
+  path: shared/config/regulatory_watch_register.yaml
+  type: yaml
+  required_keys:
+  - watch_items
+  - impact_template
+- id: regulatory-impact-template
+  path: docs/compliance/regulatory-impact-template.md
+  type: markdown

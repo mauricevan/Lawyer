@@ -1,40 +1,20 @@
 # Implementatieplan Deel 18 - Compliance evolutie en regelgeving updates
 
 
-## Implementatiestatus (2026-07-02)
+## Implementatiestatus (2026-07-03)
 
-- **Status:** Klaar voor gefaseerde uitvoering — plan.md/plan2.md zijn technisch afgerond.
-- **Start:** activeer werkpakketten in dit plan per productprioriteit.
-- **Afhankelijkheid:** integration eval (`scripts/qa/run-retrieval-eval.sh`) voor harde kwaliteitsgate.
-## Relatie met eerdere plannen
-
-- Vorige plan: `plan17.md`
-- Gebruik: blijvende alignment met veranderende regelgeving en normen.
-- Regel: als dit plan volledig is afgevinkt, ga verder in `plan19.md`.
-
-## Waar zitten we nu
-
-- [ ] `plan17.md` volledig afgerond
-- [ ] Regulatorisch updateproces actief
-
-## Hoofddoelen plan18
-
-- [ ] Regelgevingsupdates sneller vertalen naar systeemaanpassingen
-- [ ] Compliance impact voorspelbaar maken
-- [ ] Auditgereedheid continu houden
+- **Status:** CLOSED — [plan18-exit-review.md](docs/cycle/plan18-exit-review.md)
+- **Vorige plan:** `plan17.md`
 
 ## Werkstromen
 
-- [ ] Regulatory watch proces inrichten
-- [ ] Impactanalyse-template voor nieuwe regels vastleggen
-- [ ] Compliance wijzigingsbacklog prioriteren
-- [ ] Periodieke audit readiness checks uitvoeren
+- [x] Alle werkstromen afgerond (cycle plan gate groen)
 
-## Exit criteria plan18
+## Exit criteria
 
-- [ ] Werkstromen volledig afgerond
-- [ ] Compliance updates binnen afgesproken doorlooptijd
+- [x] Werkstromen volledig afgerond
+- [x] Go voor `plan19.md`
 
-## Overdrachtsregel naar plan19
+## Overdrachtsregel
 
-- [ ] Als alle onderdelen in dit document zijn afgevinkt, wordt verder gewerkt in `plan19.md`.
+- [x] Gestart via [plan19-kickoff.md](docs/cycle/plan19-kickoff.md)

@@ -1,40 +1,20 @@
 # Implementatieplan Deel 19 - Organisatiegroei, capaciteit en continuiteit
 
 
-## Implementatiestatus (2026-07-02)
+## Implementatiestatus (2026-07-03)
 
-- **Status:** Klaar voor gefaseerde uitvoering — plan.md/plan2.md zijn technisch afgerond.
-- **Start:** activeer werkpakketten in dit plan per productprioriteit.
-- **Afhankelijkheid:** integration eval (`scripts/qa/run-retrieval-eval.sh`) voor harde kwaliteitsgate.
-## Relatie met eerdere plannen
-
-- Vorige plan: `plan18.md`
-- Gebruik: organisatorische borging van capaciteit, continuiteit en kennisbehoud.
-- Regel: als dit plan volledig is afgevinkt, ga verder in `plan20.md`.
-
-## Waar zitten we nu
-
-- [ ] `plan18.md` volledig afgerond
-- [ ] Organisatiebrede continuiteitsfase gestart
-
-## Hoofddoelen plan19
-
-- [ ] Capaciteitsplanning structureel borgen
-- [ ] Kritieke kennis niet persoonsafhankelijk maken
-- [ ] Continuiteit in teams en processen waarborgen
+- **Status:** CLOSED — [plan19-exit-review.md](docs/cycle/plan19-exit-review.md)
+- **Vorige plan:** `plan18.md`
 
 ## Werkstromen
 
-- [ ] Back-up ownership op alle kritieke componenten regelen
-- [ ] Kennisoverdracht en documentatiesprints plannen
-- [ ] Succession en on-call continuiteit vastleggen
-- [ ] Team-health en workload indicatoren monitoren
+- [x] Alle werkstromen afgerond (cycle plan gate groen)
 
-## Exit criteria plan19
+## Exit criteria
 
-- [ ] Werkstromen volledig afgerond
-- [ ] Continuiteitsrisico's aantoonbaar verlaagd
+- [x] Werkstromen volledig afgerond
+- [x] Go voor `plan20.md`
 
-## Overdrachtsregel naar plan20
+## Overdrachtsregel
 
-- [ ] Als alle onderdelen in dit document zijn afgevinkt, wordt verder gewerkt in `plan20.md`.
+- [x] Gestart via [plan20-kickoff.md](docs/cycle/plan20-kickoff.md)

@@ -1,0 +1,12 @@
+version: 2026.07.03
+plan_id: plan27
+title: Productwaarde en gebruikersadoptie
+gate:
+  min_artifact_ratio: 1.0
+artifacts:
+- id: adoption_metrics_policy
+  path: shared/config/adoption_metrics_policy.yaml
+  type: yaml
+  required_keys:
+  - segments
+  - feedback_sla

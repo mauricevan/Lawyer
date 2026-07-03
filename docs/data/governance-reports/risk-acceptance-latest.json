@@ -1,0 +1,37 @@
+{
+  "suite": "risk_acceptance",
+  "passed": true,
+  "summary": {
+    "decision_count": 3,
+    "logged_within_sla": 3,
+    "sla_compliance_ratio": 1.0,
+    "decisions": [
+      {
+        "id": "RISK-001",
+        "decision": "accept",
+        "owner": "platform",
+        "age_hours": 2.98,
+        "logged_within_sla": true
+      },
+      {
+        "id": "RISK-002",
+        "decision": "defer",
+        "owner": "product",
+        "age_hours": 1.98,
+        "logged_within_sla": true
+      },
+      {
+        "id": "RISK-003",
+        "decision": "accept",
+        "owner": "platform",
+        "age_hours": 0.98,
+        "logged_within_sla": true
+      }
+    ]
+  },
+  "issues": [],
+  "gate": {
+    "max_decision_age_hours": 24,
+    "passed": true
+  }
+}

@@ -1,0 +1,12 @@
+version: 2026.07.03
+plan_id: plan19
+title: Organisatiegroei, capaciteit en continuiteit
+gate:
+  min_artifact_ratio: 1.0
+artifacts:
+- id: continuity_ownership_policy
+  path: shared/config/continuity_ownership_policy.yaml
+  type: yaml
+  required_keys:
+  - backup_ownership
+  - on_call

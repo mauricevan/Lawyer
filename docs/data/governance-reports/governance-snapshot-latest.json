@@ -1,0 +1,152 @@
+{
+  "suite": "governance_snapshot",
+  "passed": true,
+  "snapshot": {
+    "suite": "governance_snapshot",
+    "completed_at": "2026-07-03T10:58:36.598641+00:00",
+    "policy_registry": {
+      "coverage_ratio": 1.0,
+      "registered_count": 12,
+      "valid_count": 12,
+      "invalid_policies": [],
+      "policies": [
+        {
+          "id": "readiness",
+          "domain": "reliability",
+          "plan": "plan14",
+          "status": "valid"
+        },
+        {
+          "id": "failover",
+          "domain": "reliability",
+          "plan": "plan14",
+          "status": "valid"
+        },
+        {
+          "id": "recovery_drill",
+          "domain": "reliability",
+          "plan": "plan14",
+          "status": "valid"
+        },
+        {
+          "id": "alert_runbook",
+          "domain": "reliability",
+          "plan": "plan14",
+          "status": "valid"
+        },
+        {
+          "id": "document_lifecycle",
+          "domain": "lifecycle",
+          "plan": "plan13",
+          "status": "valid"
+        },
+        {
+          "id": "document_version",
+          "domain": "lifecycle",
+          "plan": "plan13",
+          "status": "valid"
+        },
+        {
+          "id": "document_deprecation",
+          "domain": "lifecycle",
+          "plan": "plan13",
+          "status": "valid"
+        },
+        {
+          "id": "retrieval_params",
+          "domain": "retrieval",
+          "plan": "plan7",
+          "status": "valid"
+        },
+        {
+          "id": "product_limitations",
+          "domain": "product",
+          "plan": "plan11",
+          "status": "valid"
+        },
+        {
+          "id": "risk_acceptance",
+          "domain": "governance",
+          "plan": "plan15",
+          "status": "valid"
+        },
+        {
+          "id": "decision_log",
+          "domain": "governance",
+          "plan": "plan15",
+          "status": "valid"
+        },
+        {
+          "id": "governance_report",
+          "domain": "governance",
+          "plan": "plan15",
+          "status": "valid"
+        }
+      ]
+    },
+    "risk_acceptance": {
+      "decision_count": 3,
+      "sla_compliance_ratio": 1.0,
+      "open_deferred": [
+        "RISK-002"
+      ]
+    },
+    "decision_log": {
+      "entry_count": 5,
+      "linked_count": 5,
+      "coverage_ratio": 1.0
+    },
+    "incident_response": {
+      "coverage_ratio": 1.0,
+      "tier1_alert_count": 4,
+      "linked_count": 4,
+      "unlinked_alerts": [],
+      "alerts": [
+        {
+          "id": "LawyerBackendDown",
+          "severity": "P0",
+          "runbook": "docs/ops/hotfix-runbook.md",
+          "playbook": "docs/engineering/playbooks/incident-response.md",
+          "runbook_exists": true,
+          "playbook_exists": true,
+          "prometheus_runbook_url": "docs/ops/hotfix-runbook.md",
+          "linked": true
+        },
+        {
+          "id": "LawyerTier1ReadyDegraded",
+          "severity": "P0",
+          "runbook": "docs/ops/dependency-degradation-runbook.md",
+          "playbook": "docs/engineering/playbooks/incident-response.md",
+          "runbook_exists": true,
+          "playbook_exists": true,
+          "prometheus_runbook_url": "docs/ops/dependency-degradation-runbook.md",
+          "linked": true
+        },
+        {
+          "id": "LawyerPostgresDown",
+          "severity": "P0",
+          "runbook": "docs/ops/dependency-degradation-runbook.md",
+          "playbook": "docs/engineering/playbooks/incident-response.md",
+          "runbook_exists": true,
+          "playbook_exists": true,
+          "prometheus_runbook_url": "docs/ops/dependency-degradation-runbook.md",
+          "linked": true
+        },
+        {
+          "id": "LawyerQdrantDown",
+          "severity": "P1",
+          "runbook": "docs/ops/dependency-degradation-runbook.md",
+          "playbook": "docs/engineering/playbooks/incident-response.md",
+          "runbook_exists": true,
+          "playbook_exists": true,
+          "prometheus_runbook_url": "docs/ops/dependency-degradation-runbook.md",
+          "linked": true
+        }
+      ]
+    }
+  },
+  "gate": {
+    "min_sections": 4,
+    "passed": true
+  }
+}

@@ -1,51 +1,21 @@
-# Next cycle themes for plan15 (plan14 exit)
+# Next cycle themes — series closure (plan30 exit)
 version: "2026.07.03"
-next_plan: plan15.md
-previous_plan: plan14.md
+next_plan: plan31.md
+previous_plan: plan30.md
+series_status: closed_plan1_plan30
 
 themes:
-  - id: THEME-017
-    title: Policy-as-code foundations
+  - id: THEME-031
+    title: Optional plan31 kickoff pending portfolio board
     priority: 1
-    impact: 5
-    effort: 3
-    kpi_link: policy_registry_coverage_pct
-    notes: Central YAML registry + CI validation gate
-
-  - id: THEME-018
-    title: Risk acceptance workflow
-    priority: 2
-    impact: 5
-    effort: 4
-    kpi_link: risk_decision_log_completeness
-    notes: Structured accept/defer/reject with audit trail
-
-  - id: THEME-019
-    title: Decision log centralization
-    priority: 3
-    impact: 4
-    effort: 3
-    kpi_link: decision_log_entry_count
-    notes: ADR, policy, and release decisions in one index
-
-  - id: THEME-020
-    title: Governance reporting automation
-    priority: 4
-    impact: 4
+    impact: 3
     effort: 2
-    kpi_link: governance_report_freshness_days
-    notes: Admin summary + quarterly management snapshot
-
-capacity_prep:
-  quarter: Q1-2027
-  mode: governance_focus
-  feature_hours_per_week: 16
-  governance_hours: 10
-  debt_hours: 6
+    kpi_link: series_closure_complete
+    notes: Plans 1–30 delivered; plan31 only if new cycle approved
 
 formal_start:
-  decision: approved
+  decision: series_closed
   date: "2026-07-03"
-  kickoff_doc: docs/cycle/plan15-kickoff.md
-  exit_review_doc: docs/cycle/plan14-exit-review.md
+  kickoff_doc: docs/cycle/plan30-series-closure.md
+  exit_review_doc: docs/cycle/plan30-exit-review.md
   approver: solo-engineering

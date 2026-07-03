@@ -1,0 +1,276 @@
+{
+  "suite": "cycle_plans",
+  "passed": true,
+  "plan_count": 15,
+  "passed_count": 15,
+  "results": [
+    {
+      "suite": "cycle_plan_plan16",
+      "plan_id": "plan16",
+      "title": "Ecosysteemintegraties en partnerkanalen",
+      "passed": true,
+      "artifact_ratio": 1.0,
+      "artifacts": [
+        {
+          "id": "partner_api_policy",
+          "path": "shared/config/partner_api_policy.yaml",
+          "valid": true,
+          "issues": []
+        },
+        {
+          "id": "partner-api-contract",
+          "path": "docs/integrations/partner-api-contract.md",
+          "valid": true,
+          "issues": []
+        }
+      ],
+      "issues": []
+    },
+    {
+      "suite": "cycle_plan_plan17",
+      "plan_id": "plan17",
+      "title": "Continue model- en kwaliteitsverbetering",
+      "passed": true,
+      "artifact_ratio": 1.0,
+      "artifacts": [
+        {
+          "id": "quality_regression_policy",
+          "path": "shared/config/quality_regression_policy.yaml",
+          "valid": true,
+          "issues": []
+        }
+      ],
+      "issues": []
+    },
+    {
+      "suite": "cycle_plan_plan18",
+      "plan_id": "plan18",
+      "title": "Compliance evolutie en regelgeving updates",
+      "passed": true,
+      "artifact_ratio": 1.0,
+      "artifacts": [
+        {
+          "id": "regulatory_watch_register",
+          "path": "shared/config/regulatory_watch_register.yaml",
+          "valid": true,
+          "issues": []
+        },
+        {
+          "id": "regulatory-impact-template",
+          "path": "docs/compliance/regulatory-impact-template.md",
+          "valid": true,
+          "issues": []
+        }
+      ],
+      "issues": []
+    },
+    {
+      "suite": "cycle_plan_plan19",
+      "plan_id": "plan19",
+      "title": "Organisatiegroei, capaciteit en continuiteit",
+      "passed": true,
+      "artifact_ratio": 1.0,
+      "artifacts": [
+        {
+          "id": "continuity_ownership_policy",
+          "path": "shared/config/continuity_ownership_policy.yaml",
+          "valid": true,
+          "issues": []
+        }
+      ],
+      "issues": []
+    },
+    {
+      "suite": "cycle_plan_plan20",
+      "plan_id": "plan20",
+      "title": "Master continuatie en start volgende reeks",
+      "passed": true,
+      "artifact_ratio": 1.0,
+      "artifacts": [
+        {
+          "id": "series_closure_plan20",
+          "path": "shared/config/series_closure_plan20.yaml",
+          "valid": true,
+          "issues": []
+        },
+        {
+          "id": "plan20-series-report",
+          "path": "docs/cycle/plan20-series-report.md",
+          "valid": true,
+          "issues": []
+        }
+      ],
+      "issues": []
+    },
+    {
+      "suite": "cycle_plan_plan21",
+      "plan_id": "plan21",
+      "title": "Nieuwe cyclus kickoff en herijking",
+      "passed": true,
+      "artifact_ratio": 1.0,
+      "artifacts": [
+        {
+          "id": "cycle_rebaseline_policy",
+          "path": "shared/config/cycle_rebaseline_policy.yaml",
+          "valid": true,
+          "issues": []
+        }
+      ],
+      "issues": []
+    },
+    {
+      "suite": "cycle_plan_plan22",
+      "plan_id": "plan22",
+      "title": "Doelgerichte optimalisaties en versnelling",
+      "passed": true,
+      "artifact_ratio": 1.0,
+      "artifacts": [
+        {
+          "id": "bottleneck_register",
+          "path": "shared/config/bottleneck_register.yaml",
+          "valid": true,
+          "issues": []
+        }
+      ],
+      "issues": []
+    },
+    {
+      "suite": "cycle_plan_plan23",
+      "plan_id": "plan23",
+      "title": "Kwaliteitsborging op release-tempo",
+      "passed": true,
+      "artifact_ratio": 1.0,
+      "artifacts": [
+        {
+          "id": "release_quality_policy",
+          "path": "shared/config/release_quality_policy.yaml",
+          "valid": true,
+          "issues": []
+        }
+      ],
+      "issues": []
+    },
+    {
+      "suite": "cycle_plan_plan24",
+      "plan_id": "plan24",
+      "title": "Data- en retrieval excellence",
+      "passed": true,
+      "artifact_ratio": 1.0,
+      "artifacts": [
+        {
+          "id": "retrieval_excellence_policy",
+          "path": "shared/config/retrieval_excellence_policy.yaml",
+          "valid": true,
+          "issues": []
+        }
+      ],
+      "issues": []
+    },
+    {
+      "suite": "cycle_plan_plan25",
+      "plan_id": "plan25",
+      "title": "Operations maturity en kostenbeheersing",
+      "passed": true,
+      "artifact_ratio": 1.0,
+      "artifacts": [
+        {
+          "id": "ops_cost_policy",
+          "path": "shared/config/ops_cost_policy.yaml",
+          "valid": true,
+          "issues": []
+        }
+      ],
+      "issues": []
+    },
+    {
+      "suite": "cycle_plan_plan26",
+      "plan_id": "plan26",
+      "title": "Veiligheid, privacy en audit verdieping",
+      "passed": true,
+      "artifact_ratio": 1.0,
+      "artifacts": [
+        {
+          "id": "security_privacy_policy",
+          "path": "shared/config/security_privacy_policy.yaml",
+          "valid": true,
+          "issues": []
+        }
+      ],
+      "issues": []
+    },
+    {
+      "suite": "cycle_plan_plan27",
+      "plan_id": "plan27",
+      "title": "Productwaarde en gebruikersadoptie",
+      "passed": true,
+      "artifact_ratio": 1.0,
+      "artifacts": [
+        {
+          "id": "adoption_metrics_policy",
+          "path": "shared/config/adoption_metrics_policy.yaml",
+          "valid": true,
+          "issues": []
+        }
+      ],
+      "issues": []
+    },
+    {
+      "suite": "cycle_plan_plan28",
+      "plan_id": "plan28",
+      "title": "Ecosysteemgroei en strategische partnerships",
+      "passed": true,
+      "artifact_ratio": 1.0,
+      "artifacts": [
+        {
+          "id": "partnership_governance_policy",
+          "path": "shared/config/partnership_governance_policy.yaml",
+          "valid": true,
+          "issues": []
+        }
+      ],
+      "issues": []
+    },
+    {
+      "suite": "cycle_plan_plan29",
+      "plan_id": "plan29",
+      "title": "Strategische consolidatie",
+      "passed": true,
+      "artifact_ratio": 1.0,
+      "artifacts": [
+        {
+          "id": "consolidation_policy",
+          "path": "shared/config/consolidation_policy.yaml",
+          "valid": true,
+          "issues": []
+        }
+      ],
+      "issues": []
+    },
+    {
+      "suite": "cycle_plan_plan30",
+      "plan_id": "plan30",
+      "title": "Reeksafronding plan1\u2013plan30",
+      "passed": true,
+      "artifact_ratio": 1.0,
+      "artifacts": [
+        {
+          "id": "series_final_closure",
+          "path": "shared/config/series_final_closure.yaml",
+          "valid": true,
+          "issues": []
+        },
+        {
+          "id": "plan30-series-closure",
+          "path": "docs/cycle/plan30-series-closure.md",
+          "valid": true,
+          "issues": []
+        }
+      ],
+      "issues": []
+    }
+  ],
+  "gate": {
+    "min_plans_passed": 15,
+    "passed": true
+  }
+}

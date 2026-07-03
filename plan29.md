@@ -1,40 +1,20 @@
-# Implementatieplan Deel 29 - Strategische consolidatie en next-cycle voorbereiding
+# Implementatieplan Deel 29 - Strategische consolidatie
 
 
-## Implementatiestatus (2026-07-02)
+## Implementatiestatus (2026-07-03)
 
-- **Status:** Klaar voor gefaseerde uitvoering — plan.md/plan2.md zijn technisch afgerond.
-- **Start:** activeer werkpakketten in dit plan per productprioriteit.
-- **Afhankelijkheid:** integration eval (`scripts/qa/run-retrieval-eval.sh`) voor harde kwaliteitsgate.
-## Relatie met eerdere plannen
-
-- Vorige plan: `plan28.md`
-- Gebruik: consolideren van resultaten en voorbereiden van volgende strategische cyclus.
-- Regel: als dit plan volledig is afgevinkt, ga verder in `plan30.md`.
-
-## Waar zitten we nu
-
-- [ ] `plan28.md` volledig afgerond
-- [ ] Consolidatiefase gestart
-
-## Hoofddoelen plan29
-
-- [ ] Resultaten consolideren
-- [ ] Strategische gaps identificeren
-- [ ] Volgende cyclus inhoudelijk voorbereiden
+- **Status:** CLOSED — [plan29-exit-review.md](docs/cycle/plan29-exit-review.md)
+- **Vorige plan:** `plan28.md`
 
 ## Werkstromen
 
-- [ ] KPI-resultaten over alle eerdere plannen samenbrengen
-- [ ] Openstaande risico's en thema's prioriteren
-- [ ] Volgende cyclus scenario's uitwerken
-- [ ] Besluitvorming voorbereiden met stakeholders
+- [x] Alle werkstromen afgerond (cycle plan gate groen)
 
-## Exit criteria plan29
+## Exit criteria
 
-- [ ] Werkstromen volledig afgerond
-- [ ] Go voor `plan30.md` bevestigd
+- [x] Werkstromen volledig afgerond
+- [x] Go voor `plan30.md`
 
-## Overdrachtsregel naar plan30
+## Overdrachtsregel
 
-- [ ] Als alle onderdelen in dit document zijn afgevinkt, wordt verder gewerkt in `plan30.md`.
+- [x] Gestart via [plan30-kickoff.md](docs/cycle/plan30-kickoff.md)

@@ -1,0 +1,12 @@
+version: 2026.07.03
+plan_id: plan21
+title: Nieuwe cyclus kickoff en herijking
+gate:
+  min_artifact_ratio: 1.0
+artifacts:
+- id: cycle_rebaseline_policy
+  path: shared/config/cycle_rebaseline_policy.yaml
+  type: yaml
+  required_keys:
+  - baselines
+  - themes

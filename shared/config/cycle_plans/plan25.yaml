@@ -1,0 +1,12 @@
+version: 2026.07.03
+plan_id: plan25
+title: Operations maturity en kostenbeheersing
+gate:
+  min_artifact_ratio: 1.0
+artifacts:
+- id: ops_cost_policy
+  path: shared/config/ops_cost_policy.yaml
+  type: yaml
+  required_keys:
+  - cost_targets
+  - capacity

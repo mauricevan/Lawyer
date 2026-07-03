@@ -1,0 +1,8 @@
+version: 2026.07.03
+plan: plan17
+regression_suites:
+- id: plan17-regression_suites
+  status: active
+ab_test_framework:
+  enabled: true
+  min_sample_size: 100

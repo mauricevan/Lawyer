@@ -1,40 +1,20 @@
 # Implementatieplan Deel 24 - Data- en retrieval excellence
 
 
-## Implementatiestatus (2026-07-02)
+## Implementatiestatus (2026-07-03)
 
-- **Status:** Klaar voor gefaseerde uitvoering — plan.md/plan2.md zijn technisch afgerond.
-- **Start:** activeer werkpakketten in dit plan per productprioriteit.
-- **Afhankelijkheid:** integration eval (`scripts/qa/run-retrieval-eval.sh`) voor harde kwaliteitsgate.
-## Relatie met eerdere plannen
-
-- Vorige plan: `plan23.md`
-- Gebruik: verdere verbetering van retrievalkwaliteit en dataconsistentie.
-- Regel: als dit plan volledig is afgevinkt, ga verder in `plan25.md`.
-
-## Waar zitten we nu
-
-- [ ] `plan23.md` volledig afgerond
-- [ ] Excellence-traject retrieval gestart
-
-## Hoofddoelen plan24
-
-- [ ] Precisie en recall verder verbeteren
-- [ ] Dataconsistentie verhogen
-- [ ] Verklaarbaarheid van retrieval vergroten
+- **Status:** CLOSED — [plan24-exit-review.md](docs/cycle/plan24-exit-review.md)
+- **Vorige plan:** `plan23.md`
 
 ## Werkstromen
 
-- [ ] Gaps in evaluatieset identificeren en uitbreiden
-- [ ] Querytypen met lage prestaties gericht optimaliseren
-- [ ] Metadata-normalisatie aanscherpen
-- [ ] Explainability-output standaardiseren
+- [x] Alle werkstromen afgerond (cycle plan gate groen)
 
-## Exit criteria plan24
+## Exit criteria
 
-- [ ] Werkstromen volledig afgerond
-- [ ] Go voor `plan25.md` bevestigd
+- [x] Werkstromen volledig afgerond
+- [x] Go voor `plan25.md`
 
-## Overdrachtsregel naar plan25
+## Overdrachtsregel
 
-- [ ] Als alle onderdelen in dit document zijn afgevinkt, wordt verder gewerkt in `plan25.md`.
+- [x] Gestart via [plan25-kickoff.md](docs/cycle/plan25-kickoff.md)

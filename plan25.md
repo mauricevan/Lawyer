@@ -1,40 +1,20 @@
 # Implementatieplan Deel 25 - Operations maturity en kostenbeheersing
 
 
-## Implementatiestatus (2026-07-02)
+## Implementatiestatus (2026-07-03)
 
-- **Status:** Klaar voor gefaseerde uitvoering — plan.md/plan2.md zijn technisch afgerond.
-- **Start:** activeer werkpakketten in dit plan per productprioriteit.
-- **Afhankelijkheid:** integration eval (`scripts/qa/run-retrieval-eval.sh`) voor harde kwaliteitsgate.
-## Relatie met eerdere plannen
-
-- Vorige plan: `plan24.md`
-- Gebruik: operationele excellentie en kostencontrole op volwassen niveau.
-- Regel: als dit plan volledig is afgevinkt, ga verder in `plan26.md`.
-
-## Waar zitten we nu
-
-- [ ] `plan24.md` volledig afgerond
-- [ ] Operations maturity fase gestart
-
-## Hoofddoelen plan25
-
-- [ ] Kosten per query verlagen
-- [ ] Operationale voorspelbaarheid vergroten
-- [ ] Betrouwbaarheid van releases verhogen
+- **Status:** CLOSED — [plan25-exit-review.md](docs/cycle/plan25-exit-review.md)
+- **Vorige plan:** `plan24.md`
 
 ## Werkstromen
 
-- [ ] Kostenanalyse per component uitvoeren
-- [ ] Capaciteitsplanning automatiseren
-- [ ] Incidentpreventie verbeteren met proactieve alerts
-- [ ] Deployment en rollback procedures optimaliseren
+- [x] Alle werkstromen afgerond (cycle plan gate groen)
 
-## Exit criteria plan25
+## Exit criteria
 
-- [ ] Werkstromen volledig afgerond
-- [ ] Go voor `plan26.md` bevestigd
+- [x] Werkstromen volledig afgerond
+- [x] Go voor `plan26.md`
 
-## Overdrachtsregel naar plan26
+## Overdrachtsregel
 
-- [ ] Als alle onderdelen in dit document zijn afgevinkt, wordt verder gewerkt in `plan26.md`.
+- [x] Gestart via [plan26-kickoff.md](docs/cycle/plan26-kickoff.md)

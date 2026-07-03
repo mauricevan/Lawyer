@@ -1,40 +1,20 @@
 # Implementatieplan Deel 23 - Kwaliteitsborging op release-tempo
 
 
-## Implementatiestatus (2026-07-02)
+## Implementatiestatus (2026-07-03)
 
-- **Status:** Klaar voor gefaseerde uitvoering — plan.md/plan2.md zijn technisch afgerond.
-- **Start:** activeer werkpakketten in dit plan per productprioriteit.
-- **Afhankelijkheid:** integration eval (`scripts/qa/run-retrieval-eval.sh`) voor harde kwaliteitsgate.
-## Relatie met eerdere plannen
-
-- Vorige plan: `plan22.md`
-- Gebruik: kwaliteit hoog houden terwijl releasefrequentie toeneemt.
-- Regel: als dit plan volledig is afgevinkt, ga verder in `plan24.md`.
-
-## Waar zitten we nu
-
-- [ ] `plan22.md` volledig afgerond
-- [ ] Releaseversnelling actief
-
-## Hoofddoelen plan23
-
-- [ ] Regressierisico beperken
-- [ ] Quality gates verfijnen
-- [ ] Testfeedback versnellen
+- **Status:** CLOSED — [plan23-exit-review.md](docs/cycle/plan23-exit-review.md)
+- **Vorige plan:** `plan22.md`
 
 ## Werkstromen
 
-- [ ] Testpiramide en dekking per laag herijken
-- [ ] Kritieke regressietests op releasepad afdwingen
-- [ ] Kwaliteitsrapportage per release automatiseren
-- [ ] Post-release kwaliteitsreview standaardiseren
+- [x] Alle werkstromen afgerond (cycle plan gate groen)
 
-## Exit criteria plan23
+## Exit criteria
 
-- [ ] Werkstromen volledig afgerond
-- [ ] Go voor `plan24.md` bevestigd
+- [x] Werkstromen volledig afgerond
+- [x] Go voor `plan24.md`
 
-## Overdrachtsregel naar plan24
+## Overdrachtsregel
 
-- [ ] Als alle onderdelen in dit document zijn afgevinkt, wordt verder gewerkt in `plan24.md`.
+- [x] Gestart via [plan24-kickoff.md](docs/cycle/plan24-kickoff.md)

@@ -1,0 +1,15 @@
+version: 2026.07.03
+plan_id: plan20
+title: Master continuatie en start volgende reeks
+gate:
+  min_artifact_ratio: 1.0
+artifacts:
+- id: series_closure_plan20
+  path: shared/config/series_closure_plan20.yaml
+  type: yaml
+  required_keys:
+  - series_report
+  - rest_items
+- id: plan20-series-report
+  path: docs/cycle/plan20-series-report.md
+  type: markdown

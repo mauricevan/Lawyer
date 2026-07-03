@@ -1,0 +1,7 @@
+version: 2026.07.03
+plan: plan27
+segments:
+- id: plan27-segments
+  status: active
+feedback_sla:
+  hours: 72

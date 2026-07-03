@@ -1,0 +1,7 @@
+version: 2026.07.03
+plan: plan23
+gates:
+- id: plan23-gates
+  status: active
+regression:
+  required_on_release: true

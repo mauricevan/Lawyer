@@ -1,0 +1,12 @@
+version: 2026.07.03
+plan_id: plan26
+title: Veiligheid, privacy en audit verdieping
+gate:
+  min_artifact_ratio: 1.0
+artifacts:
+- id: security_privacy_policy
+  path: shared/config/security_privacy_policy.yaml
+  type: yaml
+  required_keys:
+  - review_cadence
+  - privacy_controls

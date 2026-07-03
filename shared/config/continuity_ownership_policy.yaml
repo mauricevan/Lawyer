@@ -1,0 +1,6 @@
+version: 2026.07.03
+plan: plan19
+backup_ownership: docs/org/component-ownership-matrix.yaml
+on_call:
+  primary: platform
+  backup: backend

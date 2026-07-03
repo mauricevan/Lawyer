@@ -1,0 +1,35 @@
+{
+  "suite": "version_conflicts",
+  "passed": true,
+  "registration": {
+    "passed": true,
+    "missing_registered_families": [],
+    "registered": [
+      "32024R1689"
+    ]
+  },
+  "curated_conflicts": {
+    "conflict_count": 1,
+    "families": [
+      {
+        "base_celex": "32024R1689",
+        "language": "nl",
+        "version_types": [
+          "consolidated",
+          "corrigendum"
+        ],
+        "celex_values": [
+          "32024R1689",
+          "32024R1689R(01)"
+        ]
+      }
+    ]
+  },
+  "indexed_conflicts": {
+    "conflict_count": 0,
+    "families": []
+  },
+  "gate": {
+    "max_indexed_conflicts": 10
+  }
+}

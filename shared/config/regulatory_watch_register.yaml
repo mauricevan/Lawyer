@@ -1,0 +1,6 @@
+version: 2026.07.03
+plan: plan18
+watch_items:
+- id: plan18-watch_items
+  status: active
+impact_template: docs/compliance/regulatory-impact-template.md

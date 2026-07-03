@@ -1,0 +1,11 @@
+version: 2026.07.03
+plan: plan16
+partners:
+- id: plan16-partners
+  status: active
+rate_limits:
+- id: plan16-rate_limits
+  status: active
+tenant_isolation:
+  enabled: true
+  mode: api_key

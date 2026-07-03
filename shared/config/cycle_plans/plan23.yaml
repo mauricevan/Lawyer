@@ -1,0 +1,12 @@
+version: 2026.07.03
+plan_id: plan23
+title: Kwaliteitsborging op release-tempo
+gate:
+  min_artifact_ratio: 1.0
+artifacts:
+- id: release_quality_policy
+  path: shared/config/release_quality_policy.yaml
+  type: yaml
+  required_keys:
+  - gates
+  - regression

@@ -1,0 +1,41 @@
+{
+  "suite": "failover_eval",
+  "passed": true,
+  "scenario_count": 4,
+  "passed_count": 4,
+  "failures": [],
+  "results": [
+    {
+      "id": "SCN-QDRANT-EMPTY",
+      "simulate": "qdrant_empty",
+      "route": "live_fallback",
+      "chunk_count": 1,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "SCN-QDRANT-ERROR",
+      "simulate": "qdrant_error",
+      "route": "live_fallback",
+      "chunk_count": 1,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "SCN-QDRANT-WEAK",
+      "simulate": "qdrant_low_score",
+      "route": "live_fallback",
+      "chunk_count": 1,
+      "passed": true,
+      "errors": []
+    },
+    {
+      "id": "SCN-LIVE-DISABLED",
+      "simulate": "qdrant_empty",
+      "route": "local",
+      "chunk_count": 0,
+      "passed": true,
+      "errors": []
+    }
+  ]
+}

@@ -71,3 +71,24 @@ policies:
     owner: product
     plan: plan11
     required_keys: [languages]
+
+  - id: risk_acceptance
+    path: shared/config/risk_acceptance_register.yaml
+    domain: governance
+    owner: product
+    plan: plan15
+    required_keys: [decisions]
+
+  - id: decision_log
+    path: shared/config/decision_log_index.yaml
+    domain: governance
+    owner: platform
+    plan: plan15
+    required_keys: [entries]
+
+  - id: governance_report
+    path: shared/config/governance_report_policy.yaml
+    domain: governance
+    owner: platform
+    plan: plan15
+    required_keys: [sections]

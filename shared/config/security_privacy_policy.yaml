@@ -1,0 +1,6 @@
+version: 2026.07.03
+plan: plan26
+review_cadence: quarterly
+privacy_controls:
+- id: plan26-privacy_controls
+  status: active

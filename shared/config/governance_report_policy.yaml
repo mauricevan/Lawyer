@@ -1,0 +1,15 @@
+# Governance reporting policy (plan15 AD)
+version: "2026.07.03"
+
+gate:
+  max_report_age_days: 7
+  min_sections: 4
+
+sections:
+  - policy_registry
+  - risk_acceptance
+  - decision_log
+  - incident_response
+
+report:
+  path: docs/data/governance-reports/governance-snapshot-latest.json

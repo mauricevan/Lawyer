@@ -63,11 +63,26 @@ def test_plan14_kickoff_approved() -> None:
     assert "APPROVED" in text
 
 
-def test_plan14_transition_validates() -> None:
+def test_plan14_transition_is_historical() -> None:
     service = CyclePlanningService()
-    assert not service.validate_plan_transition("plan14")
+    assert service.validate_plan_transition("plan14")
 
 
 def test_plan15_kickoff_approved() -> None:
     text = (_REPO / "docs/cycle/plan15-kickoff.md").read_text(encoding="utf-8")
+    assert "APPROVED" in text
+
+
+def test_plan15_transition_is_historical() -> None:
+    service = CyclePlanningService()
+    assert service.validate_plan_transition("plan15")
+
+
+def test_plan30_transition_validates() -> None:
+    service = CyclePlanningService()
+    assert not service.validate_plan_transition("plan30")
+
+
+def test_plan30_series_closed() -> None:
+    text = (_REPO / "docs/cycle/plan30-exit-review.md").read_text(encoding="utf-8")
     assert "APPROVED" in text

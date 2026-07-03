@@ -1,0 +1,8 @@
+version: 2026.07.03
+plan: plan24
+eval_gaps:
+- id: plan24-eval_gaps
+  status: active
+metadata_rules:
+- id: plan24-metadata_rules
+  status: active

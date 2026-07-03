@@ -1,0 +1,12 @@
+version: 2026.07.03
+plan_id: plan24
+title: Data- en retrieval excellence
+gate:
+  min_artifact_ratio: 1.0
+artifacts:
+- id: retrieval_excellence_policy
+  path: shared/config/retrieval_excellence_policy.yaml
+  type: yaml
+  required_keys:
+  - eval_gaps
+  - metadata_rules

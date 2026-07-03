@@ -1,0 +1,16 @@
+version: 2026.07.03
+plan_id: plan16
+title: Ecosysteemintegraties en partnerkanalen
+gate:
+  min_artifact_ratio: 1.0
+artifacts:
+- id: partner_api_policy
+  path: shared/config/partner_api_policy.yaml
+  type: yaml
+  required_keys:
+  - partners
+  - rate_limits
+  - tenant_isolation
+- id: partner-api-contract
+  path: docs/integrations/partner-api-contract.md
+  type: markdown

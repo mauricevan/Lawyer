@@ -1,0 +1,7 @@
+version: 2026.07.03
+plan: plan25
+cost_targets:
+- id: plan25-cost_targets
+  status: active
+capacity:
+  headroom_pct: 30

@@ -1,0 +1,25 @@
+# Cycle plans registry (plan16–plan30)
+version: "2026.07.03"
+
+plans:
+  - plan16
+  - plan17
+  - plan18
+  - plan19
+  - plan20
+  - plan21
+  - plan22
+  - plan23
+  - plan24
+  - plan25
+  - plan26
+  - plan27
+  - plan28
+  - plan29
+  - plan30
+
+gate:
+  min_plans_passed: 15
+
+report:
+  path: docs/data/governance-reports/cycle-plans-latest.json

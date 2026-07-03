@@ -1,0 +1,12 @@
+version: 2026.07.03
+plan_id: plan28
+title: Ecosysteemgroei en strategische partnerships
+gate:
+  min_artifact_ratio: 1.0
+artifacts:
+- id: partnership_governance_policy
+  path: shared/config/partnership_governance_policy.yaml
+  type: yaml
+  required_keys:
+  - partner_tiers
+  - sla

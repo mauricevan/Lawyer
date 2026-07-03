@@ -1,0 +1,51 @@
+{
+  "suite": "decision_log_audit",
+  "passed": true,
+  "coverage": {
+    "entry_count": 5,
+    "linked_count": 5,
+    "coverage_ratio": 1.0,
+    "entries": [
+      {
+        "id": "DEC-ADR-0008",
+        "type": "adr",
+        "plan": "plan15",
+        "path": "docs/adr/0008-product-governance-plan15.md",
+        "linked": true
+      },
+      {
+        "id": "DEC-POLICY-REGISTRY",
+        "type": "policy",
+        "plan": "plan15",
+        "path": "shared/config/policy_registry.yaml",
+        "linked": true
+      },
+      {
+        "id": "DEC-PLAN14-EXIT",
+        "type": "cycle",
+        "plan": "plan14",
+        "path": "docs/cycle/plan14-exit-review.md",
+        "linked": true
+      },
+      {
+        "id": "DEC-PLAN15-KICKOFF",
+        "type": "cycle",
+        "plan": "plan15",
+        "path": "docs/cycle/plan15-kickoff.md",
+        "linked": true
+      },
+      {
+        "id": "DEC-RELEASE-STANDARDS",
+        "type": "engineering",
+        "plan": "plan8",
+        "path": "docs/engineering/release-standards.md",
+        "linked": true
+      }
+    ]
+  },
+  "issues": [],
+  "gate": {
+    "min_linked_entries": 3,
+    "passed": true
+  }
+}

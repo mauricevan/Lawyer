@@ -1,0 +1,36 @@
+# Risk acceptance register (plan15 AB)
+version: "2026.07.03"
+
+gate:
+  max_decision_age_hours: 24
+  require_owner: true
+
+decisions:
+  - id: RISK-001
+    title: Live fallback dependency on EUR-Lex availability
+    severity: medium
+    decision: accept
+    owner: platform
+    decided_at: "2026-07-03T08:00:00+00:00"
+    rationale: "Mitigated by cache, rollback script, and failover eval gate"
+    mitigation: docs/ops/dependency-degradation-runbook.md
+
+  - id: RISK-002
+    title: Competition domain soft-deprecation coverage gap
+    severity: low
+    decision: defer
+    owner: product
+    decided_at: "2026-07-03T09:00:00+00:00"
+    rationale: "Single seed deprecated; expansion deferred to backlog"
+    review_by: "2026-10-01"
+
+  - id: RISK-003
+    title: In-process readiness metrics vs Prometheus long-window SLO
+    severity: low
+    decision: accept
+    owner: platform
+    decided_at: "2026-07-03T10:00:00+00:00"
+    rationale: "Pass-rate gate covers release path; prod SLO export planned"
+
+report:
+  path: docs/data/governance-reports/risk-acceptance-latest.json

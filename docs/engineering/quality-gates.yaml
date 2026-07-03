@@ -59,6 +59,27 @@ gates:
     script: scripts/platform/run-policy-registry-gate.sh
     required_on: [pr, release]
 
+  risk_acceptance:
+    scope: governance
+    script: scripts/platform/run-risk-acceptance-gate.sh
+    required_on: [release]
+
+  decision_log_audit:
+    scope: governance
+    script: scripts/ops/run-decision-log-audit.sh
+    required_on: [release]
+
+  governance_snapshot:
+    scope: governance
+    script: scripts/ops/run-governance-snapshot.sh
+    required_on: [quarterly, release]
+
+  cycle_plans:
+    scope: governance
+    script: scripts/platform/run-cycle-plan-gate.sh
+    args: ["--all"]
+    required_on: [release]
+
   recovery_drill:
     scope: reliability
     script: scripts/ops/run-recovery-drill-gate.sh

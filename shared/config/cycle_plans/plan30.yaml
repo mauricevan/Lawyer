@@ -1,0 +1,15 @@
+version: 2026.07.03
+plan_id: plan30
+title: "Reeksafronding plan1\u2013plan30"
+gate:
+  min_artifact_ratio: 1.0
+artifacts:
+- id: series_final_closure
+  path: shared/config/series_final_closure.yaml
+  type: yaml
+  required_keys:
+  - closure_checklist
+  - plan31_decision
+- id: plan30-series-closure
+  path: docs/cycle/plan30-series-closure.md
+  type: markdown

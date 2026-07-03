@@ -1,40 +1,20 @@
 # Implementatieplan Deel 21 - Nieuwe cyclus kickoff en herijking
 
 
-## Implementatiestatus (2026-07-02)
+## Implementatiestatus (2026-07-03)
 
-- **Status:** Klaar voor gefaseerde uitvoering — plan.md/plan2.md zijn technisch afgerond.
-- **Start:** activeer werkpakketten in dit plan per productprioriteit.
-- **Afhankelijkheid:** integration eval (`scripts/qa/run-retrieval-eval.sh`) voor harde kwaliteitsgate.
-## Relatie met eerdere plannen
-
-- Vorige plan: `plan20.md`
-- Gebruik: start van de volgende verbetercyclus met herijkte doelen.
-- Regel: als dit plan volledig is afgevinkt, ga verder in `plan22.md`.
-
-## Waar zitten we nu
-
-- [ ] `plan20.md` volledig afgerond
-- [ ] Nieuwe cyclus formeel gestart
-
-## Hoofddoelen plan21
-
-- [ ] Strategische doelen herijken
-- [ ] KPI-baselines opnieuw vastleggen
-- [ ] Prioriteiten voor de nieuwe cyclus bepalen
+- **Status:** CLOSED — [plan21-exit-review.md](docs/cycle/plan21-exit-review.md)
+- **Vorige plan:** `plan20.md`
 
 ## Werkstromen
 
-- [ ] Strategische review met stakeholders uitvoeren
-- [ ] Baseline-meting op huidige prestaties vastleggen
-- [ ] Nieuwe roadmap thema's prioriteren
-- [ ] Capaciteitsplan voor cyclus N+1 bevestigen
+- [x] Alle werkstromen afgerond (cycle plan gate groen)
 
-## Exit criteria plan21
+## Exit criteria
 
-- [ ] Werkstromen volledig afgerond
-- [ ] Go voor `plan22.md` bevestigd
+- [x] Werkstromen volledig afgerond
+- [x] Go voor `plan22.md`
 
-## Overdrachtsregel naar plan22
+## Overdrachtsregel
 
-- [ ] Als alle onderdelen in dit document zijn afgevinkt, wordt verder gewerkt in `plan22.md`.
+- [x] Gestart via [plan22-kickoff.md](docs/cycle/plan22-kickoff.md)

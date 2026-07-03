@@ -1,0 +1,40 @@
+# Unified decision log index (plan15 AC)
+version: "2026.07.03"
+
+gate:
+  min_linked_entries: 3
+  require_source_exists: true
+
+entries:
+  - id: DEC-ADR-0008
+    type: adr
+    path: docs/adr/0008-product-governance-plan15.md
+    plan: plan15
+    summary: Plan15 product governance focus
+
+  - id: DEC-POLICY-REGISTRY
+    type: policy
+    path: shared/config/policy_registry.yaml
+    plan: plan15
+    summary: Central policy-as-code registry
+
+  - id: DEC-PLAN14-EXIT
+    type: cycle
+    path: docs/cycle/plan14-exit-review.md
+    plan: plan14
+    summary: Plan14 reliability cycle close
+
+  - id: DEC-PLAN15-KICKOFF
+    type: cycle
+    path: docs/cycle/plan15-kickoff.md
+    plan: plan15
+    summary: Plan15 governance kickoff approved
+
+  - id: DEC-RELEASE-STANDARDS
+    type: engineering
+    path: docs/engineering/release-standards.md
+    plan: plan8
+    summary: Release quality standards
+
+report:
+  path: docs/data/governance-reports/decision-log-audit-latest.json

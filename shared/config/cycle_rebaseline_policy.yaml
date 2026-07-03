@@ -1,0 +1,8 @@
+version: 2026.07.03
+plan: plan21
+baselines:
+- id: plan21-baselines
+  status: active
+themes:
+- id: plan21-themes
+  status: active

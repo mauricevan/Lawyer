@@ -1,0 +1,12 @@
+version: 2026.07.03
+plan_id: plan17
+title: Continue model- en kwaliteitsverbetering
+gate:
+  min_artifact_ratio: 1.0
+artifacts:
+- id: quality_regression_policy
+  path: shared/config/quality_regression_policy.yaml
+  type: yaml
+  required_keys:
+  - regression_suites
+  - ab_test_framework

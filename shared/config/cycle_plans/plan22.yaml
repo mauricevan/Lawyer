@@ -1,0 +1,11 @@
+version: 2026.07.03
+plan_id: plan22
+title: Doelgerichte optimalisaties en versnelling
+gate:
+  min_artifact_ratio: 1.0
+artifacts:
+- id: bottleneck_register
+  path: shared/config/bottleneck_register.yaml
+  type: yaml
+  required_keys:
+  - bottlenecks

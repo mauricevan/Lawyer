@@ -1,0 +1,12 @@
+version: 2026.07.03
+plan_id: plan29
+title: Strategische consolidatie
+gate:
+  min_artifact_ratio: 1.0
+artifacts:
+- id: consolidation_policy
+  path: shared/config/consolidation_policy.yaml
+  type: yaml
+  required_keys:
+  - kpi_rollups
+  - gaps

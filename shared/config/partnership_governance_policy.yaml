@@ -1,0 +1,7 @@
+version: 2026.07.03
+plan: plan28
+partner_tiers:
+- id: plan28-partner_tiers
+  status: active
+sla:
+  uptime: 0.99

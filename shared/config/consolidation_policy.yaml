@@ -1,0 +1,8 @@
+version: 2026.07.03
+plan: plan29
+kpi_rollups:
+- id: plan29-kpi_rollups
+  status: active
+gaps:
+- id: plan29-gaps
+  status: active

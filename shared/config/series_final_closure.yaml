@@ -1,0 +1,8 @@
+version: 2026.07.03
+plan: plan30
+closure_checklist:
+- exit_reviews
+- gates_green
+plan31_decision:
+  required: false
+  note: Start plan31 only if new cycle approved

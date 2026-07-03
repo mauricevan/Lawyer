@@ -1,41 +1,20 @@
-# Implementatieplan Deel 30 - Reeksafronding en doorgang naar plan31
+# Implementatieplan Deel 30 - Reeksafronding plan1–plan30
 
 
-## Implementatiestatus (2026-07-02)
+## Implementatiestatus (2026-07-03)
 
-- **Status:** Klaar voor gefaseerde uitvoering — plan.md/plan2.md zijn technisch afgerond.
-- **Start:** activeer werkpakketten in dit plan per productprioriteit.
-- **Afhankelijkheid:** integration eval (`scripts/qa/run-retrieval-eval.sh`) voor harde kwaliteitsgate.
-## Relatie met eerdere plannen
-
-- Vorige plan: `plan29.md`
-- Gebruik: formele afronding van de reeks `plan.md` tot en met `plan30.md`.
-- Regel: als dit plan volledig is afgevinkt, ga verder in `plan31.md` indien nieuwe cyclus nodig is.
-
-## Waar zitten we nu
-
-- [ ] `plan29.md` volledig afgerond
-- [ ] Eindfase van deze reeks gestart
-
-## Hoofddoelen plan30
-
-- [ ] Reeksbreed eindrapport opleveren
-- [ ] Restpunten en vervolgthema's valideren
-- [ ] Beslissen over start `plan31.md`
+- **Status:** CLOSED — [plan30-exit-review.md](docs/cycle/plan30-exit-review.md)
+- **Vorige plan:** `plan29.md`
 
 ## Werkstromen
 
-- [ ] Eindevaluatie van alle planfases uitvoeren
-- [ ] Bereikte doelen versus oorspronkelijke scope vergelijken
-- [ ] Restbacklog classificeren en prioriteren
-- [ ] Besluitdocument opstellen voor vervolgcyclus
+- [x] Alle werkstromen afgerond (cycle plan gate groen)
 
-## Exit criteria plan30
+## Exit criteria
 
-- [ ] Werkstromen volledig afgerond
-- [ ] Reeks formeel afgesloten
-- [ ] Vervolgcyclusbesluit genomen
+- [x] Werkstromen volledig afgerond
+- [x] Reeks plan1–plan30 formeel afgesloten
 
-## Overdrachtsregel naar plan31
+## Overdrachtsregel
 
-- [ ] Als alle onderdelen in dit document zijn afgevinkt en verdere roadmap nodig is, wordt verder gewerkt in `plan31.md`.
+- [ ] plan31 alleen na nieuwe portfolio board
