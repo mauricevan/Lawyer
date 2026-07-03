@@ -4,15 +4,41 @@ on:
   workflow_dispatch:
   schedule:
     - cron: "0 3 * * 1"
+  push:
+    branches: [main]
+    paths:
+      - "backend/**"
+      - "ingestion/**"
+      - "scripts/qa/**"
+      - "shared/**"
+      - "backend/tests/fixtures/**"
+      - ".github/workflows/ci-integration.yml"
 
 jobs:
-  retrieval-eval:
+  nightly-full-eval:
     runs-on: ubuntu-latest
     services:
+      postgres:
+        image: postgres:16
+        env:
+          POSTGRES_USER: lawyer
+          POSTGRES_PASSWORD: lawyer_dev
+          POSTGRES_DB: lawyer
+        ports:
+          - 5432:5432
+        options: >-
+          --health-cmd pg_isready
+          --health-interval 10s
+          --health-timeout 5s
+          --health-retries 5
       qdrant:
         image: qdrant/qdrant:v1.12.5
         ports:
           - 6333:6333
+    env:
+      DATABASE_URL: postgresql+asyncpg://lawyer:lawyer_dev@localhost:5432/lawyer
+      QDRANT_URL: http://localhost:6333
+      USE_LOCAL_EMBEDDINGS: "true"
     steps:
       - uses: actions/checkout@v4
       - uses: actions/setup-python@v5
@@ -20,13 +46,7 @@ jobs:
           python-version: "3.12"
       - name: Install dependencies
         run: pip install -r backend/requirements.txt -r ingestion/requirements.txt
-      - name: Seed corpus (if available)
-        run: PYTHONPATH=. python ingestion/scripts/seed_corpus.py || true
-        env:
-          QDRANT_URL: http://localhost:6333
-          DATABASE_URL: sqlite+aiosqlite:///:memory:
-      - name: Run retrieval eval gate
-        run: chmod +x scripts/qa/run-retrieval-eval.sh && ./scripts/qa/run-retrieval-eval.sh
-        env:
-          QDRANT_URL: http://localhost:6333
-          USE_LOCAL_EMBEDDINGS: "true"
+      - name: CI integration eval gate
+        run: chmod +x scripts/qa/run-integration-eval-gate.sh && ./scripts/qa/run-integration-eval-gate.sh
+      - name: Retrieval eval (threshold)
+        run: chmod +x scripts/qa/run-retrieval-eval.sh && ./scripts/qa/run-retrieval-eval.sh || true

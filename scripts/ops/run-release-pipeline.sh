@@ -24,9 +24,9 @@ else
 fi
 
 if [[ "$RUN_EVAL" == true ]]; then
-  echo "→ Release eval suite (baseline comparison)"
-  chmod +x scripts/qa/run-release-eval-suite.sh
-  PYTHONPATH=. ./scripts/qa/run-release-eval-suite.sh
+  echo "→ Stack-aware release eval"
+  chmod +x scripts/qa/run-stack-aware-eval.sh
+  ./scripts/qa/run-stack-aware-eval.sh --required
 fi
 
 echo ""

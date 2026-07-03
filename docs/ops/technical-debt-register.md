@@ -7,7 +7,7 @@ Expliciete schulditems voor kwartaalplanning. **Minimaal 15% capaciteit** per [c
 | TD-001 | Corpus primair NL; FR/DE/ES lean op fallback | Medium | L | P2 | Q4 2026 | Open |
 | TD-002 | `plan4.md` exit-criteria niet formeel afgevinkt | Low | S | P2 | Q3 2026 | Open |
 | TD-003 | JWT optioneel in dev (`JWT_AUTH_REQUIRED=false`) | High | M | P1 | Q3 Wk 6 | Open |
-| TD-004 | Integration eval niet in standaard CI gate | Medium | M | P1 | Q3 Wk 8 | Open |
+| TD-004 | Integration eval niet in standaard CI gate | Medium | M | P1 | Q3 Wk 8 | Done (plan11 AD) |
 | TD-005 | Employment domein nog `pilot` | Medium | M | P2 | Q3 Wk 10 | Done (plan11 AB) |
 | TD-006 | Competition domein `no_go` — geen cluster | Low | L | P3 | Q4 2026 | Open |
 | TD-007 | `rag_service.py` nabij 250-regel limiet | Low | M | P3 | Q4 2026 | Open |

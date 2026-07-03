@@ -11,6 +11,11 @@
       "recall_at_5": 1.0,
       "mrr": 1.0,
       "count": 15.0
+    },
+    "ci_integration": {
+      "recall_at_5": 1.0,
+      "mrr": 1.0,
+      "count": 7.0
     }
   }
 }

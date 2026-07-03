@@ -1,5 +1,9 @@
 """Sample legal text for offline seeding when EUR-Lex is unavailable."""
-SAMPLE_ARTICLES: dict[str, list[dict]] = {
+from typing import Any
+
+from ingestion.src.data.ci_sample_articles import build_ci_samples
+
+SAMPLE_ARTICLES: dict[str, list[dict[str, Any]]] = {
     "32016R0679": [
         {
             "article_number": "6",
@@ -25,3 +29,15 @@ SAMPLE_ARTICLES: dict[str, list[dict]] = {
         },
     ],
 }
+
+_CI_SAMPLES = build_ci_samples()
+
+
+def get_sample_articles(celex: str, language: str = "nl") -> list[dict[str, Any]]:
+    """Return offline sample subdivisions for CELEX and language."""
+    scoped = f"{celex}:{language}"
+    if scoped in _CI_SAMPLES:
+        return _CI_SAMPLES[scoped]
+    if scoped in SAMPLE_ARTICLES:
+        return SAMPLE_ARTICLES[scoped]
+    return SAMPLE_ARTICLES.get(celex, [])

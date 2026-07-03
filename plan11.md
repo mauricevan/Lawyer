@@ -45,18 +45,18 @@
 
 ## Werkstroom AD - CI hardening
 
-- [ ] Integration eval in CI (TD-004)
-- [ ] Release pipeline stack-aware eval
+- [x] Integration eval in CI (TD-004) — `integration-eval` job + `run-integration-eval-gate.sh`
+- [x] Release pipeline stack-aware eval — `run-stack-aware-eval.sh` + release-gate workflow
 
 ## KPI-doelen plan11
 
 - [x] Multilingual recall ≥ 0.85 (native corpus) — gemeten 1.0/1.0
 - [x] Employment domain benchmark pass — 1.0 recall@5 (9 vragen)
-- [ ] TD-004 closed
+- [x] TD-004 closed — integration eval on every PR
 
 ## Exit criteria plan11
 
-- [ ] Werkstromen AA t/m AD afgerond
+- [x] Werkstromen AA t/m AD afgerond
 - [ ] Kwaliteitsdrempels gehaald
 - [ ] Go voor `plan12.md`
 

@@ -42,6 +42,13 @@ if not workflow.is_file():
 print(f"OK: CI workflow {workflow}")
 PY
 
+if [[ -x scripts/qa/run-integration-eval-gate.sh ]]; then
+  echo "OK: integration eval script executable"
+else
+  echo "FAIL: run-integration-eval-gate.sh not executable"
+  exit 1
+fi
+
 if [[ -x scripts/qa/run-release-eval-suite.sh ]]; then
   echo "OK: release eval script executable"
 else

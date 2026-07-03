@@ -1,0 +1,44 @@
+[
+  {
+    "question": "Wat regelt GDPR?",
+    "expected_celex": ["32016R0679"],
+    "min_hits": 1,
+    "domain": "privacy"
+  },
+  {
+    "question": "Wat regelt AI Act?",
+    "expected_celex": ["32024R1689"],
+    "min_hits": 1,
+    "domain": "ai"
+  },
+  {
+    "question": "Wat regelt DORA?",
+    "expected_celex": ["32022R2554"],
+    "min_hits": 1,
+    "domain": "finance"
+  },
+  {
+    "question": "Wat regelt Transparent Work?",
+    "expected_celex": ["32019L1152"],
+    "min_hits": 1,
+    "domain": "employment"
+  },
+  {
+    "question": "Que prévoit GDPR?",
+    "expected_celex": ["32016R0679"],
+    "min_hits": 1,
+    "language": "fr"
+  },
+  {
+    "question": "Was regelt AI Act?",
+    "expected_celex": ["32024R1689"],
+    "min_hits": 1,
+    "language": "de"
+  },
+  {
+    "question": "Qué regula DORA?",
+    "expected_celex": ["32022R2554"],
+    "min_hits": 1,
+    "language": "es"
+  }
+]

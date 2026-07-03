@@ -15,7 +15,7 @@ from backend.src.services.qdrant_service import QdrantService
 from ingestion.src.chunkers.legal_chunker import LegalChunker
 from ingestion.src.clients.cellar_rest_client import CellarRestClient
 from ingestion.src.content.fallback_subdivisions import build_fallback_subdivisions, needs_fallback
-from ingestion.src.data.sample_articles import SAMPLE_ARTICLES
+from ingestion.src.data.sample_articles import get_sample_articles
 from ingestion.src.parsers.document_parser import DocumentParser
 from ingestion.src.validators.chunk_metadata_validator import ChunkMetadataValidator
 from shared.schemas.document import DocumentMetadata
@@ -71,8 +71,8 @@ async def _fetch_subdivisions(
     cellar: CellarRestClient,
     use_live_fetch: bool,
 ) -> list[dict]:
-    if metadata.celex in SAMPLE_ARTICLES:
-        samples = SAMPLE_ARTICLES[metadata.celex]
+    samples = get_sample_articles(metadata.celex, metadata.language)
+    if samples:
         return [{"title": metadata.title, "celex": metadata.celex, **s} for s in samples]
     if not use_live_fetch:
         return []

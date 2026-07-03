@@ -34,18 +34,27 @@ async def _run_fixture(path: Path, language: str = "nl") -> dict[str, float]:
     return summarize_eval_results(rows)
 
 
-async def run_suite() -> dict[str, dict[str, float]]:
+async def run_suite(ci_mode: bool = False) -> dict[str, dict[str, float]]:
+    if ci_mode:
+        return {
+            "ci_integration": await _run_fixture(
+                ROOT / "backend/tests/fixtures/rag_eval_ci_subset.json"
+            ),
+        }
     return {
         "retrieval": await _run_fixture(ROOT / "backend/tests/fixtures/rag_eval_questions.json"),
-        "multilingual": await _run_fixture(ROOT / "backend/tests/fixtures/rag_eval_multilingual.json", "fr"),
+        "multilingual": await _run_fixture(
+            ROOT / "backend/tests/fixtures/rag_eval_multilingual.json", "fr"
+        ),
     }
 
 
 def main() -> None:
     parser = argparse.ArgumentParser(description="Run eval suite and compare baseline")
     parser.add_argument("--update-baseline", action="store_true")
+    parser.add_argument("--ci", action="store_true", help="CI subset only (plan11 AD)")
     args = parser.parse_args()
-    suite_results = asyncio.run(run_suite())
+    suite_results = asyncio.run(run_suite(ci_mode=args.ci))
     if args.update_baseline:
         payload = {
             "version": "2026.07.02",

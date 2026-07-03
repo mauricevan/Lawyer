@@ -3,31 +3,16 @@
   "passed": true,
   "suites": [
     {
-      "suite": "retrieval",
+      "suite": "ci_integration",
       "current": {
         "recall_at_5": 1.0,
         "mrr": 1.0,
-        "count": 102.0
+        "count": 7.0
       },
       "baseline": {
         "recall_at_5": 1.0,
         "mrr": 1.0,
-        "count": 100.0
-      },
-      "passed": true,
-      "regressions": []
-    },
-    {
-      "suite": "multilingual",
-      "current": {
-        "recall_at_5": 1.0,
-        "mrr": 1.0,
-        "count": 15.0
-      },
-      "baseline": {
-        "recall_at_5": 1.0,
-        "mrr": 1.0,
-        "count": 15.0
+        "count": 7.0
       },
       "passed": true,
       "regressions": []

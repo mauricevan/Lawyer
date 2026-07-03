@@ -36,8 +36,13 @@ gates:
   release_eval:
     scope: retrieval
     script: scripts/qa/run-release-eval-suite.sh
+    stack_script: scripts/qa/run-stack-aware-eval.sh
     required_on: [release]
-    requires_stack: true
+
+  integration_eval:
+    scope: retrieval
+    script: scripts/qa/run-integration-eval-gate.sh
+    required_on: [pr, release]
 
   quality_audit:
     scope: governance
@@ -46,8 +51,8 @@ gates:
 
 ci_mapping:
   workflow: .github/workflows/ci.yml
-  jobs: [backend-tests, frontend-tests, security-scan, secret-scan]
+  jobs: [backend-tests, integration-eval, frontend-tests, security-scan, secret-scan]
 
 solo_overrides:
   pair_review_ack_env: PAIR_REVIEW_ACK
-  release_eval_note: "Draai lokaal met stack; CI blijft unit-only tot integration runner."
+  release_eval_note: "Full suite via run-stack-aware-eval.sh --required when Qdrant+Postgres up."

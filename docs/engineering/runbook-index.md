@@ -41,6 +41,8 @@ Centrale index — houd links actueel bij nieuwe runbooks.
 | [run-multilingual-eval.sh](../../scripts/qa/run-multilingual-eval.sh) | Taaluitrol |
 | [run-ingest-multilingual-seed.sh](../../scripts/qa/run-ingest-multilingual-seed.sh) | Native FR/DE/ES corpus |
 | [run-legal-compliance-check.sh](../../scripts/qa/run-legal-compliance-check.sh) | Compliance docs + escalation |
+| [run-integration-eval-gate.sh](../../scripts/qa/run-integration-eval-gate.sh) | CI integration eval (TD-004) |
+| [run-stack-aware-eval.sh](../../scripts/qa/run-stack-aware-eval.sh) | Release eval met stack-check |
 
 ## Scripts
 
