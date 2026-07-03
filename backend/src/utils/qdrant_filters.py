@@ -1,5 +1,5 @@
 """Build Qdrant filters from query filter schema."""
-from qdrant_client.models import FieldCondition, Filter, MatchValue
+from qdrant_client.models import FieldCondition, Filter, MatchAny, MatchValue
 
 from shared.schemas.query import QueryFilters
 
@@ -14,9 +14,11 @@ def build_qdrant_filter(
     filters: QueryFilters | None,
     language: str | None,
     in_force_only: bool,
+    excluded_celex: set[str] | None = None,
 ) -> Filter | None:
     """Translate API filters into a Qdrant filter object."""
     must_conditions: list[FieldCondition] = []
+    must_not_conditions: list[FieldCondition] = []
     lang = filters.language if filters and filters.language else language
     if lang:
         must_conditions.append(
@@ -33,9 +35,13 @@ def build_qdrant_filter(
         must_conditions.append(
             FieldCondition(key="celex", match=MatchValue(value=filters.celex))
         )
-    if not must_conditions:
+    if excluded_celex:
+        must_not_conditions.append(
+            FieldCondition(key="celex", match=MatchAny(any=sorted(excluded_celex)))
+        )
+    if not must_conditions and not must_not_conditions:
         return None
-    return Filter(must=must_conditions)
+    return Filter(must=must_conditions, must_not=must_not_conditions)
 
 
 def doc_type_matches_celex(doc_type: str, celex: str) -> bool:

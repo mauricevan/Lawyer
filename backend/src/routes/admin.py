@@ -15,6 +15,7 @@ from backend.src.dependencies.auth import require_permission
 from backend.src.security.rbac_matrix import Permission
 from backend.src.security.fastapi_params import PageLimit
 from backend.src.services.document_staleness_service import DocumentStalenessService
+from backend.src.services.document_deprecation_service import DocumentDeprecationService
 from backend.src.services.redis_cache_service import RedisCacheService
 
 router = APIRouter(prefix="/admin", tags=["admin"])
@@ -44,8 +45,10 @@ async def get_stats(session: AsyncSession = Depends(get_db)) -> dict:
     cache_hits = await session.execute(select(func.coalesce(func.sum(LiveCache.hit_count), 0)))
     qdrant = QdrantService()
     staleness_service = DocumentStalenessService()
+    deprecation_service = DocumentDeprecationService()
     staleness_records = await staleness_service.scan(session)
     lifecycle = staleness_service.summarize(staleness_records)
+    lifecycle["deprecation"] = deprecation_service.summarize()
     return {
         "documents_indexed": doc_count.scalar() or 0,
         "document_lifecycle": lifecycle,

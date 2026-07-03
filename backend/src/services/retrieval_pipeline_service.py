@@ -7,6 +7,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from backend.src.config import settings
 from backend.src.services.bm25_service import Bm25Service
 from backend.src.services.chunk_quality_service import ChunkQualityService
+from backend.src.services.document_deprecation_service import DocumentDeprecationService
 from backend.src.services.embedding_service import get_embedding_service
 from backend.src.services.feature_flag_service import FeatureFlagService
 from backend.src.services.live_retrieval_service import LiveRetrievalService
@@ -50,6 +51,7 @@ class RetrievalPipelineService:
         self._quality = ChunkQualityService()
         self._flags = FeatureFlagService()
         self._explain = RetrievalExplainabilityService()
+        self._deprecation = DocumentDeprecationService()
 
     async def retrieve(
         self,
@@ -65,10 +67,12 @@ class RetrievalPipelineService:
         cached = await self._cache.get(cache_key)
         if cached:
             metrics_service.record_cache_hit()
+            cached = self._deprecation.filter_chunks(cached, filters)
             return self._finish(request, cached, "cache", StageCounts(final=len(cached)))
         if session is not None:
             persisted = await self._cache.get_persisted_chunks(session, cache_key)
             if persisted:
+                persisted = self._deprecation.filter_chunks(persisted, filters)
                 await self._cache.set(cache_key, persisted)
                 metrics_service.record_cache_hit()
                 return self._finish(request, persisted, "cache", StageCounts(final=len(persisted)))
@@ -76,18 +80,26 @@ class RetrievalPipelineService:
         vector = self._embeddings.embed_query(request.question)
         budget = RetrievalBudget(settings.retrieval_budget_seconds)
         budget.ensure("vector_search")
+        excluded_celex = self._deprecation.excluded_celex_for_filters(filters, lang)
         dense = self._qdrant.search_with_language_fallback(
-            vector, limit=RETRIEVAL_CANDIDATE_LIMIT, language=lang, in_force_only=in_force, filters=filters,
+            vector,
+            limit=RETRIEVAL_CANDIDATE_LIMIT,
+            language=lang,
+            in_force_only=in_force,
+            filters=filters,
+            excluded_celex=excluded_celex,
         )
         counts.dense = len(dense)
         bm25_ranked = self._bm25.rank(request.question, dense, top_k=50)
         counts.bm25 = len(bm25_ranked)
         pg_ranked: list[dict[str, Any]] = []
         if session is not None:
-            pg_ranked = await self._pg_search.search(session, request.question, lang, limit=50)
+            pg_ranked = await self._pg_search.search(
+                session, request.question, lang, limit=50, excluded_celex=excluded_celex,
+            )
         counts.pg = len(pg_ranked)
         hint_query = filters.celex if filters and filters.celex else request.question
-        hint_hits = self._hint_search(hint_query, lang, in_force)
+        hint_hits = self._hint_search(hint_query, lang, in_force, filters)
         counts.hints = len(hint_hits)
         hybrid = self._flags.is_hybrid_rrf_enabled()
         if hybrid:
@@ -96,6 +108,7 @@ class RetrievalPipelineService:
             merged = self._merge_results(hint_hits, dense, bm25_ranked)
         counts.merged = len(merged)
         merged = self._apply_post_filters(merged, filters)
+        merged = self._deprecation.filter_chunks(merged, filters)
         if filters and filters.consolidated_preferred:
             merged = self._trust.prefer_consolidated(merged)
         reranked = self._reranker.rerank(request.question, merged)
@@ -183,8 +196,20 @@ class RetrievalPipelineService:
         text = f"{chunk.get('title', '')} {chunk.get('text', '')}".lower()
         return any(term in text for term in terms)
 
-    def _hint_search(self, query: str, language: str | None, in_force_only: bool) -> list[dict]:
+    def _hint_search(
+        self,
+        query: str,
+        language: str | None,
+        in_force_only: bool,
+        filters: QueryFilters | None,
+    ) -> list[dict]:
         target_celex = match_celex_hints(query)
+        if not target_celex:
+            return []
+        if filters and filters.celex:
+            target_celex = {filters.celex}
+        else:
+            target_celex = self._deprecation.filter_celex_hints(target_celex, filters)
         if not target_celex:
             return []
         return self._qdrant.search_by_celex_with_language_fallback(

@@ -95,9 +95,10 @@ class QdrantService:
         language: str | None = None,
         in_force_only: bool = True,
         filters: QueryFilters | None = None,
+        excluded_celex: set[str] | None = None,
     ) -> list[dict[str, Any]]:
         self.ensure_collection()
-        query_filter = build_qdrant_filter(filters, language, in_force_only)
+        query_filter = build_qdrant_filter(filters, language, in_force_only, excluded_celex)
         response = self._client.query_points(
             collection_name=self._collection,
             query=query_vector,
@@ -118,6 +119,7 @@ class QdrantService:
         in_force_only: bool = True,
         filters: QueryFilters | None = None,
         min_results: int = 1,
+        excluded_celex: set[str] | None = None,
     ) -> list[dict[str, Any]]:
         """Search Qdrant, trying registry fallback chain plus corpus language."""
         for lang in retrieval_language_chain(language):
@@ -128,6 +130,7 @@ class QdrantService:
                 language=lang,
                 in_force_only=in_force_only,
                 filters=attempt_filters,
+                excluded_celex=excluded_celex,
             )
             if len(results) >= min_results:
                 return results

@@ -27,6 +27,7 @@ class QueryFilters(BaseModel):
     year: int | None = Field(default=None, ge=1950, le=2100)
     time_context: Literal["current", "historical"] | None = None
     in_force_only: bool = True
+    include_deprecated: bool = False
     consolidated_preferred: bool = True
     intent_id: str | None = Field(default=None, max_length=64)
     router_confidence: float | None = Field(default=None, ge=0.0, le=1.0)

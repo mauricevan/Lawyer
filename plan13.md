@@ -41,9 +41,9 @@
 
 ## Werkstroom AC - Deprecation & archive
 
-- [ ] Deprecatie-register — `document_deprecation_register.yaml`
-- [ ] Archiefstroom documenteren — `docs/data/document-lifecycle.md`
-- [ ] Soft-deprecate vlag op retrieval (exclude from default search)
+- [x] Deprecatie-register — `document_deprecation_register.yaml`
+- [x] Archiefstroom documenteren — `docs/data/document-lifecycle.md`
+- [x] Soft-deprecate vlag op retrieval (exclude from default search)
 
 ## Werkstroom AD - Version conflicts & metrics
 

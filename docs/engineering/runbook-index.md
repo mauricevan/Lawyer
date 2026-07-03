@@ -44,6 +44,8 @@ Centrale index — houd links actueel bij nieuwe runbooks.
 | [run-legal-compliance-check.sh](../../scripts/qa/run-legal-compliance-check.sh) | Compliance docs + escalation |
 | [run-document-staleness-scan.sh](../../scripts/platform/run-document-staleness-scan.sh) | Lifecycle staleness gate |
 | [run-lifecycle-reindex.sh](../../scripts/platform/run-lifecycle-reindex.sh) | Drift reindex automation |
+| [run-deprecation-register-check.sh](../../scripts/platform/run-deprecation-register-check.sh) | Deprecation register gate |
+| [document-lifecycle.md](../../docs/data/document-lifecycle.md) | Lifecycle states & archive |
 | [run-integration-eval-gate.sh](../../scripts/qa/run-integration-eval-gate.sh) | CI integration eval (TD-004) |
 | [run-stack-aware-eval.sh](../../scripts/qa/run-stack-aware-eval.sh) | Release eval met stack-check |
 

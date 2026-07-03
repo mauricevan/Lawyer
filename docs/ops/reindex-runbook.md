@@ -47,6 +47,8 @@ Als `reindex-latest.json` → `sla.passed` is `false`:
 ## Gerelateerd
 
 - [document_lifecycle_policy.yaml](../../shared/config/document_lifecycle_policy.yaml)
+- [document_deprecation_register.yaml](../../shared/config/document_deprecation_register.yaml)
+- [document-lifecycle.md](../../docs/data/document-lifecycle.md)
 - [ADR-0006](../adr/0006-document-lifecycle-plan13.md)
 - [kpi-corrective-actions.md](../cycle/kpi-corrective-actions.md) — retrieval freshness
 - [run-reindex.sh](../../scripts/platform/run-reindex.sh) — volledige curated reindex

@@ -1,0 +1,16 @@
+# Document deprecation register (plan13 AC)
+# Archive-first: soft_deprecated → retired → archived (purge only after review)
+version: "2026.07.03"
+
+policy:
+  default_exclude_from_search: true
+  allow_explicit_celex_lookup: true
+
+entries:
+  - celex: "32014R0330"
+    language: nl
+    status: soft_deprecated
+    domain: competition
+    reason: "Competition domain no_go — excluded from default retrieval"
+    deprecated_at: "2026-07-03"
+    replacement_celex: null

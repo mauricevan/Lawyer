@@ -13,6 +13,7 @@ class _RecordingQdrant(QdrantService):
         language=None,
         in_force_only=True,
         filters=None,
+        excluded_celex=None,
     ):
         self.calls.append(language)
         if language in {"fr", "en"}:

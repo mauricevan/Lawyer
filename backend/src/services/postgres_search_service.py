@@ -19,26 +19,34 @@ class PostgresSearchService:
         query: str,
         language: str | None = None,
         limit: int = 50,
+        excluded_celex: set[str] | None = None,
     ) -> list[dict[str, Any]]:
         cleaned = query.strip()
         if len(cleaned) < 3:
             return []
         config = get_fts_config(language or "nl")
+        excluded = sorted(excluded_celex or [])
+        exclusion_clause = ""
+        params: dict[str, Any] = {"config": config, "query": cleaned, "limit": limit}
+        if excluded:
+            exclusion_clause = "AND c.celex NOT IN :excluded_celex"
+            params["excluded_celex"] = tuple(excluded)
         try:
             async with session.begin_nested():
                 result = await session.execute(
                     text(
-                        """
+                        f"""
                         SELECT c.chunk_id, c.celex, c.article_ref, d.title, d.language,
                                ts_rank(c.search_vector, plainto_tsquery(:config, :query)) AS rank
                         FROM chunks c
                         JOIN documents d ON d.id = c.document_id
                         WHERE c.search_vector @@ plainto_tsquery(:config, :query)
+                        {exclusion_clause}
                         ORDER BY rank DESC
                         LIMIT :limit
                         """
                     ),
-                    {"config": config, "query": cleaned, "limit": limit},
+                    params,
                 )
         except Exception as exc:
             logger.warning("PostgreSQL FTS search failed: %s", exc)
