@@ -15,6 +15,11 @@ chmod +x scripts/security/check-secrets.sh \
 ./scripts/security/check-log-output.sh
 ./scripts/security/run-input-validation-audit.sh
 
+echo "→ Lifecycle eval gate"
+chmod +x scripts/platform/run-lifecycle-eval-gate.sh \
+  scripts/platform/run-deprecation-register-check.sh
+./scripts/platform/run-lifecycle-eval-gate.sh
+
 echo "→ Backend unit tests"
 pytest backend/tests -m "not integration" -q
 

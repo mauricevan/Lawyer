@@ -6,6 +6,7 @@ Gebruik vóór elke productie-deploy. Automatiseerbare stappen draaien via `scri
 
 - [ ] Feature branch CI groen (backend, frontend, security-scan, secret-scan)
 - [ ] `./scripts/ops/run-release-checklist.sh` lokaal of via release-gate workflow
+- [ ] `./scripts/platform/run-lifecycle-eval-gate.sh` (deprecation + version policy + staleness indien DB)
 - [ ] Alembic migraties gereviewed en `alembic upgrade head` getest op staging
 - [ ] `.env` / secrets bijgewerkt volgens [secret-rotation-playbook](../security/secret-rotation-playbook.md)
 - [ ] Goedkeuring volgens [change-approval-matrix.md](./change-approval-matrix.md)

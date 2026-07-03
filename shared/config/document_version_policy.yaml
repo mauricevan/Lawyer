@@ -1,0 +1,24 @@
+# Document version conflict policy (plan13 AD)
+version: "2026.07.03"
+
+resolution:
+  priority_order: [consolidated, base, amendment, corrigendum]
+  exclude_lower_priority_in_default_search: true
+  allow_explicit_celex_override: true
+
+registered_families:
+  - base_celex: "32024R1689"
+    default_retrieval: consolidated
+    note: "AI Act consolidated text vs rectification CELEX"
+    members:
+      - celex: "32024R1689"
+        version_type: consolidated
+      - celex: "32024R1689R(01)"
+        version_type: corrigendum
+
+gate:
+  require_registered_families: true
+  max_indexed_conflicts: 10
+
+report:
+  path: docs/data/lifecycle-reports/version-conflicts-latest.json

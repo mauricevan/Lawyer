@@ -45,6 +45,8 @@ Centrale index — houd links actueel bij nieuwe runbooks.
 | [run-document-staleness-scan.sh](../../scripts/platform/run-document-staleness-scan.sh) | Lifecycle staleness gate |
 | [run-lifecycle-reindex.sh](../../scripts/platform/run-lifecycle-reindex.sh) | Drift reindex automation |
 | [run-deprecation-register-check.sh](../../scripts/platform/run-deprecation-register-check.sh) | Deprecation register gate |
+| [run-lifecycle-eval-gate.sh](../../scripts/platform/run-lifecycle-eval-gate.sh) | Release lifecycle gate (plan13 AD) |
+| [run-version-conflict-scan.sh](../../scripts/platform/run-version-conflict-scan.sh) | Version conflict scan |
 | [document-lifecycle.md](../../docs/data/document-lifecycle.md) | Lifecycle states & archive |
 | [run-integration-eval-gate.sh](../../scripts/qa/run-integration-eval-gate.sh) | CI integration eval (TD-004) |
 | [run-stack-aware-eval.sh](../../scripts/qa/run-stack-aware-eval.sh) | Release eval met stack-check |

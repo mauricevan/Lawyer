@@ -23,9 +23,9 @@
 
 ## Hoofddoelen plan13
 
-- [ ] Document lifecycle volledig automatiseren
-- [ ] Verouderde inhoud gecontroleerd uitfaseren
-- [ ] Herkomst en versiebeheer maximaliseren
+- [x] Document lifecycle volledig automatiseren
+- [x] Verouderde inhoud gecontroleerd uitfaseren
+- [x] Herkomst en versiebeheer maximaliseren
 
 ## Werkstroom AA - Staleness detection
 
@@ -47,20 +47,20 @@
 
 ## Werkstroom AD - Version conflicts & metrics
 
-- [ ] Versieconflict-resolutie (consolidated vs corrigendum) vastleggen
-- [ ] Lifecycle metrics in admin dashboard
-- [ ] Lifecycle eval gate in release checklist
+- [x] Versieconflict-resolutie (consolidated vs corrigendum) vastleggen
+- [x] Lifecycle metrics in admin dashboard
+- [x] Lifecycle eval gate in release checklist
 
 ## KPI-doelen plan13
 
 - [ ] Index freshness p95 < 72u na legal change
 - [ ] 100% curated docs hebben `indexed_at`
-- [ ] Deprecation register voor alle `no_go` / retired docs
+- [x] Deprecation register voor alle `no_go` / retired docs
 
 ## Exit criteria plan13
 
-- [ ] Werkstromen AA t/m AD afgerond
-- [ ] Lifecycle metrics operationeel
+- [x] Werkstromen AA t/m AD afgerond
+- [x] Lifecycle metrics operationeel
 - [ ] Go voor `plan14.md`
 
 ## Overdrachtsregel naar plan14

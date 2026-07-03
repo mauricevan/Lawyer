@@ -45,6 +45,11 @@ suites:
     max_regression: 0.05
     note: edge-case paraphrase and vague queries (plan12 AD)
 
+  lifecycle:
+    script: scripts/platform/run-lifecycle-eval-gate.sh
+    report: docs/data/lifecycle-reports/lifecycle-gate-latest.json
+    note: plan13 AD — deprecation register, version policy, optional staleness
+
 release_policy:
   block_on_regression: true
   require_baseline_update_on_improvement: true

@@ -27,6 +27,19 @@ No hard delete without register entry and ops approval (ADR-0006).
 - **Explicit CELEX filter** still returns chunks (compliance / audit lookup)
 - `include_deprecated: true` on `QueryFilters` bypasses exclusion (admin tooling)
 
+## Version conflict resolution
+
+Policy: `shared/config/document_version_policy.yaml`
+
+| Priority | `version_type` | Default retrieval |
+|---|---|---|
+| 1 (hoogst) | `consolidated` | Preferred |
+| 2 | `base` | Used when no consolidated |
+| 3 | `amendment` | Secondary |
+| 4 (laagst) | `corrigendum` | Only via explicit CELEX filter |
+
+Scan: `./scripts/platform/run-version-conflict-scan.sh`
+
 ## no_go domain alignment
 
 Domains with `status: no_go` in `domain_registry.yaml` must have seed CELEX

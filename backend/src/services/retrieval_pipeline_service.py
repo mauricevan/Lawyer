@@ -8,6 +8,7 @@ from backend.src.config import settings
 from backend.src.services.bm25_service import Bm25Service
 from backend.src.services.chunk_quality_service import ChunkQualityService
 from backend.src.services.document_deprecation_service import DocumentDeprecationService
+from backend.src.services.document_version_conflict_service import DocumentVersionConflictService
 from backend.src.services.embedding_service import get_embedding_service
 from backend.src.services.feature_flag_service import FeatureFlagService
 from backend.src.services.live_retrieval_service import LiveRetrievalService
@@ -52,6 +53,7 @@ class RetrievalPipelineService:
         self._flags = FeatureFlagService()
         self._explain = RetrievalExplainabilityService()
         self._deprecation = DocumentDeprecationService()
+        self._versions = DocumentVersionConflictService()
 
     async def retrieve(
         self,
@@ -68,11 +70,13 @@ class RetrievalPipelineService:
         if cached:
             metrics_service.record_cache_hit()
             cached = self._deprecation.filter_chunks(cached, filters)
+            cached = self._versions.resolve_retrieval_chunks(cached, filters)
             return self._finish(request, cached, "cache", StageCounts(final=len(cached)))
         if session is not None:
             persisted = await self._cache.get_persisted_chunks(session, cache_key)
             if persisted:
                 persisted = self._deprecation.filter_chunks(persisted, filters)
+                persisted = self._versions.resolve_retrieval_chunks(persisted, filters)
                 await self._cache.set(cache_key, persisted)
                 metrics_service.record_cache_hit()
                 return self._finish(request, persisted, "cache", StageCounts(final=len(persisted)))
@@ -109,6 +113,7 @@ class RetrievalPipelineService:
         counts.merged = len(merged)
         merged = self._apply_post_filters(merged, filters)
         merged = self._deprecation.filter_chunks(merged, filters)
+        merged = self._versions.resolve_retrieval_chunks(merged, filters)
         if filters and filters.consolidated_preferred:
             merged = self._trust.prefer_consolidated(merged)
         reranked = self._reranker.rerank(request.question, merged)
