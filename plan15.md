@@ -28,9 +28,9 @@
 
 ## Werkstroom AA - Policy-as-code foundations
 
-- [ ] Centrale policy registry (`shared/config/`)
-- [ ] Policy validatie gate in CI/release
-- [ ] Policy status in admin dashboard
+- [x] Centrale policy registry (`shared/config/`)
+- [x] Policy validatie gate in CI/release
+- [x] Policy status in admin dashboard
 
 ## Werkstroom AB - Risk acceptance workflow
 
@@ -52,7 +52,7 @@
 
 ## KPI-doelen plan15
 
-- [ ] Policy registry coverage ≥ 95%
+- [x] Policy registry coverage ≥ 95%
 - [ ] Risk decisions logged within 24h of acceptance
 - [ ] Governance report freshness < 7 days
 

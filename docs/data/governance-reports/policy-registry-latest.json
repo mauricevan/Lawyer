@@ -1,0 +1,88 @@
+{
+  "suite": "policy_registry",
+  "passed": true,
+  "coverage": {
+    "registered_count": 9,
+    "valid_count": 9,
+    "coverage_ratio": 1.0,
+    "policies": [
+      {
+        "id": "readiness",
+        "path": "shared/config/readiness_policy.yaml",
+        "domain": "reliability",
+        "plan": "plan14",
+        "valid": true,
+        "issues": []
+      },
+      {
+        "id": "failover",
+        "path": "shared/config/failover_policy.yaml",
+        "domain": "reliability",
+        "plan": "plan14",
+        "valid": true,
+        "issues": []
+      },
+      {
+        "id": "recovery_drill",
+        "path": "shared/config/recovery_drill_policy.yaml",
+        "domain": "reliability",
+        "plan": "plan14",
+        "valid": true,
+        "issues": []
+      },
+      {
+        "id": "alert_runbook",
+        "path": "shared/config/alert_runbook_policy.yaml",
+        "domain": "reliability",
+        "plan": "plan14",
+        "valid": true,
+        "issues": []
+      },
+      {
+        "id": "document_lifecycle",
+        "path": "shared/config/document_lifecycle_policy.yaml",
+        "domain": "lifecycle",
+        "plan": "plan13",
+        "valid": true,
+        "issues": []
+      },
+      {
+        "id": "document_version",
+        "path": "shared/config/document_version_policy.yaml",
+        "domain": "lifecycle",
+        "plan": "plan13",
+        "valid": true,
+        "issues": []
+      },
+      {
+        "id": "document_deprecation",
+        "path": "shared/config/document_deprecation_register.yaml",
+        "domain": "lifecycle",
+        "plan": "plan13",
+        "valid": true,
+        "issues": []
+      },
+      {
+        "id": "retrieval_params",
+        "path": "shared/config/retrieval_params.yaml",
+        "domain": "retrieval",
+        "plan": "plan7",
+        "valid": true,
+        "issues": []
+      },
+      {
+        "id": "product_limitations",
+        "path": "shared/config/product-limitations.yaml",
+        "domain": "product",
+        "plan": "plan11",
+        "valid": true,
+        "issues": []
+      }
+    ]
+  },
+  "issues": [],
+  "gate": {
+    "min_coverage_ratio": 0.95,
+    "passed": true
+  }
+}

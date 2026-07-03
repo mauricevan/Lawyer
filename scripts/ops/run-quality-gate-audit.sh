@@ -84,5 +84,12 @@ else
   exit 1
 fi
 
+if [[ -x scripts/platform/run-policy-registry-gate.sh ]]; then
+  echo "OK: policy registry gate script executable"
+else
+  echo "FAIL: run-policy-registry-gate.sh not executable"
+  exit 1
+fi
+
 echo ""
 echo "PASS: Quality gate audit succeeded."

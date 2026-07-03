@@ -1,0 +1,73 @@
+# Central policy registry (plan15 AA)
+version: "2026.07.03"
+
+gate:
+  min_coverage_ratio: 0.95
+  require_version_field: true
+
+report:
+  path: docs/data/governance-reports/policy-registry-latest.json
+
+policies:
+  - id: readiness
+    path: shared/config/readiness_policy.yaml
+    domain: reliability
+    owner: platform
+    plan: plan14
+    required_keys: [dependencies, slo]
+
+  - id: failover
+    path: shared/config/failover_policy.yaml
+    domain: reliability
+    owner: platform
+    plan: plan14
+    required_keys: [gate]
+
+  - id: recovery_drill
+    path: shared/config/recovery_drill_policy.yaml
+    domain: reliability
+    owner: platform
+    plan: plan14
+    required_keys: [gate]
+
+  - id: alert_runbook
+    path: shared/config/alert_runbook_policy.yaml
+    domain: reliability
+    owner: platform
+    plan: plan14
+    required_keys: [tier1_alerts]
+
+  - id: document_lifecycle
+    path: shared/config/document_lifecycle_policy.yaml
+    domain: lifecycle
+    owner: platform
+    plan: plan13
+    required_keys: [staleness, reindex]
+
+  - id: document_version
+    path: shared/config/document_version_policy.yaml
+    domain: lifecycle
+    owner: platform
+    plan: plan13
+    required_keys: [resolution]
+
+  - id: document_deprecation
+    path: shared/config/document_deprecation_register.yaml
+    domain: lifecycle
+    owner: platform
+    plan: plan13
+    required_keys: [policy, entries]
+
+  - id: retrieval_params
+    path: shared/config/retrieval_params.yaml
+    domain: retrieval
+    owner: retrieval
+    plan: plan7
+    required_keys: [parameters]
+
+  - id: product_limitations
+    path: shared/config/product-limitations.yaml
+    domain: product
+    owner: product
+    plan: plan11
+    required_keys: [languages]

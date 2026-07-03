@@ -54,6 +54,11 @@ gates:
     script: scripts/platform/run-readiness-pass-rate-gate.sh
     required_on: [release]
 
+  policy_registry:
+    scope: governance
+    script: scripts/platform/run-policy-registry-gate.sh
+    required_on: [pr, release]
+
   recovery_drill:
     scope: reliability
     script: scripts/ops/run-recovery-drill-gate.sh
