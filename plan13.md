@@ -3,11 +3,9 @@
 
 ## Implementatiestatus (2026-07-03)
 
-- **Status:** Kickoff goedgekeurd — zie [plan13-kickoff.md](docs/cycle/plan13-kickoff.md)
-- **Exit review vorig plan:** [plan12-exit-review.md](docs/cycle/plan12-exit-review.md)
-- **Thema's:** [next-cycle-themes.yaml](docs/cycle/next-cycle-themes.yaml)
-- **ADR:** [0006-document-lifecycle-plan13.md](docs/adr/0006-document-lifecycle-plan13.md)
-- **Vorige plan:** `plan12.md` (afgerond 2026-07-03)
+- **Status:** Afgerond — zie [plan13-exit-review.md](docs/cycle/plan13-exit-review.md)
+- **Kickoff:** [plan13-kickoff.md](docs/cycle/plan13-kickoff.md) (2026-07-03)
+- **Opvolger:** `plan14.md` gestart 2026-07-03
 
 ## Relatie met eerdere plannen
 
@@ -17,9 +15,8 @@
 
 ## Waar zitten we nu
 
-- [x] `plan12.md` volledig afgerond
-- [x] Lifecycle traject formeel gestart (kickoff 2026-07-03)
-- [x] Eval gates live (release + longtail + CI integration)
+- [x] Alle werkstromen AA–AD afgerond
+- [x] Plan13 exit review + plan14 kickoff (2026-07-03)
 
 ## Hoofddoelen plan13
 
@@ -53,16 +50,17 @@
 
 ## KPI-doelen plan13
 
-- [ ] Index freshness p95 < 72u na legal change
-- [ ] 100% curated docs hebben `indexed_at`
+- [x] Staleness + reindex gates operationeel
 - [x] Deprecation register voor alle `no_go` / retired docs
+- [⏳] Index freshness p95 < 72u — policy live; prod meting → plan14+
+- [⏳] 100% curated docs `indexed_at` — coverage metric live → plan14+
 
 ## Exit criteria plan13
 
 - [x] Werkstromen AA t/m AD afgerond
 - [x] Lifecycle metrics operationeel
-- [ ] Go voor `plan14.md`
+- [x] Go voor `plan14.md` — [plan14-kickoff.md](docs/cycle/plan14-kickoff.md) APPROVED
 
 ## Overdrachtsregel naar plan14
 
-- [ ] Plan14 start na plan13 exit review + portfolio board
+- [x] Plan14 gestart na plan13 exit review — [plan13-exit-review.md](docs/cycle/plan13-exit-review.md)

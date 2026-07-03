@@ -1,21 +1,25 @@
 # Implementatieplan Deel 14 - Betrouwbaarheid op enterprise schaal
 
 
-## Implementatiestatus (2026-07-02)
+## Implementatiestatus (2026-07-03)
 
-- **Status:** Klaar voor gefaseerde uitvoering — plan.md/plan2.md zijn technisch afgerond.
-- **Start:** activeer werkpakketten in dit plan per productprioriteit.
-- **Afhankelijkheid:** integration eval (`scripts/qa/run-retrieval-eval.sh`) voor harde kwaliteitsgate.
+- **Status:** Kickoff goedgekeurd — zie [plan14-kickoff.md](docs/cycle/plan14-kickoff.md)
+- **Exit review vorig plan:** [plan13-exit-review.md](docs/cycle/plan13-exit-review.md)
+- **Thema's:** [next-cycle-themes.yaml](docs/cycle/next-cycle-themes.yaml)
+- **ADR:** [0007-enterprise-reliability-plan14.md](docs/adr/0007-enterprise-reliability-plan14.md)
+- **Vorige plan:** `plan13.md` (afgerond 2026-07-03)
+
 ## Relatie met eerdere plannen
 
 - Vorige plan: `plan13.md`
-- Gebruik: verdere enterprise hardening op performance, failover en continuiteit.
+- Gebruik: enterprise hardening op performance, failover en continuiteit.
 - Regel: als dit plan volledig is afgevinkt, ga verder in `plan15.md`.
 
 ## Waar zitten we nu
 
-- [ ] `plan13.md` volledig afgerond (gestart 2026-07-03)
-- [ ] Enterprise reliability traject gestart
+- [x] `plan13.md` volledig afgerond
+- [x] Enterprise reliability traject gestart (kickoff 2026-07-03)
+- [x] Lifecycle gates operationeel in release path
 
 ## Hoofddoelen plan14
 
@@ -23,18 +27,42 @@
 - [ ] Fouttolerantie en herstel versnellen
 - [ ] Continuiteit waarborgen bij afhankelijkheidsuitval
 
-## Werkstromen
+## Werkstroom AA - Readiness & dependency health
 
-- [ ] Multi-regio of equivalent continuiteitsstrategie uitwerken
-- [ ] Geavanceerde failover tests uitvoeren
-- [ ] Recovery drills periodiek automatiseren
-- [ ] Incidentrespons verder standaardiseren
+- [ ] `/ready` uitbreiden met Qdrant, Redis, Postgres keten
+- [ ] Readiness metrics in admin dashboard
+- [ ] Runbook voor dependency degradatie
+
+## Werkstroom AB - Failover automation
+
+- [ ] Geautomatiseerde failover scenario tests
+- [ ] Live-fallback onder gesimuleerd Qdrant-verlies
+- [ ] Failover gate in quality audit
+
+## Werkstroom AC - Recovery drill automation
+
+- [ ] `run-recovery-drill.sh` standaardiseren en automatiseren
+- [ ] MTTR logging in drill rapport
+- [ ] Quarterly ops gate voor recovery drill
+
+## Werkstroom AD - Incident response
+
+- [ ] Tier-1 alerts koppelen aan runbooks
+- [ ] Incident playbook audit script
+- [ ] Alert-runbook coverage metric in admin
+
+## KPI-doelen plan14
+
+- [ ] Readiness check pass rate ≥ 99%
+- [ ] Recovery drill MTTR < 60 min
+- [ ] Failover test suite groen in CI
 
 ## Exit criteria plan14
 
-- [ ] Werkstromen volledig afgerond
+- [ ] Werkstromen AA t/m AD afgerond
 - [ ] Reliability-doelen gehaald
+- [ ] Go voor `plan15.md`
 
 ## Overdrachtsregel naar plan15
 
-- [ ] Als alle onderdelen in dit document zijn afgevinkt, wordt verder gewerkt in `plan15.md`.
+- [ ] Plan15 start na plan14 exit review + portfolio board

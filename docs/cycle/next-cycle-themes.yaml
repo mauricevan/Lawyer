@@ -1,51 +1,51 @@
-# Next cycle themes for plan13 (plan12 exit)
+# Next cycle themes for plan14 (plan13 exit)
 version: "2026.07.03"
-next_plan: plan13.md
-previous_plan: plan12.md
+next_plan: plan14.md
+previous_plan: plan13.md
 
 themes:
-  - id: THEME-009
-    title: Document staleness detection
+  - id: THEME-013
+    title: Dependency readiness and health depth
     priority: 1
     impact: 5
     effort: 3
-    kpi_link: index_freshness_hours
-    notes: Scan indexed_at vs modified_at; alert on drift
+    kpi_link: readiness_check_pass_rate
+    notes: /ready verifies Postgres, Qdrant, Redis chain
 
-  - id: THEME-010
-    title: Automated reindex on legal change
+  - id: THEME-014
+    title: Automated failover scenario tests
     priority: 2
     impact: 5
     effort: 4
-    kpi_link: reindex_sla_hours
-    notes: Trigger ingest on CELEX/version bump
+    kpi_link: failover_test_pass_rate
+    notes: Live fallback under simulated Qdrant/Redis loss
 
-  - id: THEME-011
-    title: Deprecation and archive workflow
+  - id: THEME-015
+    title: Recovery drill automation
     priority: 3
     impact: 4
     effort: 3
-    kpi_link: deprecated_doc_count
-    notes: Registry-driven soft deprecate before purge
+    kpi_link: recovery_drill_mttr_minutes
+    notes: Monthly drill script + ops gate
 
-  - id: THEME-012
-    title: Lifecycle metrics and admin visibility
+  - id: THEME-016
+    title: Incident response standardization
     priority: 4
-    impact: 3
+    impact: 4
     effort: 2
-    kpi_link: lifecycle_coverage_pct
-    notes: Admin metrics + runbook integration
+    kpi_link: alert_runbook_coverage_pct
+    notes: Every Tier-1 alert links to runbook
 
 capacity_prep:
   quarter: Q1-2027
-  mode: healthy
-  feature_hours_per_week: 16
-  lifecycle_hours: 6
-  debt_hours: 8
+  mode: reliability_focus
+  feature_hours_per_week: 14
+  reliability_hours: 12
+  debt_hours: 6
 
 formal_start:
   decision: approved
   date: "2026-07-03"
-  kickoff_doc: docs/cycle/plan13-kickoff.md
-  exit_review_doc: docs/cycle/plan12-exit-review.md
+  kickoff_doc: docs/cycle/plan14-kickoff.md
+  exit_review_doc: docs/cycle/plan13-exit-review.md
   approver: solo-engineering
