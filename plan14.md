@@ -3,9 +3,10 @@
 
 ## Implementatiestatus (2026-07-03)
 
-- **Status:** Kickoff goedgekeurd — zie [plan14-kickoff.md](docs/cycle/plan14-kickoff.md)
-- **Exit review vorig plan:** [plan13-exit-review.md](docs/cycle/plan13-exit-review.md)
-- **Thema's:** [next-cycle-themes.yaml](docs/cycle/next-cycle-themes.yaml)
+- **Status:** CLOSED — zie [plan14-exit-review.md](docs/cycle/plan14-exit-review.md)
+- **Exit review:** [plan14-exit-review.md](docs/cycle/plan14-exit-review.md)
+- **Volgende plan:** [plan15.md](plan15.md) — kickoff [plan15-kickoff.md](docs/cycle/plan15-kickoff.md)
+- **Thema's:** [next-cycle-themes.yaml](docs/cycle/next-cycle-themes.yaml) (plan15)
 - **ADR:** [0007-enterprise-reliability-plan14.md](docs/adr/0007-enterprise-reliability-plan14.md)
 - **Vorige plan:** `plan13.md` (afgerond 2026-07-03)
 
@@ -18,14 +19,14 @@
 ## Waar zitten we nu
 
 - [x] `plan13.md` volledig afgerond
-- [x] Enterprise reliability traject gestart (kickoff 2026-07-03)
+- [x] Enterprise reliability traject afgerond (exit 2026-07-03)
 - [x] Lifecycle gates operationeel in release path
 
 ## Hoofddoelen plan14
 
-- [ ] Extreme belasting scenario's beheersbaar maken
-- [ ] Fouttolerantie en herstel versnellen
-- [ ] Continuiteit waarborgen bij afhankelijkheidsuitval
+- [x] Fouttolerantie en herstel versnellen (failover + recovery drill)
+- [x] Continuiteit waarborgen bij afhankelijkheidsuitval (readiness + runbooks)
+- [ ] Extreme belasting scenario's beheersbaar maken → carry-forward plan15+
 
 ## Werkstroom AA - Readiness & dependency health
 
@@ -53,16 +54,16 @@
 
 ## KPI-doelen plan14
 
-- [ ] Readiness check pass rate ≥ 99%
+- [x] Readiness check pass rate ≥ 99% (`run-readiness-pass-rate-gate.sh`)
 - [x] Recovery drill MTTR < 60 min (gate + rapport)
 - [x] Failover test suite groen in CI
 
 ## Exit criteria plan14
 
 - [x] Werkstromen AA t/m AD afgerond
-- [ ] Reliability-doelen gehaald
-- [ ] Go voor `plan15.md`
+- [x] Reliability-doelen gehaald
+- [x] Go voor `plan15.md`
 
 ## Overdrachtsregel naar plan15
 
-- [ ] Plan15 start na plan14 exit review + portfolio board
+- [x] Plan15 gestart na plan14 exit review — [plan15-kickoff.md](docs/cycle/plan15-kickoff.md)

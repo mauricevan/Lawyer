@@ -9,6 +9,7 @@
 | [0005](./0005-retrieval-intelligence-plan12.md) | Plan12 retrieval intelligence | Accepted |
 | [0006](./0006-document-lifecycle-plan13.md) | Plan13 document lifecycle | Accepted |
 | [0007](./0007-enterprise-reliability-plan14.md) | Plan14 enterprise reliability | Accepted |
+| [0008](./0008-product-governance-plan15.md) | Plan15 product governance | Accepted |
 
 ## Nieuwe ADR aanmaken
 

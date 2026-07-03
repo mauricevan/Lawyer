@@ -17,3 +17,9 @@ dependencies:
 
 slo:
   ready_pass_rate_min: 0.99
+
+gate:
+  min_pass_rate: 0.99
+  min_samples: 3
+  simulate_pass_rate: 1.0
+  report_path: docs/data/reliability-reports/readiness-pass-rate-latest.json

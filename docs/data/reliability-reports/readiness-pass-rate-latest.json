@@ -1,0 +1,11 @@
+{
+  "suite": "readiness_pass_rate",
+  "mode": "simulate",
+  "passed": true,
+  "samples_total": 3,
+  "samples_passed": 3,
+  "pass_rate": 1.0,
+  "min_pass_rate": 0.99,
+  "violations": [],
+  "completed_at": "2026-07-03T10:49:21.356830+00:00"
+}

@@ -48,6 +48,7 @@ Centrale index — houd links actueel bij nieuwe runbooks.
 | [run-deprecation-register-check.sh](../../scripts/platform/run-deprecation-register-check.sh) | Deprecation register gate |
 | [run-lifecycle-eval-gate.sh](../../scripts/platform/run-lifecycle-eval-gate.sh) | Release lifecycle gate (plan13 AD) |
 | [run-readiness-check.sh](../../scripts/platform/run-readiness-check.sh) | Dependency readiness probe |
+| [run-readiness-pass-rate-gate.sh](../../scripts/platform/run-readiness-pass-rate-gate.sh) | Readiness pass-rate SLO gate |
 | [run-failover-eval.sh](../../scripts/qa/run-failover-eval.sh) | Simulated Qdrant failover eval |
 | [run-recovery-drill-gate.sh](../../scripts/ops/run-recovery-drill-gate.sh) | Quarterly recovery MTTR gate |
 | [run-incident-playbook-audit.sh](../../scripts/ops/run-incident-playbook-audit.sh) | Tier-1 alert runbook coverage |

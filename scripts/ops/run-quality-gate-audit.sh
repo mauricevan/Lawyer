@@ -77,5 +77,12 @@ else
   exit 1
 fi
 
+if [[ -x scripts/platform/run-readiness-pass-rate-gate.sh ]]; then
+  echo "OK: readiness pass-rate gate script executable"
+else
+  echo "FAIL: run-readiness-pass-rate-gate.sh not executable"
+  exit 1
+fi
+
 echo ""
 echo "PASS: Quality gate audit succeeded."
