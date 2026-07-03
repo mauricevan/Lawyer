@@ -11,5 +11,13 @@ scan_gates:
   max_critical: 0
   max_stale: 25
 
+reindex:
+  trigger_on_modified_drift: true
+  trigger_on_never_indexed: true
+  sla_hours: 72
+
 report:
   path: docs/data/lifecycle-reports/staleness-latest.json
+
+reindex_report:
+  path: docs/data/lifecycle-reports/reindex-latest.json

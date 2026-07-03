@@ -8,6 +8,7 @@ Centrale index — houd links actueel bij nieuwe runbooks.
 |---|---|
 | [release-checklist.md](../ops/release-checklist.md) | Vóór elke productie-deploy |
 | [hotfix-runbook.md](../ops/hotfix-runbook.md) | P0/P1 productie-incident |
+| [reindex-runbook.md](../ops/reindex-runbook.md) | Stale index / modified drift |
 | [post-release-review.md](../ops/post-release-review.md) | Binnen 48u na release |
 | [error-budget-policy.md](../ops/error-budget-policy.md) | SLO-overschrijding |
 | [escalation-matrix.md](../ops/escalation-matrix.md) | Wie bellen |
@@ -41,6 +42,8 @@ Centrale index — houd links actueel bij nieuwe runbooks.
 | [run-multilingual-eval.sh](../../scripts/qa/run-multilingual-eval.sh) | Taaluitrol |
 | [run-ingest-multilingual-seed.sh](../../scripts/qa/run-ingest-multilingual-seed.sh) | Native FR/DE/ES corpus |
 | [run-legal-compliance-check.sh](../../scripts/qa/run-legal-compliance-check.sh) | Compliance docs + escalation |
+| [run-document-staleness-scan.sh](../../scripts/platform/run-document-staleness-scan.sh) | Lifecycle staleness gate |
+| [run-lifecycle-reindex.sh](../../scripts/platform/run-lifecycle-reindex.sh) | Drift reindex automation |
 | [run-integration-eval-gate.sh](../../scripts/qa/run-integration-eval-gate.sh) | CI integration eval (TD-004) |
 | [run-stack-aware-eval.sh](../../scripts/qa/run-stack-aware-eval.sh) | Release eval met stack-check |
 

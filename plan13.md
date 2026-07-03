@@ -35,9 +35,9 @@
 
 ## Werkstroom AB - Reindex automation
 
-- [ ] Reindex trigger bij `modified_at` > `indexed_at`
-- [ ] Integratie met `ingest_curated.py --force-reindex`
-- [ ] Reindex SLA en runbook bijwerken
+- [x] Reindex trigger bij `modified_at` > `indexed_at`
+- [x] Integratie met `ingest_curated.py --force-reindex`
+- [x] Reindex SLA en runbook bijwerken
 
 ## Werkstroom AC - Deprecation & archive
 

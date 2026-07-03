@@ -23,3 +23,17 @@ def staleness_thresholds() -> dict[str, Any]:
 def scan_gates() -> dict[str, int]:
     policy = load_document_lifecycle_policy()
     return {key: int(value) for key, value in policy.get("scan_gates", {}).items()}
+
+
+def reindex_policy() -> dict[str, Any]:
+    policy = load_document_lifecycle_policy()
+    return policy.get("reindex", {})
+
+
+def reindex_report_path() -> str:
+    policy = load_document_lifecycle_policy()
+    return str(
+        policy.get("reindex_report", {}).get(
+            "path", "docs/data/lifecycle-reports/reindex-latest.json"
+        )
+    )

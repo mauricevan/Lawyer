@@ -6,9 +6,10 @@
 **Actions:**
 
 1. Run domain + multilingual eval isolatie
-2. Check Qdrant index freshness / reindex
-3. Freeze prompt changes until green
-4. Log in `incident-learnings.md` if production-impacting
+2. Check Qdrant index freshness — `./scripts/platform/run-document-staleness-scan.sh`
+3. Reindex drift — `./scripts/platform/run-lifecycle-reindex.sh` (zie [reindex-runbook.md](../ops/reindex-runbook.md))
+4. Freeze prompt changes until green
+5. Log in `incident-learnings.md` if production-impacting
 
 ## multilingual
 

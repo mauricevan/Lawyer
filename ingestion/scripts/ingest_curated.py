@@ -12,6 +12,7 @@ from sqlalchemy.ext.asyncio import async_sessionmaker, create_async_engine
 
 from backend.src.config import settings
 from backend.src.database import Base
+from backend.src.services.document_reindex_service import DocumentReindexService
 from ingestion.src.clients.cellar_rest_client import CellarRestClient
 from ingestion.src.data.curated_loader import load_curated_documents
 from ingestion.src.indexer import ingest_document
@@ -60,13 +61,29 @@ async def run_ingest(args: argparse.Namespace) -> dict[str, int]:
     cellar = CellarRestClient(delay_seconds=args.delay_seconds)
     session_factory = async_sessionmaker(engine, expire_on_commit=False)
 
+    drift_keys: set[str] = set()
+    if args.reindex_drift:
+        reindex_service = DocumentReindexService()
+        async with session_factory() as session:
+            drift_keys = {
+                reindex_service.candidate_key(candidate)
+                for candidate in await reindex_service.list_candidates(session)
+            }
+        logger.info("Reindex-drift mode: %d candidate(s)", len(drift_keys))
+
     stats = {"success": 0, "skipped": 0, "failed": 0, "chunks": 0}
     failures: list[dict[str, str]] = []
 
     async with session_factory() as session:
         for document in documents:
             celex = document.celex
-            if celex in force_celex or args.force_reindex:
+            doc_key = f"{celex}:{document.language}"
+            should_reindex = (
+                celex in force_celex
+                or args.force_reindex
+                or (args.reindex_drift and doc_key in drift_keys)
+            )
+            if should_reindex:
                 await purge_document_index(celex, session, document.language)
             elif args.skip_existing and await is_document_indexed(
                 celex, session, document.language
@@ -115,6 +132,11 @@ def _build_parser() -> argparse.ArgumentParser:
     )
     parser.add_argument("--no-force-ai-act", action="store_false", dest="force_ai_act")
     parser.add_argument("--force-reindex", action="store_true", help="Purge and rebuild every document")
+    parser.add_argument(
+        "--reindex-drift",
+        action="store_true",
+        help="Purge and rebuild docs with modified_at > indexed_at or never indexed",
+    )
     parser.add_argument("--failed-log", type=str, default=str(DEFAULT_FAILED_LOG))
     return parser
 

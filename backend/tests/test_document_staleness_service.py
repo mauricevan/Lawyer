@@ -94,3 +94,4 @@ def test_lifecycle_policy_loads():
     policy = load_document_lifecycle_policy()
     assert policy["staleness"]["max_index_age_hours"] == 168
     assert scan_gates()["max_never_indexed"] == 0
+    assert policy["reindex"]["sla_hours"] == 72
