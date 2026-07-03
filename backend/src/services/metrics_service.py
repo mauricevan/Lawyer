@@ -16,6 +16,8 @@ class MetricsService:
     injection_flags: int = 0
     auto_upgrade_queued: int = 0
     retrieval_routes: dict[str, int] = field(default_factory=dict)
+    readiness_checks_total: int = 0
+    readiness_checks_passed: int = 0
 
     def record_query(self, is_stream: bool = False) -> None:
         mode = "stream" if is_stream else "sync"
@@ -49,6 +51,17 @@ class MetricsService:
     def record_auto_upgrade(self) -> None:
         prom.AUTO_UPGRADE_QUEUED_TOTAL.inc()
         self.auto_upgrade_queued += 1
+
+    def record_readiness_check(self, is_ready: bool) -> None:
+        self.readiness_checks_total += 1
+        if is_ready:
+            self.readiness_checks_passed += 1
+
+    def readiness_snapshot(self) -> dict[str, object]:
+        total = self.readiness_checks_total
+        passed = self.readiness_checks_passed
+        rate = round(passed / total, 4) if total else 1.0
+        return {"checks_total": total, "checks_passed": passed, "pass_rate": rate}
 
     def snapshot(self) -> dict[str, object]:
         return {

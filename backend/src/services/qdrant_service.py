@@ -205,6 +205,16 @@ class QdrantService:
         except Exception:
             return 0
 
+    def health_check(self) -> dict[str, object]:
+        """Return Qdrant connectivity and collection stats for readiness probes."""
+        try:
+            self.ensure_collection()
+            info = self._client.get_collection(self._collection)
+            return {"healthy": True, "points_count": info.points_count or 0}
+        except Exception as exc:
+            logger.warning("Qdrant health check failed: %s", exc.__class__.__name__)
+            return {"healthy": False, "error": exc.__class__.__name__}
+
     def delete_by_celex(self, celex: str) -> None:
         """Remove all vector points for a CELEX identifier."""
         try:

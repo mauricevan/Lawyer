@@ -29,9 +29,9 @@
 
 ## Werkstroom AA - Readiness & dependency health
 
-- [ ] `/ready` uitbreiden met Qdrant, Redis, Postgres keten
-- [ ] Readiness metrics in admin dashboard
-- [ ] Runbook voor dependency degradatie
+- [x] `/ready` uitbreiden met Qdrant, Redis, Postgres keten
+- [x] Readiness metrics in admin dashboard
+- [x] Runbook voor dependency degradatie
 
 ## Werkstroom AB - Failover automation
 

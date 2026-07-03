@@ -1,0 +1,19 @@
+# Readiness probe policy (plan14 AA)
+version: "2026.07.03"
+
+dependencies:
+  postgres:
+    tier: 1
+    required_for_ready: true
+    fallback: "read-only degrade; cache hits"
+  qdrant:
+    tier: 1
+    required_for_ready: true
+    fallback: "live_fallback retrieval"
+  redis:
+    tier: 2
+    required_for_ready: false
+    fallback: "in-memory query cache"
+
+slo:
+  ready_pass_rate_min: 0.99

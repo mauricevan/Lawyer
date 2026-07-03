@@ -21,7 +21,7 @@
 1. **Detect** — alerts per [escalation-matrix.md](../ops/escalation-matrix.md)
 2. **Triage** — [playbooks/incident-response.md](../engineering/playbooks/incident-response.md)
 3. **Recover** — [recovery-drill.md](../ops/recovery-drill.md), hotfix runbook
-4. **Validate** — `./scripts/observability/verify-stack.sh`
+4. **Validate** — `./scripts/platform/run-readiness-check.sh`, `./scripts/observability/verify-stack.sh`
 
 ## Quarterly validation
 

@@ -9,6 +9,7 @@ Centrale index — houd links actueel bij nieuwe runbooks.
 | [release-checklist.md](../ops/release-checklist.md) | Vóór elke productie-deploy |
 | [hotfix-runbook.md](../ops/hotfix-runbook.md) | P0/P1 productie-incident |
 | [reindex-runbook.md](../ops/reindex-runbook.md) | Stale index / modified drift |
+| [dependency-degradation-runbook.md](../ops/dependency-degradation-runbook.md) | `/ready` degraded / Tier-1 outage |
 | [post-release-review.md](../ops/post-release-review.md) | Binnen 48u na release |
 | [error-budget-policy.md](../ops/error-budget-policy.md) | SLO-overschrijding |
 | [escalation-matrix.md](../ops/escalation-matrix.md) | Wie bellen |
@@ -46,6 +47,7 @@ Centrale index — houd links actueel bij nieuwe runbooks.
 | [run-lifecycle-reindex.sh](../../scripts/platform/run-lifecycle-reindex.sh) | Drift reindex automation |
 | [run-deprecation-register-check.sh](../../scripts/platform/run-deprecation-register-check.sh) | Deprecation register gate |
 | [run-lifecycle-eval-gate.sh](../../scripts/platform/run-lifecycle-eval-gate.sh) | Release lifecycle gate (plan13 AD) |
+| [run-readiness-check.sh](../../scripts/platform/run-readiness-check.sh) | Dependency readiness probe |
 | [run-version-conflict-scan.sh](../../scripts/platform/run-version-conflict-scan.sh) | Version conflict scan |
 | [document-lifecycle.md](../../docs/data/document-lifecycle.md) | Lifecycle states & archive |
 | [run-integration-eval-gate.sh](../../scripts/qa/run-integration-eval-gate.sh) | CI integration eval (TD-004) |
