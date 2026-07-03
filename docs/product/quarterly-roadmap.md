@@ -17,13 +17,13 @@
 
 ## Initiatieven (portfolio)
 
-| # | Initiatief | Bucket | Owner | KPI-koppeling |
-|---|---|---|---|---|
-| 1 | Plan5 J2 kennisborging | ops_governance | engineering | onboarding + runbooks |
-| 2 | Employment domein → pilot→go | features | product | domain_coverage | Done (plan11 AB) |
-| 3 | Plan4 exit/sign-off documentatie | ops_governance | engineering | governance |
-| 4 | Retrieval eval CI gate op PR | reliability | backend | retrieval_quality |
-| 5 | Grafana dashboards per release | reliability | ops | query_latency_p95 |
+| # | Initiatief | Bucket | Owner | KPI-koppeling | Status |
+|---|---|---|---|---|---|
+| 1 | Plan5 J2 kennisborging | ops_governance | engineering | onboarding + runbooks | |
+| 2 | Employment domein pilot→go | features | product | domain_coverage | Done |
+| 3 | Plan4 exit/sign-off documentatie | ops_governance | engineering | governance | |
+| 4 | Retrieval eval CI gate op PR | reliability | backend | retrieval_quality | |
+| 5 | Grafana dashboards per release | reliability | ops | query_latency_p95 | |
 
 ## Technische schuld (gepland dit kwartaal)
 
@@ -33,7 +33,7 @@ Zie [technical-debt-register.md](../ops/technical-debt-register.md). Minimaal **
 |---|---|---|
 | TD-003 | JWT verplicht in staging | Q3 Wk 6 |
 | TD-005 | Integration eval in CI | Q3 Wk 8 |
-| TD-007 | Employment cluster seedset | Q3 Wk 10 |
+| TD-007 | Employment cluster seedset | Q3 Wk 10 | Done |
 
 ## Besluitmomenten
 
