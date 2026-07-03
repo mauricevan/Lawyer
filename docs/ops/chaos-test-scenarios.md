@@ -19,4 +19,5 @@ Gecontroleerde foutinjectie op **staging** — nooit blind in productie.
 
 ## Automatisering
 
-Maandelijks minimaal **CH-01** via `./scripts/ops/run-recovery-drill.sh`.
+Maandelijks minimaal **CH-01** via `./scripts/ops/run-recovery-drill.sh`.  
+Offline Qdrant-failover simulatie: `./scripts/qa/run-failover-eval.sh` (plan14 AB).

@@ -44,6 +44,11 @@ gates:
     script: scripts/qa/run-integration-eval-gate.sh
     required_on: [pr, release]
 
+  failover_eval:
+    scope: reliability
+    script: scripts/qa/run-failover-eval.sh
+    required_on: [pr, release]
+
   quality_audit:
     scope: governance
     script: scripts/ops/run-quality-gate-audit.sh

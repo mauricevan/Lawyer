@@ -1,0 +1,9 @@
+# Failover scenario policy (plan14 AB)
+version: "2026.07.03"
+
+gate:
+  min_pass_scenarios: 3
+  require_live_fallback_on_qdrant_loss: true
+
+report:
+  path: docs/data/reliability-reports/failover-latest.json

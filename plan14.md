@@ -35,9 +35,9 @@
 
 ## Werkstroom AB - Failover automation
 
-- [ ] Geautomatiseerde failover scenario tests
-- [ ] Live-fallback onder gesimuleerd Qdrant-verlies
-- [ ] Failover gate in quality audit
+- [x] Geautomatiseerde failover scenario tests
+- [x] Live-fallback onder gesimuleerd Qdrant-verlies
+- [x] Failover gate in quality audit
 
 ## Werkstroom AC - Recovery drill automation
 
@@ -55,7 +55,7 @@
 
 - [ ] Readiness check pass rate ≥ 99%
 - [ ] Recovery drill MTTR < 60 min
-- [ ] Failover test suite groen in CI
+- [x] Failover test suite groen in CI
 
 ## Exit criteria plan14
 

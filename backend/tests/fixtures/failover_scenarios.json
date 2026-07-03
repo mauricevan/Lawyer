@@ -1,0 +1,31 @@
+[
+  {
+    "id": "SCN-QDRANT-EMPTY",
+    "question": "Wat zegt 32022R2554?",
+    "simulate": "qdrant_empty",
+    "expect_route": "live_fallback",
+    "expect_source": "live_fallback"
+  },
+  {
+    "id": "SCN-QDRANT-ERROR",
+    "question": "Wat zegt 32022R2554?",
+    "simulate": "qdrant_error",
+    "expect_route": "live_fallback",
+    "expect_source": "live_fallback"
+  },
+  {
+    "id": "SCN-QDRANT-WEAK",
+    "question": "Wat zegt 32022R2554?",
+    "simulate": "qdrant_low_score",
+    "expect_route": "live_fallback",
+    "expect_source": "live_fallback"
+  },
+  {
+    "id": "SCN-LIVE-DISABLED",
+    "question": "Wat zegt 32022R2554?",
+    "simulate": "qdrant_empty",
+    "live_fallback_enabled": false,
+    "expect_route_in": ["local", "hybrid"],
+    "expect_nonempty": false
+  }
+]

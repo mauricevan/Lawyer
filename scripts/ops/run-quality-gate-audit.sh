@@ -56,5 +56,12 @@ else
   exit 1
 fi
 
+if [[ -x scripts/qa/run-failover-eval.sh ]]; then
+  echo "OK: failover eval script executable"
+else
+  echo "FAIL: run-failover-eval.sh not executable"
+  exit 1
+fi
+
 echo ""
 echo "PASS: Quality gate audit succeeded."

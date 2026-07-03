@@ -48,6 +48,7 @@ Centrale index — houd links actueel bij nieuwe runbooks.
 | [run-deprecation-register-check.sh](../../scripts/platform/run-deprecation-register-check.sh) | Deprecation register gate |
 | [run-lifecycle-eval-gate.sh](../../scripts/platform/run-lifecycle-eval-gate.sh) | Release lifecycle gate (plan13 AD) |
 | [run-readiness-check.sh](../../scripts/platform/run-readiness-check.sh) | Dependency readiness probe |
+| [run-failover-eval.sh](../../scripts/qa/run-failover-eval.sh) | Simulated Qdrant failover eval |
 | [run-version-conflict-scan.sh](../../scripts/platform/run-version-conflict-scan.sh) | Version conflict scan |
 | [document-lifecycle.md](../../docs/data/document-lifecycle.md) | Lifecycle states & archive |
 | [run-integration-eval-gate.sh](../../scripts/qa/run-integration-eval-gate.sh) | CI integration eval (TD-004) |

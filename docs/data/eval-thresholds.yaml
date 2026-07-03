@@ -50,6 +50,12 @@ suites:
     report: docs/data/lifecycle-reports/lifecycle-gate-latest.json
     note: plan13 AD — deprecation register, version policy, optional staleness
 
+  failover:
+    script: scripts/qa/run-failover-eval.sh
+    config: shared/config/failover_policy.yaml
+    report: docs/data/reliability-reports/failover-latest.json
+    note: plan14 AB — simulated Qdrant loss + live fallback
+
 release_policy:
   block_on_regression: true
   require_baseline_update_on_improvement: true

@@ -24,6 +24,7 @@ from backend.src.services.retrieval_explainability_service import (
 from backend.src.services.trust_indicator_service import TrustIndicatorService
 from backend.src.utils.context_dedup import deduplicate_chunks
 from backend.src.utils.qdrant_filters import doc_type_matches_celex
+from backend.src.utils.qdrant_resilience import safe_celex_hint_search, safe_dense_search
 from backend.src.utils.retrieval_budget import RetrievalBudget, RetrievalBudgetExceeded
 from backend.src.utils.rrf_fusion import reciprocal_rank_fusion
 from ingestion.src.data.domain_registry_loader import get_domain_keywords
@@ -85,13 +86,8 @@ class RetrievalPipelineService:
         budget = RetrievalBudget(settings.retrieval_budget_seconds)
         budget.ensure("vector_search")
         excluded_celex = self._deprecation.excluded_celex_for_filters(filters, lang)
-        dense = self._qdrant.search_with_language_fallback(
-            vector,
-            limit=RETRIEVAL_CANDIDATE_LIMIT,
-            language=lang,
-            in_force_only=in_force,
-            filters=filters,
-            excluded_celex=excluded_celex,
+        dense = safe_dense_search(
+            self._qdrant, vector, RETRIEVAL_CANDIDATE_LIMIT, lang, in_force, filters, excluded_celex,
         )
         counts.dense = len(dense)
         bm25_ranked = self._bm25.rank(request.question, dense, top_k=50)
@@ -224,9 +220,7 @@ class RetrievalPipelineService:
             target_celex = self._deprecation.filter_celex_hints(target_celex, filters)
         if not target_celex:
             return []
-        return self._qdrant.search_by_celex_with_language_fallback(
-            celex_values=target_celex, limit=12, language=language, in_force_only=in_force_only,
-        )
+        return safe_celex_hint_search(self._qdrant, target_celex, language, in_force_only)
 
     def _merge_results(self, *result_groups: list[dict]) -> list[dict]:
         seen: set[str] = set()
