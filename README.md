@@ -59,6 +59,16 @@ Zie `docs/ops/` voor checklist, SLO's, escalatie en hotfix-runbooks.
 Nieuwe engineers: start bij [`docs/engineering/onboarding.md`](docs/engineering/onboarding.md).  
 Platform scripts: [`docs/platform/self-service-ops.md`](docs/platform/self-service-ops.md).
 
+## Project status
+
+**PRODUCTION READY** (plan31 complete, 2026-07-03)
+
+```bash
+./scripts/ops/run-project-completion-gate.sh   # volledige productie-gate
+```
+
+Zie [`docs/cycle/project-completion.md`](docs/cycle/project-completion.md).
+
 Met de volledige stack draaien metrics en dashboards automatisch mee:
 
 ```bash

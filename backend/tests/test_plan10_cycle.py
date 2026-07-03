@@ -78,9 +78,18 @@ def test_plan15_transition_is_historical() -> None:
     assert service.validate_plan_transition("plan15")
 
 
-def test_plan30_transition_validates() -> None:
+def test_plan30_transition_is_historical() -> None:
     service = CyclePlanningService()
-    assert not service.validate_plan_transition("plan30")
+    assert service.validate_plan_transition("plan30")
+
+
+def test_plan31_transition_validates() -> None:
+    service = CyclePlanningService()
+    assert not service.validate_plan_transition("plan31")
+
+
+def test_project_completion_document_exists() -> None:
+    assert (_REPO / "docs/cycle/project-completion.md").is_file()
 
 
 def test_plan30_series_closed() -> None:

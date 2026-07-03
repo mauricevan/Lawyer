@@ -17,4 +17,4 @@
 
 ## Overdrachtsregel
 
-- [ ] plan31 alleen na nieuwe portfolio board
+- [x] plan31 alleen na nieuwe portfolio board → **plan31 CLOSED** — [project-completion.md](docs/cycle/project-completion.md)

@@ -91,10 +91,10 @@ else
   exit 1
 fi
 
-if [[ -x scripts/platform/run-cycle-plan-gate.sh ]]; then
-  echo "OK: cycle plan gate script executable"
+if [[ -x scripts/ops/run-project-completion-gate.sh ]]; then
+  echo "OK: project completion gate script executable"
 else
-  echo "FAIL: run-cycle-plan-gate.sh not executable"
+  echo "FAIL: run-project-completion-gate.sh not executable"
   exit 1
 fi
 

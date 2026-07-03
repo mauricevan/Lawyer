@@ -85,6 +85,11 @@ gates:
     args: ["--all"]
     required_on: [release]
 
+  project_completion:
+    scope: governance
+    script: scripts/ops/run-project-completion-gate.sh
+    required_on: [release]
+
   recovery_drill:
     scope: reliability
     script: scripts/ops/run-recovery-drill-gate.sh

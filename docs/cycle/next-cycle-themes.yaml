@@ -1,21 +1,22 @@
-# Next cycle themes — series closure (plan30 exit)
+# Next cycle themes — project complete (plan31 exit)
 version: "2026.07.03"
-next_plan: plan31.md
-previous_plan: plan30.md
-series_status: closed_plan1_plan30
+next_plan: maintenance
+previous_plan: plan31.md
+series_status: production_ready
 
 themes:
-  - id: THEME-031
-    title: Optional plan31 kickoff pending portfolio board
+  - id: THEME-MAINT
+    title: Maintenance and incremental improvements
     priority: 1
-    impact: 3
+    impact: 4
     effort: 2
-    kpi_link: series_closure_complete
-    notes: Plans 1–30 delivered; plan31 only if new cycle approved
+    kpi_link: project_completion_gate
+    notes: Run completion gate before each release
 
 formal_start:
-  decision: series_closed
+  decision: production_ready
   date: "2026-07-03"
-  kickoff_doc: docs/cycle/plan30-series-closure.md
-  exit_review_doc: docs/cycle/plan30-exit-review.md
+  kickoff_doc: docs/cycle/plan31-kickoff.md
+  exit_review_doc: docs/cycle/plan31-exit-review.md
+  completion_doc: docs/cycle/project-completion.md
   approver: solo-engineering
