@@ -7,44 +7,15 @@ Werkregel: elke taak wordt pas afgevinkt als code, tests, lint en documentatie g
 
 ## Doorstroom naar vervolgplannen
 
-- [x] Zodra alle fases in dit document volledig zijn afgevinkt, gaat de uitvoering verplicht verder in `plan2.md`.
-- [ ] Als `plan2.md` volledig is afgevinkt, gaat de uitvoering verplicht verder in `plan3.md`.
-- [ ] Dit patroon blijft gelden voor volgende planbestanden (`plan4.md`, `plan5.md`, enzovoort) wanneer extra uitwerking nodig is.
-- [ ] Elk nieuw planbestand start met een korte verwijzing naar het voorgaande plan en een status van openstaande punten.
+- [x] `plan.md` volledig afgerond → doorstroom naar `plan2.md`
+- [x] Plan-keten `plan2.md` t/m `plan30.md` afgerond
+- [x] `plan31.md` production completion — zie [project-completion.md](docs/cycle/project-completion.md)
 
-## Plan-keten overzicht (waar zijn we nu)
+## Plan-keten overzicht
 
-- [x] Huidig actief plan: `plan.md`
-- [ ] Volgende plan: `plan2.md`
-- [ ] Daarna: `plan3.md`
-- [ ] Daarna: `plan4.md`
-- [ ] Daarna: `plan5.md`
-- [ ] Daarna: `plan6.md`
-- [ ] Daarna: `plan7.md`
-- [ ] Daarna: `plan8.md`
-- [ ] Daarna: `plan9.md`
-- [ ] Daarna: `plan10.md`
-- [ ] Daarna: `plan11.md`
-- [ ] Daarna: `plan12.md`
-- [ ] Daarna: `plan13.md`
-- [ ] Daarna: `plan14.md`
-- [ ] Daarna: `plan15.md`
-- [ ] Daarna: `plan16.md`
-- [ ] Daarna: `plan17.md`
-- [ ] Daarna: `plan18.md`
-- [ ] Daarna: `plan19.md`
-- [ ] Daarna: `plan20.md`
-- [ ] Daarna: `plan21.md`
-- [ ] Daarna: `plan22.md`
-- [ ] Daarna: `plan23.md`
-- [ ] Daarna: `plan24.md`
-- [ ] Daarna: `plan25.md`
-- [ ] Daarna: `plan26.md`
-- [ ] Daarna: `plan27.md`
-- [ ] Daarna: `plan28.md`
-- [ ] Daarna: `plan29.md`
-- [ ] Daarna: `plan30.md`
-- [ ] Indien nodig daarna: `plan31.md`
+- **Status:** SERIES COMPLETE — plan1–plan30 CLOSED, plan31 production completion
+- **Master index:** [project-completion.md](docs/cycle/project-completion.md)
+- **Actief:** `plan31.md` (afronding) → daarna onderhoudsmodus
 
 ## Statusoverzicht
 

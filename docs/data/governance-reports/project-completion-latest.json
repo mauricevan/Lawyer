@@ -1,0 +1,33 @@
+{
+  "suite": "project_completion",
+  "passed": true,
+  "scripts_ok": true,
+  "gates": [
+    {
+      "report": "docs/data/governance-reports/policy-registry-latest.json",
+      "passed": true,
+      "suite": "policy_registry"
+    },
+    {
+      "report": "docs/data/governance-reports/partner-api-latest.json",
+      "passed": true,
+      "suite": "partner_api"
+    },
+    {
+      "report": "docs/data/reliability-reports/failover-latest.json",
+      "passed": true,
+      "suite": "failover_eval"
+    },
+    {
+      "report": "docs/data/governance-reports/cycle-plans-latest.json",
+      "passed": true,
+      "suite": "cycle_plans"
+    },
+    {
+      "report": "docs/data/governance-reports/governance-snapshot-latest.json",
+      "passed": true,
+      "suite": "governance_snapshot"
+    }
+  ],
+  "completed_at": "2026-07-03T11:07:07.561884+00:00"
+}

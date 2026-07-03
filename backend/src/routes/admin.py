@@ -19,6 +19,7 @@ from backend.src.services.governance_report_service import GovernanceReportServi
 from backend.src.services.incident_response_service import IncidentResponseService
 from backend.src.services.partner_api_service import PartnerApiService
 from backend.src.services.policy_registry_service import PolicyRegistryService
+from backend.src.services.project_completion_service import ProjectCompletionService
 from backend.src.services.risk_acceptance_service import RiskAcceptanceService
 from backend.src.services.readiness_service import ReadinessService
 from backend.src.services.redis_cache_service import RedisCacheService
@@ -65,6 +66,7 @@ async def get_stats(session: AsyncSession = Depends(get_db)) -> dict:
             "policy_registry": policy_registry.summarize_admin(),
             "risk_acceptance": RiskAcceptanceService().summarize_admin(),
             "partner_api": PartnerApiService().summarize_admin(),
+            "project_completion": ProjectCompletionService().summarize_admin(),
         },
         "vector_points": qdrant.count_points(),
         "queries_total": query_count.scalar() or 0,

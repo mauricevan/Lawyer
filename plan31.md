@@ -23,13 +23,13 @@
 
 ## Werkstroom AB - Master plan sync
 
-- [ ] plan.md t/m plan30 keten bijgewerkt
-- [ ] Openstaande plan-statussen geconsolideerd
+- [x] plan.md t/m plan30 keten bijgewerkt
+- [x] Openstaande plan-statussen geconsolideerd
 
 ## Werkstroom AC - Project completion gate
 
-- [ ] Gecombineerde completion gate script
-- [ ] Completion rapport + admin metric
+- [x] Gecombineerde completion gate script
+- [x] Completion rapport + admin metric
 
 ## Werkstroom AD - Final documentation
 
