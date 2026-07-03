@@ -12,6 +12,8 @@ from backend.src.services.auto_upgrade_service import AutoUpgradeService
 from backend.src.services.feature_flag_service import FeatureFlagService
 from backend.src.services.metrics_service import metrics_service
 from backend.src.services.redis_cache_service import RedisCacheService
+from backend.src.utils.query_filter_sanitizer import privileged_filter_flags
+from shared.schemas.query import QueryFilters
 
 
 class QueryCacheService:
@@ -23,8 +25,15 @@ class QueryCacheService:
         self._auto_upgrade = AutoUpgradeService()
         self._flags = FeatureFlagService()
 
-    def build_key(self, question: str, language: str, in_force_only: bool) -> str:
-        raw = f"{question.strip().lower()}|{language}|{in_force_only}"
+    def build_key(
+        self,
+        question: str,
+        language: str,
+        in_force_only: bool,
+        filters: QueryFilters | None = None,
+    ) -> str:
+        celex, include_deprecated = privileged_filter_flags(filters)
+        raw = f"{question.strip().lower()}|{language}|{in_force_only}|{celex}|{include_deprecated}"
         return hashlib.sha256(raw.encode("utf-8")).hexdigest()
 
     async def get(self, key: str) -> list[dict[str, Any]] | None:

@@ -25,7 +25,7 @@ No hard delete without register entry and ops approval (ADR-0006).
 
 - Deprecated CELEX excluded from vector, FTS, BM25 merge, and hint search
 - **Explicit CELEX filter** still returns chunks (compliance / audit lookup)
-- `include_deprecated: true` on `QueryFilters` bypasses exclusion (admin tooling)
+- `include_deprecated: true` on `QueryFilters` bypasses exclusion (**admin/analyst role with `admin:read` only**)
 
 ## Version conflict resolution
 

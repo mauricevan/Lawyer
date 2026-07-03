@@ -144,6 +144,7 @@ class RagService:
             "language": existing.get("language") or route.language,
             "time_context": existing.get("time_context") or route.time_context,
             "in_force_only": existing.get("in_force_only", route.time_context != "historical"),
+            "include_deprecated": existing.get("include_deprecated", False),
             "consolidated_preferred": existing.get("consolidated_preferred", True),
             "intent_id": route.intent_id,
             "router_confidence": route.confidence,

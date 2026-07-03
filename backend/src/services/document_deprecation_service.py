@@ -8,7 +8,7 @@ from backend.src.utils.document_deprecation_config import (
 )
 from shared.schemas.query import QueryFilters
 
-SEARCH_EXCLUDED_STATUSES = frozenset({"soft_deprecated", "retired"})
+SEARCH_EXCLUDED_STATUSES = frozenset({"soft_deprecated", "retired", "archived"})
 
 
 class DocumentDeprecationService:
@@ -65,18 +65,22 @@ class DocumentDeprecationService:
             if not self.is_excluded(chunk.get("celex", ""), chunk.get("language"), filters)
         ]
 
+    def is_celex_allowed(self, celex: str, language: str | None, filters: QueryFilters | None) -> bool:
+        """Return True when retrieval or live fetch may use this CELEX."""
+        return not self.is_excluded(celex, language, filters)
+
     def is_excluded(self, celex: str, language: str | None, filters: QueryFilters | None) -> bool:
         if not celex:
             return False
         if filters and filters.include_deprecated:
             return False
-        if filters and filters.celex and filters.celex == celex:
-            if self._policy.get("allow_explicit_celex_lookup", True):
-                return False
         entry = self._match_entry(celex, language)
-        if entry is None:
+        if entry is None or entry.status not in SEARCH_EXCLUDED_STATUSES:
             return False
-        return entry.status in SEARCH_EXCLUDED_STATUSES
+        if filters and filters.celex and filters.celex == celex:
+            if entry.allow_explicit_celex and self._policy.get("allow_explicit_celex_lookup", True):
+                return False
+        return True
 
     def _match_entry(self, celex: str, language: str | None) -> DeprecationEntry | None:
         for entry in self.entries():

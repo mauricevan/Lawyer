@@ -65,7 +65,7 @@ class RetrievalPipelineService:
         in_force = filters.in_force_only if filters else True
         if filters and filters.time_context == "historical":
             in_force = False
-        cache_key = self._cache.build_key(request.question, lang or "nl", in_force)
+        cache_key = self._cache.build_key(request.question, lang or "nl", in_force, filters)
         cached = await self._cache.get(cache_key)
         if cached:
             metrics_service.record_cache_hit()
@@ -171,7 +171,14 @@ class RetrievalPipelineService:
             await self._cache.set(cache_key, reranked)
             return reranked, route
         celex_hint = filters.celex if filters else None
-        live_chunks = await self._live.fallback_chunks(request.question, lang or "nl", celex_hint=celex_hint)
+        allowed = lambda celex, allowed_lang: self._deprecation.is_celex_allowed(celex, allowed_lang, filters)
+        live_chunks = await self._live.fallback_chunks(
+            request.question,
+            lang or "nl",
+            celex_hint=celex_hint,
+            is_celex_allowed=allowed,
+        )
+        live_chunks = self._deprecation.filter_chunks(live_chunks, filters)
         metrics_service.record_fallback(bool(live_chunks))
         if not live_chunks:
             return None

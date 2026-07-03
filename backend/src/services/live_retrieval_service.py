@@ -2,6 +2,7 @@
 import asyncio
 import logging
 import re
+from collections.abc import Callable
 from typing import Any
 
 import httpx
@@ -15,6 +16,7 @@ from ingestion.src.clients.sparql_client import SparqlClient
 logger = logging.getLogger(__name__)
 EURLEX_TITLE_RE = re.compile(r"<title>(.*?)</title>", re.IGNORECASE | re.DOTALL)
 MAX_RETRIES = 3
+CelexAllowedFn = Callable[[str, str | None], bool]
 
 
 class LiveRetrievalService:
@@ -30,10 +32,11 @@ class LiveRetrievalService:
         question: str,
         language: str = "nl",
         celex_hint: str | None = None,
+        is_celex_allowed: CelexAllowedFn | None = None,
     ) -> list[dict[str, Any]]:
         if not settings.enable_live_fallback:
             return []
-        celex = celex_hint or self._extract_celex(question) or await self._discover_with_fallback(question, language)
+        celex = await self._resolve_celex(question, language, celex_hint, is_celex_allowed)
         if not celex:
             return []
         try:
@@ -55,14 +58,43 @@ class LiveRetrievalService:
             )
         return []
 
+    async def _resolve_celex(
+        self,
+        question: str,
+        language: str,
+        celex_hint: str | None,
+        is_celex_allowed: CelexAllowedFn | None,
+    ) -> str | None:
+        if celex_hint:
+            return celex_hint if self._is_celex_allowed(celex_hint, language, is_celex_allowed) else None
+        extracted = self._extract_celex(question)
+        if extracted and self._is_celex_allowed(extracted, language, is_celex_allowed):
+            return extracted
+        return await self._discover_with_fallback(question, language, is_celex_allowed)
+
+    def _is_celex_allowed(
+        self,
+        celex: str,
+        language: str | None,
+        is_celex_allowed: CelexAllowedFn | None,
+    ) -> bool:
+        if is_celex_allowed is None:
+            return True
+        return is_celex_allowed(celex, language)
+
     def _extract_celex(self, question: str) -> str | None:
         match = re.search(r"\b\d{5}[A-Z]\d{4}\b", question.upper())
         return match.group(0) if match else None
 
-    async def _discover_with_fallback(self, question: str, language: str) -> str | None:
+    async def _discover_with_fallback(
+        self,
+        question: str,
+        language: str,
+        is_celex_allowed: CelexAllowedFn | None = None,
+    ) -> str | None:
         for lang in self._language.fallback_chain(language):
             celex = await self._discover_celex(question, lang)
-            if celex:
+            if celex and self._is_celex_allowed(celex, lang, is_celex_allowed):
                 return celex
         return None
 

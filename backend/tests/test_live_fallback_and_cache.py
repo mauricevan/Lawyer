@@ -38,7 +38,13 @@ class _FakeRerankerLowScore:
 
 
 class _FakeLive:
-    async def fallback_chunks(self, question: str, language: str = "nl", celex_hint: str | None = None):
+    async def fallback_chunks(
+        self,
+        question: str,
+        language: str = "nl",
+        celex_hint: str | None = None,
+        is_celex_allowed=None,
+    ):
         return [{
             "chunk_id": "live:32022R2554",
             "celex": "32022R2554",

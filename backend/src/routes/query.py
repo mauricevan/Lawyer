@@ -11,7 +11,7 @@ from sqlalchemy.ext.asyncio import AsyncSession
 from sse_starlette.sse import EventSourceResponse
 
 from backend.src.database import SessionLocal
-from backend.src.dependencies.auth import require_permission
+from backend.src.dependencies.auth import Principal, get_current_principal, require_permission
 from backend.src.security.rbac_matrix import Permission
 from backend.src.services.audit_service import AuditService
 from backend.src.services.conversation_service import ConversationService
@@ -19,6 +19,7 @@ from backend.src.services.guardrails_service import GuardrailsService
 from backend.src.services.metrics_service import metrics_service
 from backend.src.services.query_cache_service import QueryCacheService
 from backend.src.services.rag_service import RagService
+from backend.src.utils.query_filter_sanitizer import sanitize_query_request
 from shared.schemas.conversation import CreateConversationRequest
 from shared.schemas.query import AnswerResponse, QueryRequest
 
@@ -62,9 +63,11 @@ async def query(
     request: Request,
     body: QueryRequest,
     session: AsyncSession = Depends(get_db),
+    principal: Principal = Depends(get_current_principal),
 ) -> AnswerResponse:
     started_at = time.perf_counter()
     request_id = request.headers.get("x-request-id", str(uuid.uuid4()))
+    body = sanitize_query_request(body, principal.role)
     _enforce_guardrails(body.question)
     metrics_service.record_query(is_stream=False)
     conv_id = await _prepare_conversation(session, body)
@@ -73,7 +76,7 @@ async def query(
     response.conversation_id = conv_id
     latency_ms = int((time.perf_counter() - started_at) * 1000)
     in_force = body.filters.in_force_only if body.filters else True
-    query_hash = cache_service.build_key(body.question, body.language, in_force)
+    query_hash = cache_service.build_key(body.question, body.language, in_force, body.filters)
     await cache_service.track_live_chunks(
         session,
         query_hash=query_hash,
@@ -102,9 +105,11 @@ async def query_stream(
     request: Request,
     body: QueryRequest,
     session: AsyncSession = Depends(get_db),
+    principal: Principal = Depends(get_current_principal),
 ):
     started_at = time.perf_counter()
     request_id = request.headers.get("x-request-id", str(uuid.uuid4()))
+    body = sanitize_query_request(body, principal.role)
     _enforce_guardrails(body.question)
     metrics_service.record_query(is_stream=True)
     conv_id = await _prepare_conversation(session, body)
@@ -141,7 +146,7 @@ async def query_stream(
             )
             await conversations.append(session, conv_id, body.question, answer, chunk_ids)
             in_force = body.filters.in_force_only if body.filters else True
-            query_hash = cache_service.build_key(body.question, body.language, in_force)
+            query_hash = cache_service.build_key(body.question, body.language, in_force, body.filters)
             await cache_service.track_live_chunks(session, query_hash=query_hash, chunks=retrieval_chunks)
             latency_ms = int((time.perf_counter() - started_at) * 1000)
             await audit_service.log_query(
