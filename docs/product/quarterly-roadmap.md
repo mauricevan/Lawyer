@@ -29,10 +29,10 @@
 
 Zie [technical-debt-register.md](../ops/technical-debt-register.md). Minimaal **15%** capaciteit gereserveerd.
 
-| ID | Item | Kwartaal-slot |
-|---|---|---|
-| TD-003 | JWT verplicht in staging | Q3 Wk 6 |
-| TD-005 | Integration eval in CI | Q3 Wk 8 |
+| ID | Item | Kwartaal-slot | Status |
+|---|---|---|---|
+| TD-003 | JWT verplicht in staging | Q3 Wk 6 | |
+| TD-005 | Integration eval in CI | Q3 Wk 8 | |
 | TD-007 | Employment cluster seedset | Q3 Wk 10 | Done |
 
 ## Besluitmomenten
