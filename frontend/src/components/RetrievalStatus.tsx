@@ -16,6 +16,8 @@ const STEP_LABELS: Record<string, string> = {
   fetching: "EUR-Lex",
   validating: "Bewijs",
   reconciling: "Afstemming",
+  judge: "Juridische toets",
+  judged: "Toets klaar",
   verifying: "Controle",
   search: "Zoeken",
   router: "Router",
