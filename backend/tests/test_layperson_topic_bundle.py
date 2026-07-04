@@ -45,4 +45,4 @@ async def test_llm_fallback_formatted_for_layperson():
     assert "lijkt artikel" not in answer.lower()
     assert "CELEX" not in answer
     assert "## Kort antwoord" in answer
-    assert "## Uitleg" in answer
+    assert "## Wat betekent dit in de praktijk?" in answer or "## Uitleg" in answer

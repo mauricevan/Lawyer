@@ -13,13 +13,13 @@ _WEAK_ARTICLE = re.compile(r"lijkt artikel\s+[\w() ]+\s*relevant", re.IGNORECASE
 _TITLE_JUNK = re.compile(r"de regels over\s*-|\b-\s*nl\b", re.IGNORECASE)
 _PREAMBLE = re.compile(
     r"gezien het voorstel van de commissie|having regard to the proposal|"
-    r"considering that|whereas",
+    r"considering that|whereas|this directive shall",
     re.IGNORECASE,
 )
 _ARTICLE_PIPE = re.compile(r"\|\s*article\s*\|", re.IGNORECASE)
 _ARTICLE_PIPE_MIX = re.compile(r"artikel \d+ \| article", re.IGNORECASE)
 _DIRECT_KORT = re.compile(
-    r"\b(ja|nee|wel|niet|recht op|mag|moet|minimaal|maximaal|ten minste|meestal|soms|€|\d)",
+    r"\b(ja|nee|wel|niet|recht op|mag|moet|minimaal|maximaal|ten minste|meestal|soms|verplicht|geldt|€|\d)",
     re.IGNORECASE,
 )
 _WEAK_PHRASES = (
@@ -35,6 +35,8 @@ _WEAK_PHRASES = (
     "de regels over -",
     "gezien het voorstel van de commissie",
     "having regard to the proposal",
+    "this directive shall",
+    "deze richtlijn shall",
     "after transmission of the draft",
     "article 114 thereof",
     "from the european commission",
@@ -55,7 +57,7 @@ def strip_hybrid_tables(text: str) -> str:
     for line in (text or "").splitlines():
         if _ARTICLE_PIPE.search(line) or _ARTICLE_PIPE_MIX.search(line):
             continue
-        if re.search(r"^\|\s*\w", line):
+        if re.search(r"^\|\s*\w", line) and "Verplichting" not in line:
             continue
         cleaned_lines.append(line)
     return re.sub(r"\n{3,}", "\n\n", "\n".join(cleaned_lines)).strip()
@@ -77,31 +79,57 @@ def strip_technical_noise(text: str) -> str:
 
 
 def has_required_sections(text: str) -> bool:
-    """Return True when Kort antwoord and Uitleg sections are present."""
-    return "## Kort antwoord" in text and "## Uitleg" in text
+    """Return True when canonical layperson sections are present."""
+    if "## Kort antwoord" not in text:
+        return False
+    if "## Wat betekent dit in de praktijk?" in text:
+        return True
+    return "## Uitleg" in text
+
+
+def is_clear_layperson_format(text: str) -> bool:
+    """True when answer uses the antwoord-eerst section layout."""
+    body = text or ""
+    return (
+        "## Kort antwoord" in body
+        and "## Wat betekent dit in de praktijk?" in body
+        and "## Voorbeeld" in body
+        and "## Juridische basis" in body
+    )
 
 
 def ensure_layperson_sections(text: str, question: str) -> str:
     """Add missing layperson sections or restructure plain text."""
     body = strip_technical_noise(text)
-    if has_required_sections(body):
-        if not is_weak_layperson_answer(body):
-            return _append_tail_sections(body, question)
-        body = _extract_section_body(body, "Uitleg") or _extract_section_body(body, "Kort antwoord") or body
+    if is_clear_layperson_format(body) and not is_weak_layperson_answer(body):
+        return _append_tail_sections(body, question)
+    if has_required_sections(body) and not is_weak_layperson_answer(body):
+        return _append_tail_sections(body, question)
+    body = _extract_section_body(body, "Uitleg") or _extract_section_body(body, "Kort antwoord") or body
     body = body.strip() or "Ik kan op basis van deze bronnen geen helder antwoord geven."
     kort = _first_sentence(body, max_len=280)
     uitleg = body[:900]
     return (
         f"## Kort antwoord\n{kort}\n\n"
-        f"## Uitleg\n{uitleg}\n\n"
-        f"## Wat dit voor u kan betekenen\n{_practical_hint(question)}\n\n"
+        f"## Wat betekent dit in de praktijk?\n"
+        f"| Verplichting | Uitleg |\n| --- | --- |\n| Kernregel | {uitleg[:400]} |\n\n"
+        f"## Voorbeeld\n{_example_hint(question)}\n\n"
+        f"## Juridische basis\n- {uitleg[:320]}\n\n"
         f"## Let op\nDit is geen persoonlijk juridisch advies."
     )
 
 
 def _append_tail_sections(body: str, question: str) -> str:
-    if "## Wat dit voor u kan betekenen" not in body:
-        body = f"{body.rstrip()}\n\n## Wat dit voor u kan betekenen\n{_practical_hint(question)}"
+    if "## Wat betekent dit in de praktijk?" not in body and "## Uitleg" in body:
+        uitleg = _extract_section_body(body, "Uitleg")
+        body = body.replace(
+            "## Uitleg",
+            "## Wat betekent dit in de praktijk?\n| Verplichting | Uitleg |\n| --- | --- |\n"
+            f"| Kernregel | {uitleg[:400]} |\n\n## Uitleg",
+            1,
+        )
+    if "## Wat dit voor u kan betekenen" not in body and "## Voorbeeld" not in body:
+        body = f"{body.rstrip()}\n\n## Voorbeeld\n{_example_hint(question)}"
     if "## Let op" not in body:
         body = f"{body.rstrip()}\n\n## Let op\nDit is geen persoonlijk juridisch advies."
     return body
@@ -131,6 +159,7 @@ def is_hybrid_boilerplate(text: str) -> bool:
         "de regels over -",
         "gezien het voorstel van de commissie",
         "having regard to the proposal",
+        "this directive shall",
         "skip to main content",
         "lijkt artikel",
         "| article |",
@@ -193,8 +222,34 @@ def excerpt_is_usable(excerpt: str) -> bool:
 
 
 def _has_direct_kort_antwoord(text: str) -> bool:
-    kort = text.split("## Uitleg")[0] if "## Uitleg" in text else text[:400]
+    kort = _kort_section(text)
+    if re.match(r"^\s*(deze richtlijn|artikel \d+|this directive|market surveillance)\b", kort, re.IGNORECASE):
+        return False
+    if re.search(r"\bshall take appropriate measures\b", kort, re.IGNORECASE):
+        return False
     return bool(_DIRECT_KORT.search(kort))
+
+
+def _kort_section(text: str) -> str:
+    for marker in (
+        "## Wat betekent dit in de praktijk?",
+        "## Uitleg",
+        "## Voorbeeld",
+        "## Juridische basis",
+    ):
+        if marker in text:
+            return text.split(marker)[0]
+    return text[:400]
+
+
+def _example_hint(question: str) -> str:
+    lowered = question.lower()
+    if "exploitant" in lowered or "milieuschade" in lowered:
+        return (
+            "Een bedrijf veroorzaakt per ongeluk milieuschade. De exploitant moet direct "
+            "maatregelen nemen, melden en herstellen."
+        )
+    return _practical_hint(question)
 
 
 def _practical_hint(question: str) -> str:

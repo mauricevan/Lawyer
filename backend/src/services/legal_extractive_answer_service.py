@@ -6,10 +6,8 @@ from backend.src.services.legal_extractive_consumer import (
     build_consumer_withdrawal_layperson,
     build_consumer_withdrawal_professional,
 )
-from backend.src.services.legal_extractive_generic import (
-    build_generic_layperson,
-    build_generic_professional,
-)
+from backend.src.services.layperson_clear_answer_composer import LaypersonClearAnswerComposer
+from backend.src.services.legal_extractive_generic import build_generic_professional
 from backend.src.services.legal_extractive_gdpr import build_gdpr_lawful_basis_professional
 from backend.src.services.legal_extractive_labels import PRACTICAL_HINTS
 from backend.src.services.legal_source_planner_service import LegalSourcePlannerService
@@ -31,6 +29,7 @@ class LegalExtractiveAnswerService:
 
     def __init__(self) -> None:
         self._planner = LegalSourcePlannerService()
+        self._clear_composer = LaypersonClearAnswerComposer()
 
     def count_usable_excerpts(self, chunks: list[dict[str, Any]], question: str = "") -> int:
         excerpts = self._collect_excerpts(chunks, question, limit=3)
@@ -40,9 +39,9 @@ class LegalExtractiveAnswerService:
         plan = self._planner.plan(question)
         if plan and plan.plan_id == "consumer_withdrawal":
             return build_consumer_withdrawal_layperson(chunks)
-        generic = build_generic_layperson(question, chunks)
-        if generic:
-            return generic
+        clear = self._clear_composer.compose_without_llm(question, chunks, allow_topic=False)
+        if clear:
+            return clear
         excerpts = self._collect_excerpts(chunks, question, limit=2)
         if not excerpts:
             return None

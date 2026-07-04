@@ -220,12 +220,19 @@ topics:
       - zwangerschapsverlof
       - arbeidscontract
       - werkgever
+      - werknemer
+      - discriminatie
+      - handicap
     chunk_keywords:
       - arbeid
       - werknemer
     empathy_opener: >-
       Arbeidsvragen kunnen ingrijpend zijn; veel regels zijn nationaal ingevuld.
     frameworks:
+      - name: Richtlijn 2000/78/EG (gelijke behandeling)
+        summary: >-
+          EU-recht verbiedt discriminatie op grond van handicap of gezondheid in
+          arbeid en beroep, inclusief ontslag. Nationale wetgeving regelt procedures.
       - name: Nationale arbeidswetgeving
         summary: >-
           Loon, ontslag en vakantie vallen grotendeels buiten EUR-Lex.

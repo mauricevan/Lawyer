@@ -2,7 +2,12 @@
 import logging
 import re
 
+from backend.src.services.legal_question_classifier_service import classify_legal_question
 from backend.src.services.legal_source_planner_service import LegalSourcePlannerService
+from backend.src.utils.legal_actor_issue_routing import apply_context_to_plan
+from backend.src.utils.legal_domain_retrieval_filter import filter_instruments_by_domain
+from backend.src.utils.legal_planner_prompt_context import build_planner_interpretation_hints
+from backend.src.utils.legal_question_interpretation import infer_legal_context
 from backend.src.services.question_intent_service import QuestionIntentService
 from backend.src.utils.llm_json_client import call_llm_json
 from ingestion.src.data.oj_citation_parser import parse_oj_celex
@@ -34,10 +39,10 @@ class LlmLegalPlannerService:
         try:
             plan = await self._llm_plan(question, history)
             if plan.confidence >= _CONFIDENCE_THRESHOLD and plan.instruments:
-                return plan
+                return apply_context_to_plan(plan, question)
         except Exception as exc:
             logger.warning("LLM legal planner failed: %s", exc)
-        return self._rule_fallback(question)
+        return apply_context_to_plan(self._rule_fallback(question), question)
 
     async def _llm_plan(
         self,
@@ -45,13 +50,15 @@ class LlmLegalPlannerService:
         history: list[dict] | None,
     ) -> LegalInterpretationPlan:
         history_block = _format_history(history)
+        hints = build_planner_interpretation_hints(question)
         user = get_legal_planner_user_template().format(
             question=question,
             history_block=history_block,
+            interpretation_hints=hints,
         )
         raw = await call_llm_json(get_legal_planner_system_prompt(), user)
         plan = LegalInterpretationPlan.model_validate({**raw, "planner_source": "llm"})
-        return _normalize_plan(plan)
+        return _normalize_plan(plan, question)
 
     def _rule_fallback(self, question: str) -> LegalInterpretationPlan:
         intent = self._intent.analyze(question)
@@ -85,8 +92,14 @@ class LlmLegalPlannerService:
                 articles=list(intent.article_refs),
                 confidence=0.55,
             ))
+        actor, issue = infer_legal_context(question)
+        routing = classify_legal_question(question).legal_domain
         return LegalInterpretationPlan(
             question_type=_map_question_type(intent.question_type),
+            legal_actor=actor,
+            legal_issue=issue,
+            legal_domain=routing,
+            legal_question_type=classify_legal_question(question).legal_question_type,
             is_eu_law=not self._is_national_law_quick(question),
             is_national_law=self._is_national_law_quick(question),
             instruments=instruments,
@@ -144,7 +157,21 @@ def _map_question_type(intent_type: str) -> str:
     return mapping.get(intent_type, "obligation")
 
 
-def _normalize_plan(plan: LegalInterpretationPlan) -> LegalInterpretationPlan:
-    instruments = plan.instruments[:3]
+def _normalize_plan(plan: LegalInterpretationPlan, question: str) -> LegalInterpretationPlan:
+    classification = classify_legal_question(question)
+    actor = plan.legal_actor if plan.legal_actor != "unknown" else classification.legal_actor
+    domain = plan.legal_domain if plan.legal_domain != "unknown" else classification.legal_domain
+    question_type = (
+        plan.legal_question_type
+        if plan.legal_question_type != "unknown"
+        else classification.legal_question_type
+    )
+    instruments = filter_instruments_by_domain(plan.instruments[:3], domain)
     keywords = [k.lower().strip() for k in plan.search_keywords if k.strip()][:8]
-    return plan.model_copy(update={"instruments": instruments, "search_keywords": keywords})
+    return plan.model_copy(update={
+        "instruments": instruments,
+        "search_keywords": keywords,
+        "legal_actor": actor,
+        "legal_domain": domain,
+        "legal_question_type": question_type,
+    })

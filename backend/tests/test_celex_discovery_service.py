@@ -24,6 +24,17 @@ def test_score_title_overlap_compound_term():
     assert score >= 0.5
 
 
+def test_score_title_overlap_rejects_compound_substring():
+    tokens = tokenize_meaningful(
+        "bescherming tegen discriminatie op grond van gezondheid"
+    )
+    score = score_title_overlap(
+        tokens,
+        "Verordening betreffende de Europese ruimte voor gezondheidsgegevens",
+    )
+    assert score < 0.85
+
+
 def test_discover_sync_finds_environmental_liability_celex():
     service = CelexDiscoveryService()
     hits = service.discover_sync(ENV_QUESTION, limit=3)

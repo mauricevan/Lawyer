@@ -11,6 +11,9 @@ from backend.src.utils.celex_title_normalize import (
     tokenize_meaningful,
 )
 from ingestion.src.data.curated_loader import load_curated_documents
+from backend.src.utils.celex_discovery_ranking import rank_discovery_by_legal_context
+from backend.src.services.legal_question_classifier_service import classify_legal_question
+from backend.src.utils.legal_domain_retrieval_filter import is_celex_allowed_for_domain
 from ingestion.src.data.legal_term_hints import build_legal_term_celex_hints
 
 logger = logging.getLogger(__name__)
@@ -38,18 +41,24 @@ class CelexDiscoveryService:
         if not query_tokens:
             return []
         ranked: dict[str, CelexCandidate] = {}
+        routing_domain = classify_legal_question(question).legal_domain
         for entry in _load_title_entries():
             score = score_title_overlap(query_tokens, entry["title"])
             for alias in entry.get("aliases", []):
                 score = max(score, score_title_overlap(query_tokens, alias))
             if score < 0.35:
                 continue
+            if not is_celex_allowed_for_domain(entry["celex"], routing_domain):
+                continue
             self._upsert(ranked, entry["celex"], score, "title_index", entry["title"])
         for hint, celex in build_legal_term_celex_hints().items():
+            if not is_celex_allowed_for_domain(celex, routing_domain):
+                continue
             if hint in question.lower():
                 weight = min(1.0, 0.55 + len(hint) / 80)
                 self._upsert(ranked, celex, weight, "hint", hint)
-        return sorted(ranked.values(), key=lambda item: item.score, reverse=True)[:limit]
+        results = sorted(ranked.values(), key=lambda item: item.score, reverse=True)[:limit]
+        return rank_discovery_by_legal_context(results, question)
 
     async def discover(
         self,
@@ -65,7 +74,8 @@ class CelexDiscoveryService:
         merged: dict[str, CelexCandidate] = {item.celex: item for item in local}
         for hit in sparql_hits:
             self._upsert(merged, hit.celex, hit.score, hit.source, hit.title)
-        return sorted(merged.values(), key=lambda item: item.score, reverse=True)[:limit]
+        results = sorted(merged.values(), key=lambda item: item.score, reverse=True)[:limit]
+        return rank_discovery_by_legal_context(results, question)
 
     def top_celex(self, question: str, min_score: float = 0.5) -> CelexCandidate | None:
         hits = self.discover_sync(question, limit=1)

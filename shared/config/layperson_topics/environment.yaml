@@ -1,0 +1,63 @@
+topics:
+  - id: environmental_liability_operator
+    patterns:
+      - milieuaansprakelijkheidsrichtlijn
+      - milieuaansprakelijkheid
+      - milieuschade veroorzaken
+      - exploitant
+      - environmental liability
+    min_pattern_hits: 1
+    regulation_celex: "32004L0035"
+    regulation_title: Milieuaansprakelijkheidsrichtlijn (2004/35/EG)
+    short_answer_nl: >
+      Ja. De Europese Milieuaansprakelijkheidsrichtlijn verplicht exploitanten om
+      milieuschade zoveel mogelijk te voorkomen. Ontstaat er toch milieuschade, dan
+      moeten zij direct maatregelen nemen om verdere schade te beperken, de bevoegde
+      autoriteit informeren en de schade herstellen. In beginsel draagt de exploitant
+      zelf de kosten (het 'de vervuiler betaalt'-beginsel).
+    obligations_nl:
+      - label: Preventieve maatregelen
+        uitleg: Voorkom milieuschade zodra er een dreiging bestaat.
+      - label: Melden
+        uitleg: Informeer de bevoegde autoriteit wanneer schade ontstaat of dreigt.
+      - label: Beperken
+        uitleg: Neem maatregelen om verdere milieuschade te voorkomen.
+      - label: Herstellen
+        uitleg: Herstel de milieuschade volgens de richtlijn.
+      - label: Kosten dragen
+        uitleg: De exploitant betaalt in beginsel de kosten van preventie en herstel.
+    example_nl: >
+      Een chemisch bedrijf lekt per ongeluk schadelijke stoffen in een rivier.
+      Volgens de richtlijn moet het bedrijf onmiddellijk maatregelen nemen om
+      verdere vervuiling te voorkomen, de bevoegde autoriteiten informeren en de
+      milieuschade herstellen. De kosten komen in beginsel voor rekening van het bedrijf.
+    legal_basis_nl:
+      - article: "3"
+        title: Toepassingsgebied
+        uitleg_nl: >
+          Bepaalt wanneer de richtlijn geldt: in het algemeen voor milieuschade door
+          beroepsactiviteiten uit bijlage III, en onder voorwaarden ook voor schade aan
+          beschermde soorten en habitats.
+      - article: "5"
+        title: Preventieve acties
+        uitleg_nl: De exploitant moet preventieve maatregelen nemen als milieuschade dreigt.
+      - article: "6"
+        title: Herstelmaatregelen
+        uitleg_nl: >
+          Bij milieuschade moet de exploitant de autoriteit informeren en herstelmaatregelen treffen.
+      - article: "8"
+        title: Kosten
+        uitleg_nl: In beginsel draagt de exploitant de kosten van preventie en herstel.
+    terms_nl:
+      - term: exploitant
+        definition_nl: >
+          De persoon of onderneming die een beroepsactiviteit uitvoert en
+          verantwoordelijk is voor die activiteit.
+    limitations_nl: >
+      Deze richtlijn verplicht de lidstaten om regels vast te stellen. De precieze
+      uitvoering kan daarom per lidstaat verschillen. Dit is geen persoonlijk juridisch advies.
+    summary_nl: >
+      De richtlijn legt exploitanten aansprakelijk voor milieuschade en verplicht
+      hen tot preventie, melding, beperking, herstel en het dragen van kosten.
+    practical_nl: >
+      Documenteer schade, meld tijdig aan de bevoegde instantie en werk mee aan herstelmaatregelen.

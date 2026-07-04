@@ -9,6 +9,8 @@ import yaml
 from backend.src.services.celex_discovery_service import CelexCandidate
 from backend.src.services.legal_planner_domain_registry import match_domain_plan
 from backend.src.services.legal_planner_scoring import pick_best_explicit_plan
+from backend.src.services.legal_question_classifier_service import classify_legal_question
+from backend.src.utils.legal_question_interpretation import infer_legal_context
 
 _REPO_ROOT = Path(__file__).resolve().parents[3]
 _RULES_PATH = _REPO_ROOT / "shared/config/legal_source_planner.yaml"
@@ -34,8 +36,11 @@ class LegalSourcePlannerService:
     ) -> LegalSourcePlan | None:
         lowered = question.lower()
         discovery_top3 = _discovery_celex_set(discovery_candidates)
+        actor, issue = infer_legal_context(question)
+        routing = classify_legal_question(question).legal_domain
         best = pick_best_explicit_plan(
             lowered, _load_explicit_plans(), discovery_celexes=discovery_top3,
+            legal_issue=issue, routing_domain=routing,
         )
         if best:
             return _entry_to_plan(best)

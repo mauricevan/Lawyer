@@ -1,6 +1,8 @@
 """Regression: GPSR manufacturer question must not show recital boilerplate."""
+import asyncio
+
 from backend.src.services.agent_answer_service import AgentAnswerService
-from backend.src.services.legal_extractive_generic import build_generic_layperson
+from backend.src.services.layperson_clear_answer_composer import LaypersonClearAnswerComposer
 from backend.src.services.layperson_answer_service import LaypersonAnswerService
 
 QUESTION = (
@@ -30,7 +32,7 @@ OPERATIVE_CHUNK = {
 
 def test_extractive_skips_recital_and_uses_manufacturer_obligations():
     chunks = [PIPE_RECITAL_CHUNK, OPERATIVE_CHUNK]
-    answer = build_generic_layperson(QUESTION, chunks)
+    answer = LaypersonClearAnswerComposer().compose_without_llm(QUESTION, chunks, allow_topic=False)
     assert answer
     lowered = answer.lower()
     assert "european commission" not in lowered
@@ -41,7 +43,7 @@ def test_extractive_skips_recital_and_uses_manufacturer_obligations():
 
 def test_layperson_format_does_not_duplicate_sections():
     chunks = [PIPE_RECITAL_CHUNK, OPERATIVE_CHUNK]
-    raw = build_generic_layperson(QUESTION, chunks)
+    raw = LaypersonClearAnswerComposer().compose_without_llm(QUESTION, chunks, allow_topic=False)
     assert raw
     formatted = LaypersonAnswerService().format(raw, QUESTION, chunks)
     assert formatted.count("## Kort antwoord") == 1
@@ -58,7 +60,9 @@ def test_agent_improve_layperson_replaces_weak_llm_output():
     from shared.schemas.query import QueryRequest
 
     request = QueryRequest(question=QUESTION, audience="layperson", language="nl")
-    improved = service._improve_layperson_answer(request, [PIPE_RECITAL_CHUNK, OPERATIVE_CHUNK], weak_llm)
+    improved = asyncio.run(
+        service._improve_layperson_answer(request, [PIPE_RECITAL_CHUNK, OPERATIVE_CHUNK], weak_llm)
+    )
     assert improved.count("## Kort antwoord") == 1
     assert "fabrikant" in improved.lower()
     assert "samenvatting hierboven" not in improved.lower()

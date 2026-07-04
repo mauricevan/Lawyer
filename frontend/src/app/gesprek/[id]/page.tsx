@@ -15,6 +15,7 @@ import {
   getExportPdfUrl,
   getExportDocxUrl,
 } from "@/services/queryService";
+import { parseLegalHypothesis } from "@/utils/legalHypothesisLabels";
 import chatStyles from "@/components/ChatLayout.module.css";
 import styles from "./page.module.css";
 
@@ -39,6 +40,7 @@ function toChatMessages(
     verificationQuestions: m.metadata?.verification_questions,
     coverageGuidance: m.metadata?.coverage_guidance,
     coverageStatus: m.metadata?.coverage_status,
+    legalHypothesis: parseLegalHypothesis(m.metadata?.legal_hypothesis),
   }));
 }
 
@@ -112,6 +114,7 @@ export default function GesprekPage() {
                   verificationQuestions: answer.verification_questions,
                   coverageGuidance: answer.coverage_guidance,
                   coverageStatus: answer.coverage_status,
+                  legalHypothesis: answer.legal_hypothesis,
                 }
               : msg,
           ),

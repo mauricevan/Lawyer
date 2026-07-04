@@ -1,4 +1,4 @@
-"""Admin API helpers with optional X-Admin-Key header."""
+/** Admin API helpers with optional X-Admin-Key header. */
 import { getApiUrl } from "@/services/apiClient";
 
 const API_URL = getApiUrl();

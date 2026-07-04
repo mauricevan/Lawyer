@@ -62,6 +62,64 @@ topics:
       Vraag schriftelijk om de weigeringsgrond. Klacht bij Zorgverzekeringslijn
       of toezichthouder als u discriminatie vermoedt.
 
+  - id: employment_discrimination
+    min_pattern_hits: 3
+    exclude_patterns:
+      - zorgverzekeraar
+      - verzekering weigeren
+      - zorgverzekering
+    patterns:
+      - werknemer
+      - ontslagen
+      - ontslag
+      - discriminatie
+      - handicap
+      - langdurig ziek
+      - gezondheidstoestand
+    regulation_celex: "32000L0078"
+    regulation_title: "Richtlijn 2000/78/EG gelijke behandeling in arbeid en beroep"
+    short_answer_nl: >
+      **Nee, meestal niet.** EU-recht verbiedt **discriminatie** op grond van
+      **handicap** of **gezondheidstoestand** bij **ontslag** en andere arbeidsbeslissingen.
+      Ontslag puur vanwege ziekte of handicap is in beginsel niet toegestaan.
+    summary_nl: >
+      Richtlijn 2000/78/EG geldt voor arbeid en beroep. Werkgevers mogen werknemers
+      niet discrimineren; redelijke aanpassingen kunnen verplicht zijn. Bij vermoeden
+      van discriminatie geldt een **omkering van de bewijslast**: de werkgever moet
+      aantonen dat geen discriminatie plaatsvond. Nationale wetgeving regelt procedures
+      en termijnen.
+    example_nl: >
+      Een werknemer is maanden ziek en wordt daarna ontslagen. De werkgever moet
+      aantonen dat het ontslag niet vanwege handicap of gezondheid is. De werknemer
+      kan een klacht indienen; de rechter toetst of het ontslag rechtmatig was.
+    obligations_nl:
+      - label: Geen discriminatie
+        uitleg: Werkgevers mogen werknemers niet discrimineren op grond van handicap of gezondheid.
+      - label: Redelijke aanpassingen
+        uitleg: Waar nodig moet de werkgever redelijke aanpassingen op het werk overwegen.
+      - label: Bewijslast
+        uitleg: Bij vermoeden van discriminatie moet de werkgever aantonen dat geen discriminatie speelde.
+    legal_basis_nl:
+      - article: "2"
+        title: Toepassingsgebied
+        uitleg_nl: De richtlijn geldt voor arbeid en beroep, inclusief ontslag.
+      - article: "3"
+        title: Begrip discriminatie
+        uitleg_nl: Directe en indirecte discriminatie op grond van handicap of gezondheid is verboden.
+      - article: "5"
+        title: Redelijke aanpassingen
+        uitleg_nl: Redelijke aanpassingen in de werksituatie kunnen verplicht zijn.
+      - article: "7"
+        title: Bewijslast
+        uitleg_nl: Omkering van de bewijslast bij vermoeden van discriminatie.
+    limitations_nl: >
+      EU-richtlijnen moeten in nationale wetgeving worden uitgewerkt; procedures en
+      termijnen verschillen per land. Dit is geen persoonlijk juridisch advies.
+    practical_nl: >
+      Documenteer het ontslag schriftelijk en vraag de reden. Dien een klacht in bij
+      de nationale gelijkebehandelingscommissie of arbeidsrechter. Raadpleeg het
+      Juridisch Loket voor uw land.
+
   - id: eu_whistleblower
     patterns:
       - whistleblower

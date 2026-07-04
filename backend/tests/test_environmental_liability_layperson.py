@@ -1,6 +1,6 @@
 """Layperson Dutch answers for environmental liability must stay relevant and in Dutch."""
-from backend.src.services.legal_extractive_generic import build_generic_layperson
 from backend.src.services.chunk_quality_service import ChunkQualityService
+from backend.src.services.layperson_clear_answer_composer import LaypersonClearAnswerComposer
 from backend.src.utils.legal_chunk_text import matches_query_language
 
 ENV_QUESTION = (
@@ -39,11 +39,16 @@ def test_english_chunks_rejected_for_dutch_query():
 
 
 def test_dutch_operator_obligations_in_layperson_answer():
-    answer = build_generic_layperson(ENV_QUESTION, [ENGLISH_RECITAL, DUTCH_OPERATIVE])
+    composer = LaypersonClearAnswerComposer()
+    answer = composer.compose_without_llm(ENV_QUESTION, [ENGLISH_RECITAL, DUTCH_OPERATIVE])
     assert answer
     lowered = answer.lower()
     assert "failure to act" not in lowered
+    assert "this directive shall" not in lowered
     assert "exploitant" in lowered
     assert "milieuschade" in lowered
     assert answer.count("## Kort antwoord") == 1
-    assert "artikel 4" in lowered
+    assert "## Wat betekent dit in de praktijk?" in answer
+    assert "| Verplichting | Uitleg |" in answer
+    kort_body = answer.split("## Wat betekent dit in de praktijk?")[0]
+    assert "Ja." in kort_body

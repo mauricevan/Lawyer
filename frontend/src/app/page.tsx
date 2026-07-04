@@ -157,6 +157,7 @@ export default function HomePage() {
                   verificationQuestions: answer.verification_questions,
                   coverageGuidance: answer.coverage_guidance,
                   coverageStatus: answer.coverage_status,
+                  legalHypothesis: answer.legal_hypothesis,
                 }
               : msg,
           ),

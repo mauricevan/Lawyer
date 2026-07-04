@@ -10,6 +10,7 @@ CoverageReason = Literal[
     "irrelevant_retrieval",
     "topic_not_in_corpus",
     "fetch_attempted",
+    "insufficient_evidence",
 ]
 ReferralType = Literal["authority", "legal_aid", "union"]
 

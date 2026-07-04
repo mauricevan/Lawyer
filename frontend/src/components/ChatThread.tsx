@@ -1,7 +1,8 @@
 "use client";
 
 import { useEffect, useRef } from "react";
-import Markdown from "react-markdown";
+import { LegalHypothesisPanel } from "./LegalHypothesisPanel";
+import { LaypersonMarkdown } from "./LaypersonMarkdown";
 import type { Audience, ChatMessage } from "@/models/types";
 import { AnswerProvenance } from "./AnswerProvenance";
 import { CitationSources } from "./CitationSources";
@@ -52,7 +53,10 @@ export function ChatThread({
               <p className={styles.typing}>Bezig met antwoorden...</p>
             ) : msg.role === "assistant" ? (
               <div className={styles.text}>
-                <Markdown>{msg.content}</Markdown>
+                {msg.legalHypothesis && (
+                  <LegalHypothesisPanel hypothesis={msg.legalHypothesis} audience={audience} />
+                )}
+                <LaypersonMarkdown>{msg.content}</LaypersonMarkdown>
               </div>
             ) : (
               <p className={styles.text}>{msg.content}</p>

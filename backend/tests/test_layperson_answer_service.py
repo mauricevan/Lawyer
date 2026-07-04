@@ -14,7 +14,7 @@ def test_format_adds_sections_for_plain_text():
     service = LaypersonAnswerService()
     result = service.format("Korte uitleg zonder koppen.", "Spotify playlists", [])
     assert "## Kort antwoord" in result
-    assert "## Uitleg" in result
+    assert "## Wat betekent dit in de praktijk?" in result
 
 
 def test_is_weak_flags_short_answers():

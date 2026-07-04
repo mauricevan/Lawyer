@@ -18,6 +18,7 @@ export const WEAK = [
   "de regels over -",
   "gezien het voorstel van de commissie",
   "having regard to the proposal",
+  "this directive shall",
   "| article |",
   "| body",
   ".xml",
@@ -58,15 +59,21 @@ export function isHeldereUitgelegd(data) {
   const low = a.toLowerCase();
   if (data.coverage_status !== "adequate") return false;
   if (WEAK.some((p) => low.includes(p))) return false;
-  if (!a.includes("## Kort antwoord") || !a.includes("## Uitleg")) return false;
+  if (!a.includes("## Kort antwoord")) return false;
+  const hasPractice = a.includes("## Wat betekent dit in de praktijk?");
+  const hasLegacy = a.includes("## Uitleg");
+  if (!hasPractice && !hasLegacy) return false;
   if (/\b320\d{2}[RL]\d{4}\b|CELEX:/i.test(a)) return false;
   if (/lijkt artikel .* relevant/i.test(a)) return false;
   if (/\.xml\b|\| article \||\| body/i.test(a)) return false;
   if ((a.match(/## Kort antwoord/g) || []).length > 1) return false;
   if (/artikel \d+ \| article/i.test(a)) return false;
   if (a.length < 200) return false;
-  const kort = (a.split("## Uitleg")[0] || a).slice(0, 400);
-  const direct = /\b(ja|nee|wel|niet|is|zijn|kan|kunnen|geldt|gelden|verboden|recht op|mag|moet|minimaal|maximaal|ten minste|meestal|soms|blijft|hebt|heeft|€|\d)/i.test(
+  const kortEnd = hasPractice
+    ? a.indexOf("## Wat betekent dit in de praktijk?")
+    : a.indexOf("## Uitleg");
+  const kort = kortEnd > 0 ? a.slice(0, kortEnd) : a.slice(0, 400);
+  const direct = /\b(ja|nee|wel|niet|is|zijn|kan|kunnen|geldt|gelden|verboden|verplicht|recht op|mag|moet|minimaal|maximaal|ten minste|meestal|soms|blijft|hebt|heeft|€|\d)/i.test(
     kort,
   );
   return direct;

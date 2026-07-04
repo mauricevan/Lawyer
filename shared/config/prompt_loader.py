@@ -46,6 +46,14 @@ def get_history_window() -> int:
     return int(load_prompt_config().get("history_window", 10))
 
 
+def get_legal_hypothesis_system_prompt() -> str:
+    return str(load_prompt_config().get("legal_hypothesis_system", "")).strip()
+
+
+def get_legal_hypothesis_user_template() -> str:
+    return str(load_prompt_config().get("legal_hypothesis_user_template", "")).strip()
+
+
 def get_legal_planner_system_prompt() -> str:
     return str(load_prompt_config().get("legal_planner_system", "")).strip()
 
@@ -56,3 +64,11 @@ def get_legal_planner_user_template() -> str:
 
 def get_citation_verifier_system_prompt() -> str:
     return str(load_prompt_config().get("citation_verifier_system", "")).strip()
+
+
+def get_layperson_synthesis_system() -> str:
+    return str(load_prompt_config().get("layperson_synthesis_system", "")).strip()
+
+
+def get_layperson_synthesis_user_template() -> str:
+    return str(load_prompt_config().get("layperson_synthesis_user_template", "")).strip()

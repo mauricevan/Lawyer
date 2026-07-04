@@ -92,6 +92,22 @@ export interface AnswerResponse {
   retrieval_explainability?: RetrievalExplainability;
   coverage_guidance?: CoverageGuidance;
   coverage_status?: CoverageStatus;
+  legal_hypothesis?: LegalHypothesis;
+}
+
+export interface LegalHypothesis {
+  legal_problem: string;
+  legal_actor: string;
+  legal_domain_guess: string;
+  likely_eu_frameworks: string[];
+  legal_question_type: string;
+  evidence_valid?: boolean;
+  case_summary?: string;
+  parties?: string[];
+  context?: string;
+  possible_domains?: string[];
+  primary_legal_conflict?: string;
+  reconciliation_conclusion?: string;
 }
 
 export interface QueryRequest {
@@ -117,6 +133,7 @@ export interface MessageMetadata {
   verification_questions?: string[];
   confidence_score?: number;
   retrieval_route?: RetrievalRoute;
+  legal_hypothesis?: LegalHypothesis;
 }
 
 export interface Message {
@@ -150,6 +167,7 @@ export interface ChatMessage {
   verificationQuestions?: string[];
   coverageGuidance?: CoverageGuidance;
   coverageStatus?: CoverageStatus;
+  legalHypothesis?: LegalHypothesis;
   isPending?: boolean;
 }
 

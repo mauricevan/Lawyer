@@ -6,6 +6,29 @@ from pydantic import BaseModel, Field
 from shared.schemas.validation_patterns import CELEX_PATTERN
 
 QuestionType = Literal["obligation", "definition", "procedure", "comparison", "scope", "other"]
+LegalActor = Literal[
+    "manufacturer", "consumer", "employee", "authority", "platform", "operator", "unknown",
+]
+LegalIssue = Literal["market_access", "obligation", "enforcement", "rights", "definition", "unknown"]
+LegalQuestionType = Literal[
+    "market_access",
+    "rights",
+    "obligations",
+    "enforcement",
+    "national_measure",
+    "definition",
+    "unknown",
+]
+LegalRoutingDomain = Literal[
+    "internal_market",
+    "consumer_protection",
+    "employment_law",
+    "administrative_law",
+    "product_safety",
+    "data_protection",
+    "digital_services",
+    "unknown",
+]
 FetchSource = Literal["cache", "live", "mixed"]
 
 
@@ -24,6 +47,10 @@ class LegalInterpretationPlan(BaseModel):
     """Structured output from LLM or rule-based legal planner."""
 
     question_type: QuestionType = "other"
+    legal_actor: LegalActor = "unknown"
+    legal_issue: LegalIssue = "unknown"
+    legal_domain: LegalRoutingDomain = "unknown"
+    legal_question_type: LegalQuestionType = "unknown"
     is_eu_law: bool = True
     is_national_law: bool = False
     instruments: list[InstrumentTarget] = Field(default_factory=list)

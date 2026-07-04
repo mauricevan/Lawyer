@@ -2,13 +2,21 @@
 import re
 from typing import Any
 
+from backend.src.utils.legal_domain_retrieval_filter import is_celex_allowed_for_domain
+
 
 def score_explicit_plan(
     lowered_question: str,
     entry: dict[str, Any],
     discovery_celexes: frozenset[str] | None = None,
+    legal_issue: str | None = None,
+    routing_domain: str | None = None,
 ) -> int:
     """Return match score; 0 means no match."""
+    celex = str(entry.get("celex", ""))
+    if routing_domain and routing_domain != "unknown":
+        if not is_celex_allowed_for_domain(celex, routing_domain):  # type: ignore[arg-type]
+            return 0
     triggers = entry.get("triggers_any", [])
     if not triggers:
         return 0
@@ -23,11 +31,44 @@ def score_explicit_plan(
         score += weight
     if matched == 0:
         return 0
-    score += _celex_bonus(lowered_question, str(entry.get("celex", "")))
-    score += _directive_number_bonus(lowered_question, str(entry.get("celex", "")))
-    if discovery_celexes and str(entry.get("celex", "")) in discovery_celexes:
+    score += _celex_bonus(lowered_question, celex)
+    score += _directive_number_bonus(lowered_question, celex)
+    score += _issue_fit_bonus(entry, legal_issue)
+    score += _routing_domain_bonus(entry, routing_domain)
+    if discovery_celexes and celex in discovery_celexes:
         score += 45
     return score
+
+
+def _routing_domain_bonus(entry: dict[str, Any], routing_domain: str | None) -> int:
+    if not routing_domain or routing_domain == "unknown":
+        return 0
+    yaml_domain = str(entry.get("legal_domain", ""))
+    mapping = {
+        "employment_law": "employment",
+        "consumer_protection": "consumer",
+        "product_safety": "consumer",
+        "administrative_law": "consumer",
+        "data_protection": "privacy",
+        "digital_services": "digital",
+        "internal_market": "internal_market",
+    }
+    expected = mapping.get(routing_domain)
+    if expected and yaml_domain == expected:
+        return 20
+    return 0
+
+
+def _issue_fit_bonus(entry: dict[str, Any], legal_issue: str | None) -> int:
+    """Penalize plans whose issue_fit conflicts with interpreted question issue."""
+    if not legal_issue or legal_issue == "unknown":
+        return 0
+    fit = entry.get("issue_fit") or []
+    if not fit:
+        return 0
+    if legal_issue in fit:
+        return 15
+    return -40
 
 
 def pick_best_explicit_plan(
@@ -35,11 +76,19 @@ def pick_best_explicit_plan(
     plans: list[dict[str, Any]],
     min_score: int = 10,
     discovery_celexes: frozenset[str] | None = None,
+    legal_issue: str | None = None,
+    routing_domain: str | None = None,
 ) -> dict[str, Any] | None:
     """Pick highest-scoring plan above threshold."""
     best: tuple[int, dict[str, Any]] | None = None
     for entry in plans:
-        score = score_explicit_plan(lowered_question, entry, discovery_celexes)
+        score = score_explicit_plan(
+            lowered_question,
+            entry,
+            discovery_celexes,
+            legal_issue=legal_issue,
+            routing_domain=routing_domain,
+        )
         if score < min_score:
             continue
         if best is None or score > best[0]:

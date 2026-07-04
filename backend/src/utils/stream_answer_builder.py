@@ -4,6 +4,7 @@ from typing import Any
 from shared.legal.disclaimers import get_disclaimer
 from shared.schemas.citation import Citation
 from shared.schemas.coverage_guidance import CoverageGuidance
+from shared.schemas.legal_hypothesis import LegalHypothesis
 from shared.schemas.query import AnswerResponse
 
 
@@ -17,6 +18,8 @@ def answer_from_stream_detail(
     citations = [Citation(**c) for c in detail.get("citations", [])]
     guidance_raw = detail.get("coverage_guidance")
     guidance = CoverageGuidance(**guidance_raw) if guidance_raw else None
+    hypothesis_raw = detail.get("legal_hypothesis")
+    hypothesis = LegalHypothesis(**hypothesis_raw) if hypothesis_raw else None
     return AnswerResponse(
         answer=str(detail.get("answer", "")),
         conversation_id=conv_id,
@@ -27,4 +30,5 @@ def answer_from_stream_detail(
         verification_questions=list(detail.get("verification_questions") or []),
         coverage_guidance=guidance,
         coverage_status=detail.get("coverage_status"),
+        legal_hypothesis=hypothesis,
     )

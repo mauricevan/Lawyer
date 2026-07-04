@@ -22,9 +22,22 @@ def test_topic_answer_has_layperson_sections():
     assert match is not None
     answer = LaypersonTopicAnswerService().build(match, "layperson")
     assert "## Kort antwoord" in answer
-    assert "## Uitleg" in answer
-    assert "## Wat dit voor u kan betekenen" in answer
+    assert "## Wat betekent dit in de praktijk?" in answer
+    assert "## Let op" in answer
     assert "CELEX" not in answer
+
+
+def test_environmental_liability_topic_matches():
+    match = LaypersonTopicService().match(
+        "Welke verplichtingen legt de Europese Milieuaansprakelijkheidsrichtlijn "
+        "op aan exploitanten die milieuschade veroorzaken?"
+    )
+    assert match is not None
+    assert match.topic_id == "environmental_liability_operator"
+    answer = LaypersonTopicAnswerService().build(match, "layperson")
+    assert answer.lower().startswith("## kort antwoord")
+    assert "Ja." in answer
+    assert "| Preventieve maatregelen |" in answer
 
 
 def test_crypto_mica_topic_matches():

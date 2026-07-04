@@ -5,6 +5,7 @@ from pydantic import BaseModel, Field
 
 from shared.schemas.citation import Citation
 from shared.schemas.coverage_guidance import CoverageGuidance, CoverageStatus
+from shared.schemas.legal_hypothesis import LegalHypothesis
 from shared.schemas.retrieval_explainability import RetrievalExplainability
 from shared.schemas.validation_patterns import (
     CELEX_PATTERN,
@@ -61,3 +62,4 @@ class AnswerResponse(BaseModel):
     retrieval_explainability: RetrievalExplainability | None = None
     coverage_guidance: CoverageGuidance | None = None
     coverage_status: CoverageStatus | None = None
+    legal_hypothesis: LegalHypothesis | None = None

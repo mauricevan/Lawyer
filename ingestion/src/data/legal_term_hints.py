@@ -78,6 +78,10 @@ STATIC_HINTS: dict[str, str] = {
     "milieuaansprakelijkheidsrichtlijn": "32004L0035",
     "milieuschade": "32004L0035",
     "environmental liability": "32004L0035",
+    "gelijke behandeling": "32000L0078",
+    "gelijke behandeling arbeid": "32000L0078",
+    "discriminatie werknemer": "32000L0078",
+    "2000/78": "32000L0078",
 }
 
 

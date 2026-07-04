@@ -34,8 +34,8 @@ def test_has_required_sections():
 def test_ensure_layperson_sections_adds_missing_blocks():
     result = ensure_layperson_sections("Korte samenvatting zonder koppen.", "Mag ik cookies weigeren?")
     assert "## Kort antwoord" in result
-    assert "## Uitleg" in result
-    assert "## Wat dit voor u kan betekenen" in result
+    assert "## Wat betekent dit in de praktijk?" in result
+    assert "## Let op" in result
 
 
 def test_is_weak_detects_boilerplate():

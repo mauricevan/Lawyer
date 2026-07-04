@@ -1,7 +1,7 @@
-import Markdown from "react-markdown";
 import type { AnswerResponse, Audience } from "@/models/types";
 import { getDisclaimer } from "@/content/legalDisclaimers";
 import { CitationSources } from "./CitationSources";
+import { LaypersonMarkdown } from "./LaypersonMarkdown";
 import styles from "./AnswerPanel.module.css";
 
 interface Props {
@@ -35,7 +35,7 @@ export function AnswerPanel({ question, response, audience = "layperson" }: Prop
       <div className={styles.answerBlock}>
         <h2 className={styles.title}>{labels.answer}</h2>
         <div className={styles.answer}>
-          <Markdown>{response.answer}</Markdown>
+          <LaypersonMarkdown>{response.answer}</LaypersonMarkdown>
         </div>
       </div>
 

@@ -3,10 +3,12 @@ import type {
   Audience,
   Citation,
   Conversation,
+  LegalHypothesis,
   QueryMode,
   QueryRequest,
   RetrievalEvent,
 } from "@/models/types";
+import { parseLegalHypothesis } from "@/utils/legalHypothesisLabels";
 import { getDisclaimer } from "@/content/legalDisclaimers";
 import { getApiUrl } from "@/services/apiClient";
 
@@ -79,6 +81,7 @@ export function streamQuery(
             onEvent(data);
             if (data.step === "complete" && data.detail) {
               const detail = data.detail as Record<string, unknown>;
+              const hypothesis = extractLegalHypothesis(detail);
               onComplete({
                 answer: detail.answer as string,
                 conversation_id:
@@ -97,6 +100,7 @@ export function streamQuery(
                 retrieval_explainability: detail.retrieval_explainability as AnswerResponse["retrieval_explainability"],
                 coverage_guidance: detail.coverage_guidance as AnswerResponse["coverage_guidance"],
                 coverage_status: detail.coverage_status as AnswerResponse["coverage_status"],
+                legal_hypothesis: hypothesis,
               });
             }
           }
@@ -204,4 +208,23 @@ export function getPopularQuestions(
   audience: "layperson" | "professional" = "layperson",
 ): string[] {
   return audience === "layperson" ? POPULAR_QUESTIONS_LAY : POPULAR_QUESTIONS_PRO;
+}
+
+export function extractLegalHypothesis(detail: Record<string, unknown>): LegalHypothesis | undefined {
+  const direct = parseLegalHypothesis(detail.legal_hypothesis);
+  if (direct) {
+    if (typeof detail.evidence_valid === "boolean") {
+      return { ...direct, evidence_valid: detail.evidence_valid };
+    }
+    return direct;
+  }
+  const explain = detail.retrieval_explainability as Record<string, unknown> | undefined;
+  const plan = explain?.interpretation_plan as Record<string, unknown> | undefined;
+  const fromPlan = parseLegalHypothesis(plan?.legal_hypothesis);
+  if (!fromPlan) return undefined;
+  const evidenceValid = plan?.evidence_valid;
+  return {
+    ...fromPlan,
+    evidence_valid: typeof evidenceValid === "boolean" ? evidenceValid : undefined,
+  };
 }

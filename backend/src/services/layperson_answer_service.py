@@ -5,6 +5,7 @@ from backend.src.utils.legal_chunk_text import clean_chunk_text, is_recital_nois
 from backend.src.utils.layperson_answer_formatter import (
     ensure_layperson_sections,
     excerpt_is_usable,
+    is_clear_layperson_format,
     is_weak_layperson_answer,
     replace_fallback_boilerplate,
     strip_technical_noise,
@@ -15,7 +16,7 @@ class LaypersonAnswerService:
     """Applies layperson formatting rules to generated answers."""
 
     def format(self, answer_text: str, question: str, chunks: list[dict[str, Any]]) -> str:
-        if self._is_well_formed_extractive(answer_text):
+        if self._is_well_formed_clear(answer_text):
             return answer_text.strip()
         cleaned = strip_technical_noise(answer_text)
         cleaned = replace_fallback_boilerplate(cleaned)
@@ -27,11 +28,11 @@ class LaypersonAnswerService:
         return cleaned.strip()
 
     @staticmethod
-    def _is_well_formed_extractive(answer_text: str) -> bool:
+    def _is_well_formed_clear(answer_text: str) -> bool:
         body = answer_text or ""
         if body.count("## Kort antwoord") != 1:
             return False
-        if "## Uitleg" not in body:
+        if not is_clear_layperson_format(body) and "## Uitleg" not in body:
             return False
         return not is_weak_layperson_answer(body)
 
@@ -45,9 +46,9 @@ class LaypersonAnswerService:
         kort = excerpt[:220]
         return (
             f"## Kort antwoord\n{kort}\n\n"
-            f"## Uitleg\n{excerpt}\n\n"
-            f"## Wat dit voor u kan betekenen\n"
-            f"Noteer feiten en data; zoek hulp bij de genoemde instantie als u twijfelt.\n\n"
+            f"## Wat betekent dit in de praktijk?\n"
+            f"| Verplichting | Uitleg |\n| --- | --- |\n| Kernregel | {excerpt[:280]} |\n\n"
+            f"## Voorbeeld\nNoteer feiten en data; zoek hulp bij de genoemde instantie als u twijfelt.\n\n"
             f"## Let op\nDit is geen persoonlijk juridisch advies."
         )
 

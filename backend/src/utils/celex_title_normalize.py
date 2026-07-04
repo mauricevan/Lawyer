@@ -43,7 +43,7 @@ def tokenize_meaningful(text: str) -> list[str]:
 
 
 def score_title_overlap(query_tokens: list[str], title: str) -> float:
-    """Token overlap score in [0, 1] with substring bonus for compound terms."""
+    """Token overlap score in [0, 1] with word-boundary bonus for long terms."""
     if not query_tokens or not title:
         return 0.0
     title_norm = normalize_title_label(title)
@@ -55,6 +55,14 @@ def score_title_overlap(query_tokens: list[str], title: str) -> float:
     joined = " ".join(query_tokens)
     if len(joined) >= 8 and joined in title_norm:
         overlap = max(overlap, 0.92)
-    elif any(len(token) >= 10 and token in title_norm for token in query_tokens):
+    elif any(
+        len(token) >= 10 and _token_matches_title_word(token, title_norm)
+        for token in query_tokens
+    ):
         overlap = max(overlap, 0.85)
     return min(1.0, overlap)
+
+
+def _token_matches_title_word(token: str, title_norm: str) -> bool:
+    """Match whole-word tokens only — avoids gezondheid → gezondheidsgegevens."""
+    return bool(re.search(rf"\b{re.escape(token)}\b", title_norm))

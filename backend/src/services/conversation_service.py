@@ -22,6 +22,8 @@ def _serialize_answer_metadata(answer: AnswerResponse) -> dict | None:
         meta["confidence_score"] = answer.confidence_score
     if answer.retrieval_route:
         meta["retrieval_route"] = answer.retrieval_route
+    if answer.legal_hypothesis:
+        meta["legal_hypothesis"] = answer.legal_hypothesis.model_dump(mode="json")
     return meta or None
 
 

@@ -8,6 +8,11 @@ from backend.src.services.chunk_quality_service import ChunkQualityService
 from backend.src.services.live_retrieval_service import LiveRetrievalService
 from backend.src.services.qdrant_service import QdrantService
 from backend.src.utils.article_chunk_filter import filter_chunks_by_articles_strict
+from backend.src.utils.legal_domain_retrieval_filter import (
+    filter_chunks_by_domain,
+    rank_chunks_by_domain,
+)
+from backend.src.utils.legal_question_type_chunk_scoring import rank_chunks_by_question_type
 from shared.schemas.legal_interpretation import AgentFetchResult, InstrumentTarget, LegalInterpretationPlan
 from shared.schemas.query import QueryRequest
 
@@ -49,6 +54,9 @@ class ArticleFetchOrchestratorService:
                 sources.append(source)
         merged = _dedupe_chunks(merged)[: settings.agent_max_total_chunks]
         merged = self._quality.filter_chunks(merged, expected_language=request.language)
+        merged = filter_chunks_by_domain(merged, plan.legal_domain)
+        merged = rank_chunks_by_domain(merged, plan.legal_domain)
+        merged = rank_chunks_by_question_type(merged, plan.legal_question_type)
         fetch_source = sources[0] if sources else "live"
         if len(set(sources)) > 1:
             fetch_source = "mixed"

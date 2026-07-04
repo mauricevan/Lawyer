@@ -1,0 +1,302 @@
+# Obligation templates for layperson fallback + synthesis context (ADR-0009)
+# Resolved: plan_id → domain_id → celex → legal_domain
+version: "2026.07.04"
+
+by_plan_id:
+  environmental_liability_operator:
+    - { label: Preventieve maatregelen, article: "5", title: Preventieve acties, uitleg: Voorkom milieuschade zodra er een dreiging bestaat. }
+    - { label: Melden, article: "6", title: Herstelmaatregelen, uitleg: Informeer de bevoegde autoriteit wanneer schade ontstaat of dreigt. }
+    - { label: Herstellen, article: "6", title: Herstelmaatregelen, uitleg: Herstel de milieuschade volgens de richtlijn. }
+    - { label: Kosten dragen, article: "8", title: Kosten, uitleg: De exploitant betaalt in beginsel de kosten van preventie en herstel. }
+
+  equal_treatment_employment:
+    - { label: Gelijke behandeling, article: "2", title: Toepassingsgebied, uitleg: De richtlijn geldt voor arbeid en beroep, inclusief ontslag. }
+    - { label: Geen discriminatie, article: "3", title: Begrip discriminatie, uitleg: Directe en indirecte discriminatie op grond van handicap of gezondheid is verboden. }
+    - { label: Redelijke aanpassingen, article: "5", title: Redelijke aanpassingen, uitleg: Werkgevers moeten redelijke aanpassingen treffen voor werknemers met handicap. }
+    - { label: Bewijslast, article: "7", title: Bewijslast, uitleg: Bij vermoeden van discriminatie moet de werkgever aantonen dat geen discriminatie plaatsvond. }
+
+  gpsr_manufacturer_risk:
+    - { label: Veilig product, article: "9", title: Veiligheidsvoorschriften, uitleg: Alleen veilige producten mogen op de EU-markt worden gebracht. }
+    - { label: Risico-informatie, article: "10", title: Risicobeoordeling, uitleg: Fabrikanten moeten risico's beoordelen en passende maatregelen nemen. }
+    - { label: Terugroeping, article: "31", title: Terugroeping, uitleg: Bij ernstige risico's moet een terugroeping of waarschuwing worden uitgevoerd. }
+    - { label: Melding aan autoriteit, article: "32", title: Melding, uitleg: Ernstige risico's moeten tijdig aan de bevoegde autoriteit worden gemeld. }
+
+  product_conformity_doc:
+    - { label: Technische documentatie, article: "4", title: Documentatie, uitleg: Economische operatoren moeten technische documentatie bijhouden die conformiteit aantoont. }
+    - { label: EU-conformiteit, article: "4", title: Conformiteit, uitleg: Producten moeten voldoen aan de toepasselijke harmonisatiewetgeving voordat ze op de markt komen. }
+    - { label: Traceerbaarheid, article: "4", title: Identificatie, uitleg: Fabrikanten moeten producten identificeerbaar houden voor markttoezicht en recalls. }
+
+  consumer_withdrawal:
+    - { label: Herroepingsrecht, article: "9", title: Bedenktijd, uitleg: Consumenten mogen koop op afstand binnen 14 dagen zonder reden herroepen. }
+    - { label: Informeren, article: "6", title: Informatie, uitleg: De ondernemer moet duidelijk informeren over het herroepingsrecht vóór de koop. }
+    - { label: Terugbetaling, article: "13", title: Restitutie, uitleg: Na herroeping moet de ondernemer het bedrag binnen 14 dagen terugbetalen. }
+
+  transport_carrier_liability:
+    - { label: Aansprakelijkheid, article: "4", title: Schadevergoeding, uitleg: Vervoerders zijn aansprakelijk voor verlies of beschadiging van goederen tijdens vervoer. }
+    - { label: Termijn, article: "5", title: Verjaring, uitleg: Vorderingen moeten binnen de wettelijke termijnen worden ingediend. }
+    - { label: Bewijs, article: "5", title: Bewijslast, uitleg: De vervoerder moet aantonen dat schade niet uit eigen falen komt waar de wet dat vereist. }
+
+  ucc_refund_deadline:
+    - { label: Termijn terugbetaling, article: "121", title: Terugbetaling, uitleg: Verzoeken om terugbetaling van douanerechten moeten binnen de wettelijke termijnen worden ingediend. }
+    - { label: Bewijs, article: "116", title: Bewijs, uitleg: De aanvrager moet aantonen dat te veel rechten zijn betaald. }
+    - { label: Beslissing, article: "121", title: Besluit, uitleg: Douaneautoriteiten moeten verzoeken binnen redelijke termijn behandelen. }
+
+  ucc_duty_refund:
+    - { label: Te veel betaald, article: "116", title: Terugbetaling, uitleg: Te veel betaalde invoerrechten kunnen worden teruggevorderd. }
+    - { label: Douanewaarde, article: "128", title: Waarde, uitleg: De douanewaarde bepaalt de grondslag voor invoerrechten. }
+    - { label: Aangifte, article: "164", title: Aangifte, uitleg: Onjuiste aangiften kunnen worden gecorrigeerd volgens douaneprocedures. }
+
+  ucc_customs_value:
+    - { label: Transactiewaarde, article: "128", title: Waarde, uitleg: In beginsel geldt de transactiewaarde als douanewaarde. }
+    - { label: Aftrekposten, article: "129", title: Aftrek, uitleg: Bepaalde kosten mogen van de waarde worden afgetrokken volgens het wetboek. }
+    - { label: Bewijs, article: "130", title: Documentatie, uitleg: Ondersteunende documenten moeten de waarde onderbouwen. }
+
+  gdpr_portability:
+    - { label: Meenemen, article: "20", title: Overdraagbaarheid, uitleg: U kunt uw gegevens in een gestructureerd formaat ontvangen om mee te nemen. }
+    - { label: Overdracht, article: "20", title: Overdracht, uitleg: U kunt verzoeken gegevens rechtstreeks naar een andere dienst over te dragen waar technisch mogelijk. }
+    - { label: Uitleg, article: "12", title: Transparantie, uitleg: De verwerkingsverantwoordelijke moet duidelijk uitleggen hoe u uw rechten uitoefent. }
+
+  gdpr_lawful_basis:
+    - { label: Rechtsgrond, article: "6", title: Rechtmatigheid, uitleg: Persoonsgegevens mogen alleen met een geldige rechtsgrond worden verwerkt. }
+    - { label: Toestemming, article: "7", title: Toestemming, uitleg: Toestemming moet vrij, specifiek, geïnformeerd en undubbelzinnig zijn. }
+    - { label: Informatie, article: "13", title: Informatieplicht, uitleg: Betrokkenen moeten duidelijk worden geïnformeerd over de verwerking. }
+
+  gdpr_access_erasure:
+    - { label: Inzage, article: "15", title: Recht op inzage, uitleg: U mag vragen welke gegevens over u worden verwerkt en waarom. }
+    - { label: Wissen, article: "17", title: Recht op wissing, uitleg: Onder voorwaarden kunt u verzoeken om verwijdering van uw gegevens. }
+    - { label: Reactietermijn, article: "12", title: Termijn, uitleg: Verzoeken moeten zonder onredelijke vertraging worden behandeld. }
+
+  consumer_warranty_digital:
+    - { label: Conformiteit, article: "10", title: Conformiteit, uitleg: Goederen moeten overeenkomen met wat de consument mocht verwachten. }
+    - { label: Gebrek, article: "11", title: Gebreken, uitleg: Bij gebreken heeft de consument recht op herstel, vervanging of prijsvermindering. }
+    - { label: Bewijs, article: "11", title: Bewijsperiode, uitleg: Binnen zes maanden wordt een gebrek vermoed te bestaan bij levering, tenzij het tegendeel blijkt. }
+
+  ai_act_obligations:
+    - { label: Risicobeheer, article: "9", title: Risicobeheersystemen, uitleg: Hoog-risico AI-systemen moeten risico's identificeren en beperken. }
+    - { label: Menselijk toezicht, article: "14", title: Toezicht, uitleg: Hoog-risico AI moet effectief menselijk toezicht mogelijk maken. }
+    - { label: Transparantie, article: "50", title: Transparantie, uitleg: Gebruikers moeten weten wanneer ze met AI-systemen te maken hebben. }
+
+  ucc_declaration_amendment:
+    - { label: Wijziging aangifte, article: "164", title: Correctie, uitleg: Douaneaangiften kunnen onder voorwaarden worden gewijzigd of gecorrigeerd. }
+    - { label: Termijn, article: "174", title: Termijn, uitleg: Correcties moeten binnen de wettelijke termijnen worden aangevraagd. }
+    - { label: Bewijs, article: "164", title: Documentatie, uitleg: Ondersteunende documenten moeten de correctie onderbouwen. }
+
+  flight_compensation:
+    - { label: Vertraging, article: "7", title: Compensatie, uitleg: Bij lange vertraging kunnen passagiers compensatie of assistentie krijgen. }
+    - { label: Instapweigering, article: "7", title: Denied boarding, uitleg: Bij overboeking heeft de passagier recht op compensatie of alternatief vervoer. }
+    - { label: Annulering, article: "5", title: Annulering, uitleg: Bij annulering heeft de passagier recht op vervoer, terugbetaling of compensatie. }
+
+by_domain_id:
+  gdpr:
+    - { label: Rechtmatige verwerking, article: "6", title: Rechtsgrond, uitleg: Gegevens mogen alleen met een geldige rechtsgrond worden verwerkt. }
+    - { label: Inzage, article: "15", title: Recht op inzage, uitleg: U mag vragen welke gegevens worden verwerkt. }
+    - { label: Wissen, article: "17", title: Wissing, uitleg: Onder voorwaarden kunt u verwijdering vragen. }
+
+  ai_act:
+    - { label: Risicobeheer, article: "9", title: Risico, uitleg: Hoog-risico AI vereist risicobeheersystemen. }
+    - { label: Transparantie, article: "50", title: Transparantie, uitleg: Gebruikers moeten weten wanneer AI wordt gebruikt. }
+    - { label: Menselijk toezicht, article: "14", title: Toezicht, uitleg: Menselijk toezicht is verplicht bij hoog-risico AI. }
+
+  dsa:
+    - { label: Illegale content, article: "16", title: Melding, uitleg: Platforms moeten meldingen van illegale content behandelen. }
+    - { label: Transparantie, article: "24", title: Uitleg, uitleg: Gebruikers moeten uitleg krijgen bij contentbeperkingen. }
+    - { label: Klacht, article: "20", title: Bezwaar, uitleg: Gebruikers moeten bezwaar kunnen maken tegen moderatiebeslissingen. }
+
+  dma:
+    - { label: Interoperabiliteit, article: "6", title: Interoperabiliteit, uitleg: Gatekeepers moeten interoperabiliteit bieden waar vereist. }
+    - { label: App stores, article: "5", title: Zelfpreferentie, uitleg: Gatekeepers mogen niet oneerlijk voorrang geven aan eigen diensten. }
+    - { label: Data, article: "5", title: Gegevens, uitleg: Bedrijfsgebruikers moeten toegang houden tot hun data. }
+
+  eprivacy:
+    - { label: Toestemming, article: "5", title: Opt-in, uitleg: Marketing via e-mail/SMS vereist doorgaans voorafgaande toestemming. }
+    - { label: Cookies, article: "5", title: Cookies, uitleg: Toegang tot apparaatinformatie vereist doorgaans toestemming. }
+    - { label: Opt-out, article: "13", title: Weigeren, uitleg: Gebruikers moeten eenvoudig kunnen weigeren of intrekken. }
+
+  consumer_rights:
+    - { label: Informatie, article: "6", title: Precontractuele info, uitleg: Consumenten moeten duidelijke informatie krijgen vóór de koop. }
+    - { label: Herroeping, article: "9", title: Bedenktijd, uitleg: Bij koop op afstand geldt doorgaans 14 dagen herroepingsrecht. }
+    - { label: Garantie, article: "10", title: Conformiteit, uitleg: Producten moeten conform de overeenkomst zijn. }
+
+  flight_rights:
+    - { label: Vertraging, article: "7", title: Compensatie, uitleg: Lange vertraging kan recht geven op compensatie of hulp. }
+    - { label: Overboeking, article: "7", title: Instapweigering, uitleg: Bij overboeking heeft u recht op compensatie of omleiding. }
+    - { label: Annulering, article: "5", title: Annulering, uitleg: Bij annulering kunt u vervoer, terugbetaling of compensatie vragen. }
+
+  mica:
+    - { label: Vergunning, article: "59", title: Autorisatie, uitleg: Aanbieders van crypto-diensten hebben doorgaans EU-vergunning nodig. }
+    - { label: Informatie, article: "77", title: Transparantie, uitleg: Consumenten moeten duidelijke risicowaarschuwingen krijgen. }
+    - { label: Bewaring, article: "70", title: Custody, uitleg: Klantactiva moeten gescheiden en beschermd worden. }
+
+  dora:
+    - { label: ICT-risico, article: "5", title: Beheer, uitleg: Financiële entiteiten moeten ICT-risico's beheren en monitoren. }
+    - { label: Incidenten, article: "19", title: Melding, uitleg: Ernstige ICT-incidenten moeten worden gemeld aan toezichthouders. }
+    - { label: Keten, article: "28", title: Derden, uitleg: Risico's van ICT-dienstverleners moeten worden beheerst. }
+
+  nis2:
+    - { label: Beveiliging, article: "21", title: Maatregelen, uitleg: Essentiële entiteiten moeten passende cyberbeveiligingsmaatregelen nemen. }
+    - { label: Incidenten, article: "23", title: Melding, uitleg: Significante incidenten moeten tijdig worden gemeld. }
+    - { label: Keten, article: "21", title: Supply chain, uitleg: Risico's in de toeleveringsketen moeten worden beheerst. }
+
+  whistleblower:
+    - { label: Meldkanaal, article: "8", title: Meldpunt, uitleg: Organisaties moeten veilige meldkanalen inrichten. }
+    - { label: Bescherming, article: "17", title: Represailles, uitleg: Melders mogen niet worden benadeeld voor een melding. }
+    - { label: Opvolging, article: "9", title: Behandeling, uitleg: Meldingen moeten tijdig en vertrouwelijk worden behandeld. }
+
+  parental_leave:
+    - { label: Informatie, article: "4", title: Transparantie, uitleg: Werkgevers moeten werknemers informeren over arbeidsvoorwaarden. }
+    - { label: Proefperiode, article: "6", title: Proeftijd, uitleg: Onredelijke proefperiodeclausules zijn beperkt. }
+    - { label: Voorspelbaarheid, article: "7", title: Voorspelbaar, uitleg: Werkpatronen en arbeidsvoorwaarden moeten voorspelbaar zijn. }
+
+  equal_treatment:
+    - { label: Geen discriminatie, article: "3", title: Discriminatie, uitleg: Discriminatie op grond van handicap of gezondheid is verboden in arbeid. }
+    - { label: Redelijke aanpassingen, article: "5", title: Aanpassingen, uitleg: Redelijke aanpassingen op het werk kunnen verplicht zijn. }
+    - { label: Bewijslast, article: "7", title: Bewijs, uitleg: Bij vermoeden van discriminatie geldt omkering van de bewijslast. }
+
+  cross_border_health:
+    - { label: Patiëntenrechten, article: "3", title: Rechten, uitleg: EU-patiënten hebben rechten bij grensoverschrijdende zorg. }
+    - { label: Verzekering, article: "7", title: Vergoeding, uitleg: Vergoeding volgt vaak de regels van het verzekeringsland. }
+    - { label: Voorafgaande toestemming, article: "8", title: Toestemming, uitleg: Sommige behandelingen vereisen voorafgaande toestemming. }
+
+  product_safety:
+    - { label: Veilig product, article: "9", title: Veiligheid, uitleg: Alleen veilige producten mogen op de markt worden gebracht. }
+    - { label: Terugroeping, article: "31", title: Terugroeping, uitleg: Bij ernstige risico's moet worden teruggeroepen of gewaarschuwd. }
+    - { label: Melding, article: "32", title: Autoriteit, uitleg: Ernstige risico's moeten aan de autoriteit worden gemeld. }
+
+  product_conformity:
+    - { label: Documentatie, article: "4", title: Technische documentatie, uitleg: Conformiteit moet met documentatie worden aangetoond. }
+    - { label: Traceerbaarheid, article: "4", title: Identificatie, uitleg: Producten moeten traceerbaar zijn voor toezicht. }
+    - { label: Conformiteit, article: "4", title: Markttoegang, uitleg: Producten moeten voldoen aan harmonisatiewetgeving vóór markttoegang. }
+
+  accessibility:
+    - { label: Toegankelijkheid, article: "4", title: Toegankelijk maken, uitleg: Diensten moeten toegankelijk zijn voor mensen met handicap. }
+    - { label: Feedback, article: "7", title: Klachten, uitleg: Gebruikers moeten feedback kunnen geven over toegankelijkheid. }
+    - { label: Informatie, article: "6", title: Uitleg, uitleg: Informatie over diensten moet toegankelijk worden verstrekt. }
+
+  packaging:
+    - { label: Herbruikbaar, article: "6", title: Ontwerp, uitleg: Verpakkingen moeten herbruikbaar of recyclebaar zijn ontworpen. }
+    - { label: Etikettering, article: "11", title: Label, uitleg: Producenten moeten correcte verpakkingsinformatie verstrekken. }
+    - { label: Registratie, article: "44", title: Registratie, uitleg: Producenten moeten zich registreren waar vereist. }
+
+  environmental_liability:
+    - { label: Preventie, article: "5", title: Preventie, uitleg: Voorkom milieuschade zodra dreiging bestaat. }
+    - { label: Melden, article: "6", title: Melding, uitleg: Informeer de autoriteit bij schade of dreiging. }
+    - { label: Herstel, article: "6", title: Herstel, uitleg: Herstel milieuschade volgens de richtlijn. }
+
+  payment_accounts:
+    - { label: Rekening openen, article: "4", title: Toegang, uitleg: Consumenten hebben recht op een basale betaalrekening met essentiële functies. }
+    - { label: Sluiting, article: "16", title: Opzegging, uitleg: Rekening mag niet zonder gegronde reden worden gesloten. }
+    - { label: Informatie, article: "6", title: Transparantie, uitleg: Kosten en voorwaarden moeten duidelijk worden gecommuniceerd. }
+
+  energy_label:
+    - { label: Energielabel, article: "6", title: Label, uitleg: Gebouwen moeten een energielabel hebben bij verkoop of verhuur. }
+    - { label: Inspectie, article: "9", title: Keuring, uitleg: Energieprestatie moet door erkende experts worden beoordeeld. }
+    - { label: Informatie, article: "12", title: Advertentie, uitleg: Advertenties moeten het energielabel vermelden. }
+
+  customs_ucc:
+    - { label: Aangifte, article: "158", title: Invoer, uitleg: Goederen moeten correct worden aangegeven bij invoer. }
+    - { label: Waarde, article: "128", title: Douanewaarde, uitleg: Invoerrechten zijn gebaseerd op de douanewaarde. }
+    - { label: Terugbetaling, article: "116", title: Terugbetaling, uitleg: Te veel betaalde rechten kunnen worden teruggevorderd. }
+
+  customs_tariff:
+    - { label: Classificatie, article: "57", title: Goederencode, uitleg: Goederen moeten met de juiste code worden geclassificeerd. }
+    - { label: Tarief, article: "2", title: Tarief, uitleg: Het tarief hangt af van de goederencode en oorsprong. }
+    - { label: Oorsprong, article: "60", title: Oorsprong, uitleg: Preferentiële oorsprong kan lagere rechten geven. }
+
+  vat:
+    - { label: Btw-heffing, article: "2", title: Heffing, uitleg: Btw wordt geheven op leveringen van goederen en diensten. }
+    - { label: Intracommunautair, article: "138", title: IC-levering, uitleg: Bepaalde grensoverschrijdende leveringen volgen speciale regels. }
+    - { label: Aangifte, article: "250", title: Administratie, uitleg: Ondernemers moeten btw correct administreren en aangeven. }
+
+  vehicle_type_approval:
+    - { label: Typegoedkeuring, article: "6", title: Goedkeuring, uitleg: Voertuigen moeten typegoedkeuring hebben voor markttoegang. }
+    - { label: Emissies, article: "4", title: Emissies, uitleg: Voertuigen moeten voldoen aan emissie-eisen. }
+    - { label: Documentatie, article: "38", title: COC, uitleg: Een conformiteitscertificaat is nodig voor registratie. }
+
+  carrier_liability:
+    - { label: Aansprakelijkheid, article: "4", title: Schade, uitleg: Vervoerder is aansprakelijk voor verlies of beschadiging van goederen. }
+    - { label: Termijn, article: "5", title: Verjaring, uitleg: Vorderingen moeten binnen de termijn worden ingediend. }
+    - { label: Schadevergoeding, article: "4", title: Vergoeding, uitleg: Schadevergoeding volgt de regels van het vervoersverdrag. }
+
+by_celex:
+  "32016R0679":
+    - { label: Rechtsgrond, article: "6", title: Rechtmatigheid, uitleg: Verwerking vereist een geldige rechtsgrond. }
+    - { label: Inzage, article: "15", title: Inzage, uitleg: U mag inzage vragen in uw gegevens. }
+    - { label: Wissen, article: "17", title: Wissing, uitleg: Onder voorwaarden kunt u wissing vragen. }
+  "32023R0988":
+    - { label: Veilig product, article: "9", title: Veiligheid, uitleg: Alleen veilige producten op de markt. }
+    - { label: Risico, article: "10", title: Risico, uitleg: Risico's beoordelen en beperken. }
+    - { label: Terugroeping, article: "31", title: Recall, uitleg: Terugroepen bij ernstige risico's. }
+  "32011L0083":
+    - { label: Herroeping, article: "9", title: Bedenktijd, uitleg: 14 dagen herroepingsrecht bij koop op afstand. }
+    - { label: Informatie, article: "6", title: Info, uitleg: Duidelijke precontractuele informatie. }
+    - { label: Terugbetaling, article: "13", title: Restitutie, uitleg: Terugbetaling binnen 14 dagen na herroeping. }
+  "32004L0035":
+    - { label: Preventie, article: "5", title: Preventie, uitleg: Milieuschade voorkomen. }
+    - { label: Melden, article: "6", title: Melding, uitleg: Autoriteit informeren bij schade. }
+    - { label: Herstel, article: "6", title: Herstel, uitleg: Milieuschade herstellen. }
+  "32000L0078":
+    - { label: Geen discriminatie, article: "3", title: Discriminatie, uitleg: Discriminatie op grond van handicap of gezondheid verboden. }
+    - { label: Aanpassingen, article: "5", title: Aanpassingen, uitleg: Redelijke aanpassingen op het werk. }
+    - { label: Bewijslast, article: "7", title: Bewijs, uitleg: Omkering van bewijslast bij vermoeden van discriminatie. }
+  "32013R0952":
+    - { label: Aangifte, article: "158", title: Invoer, uitleg: Correcte douaneaangifte verplicht. }
+    - { label: Waarde, article: "128", title: Waarde, uitleg: Douanewaarde bepaalt rechten. }
+    - { label: Terugbetaling, article: "116", title: Terugbetaling, uitleg: Te veel betaald kan worden teruggevorderd. }
+  "32004R0261":
+    - { label: Vertraging, article: "7", title: Compensatie, uitleg: Recht op compensatie bij lange vertraging. }
+    - { label: Overboeking, article: "7", title: Boarding, uitleg: Compensatie bij instapweigering. }
+    - { label: Annulering, article: "5", title: Annulering, uitleg: "Keuze bij annulering: vervoer, terugbetaling of compensatie." }
+  "32024R1689":
+    - { label: Risicobeheer, article: "9", title: Risico, uitleg: Risicobeheersystemen voor hoog-risico AI. }
+    - { label: Toezicht, article: "14", title: Toezicht, uitleg: Menselijk toezicht verplicht. }
+    - { label: Transparantie, article: "50", title: Transparantie, uitleg: AI-gebruik moet kenbaar zijn. }
+
+by_legal_domain:
+  privacy:
+    - { label: Rechtsgrond, article: "6", title: Rechtmatigheid, uitleg: Gegevensverwerking vereist een geldige rechtsgrond. }
+    - { label: Rechten betrokkenen, article: "15", title: Rechten, uitleg: Betrokkenen hebben inzage- en andere rechten. }
+    - { label: Beveiliging, article: "32", title: Beveiliging, uitleg: Passende technische en organisatorische maatregelen zijn verplicht. }
+  consumer:
+    - { label: Informatie, article: "6", title: Informatie, uitleg: Consumenten moeten duidelijke informatie krijgen. }
+    - { label: Herroeping, article: "9", title: Herroeping, uitleg: Bedenktijd bij koop op afstand waar van toepassing. }
+    - { label: Conformiteit, article: "10", title: Conformiteit, uitleg: Producten moeten conform de overeenkomst zijn. }
+  employment:
+    - { label: Gelijke behandeling, article: "3", title: Gelijkheid, uitleg: Discriminatie in arbeid is verboden waar EU-regels gelden. }
+    - { label: Transparante voorwaarden, article: "4", title: Arbeidsvoorwaarden, uitleg: Werkgevers moeten duidelijke arbeidsvoorwaarden geven. }
+    - { label: Bescherming, article: "7", title: Bescherming, uitleg: Werknemers genieten EU-bescherming tegen ongerechtvaardigde behandeling. }
+  customs:
+    - { label: Aangifte, article: "158", title: Aangifte, uitleg: Goederen moeten correct worden aangegeven. }
+    - { label: Waarde, article: "128", title: Waarde, uitleg: Douanewaarde bepaalt de schuld. }
+    - { label: Termijnen, article: "121", title: Termijn, uitleg: Houd rekening met termijnen voor verzoeken en bezwaar. }
+  transport:
+    - { label: Passagiersrechten, article: "7", title: Compensatie, uitleg: Passagiers hebben rechten bij vertraging of annulering. }
+    - { label: Aansprakelijkheid, article: "4", title: Aansprakelijkheid, uitleg: Vervoerders kunnen aansprakelijk zijn voor schade. }
+    - { label: Termijn, article: "5", title: Termijn, uitleg: Vorderingen moeten tijdig worden ingediend. }
+  financial:
+    - { label: Informatie, article: "—", title: Transparantie, uitleg: Financiële diensten moeten duidelijke informatie verstrekken. }
+    - { label: Bescherming, article: "—", title: Bescherming, uitleg: Consumenten en beleggers genieten EU-bescherming. }
+    - { label: Toezicht, article: "—", title: Toezicht, uitleg: Toezichthouders handhaven de regels nationaal. }
+  digital:
+    - { label: Transparantie, article: "—", title: Transparantie, uitleg: Platforms moeten transparant zijn over regels en beslissingen. }
+    - { label: Klacht, article: "—", title: Klacht, uitleg: Gebruikers moeten bezwaar en klachten kunnen indienen. }
+    - { label: Bescherming, article: "—", title: Bescherming, uitleg: Gebruikers en bedrijven hebben EU-rechten online. }
+  environment:
+    - { label: Preventie, article: "5", title: Preventie, uitleg: Milieuschade voorkomen waar mogelijk. }
+    - { label: Melden, article: "6", title: Melding, uitleg: Schade melden aan bevoegde autoriteit. }
+    - { label: Herstel, article: "6", title: Herstel, uitleg: Schade herstellen volgens EU-kader. }
+  cyber:
+    - { label: Beveiliging, article: "21", title: Maatregelen, uitleg: Passende cyberbeveiligingsmaatregelen nemen. }
+    - { label: Incidenten, article: "23", title: Melding, uitleg: Significante incidenten melden. }
+    - { label: Keten, article: "21", title: Keten, uitleg: Risico's bij leveranciers beheersen. }
+  health:
+    - { label: Patiëntenrechten, article: "3", title: Rechten, uitleg: Patiënten hebben rechten bij grensoverschrijdende zorg. }
+    - { label: Vergoeding, article: "7", title: Vergoeding, uitleg: Vergoeding volgt nationale en EU-regels. }
+    - { label: Toestemming, article: "8", title: Toestemming, uitleg: Sommige zorg vereist voorafgaande toestemming. }
+  tax:
+    - { label: Heffing, article: "2", title: Btw, uitleg: Btw op leveringen en diensten waar van toepassing. }
+    - { label: Aangifte, article: "250", title: Administratie, uitleg: Correcte btw-administratie verplicht. }
+    - { label: Grensoverschrijdend, article: "138", title: IC, uitleg: Intracommunautaire regels kunnen gelden. }
+  ai:
+    - { label: Risicobeheer, article: "9", title: Risico, uitleg: Hoog-risico AI vereist risicobeheer. }
+    - { label: Transparantie, article: "50", title: Transparantie, uitleg: AI-gebruik moet kenbaar zijn. }
+    - { label: Toezicht, article: "14", title: Toezicht, uitleg: Menselijk toezicht waar vereist. }

@@ -82,6 +82,7 @@ clusters:
     - "32019L1152"
     - "32003L0088"
     - "32008L0104"
+    - "32000L0078"
   health_product:
     - "32017R0745"
     - "32017R0746"
@@ -221,6 +222,13 @@ documents:
     is_consolidated: true
     version_type: consolidated
     oj_reference: "L 327/9"
+  - celex: "32000L0078"
+    title: "Richtlijn 2000/78/EG tot instelling van een algemeen kader strekkende tot gelijke behandeling in arbeid en beroep"
+    short_title: "Gelijke behandeling arbeid"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 303/16"
   - celex: "32017R1129"
     title: "Verordening (EU) 2017/1129 betreffende het prospectus dat moet worden gepubliceerd bij openbare aanbiedingen"
     short_title: "Prospectus"

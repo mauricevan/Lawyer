@@ -10,6 +10,7 @@ plans:
       - "4"
       - "5"
       - "6"
+      - "8"
     triggers_any:
       - milieuaansprakelijkheid
       - milieuaansprakelijkheidsrichtlijn
@@ -21,6 +22,10 @@ plans:
   - id: gpsr_manufacturer_risk
     legal_domain: consumer
     celex: "32023R0988"
+    issue_fit:
+      - market_access
+      - obligation
+      - enforcement
     articles:
       - "9"
       - "10"
@@ -39,6 +44,9 @@ plans:
   - id: product_conformity_doc
     legal_domain: consumer
     celex: "32019R1020"
+    issue_fit:
+      - enforcement
+      - obligation
     articles:
       - "4"
       - "16"
@@ -53,6 +61,9 @@ plans:
   - id: consumer_withdrawal
     legal_domain: consumer
     celex: "32011L0083"
+    issue_fit:
+      - obligation
+      - market_access
     articles:
       - "9"
       - "10"
@@ -218,3 +229,62 @@ plans:
       - vlucht vertraging compensatie
       - vertraagde vlucht compensatie
       - denied boarding
+
+  - id: equal_treatment_employment
+    legal_domain: employment
+    celex: "32000L0078"
+    issue_fit:
+      - obligation
+    articles:
+      - "1"
+      - "2"
+      - "3"
+      - "4"
+      - "6"
+      - "7"
+    triggers_any:
+      - werknemer
+      - ontslag
+      - ontslagen
+      - discriminatie
+      - gelijke behandeling
+      - handicap
+      - langdurig ziek
+      - ziekteverlof
+      - gezondheidstoestand
+      - 2000/78
+
+  - id: internal_market_national_rules
+    legal_domain: internal_market
+    celex: "32008R0768"
+    articles:
+      - "1"
+      - "2"
+    triggers_any:
+      - lidstaat
+      - lidstaten
+      - nationale regel
+      - nationale regels
+      - afwijken
+      - afwijking
+      - interne markt
+      - geharmoniseerde regels
+      - mutual recognition
+      - wederzijdse erkenning
+
+  - id: ecommerce_country_of_origin
+    legal_domain: consumer
+    celex: "32000L0031"
+    articles:
+      - "3"
+      - "4"
+      - "5"
+    triggers_any:
+      - e-commerce
+      - webshop
+      - online winkel
+      - online verkopen
+      - lokale vertegenwoordiger
+      - vertegenwoordiger aanstellen
+      - informatiemaatschappij
+      - country of origin

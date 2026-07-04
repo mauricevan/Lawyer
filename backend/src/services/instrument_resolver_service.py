@@ -4,6 +4,11 @@ import re
 
 from backend.src.services.celex_discovery_service import CelexDiscoveryService
 from backend.src.services.legal_source_planner_service import LegalSourcePlannerService
+from backend.src.utils.legal_domain_retrieval_filter import (
+    default_instrument_for_domain,
+    filter_instruments_by_domain,
+    is_celex_allowed_for_domain,
+)
 from ingestion.src.clients.sparql_client import SparqlClient
 from ingestion.src.data.oj_citation_parser import parse_oj_celex
 from shared.schemas.legal_interpretation import InstrumentTarget, LegalInterpretationPlan
@@ -24,33 +29,41 @@ class InstrumentResolverService:
         plan: LegalInterpretationPlan,
         question: str,
         language: str = "nl",
+        retrieval_query: str | None = None,
     ) -> LegalInterpretationPlan:
         if plan.is_national_law:
             return plan
+        search_text = retrieval_query or question
         resolved: list[InstrumentTarget] = []
         for instrument in plan.instruments:
-            item = await self._resolve_one(instrument, question, language)
+            item = await self._resolve_one(instrument, search_text, language, plan)
             if item.celex:
                 resolved.append(item)
         if not resolved:
-            resolved = await self._resolve_from_question(question, language, plan)
+            resolved = await self._resolve_from_question(search_text, language, plan)
         resolved = _merge_rule_plan_articles(question, resolved)
+        resolved = filter_instruments_by_domain(resolved, plan.legal_domain)
+        if not resolved and plan.legal_domain != "unknown":
+            fallback = default_instrument_for_domain(plan.legal_domain, search_text)
+            if fallback:
+                resolved = [fallback]
         return plan.model_copy(update={"instruments": resolved[:3]})
 
     async def _resolve_one(
         self,
         instrument: InstrumentTarget,
-        question: str,
+        search_text: str,
         language: str,
+        plan: LegalInterpretationPlan,
     ) -> InstrumentTarget:
         celex = instrument.celex
         title = instrument.title
         if not celex:
-            celex = _explicit_celex(question) or parse_oj_celex(question)
+            celex = _explicit_celex(search_text) or parse_oj_celex(search_text)
         if not celex and instrument.oj_citation:
             celex = parse_oj_celex(f"Verordening {instrument.oj_citation}")
         if not celex:
-            celex = await self._discover_celex(f"{instrument.name} {question}", language)
+            celex = await self._discover_celex(f"{instrument.name} {search_text}", language, plan)
         if celex:
             title = title or await self._fetch_title(celex, language)
         return instrument.model_copy(update={"celex": celex, "title": title})
@@ -63,7 +76,7 @@ class InstrumentResolverService:
     ) -> list[InstrumentTarget]:
         celex = _explicit_celex(question) or parse_oj_celex(question)
         if not celex:
-            celex = await self._discover_celex(question, language)
+            celex = await self._discover_celex(question, language, plan)
         if not celex:
             return []
         title = await self._fetch_title(celex, language)
@@ -75,9 +88,17 @@ class InstrumentResolverService:
             title=title,
         )]
 
-    async def _discover_celex(self, text: str, language: str) -> str | None:
-        hits = await self._discovery.discover(text, language, limit=1)
-        return hits[0].celex if hits else None
+    async def _discover_celex(
+        self,
+        text: str,
+        language: str,
+        plan: LegalInterpretationPlan,
+    ) -> str | None:
+        hits = await self._discovery.discover(text, language, limit=5)
+        for hit in hits:
+            if is_celex_allowed_for_domain(hit.celex, plan.legal_domain):
+                return hit.celex
+        return None
 
     async def _fetch_title(self, celex: str, language: str) -> str | None:
         try:
