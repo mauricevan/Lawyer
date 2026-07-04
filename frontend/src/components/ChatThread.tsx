@@ -3,7 +3,9 @@
 import { useEffect, useRef } from "react";
 import Markdown from "react-markdown";
 import type { Audience, ChatMessage } from "@/models/types";
+import { AnswerProvenance } from "./AnswerProvenance";
 import { CitationSources } from "./CitationSources";
+import { CoverageGuidancePanel } from "./CoverageGuidancePanel";
 import { FeedbackPanel } from "./FeedbackPanel";
 import { VerificationQuestions } from "./VerificationQuestions";
 import styles from "./ChatThread.module.css";
@@ -12,6 +14,7 @@ interface Props {
   messages: ChatMessage[];
   audience?: Audience;
   conversationId?: string;
+  onVerificationSelect?: (question: string) => void;
 }
 
 const ROLE_LABELS = {
@@ -19,7 +22,12 @@ const ROLE_LABELS = {
   professional: { user: "U", assistant: "Assistent" },
 } as const;
 
-export function ChatThread({ messages, audience = "layperson", conversationId }: Props) {
+export function ChatThread({
+  messages,
+  audience = "layperson",
+  conversationId,
+  onVerificationSelect,
+}: Props) {
   const bottomRef = useRef<HTMLDivElement>(null);
   const labels = ROLE_LABELS[audience];
 
@@ -50,10 +58,20 @@ export function ChatThread({ messages, audience = "layperson", conversationId }:
               <p className={styles.text}>{msg.content}</p>
             )}
             {!msg.isPending && msg.citations && msg.citations.length > 0 && (
+              <AnswerProvenance citations={msg.citations} audience={audience} />
+            )}
+            {!msg.isPending && msg.citations && msg.citations.length > 0 && (
               <CitationSources citations={msg.citations} audience={audience} />
             )}
+            {!msg.isPending && msg.coverageGuidance && (
+              <CoverageGuidancePanel guidance={msg.coverageGuidance} audience={audience} />
+            )}
             {!msg.isPending && msg.verificationQuestions && msg.verificationQuestions.length > 0 && (
-              <VerificationQuestions questions={msg.verificationQuestions} />
+              <VerificationQuestions
+                questions={msg.verificationQuestions}
+                isCoverageGap={msg.coverageStatus !== "adequate" && !!msg.coverageStatus}
+                onSelectQuestion={onVerificationSelect}
+              />
             )}
             {!msg.isPending && msg.role === "assistant" && (
               <FeedbackPanel conversationId={conversationId} messageId={msg.id} />

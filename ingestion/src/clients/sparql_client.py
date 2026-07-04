@@ -66,12 +66,23 @@ class SparqlClient:
         question: str,
         language: str = "nl",
     ) -> str | None:
-        terms = [term.lower() for term in re.findall(r"[A-Za-zÀ-ÿ]{4,}", question)[:3]]
-        if not terms:
+        candidates = await self.discover_celex_candidates(question, language, limit=1)
+        if not candidates:
             return None
+        return candidates[0].get("celex") or None
+
+    async def discover_celex_candidates(
+        self,
+        question: str,
+        language: str = "nl",
+        limit: int = 10,
+    ) -> list[dict[str, str | float]]:
+        terms = self._discovery_terms(question)
+        if not terms:
+            return []
         lang_uri = get_cellar_uri(language)
-        filters = " && ".join(
-            f'CONTAINS(LCASE(STR(?title)), "{term}")' for term in terms[:2]
+        filters = " || ".join(
+            f'CONTAINS(LCASE(STR(?title)), "{term}")' for term in terms
         )
         query = f"""
         PREFIX cdm: <http://publications.europa.eu/ontology/cdm#>
@@ -83,13 +94,43 @@ class SparqlClient:
           ?expr cdm:expression_uses_language
             <http://publications.europa.eu/resource/authority/language/{lang_uri}> .
           FILTER({filters})
-        }} LIMIT 1
+        }} LIMIT {max(limit, 10)}
         """
         rows = self._parse_bindings(await self.execute(query))
-        if not rows:
-            return None
-        celex = rows[0].get("celex", "")
-        return celex or None
+        return self._rank_discovery_rows(rows, terms)[:limit]
+
+    def _discovery_terms(self, question: str) -> list[str]:
+        stopwords = {
+            "welke", "welk", "wat", "hoe", "legt", "leggen", "op", "aan", "van",
+            "voor", "bij", "met", "zonder", "de", "het", "een", "die", "richtlijn",
+            "verordening", "europese", "european", "union", "unie",
+        }
+        terms = [
+            term.lower()
+            for term in re.findall(r"[A-Za-zÀ-ÿ]{4,}", question)
+            if term.lower() not in stopwords
+        ]
+        return terms[:5]
+
+    def _rank_discovery_rows(
+        self,
+        rows: list[dict[str, str]],
+        terms: list[str],
+    ) -> list[dict[str, str | float]]:
+        ranked: list[tuple[float, dict[str, str | float]]] = []
+        for row in rows:
+            celex = row.get("celex", "")
+            title = row.get("title", "")
+            if not celex:
+                continue
+            title_lower = title.lower()
+            hits = sum(1 for term in terms if term in title_lower)
+            score = hits / max(len(terms), 1)
+            if hits == len(terms) and terms:
+                score = min(1.0, score + 0.2)
+            ranked.append((score, {"celex": celex, "title": title, "score": round(score, 3)}))
+        ranked.sort(key=lambda pair: pair[0], reverse=True)
+        return [item for _, item in ranked]
 
     async def fetch_works_page(
         self, offset: int = 0, limit: int = DEFAULT_LIMIT

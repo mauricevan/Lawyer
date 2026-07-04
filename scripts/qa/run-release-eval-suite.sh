@@ -20,3 +20,7 @@ fi
 
 python3 backend/scripts/run_eval_suite.py
 echo "Report: docs/data/eval-reports/latest.json"
+
+if [[ -x scripts/qa/run-customer-journey-gate.sh ]]; then
+  scripts/qa/run-customer-journey-gate.sh
+fi

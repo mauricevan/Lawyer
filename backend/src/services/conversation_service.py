@@ -10,6 +10,21 @@ from shared.schemas.conversation import ConversationSummary, CreateConversationR
 from shared.schemas.query import AnswerResponse
 
 
+def _serialize_answer_metadata(answer: AnswerResponse) -> dict | None:
+    meta: dict = {}
+    if answer.coverage_status:
+        meta["coverage_status"] = answer.coverage_status
+    if answer.coverage_guidance:
+        meta["coverage_guidance"] = answer.coverage_guidance.model_dump(mode="json")
+    if answer.verification_questions:
+        meta["verification_questions"] = answer.verification_questions
+    if answer.confidence_score is not None:
+        meta["confidence_score"] = answer.confidence_score
+    if answer.retrieval_route:
+        meta["retrieval_route"] = answer.retrieval_route
+    return meta or None
+
+
 class ConversationService:
     """Manages conversation threads and audit trail."""
 
@@ -54,6 +69,7 @@ class ConversationService:
             content=answer.answer,
             citations=[c.model_dump(mode="json") for c in answer.citations],
             chunk_ids=chunk_ids,
+            message_metadata=_serialize_answer_metadata(answer),
         )
         session.add(user_msg)
         session.add(assistant_msg)

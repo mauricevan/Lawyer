@@ -1,4 +1,5 @@
 """Packages confidence, verification questions, and reliability metrics."""
+from shared.schemas.coverage_guidance import AdequacyResult, CoverageGuidance
 from shared.schemas.query import QueryRequest
 
 from backend.src.services.answer_confidence_service import AnswerConfidenceService
@@ -19,9 +20,15 @@ class AnswerQualityService:
         chunks: list[dict],
         retrieval_route: str | None,
         citation_count: int,
+        adequacy: AdequacyResult | None = None,
+        guidance: CoverageGuidance | None = None,
     ) -> dict[str, object]:
         score = self._confidence.assess(chunks, retrieval_route, citation_count)
-        questions = self._verification.build(request, score, retrieval_route)
+        if adequacy and not adequacy.is_adequate:
+            score = min(score, 0.2)
+        questions = self._verification.build(
+            request, score, retrieval_route, adequacy, guidance,
+        )
         citation_reliability_service.record(citation_count, score, retrieval_route)
         return {
             "confidence_score": score,

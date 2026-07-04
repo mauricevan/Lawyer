@@ -62,7 +62,12 @@ async def _build_export_content(session: AsyncSession, conversation_id: str) -> 
         "title": conv.title,
         "exported_at": datetime.utcnow().isoformat(),
         "messages": [
-            {"role": m.role, "content": m.content, "citations": m.citations or []}
+            {
+                "role": m.role,
+                "content": m.content,
+                "citations": m.citations or [],
+                "metadata": m.message_metadata,
+            }
             for m in messages
         ],
     }
@@ -94,6 +99,11 @@ def _generate_pdf(content: dict) -> bytes:
             legal = cite.get("legal_citation", cite.get("celex", ""))
             c.drawString(60, y, f"Bron: {legal}"[:90])
             y -= 12
+        meta = msg.get("metadata") or {}
+        if meta.get("coverage_status") and meta["coverage_status"] != "adequate":
+            y -= 12
+            c.drawString(60, y, f"Dekking: {meta['coverage_status']}"[:90])
+            y -= 12
         y -= 20
     c.save()
     return buffer.getvalue()
@@ -112,6 +122,9 @@ def _generate_docx(content: dict) -> bytes:
         for cite in msg.get("citations", []):
             legal = cite.get("legal_citation", cite.get("celex", ""))
             doc.add_paragraph(f"Bron: {legal}", style="Intense Quote")
+        meta = msg.get("metadata") or {}
+        if meta.get("coverage_status") and meta["coverage_status"] != "adequate":
+            doc.add_paragraph(f"Dekking: {meta['coverage_status']}")
     buffer = io.BytesIO()
     doc.save(buffer)
     return buffer.getvalue()

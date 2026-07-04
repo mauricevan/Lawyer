@@ -1,0 +1,83 @@
+# P2 fresh-audit topics — employment agency, platform termination
+topics:
+  - id: agency_equal_treatment
+    patterns:
+      - uitzendbureau
+      - uitzendkracht
+      - minder betalen
+      - vaste collega
+      - gelijk loon
+    regulation_celex: "32008L0104"
+    regulation_title: "Richtlijn 2008/104/EG uitzendarbeid"
+    short_answer_nl: >
+      **Nee, meestal niet.** Uitzendkrachten hebben recht op **gelijke behandeling**
+      (loon en arbeidsvoorwaarden) als vaste collega's in de **basisfunctie**.
+    summary_nl: >
+      EU-regels beschermen uitzendkrachten tegen discriminatie op loon en voorwaarden.
+      Gelijk loon geldt na een inleenperiode of vanaf dag één bij bepaalde functies.
+    practical_nl: >
+      Vergelijk uw contract met vaste collega's. Klacht via uitzendbureau, vakbond
+      of Inspectie SZW.
+
+  - id: platform_account_termination
+    patterns:
+      - spotify
+      - account permanent blokkeren
+      - account blokkeren
+      - account verbannen
+      - platform account
+    exclude_patterns:
+      - playlists meenemen
+      - gegevensoverdraagbaarheid
+      - data portability
+    min_pattern_hits: 1
+    regulation_celex: "32022R2065"
+    regulation_title: "Verordening (EU) 2022/2065 (Digital Services Act)"
+    short_answer_nl: >
+      **Nee, niet zonder uitleg.** Platforms **moeten** u een **duidelijke reden**
+      geven en een **klacht- of appeal-procedure** bieden bij accountblokkade.
+    summary_nl: >
+      De Digital Services Act verplicht grote platforms transparante moderatie,
+      uitleg bij restricties en mogelijkheid tot bezwaar.
+    practical_nl: >
+      Vraag schriftelijk om de reden. Gebruik het platform-appeal en bewaar alle
+      correspondentie. Klacht bij ACM of Europese Commissie bij onterechte blokkade.
+
+  - id: health_insurance_eu
+    patterns:
+      - zorgverzekeraar
+      - medische aandoening
+      - verzekering weigeren
+      - zorgverzekering weigeren
+    regulation_celex: "32000L0078"
+    regulation_title: "Richtlijn 2000/78/EG gelijke behandeling"
+    short_answer_nl: >
+      **Nee, meestal niet.** EU-recht verbiedt **discriminatie** op grond van
+      gezondheid bij verzekeringen, met **beperkte uitzonderingen** voor risicobeoordeling.
+    summary_nl: >
+      Richtlijn 2000/78/EG beschermt tegen discriminatie wegens handicap of
+      gezondheidstoestand. Nationale regels bepalen hoe acceptatie en premie
+      precies worden toegepast in uw land.
+    practical_nl: >
+      Vraag schriftelijk om de weigeringsgrond. Klacht bij Zorgverzekeringslijn
+      of toezichthouder als u discriminatie vermoedt.
+
+  - id: eu_whistleblower
+    patterns:
+      - whistleblower
+      - whistleblower-richtlijn
+      - klokkenluider
+      - klokkenluiders
+      - meldingen werkgever
+      - melding bij werkgever
+    regulation_celex: "32019L1937"
+    regulation_title: "Richtlijn (EU) 2019/1937 whistleblowing"
+    short_answer_nl: >
+      Werkgevers moeten een **veilig meldkanaal** inrichten, meldingen **behandelen**
+      binnen **redelijke termijnen** en **bescherming** bieden tegen **represailles**.
+    summary_nl: >
+      De EU-richtlijn verplicht organisaties meldingen van misstanden serieus te
+      nemen, vertrouwelijk te behandelen en melders te beschermen.
+    practical_nl: >
+      Gebruik het interne meldpunt of de externe kanalen die uw werkgever moet
+      aanbieden. Documenteer uw melding schriftelijk.

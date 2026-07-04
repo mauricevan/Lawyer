@@ -20,6 +20,14 @@ async def get_db() -> AsyncSession:
         yield session
 
 
+@router.get("/corpus/summary")
+async def corpus_summary(session: AsyncSession = Depends(get_db)) -> dict:
+    """Public corpus stats for trust indicators (no auth required)."""
+    from backend.src.services.corpus_summary_service import CorpusSummaryService
+
+    return await CorpusSummaryService().build_summary(session)
+
+
 @router.get("/{celex}")
 async def get_document(
     celex: str,

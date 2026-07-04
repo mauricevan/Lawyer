@@ -14,6 +14,9 @@ SAMPLE_QUESTIONS = (
     "Wat zijn high-risk AI systemen?",
     "Wat zegt GDPR over consent?",
     "Wat is MiFID?",
+    "Moet ik mijn chatbot registreren bij de overheid?",
+    "Geldt de AI-wet ook voor mijn kleine webshop?",
+    "Mag ik klantgegevens gebruiken om mijn AI te trainen?",
 )
 
 

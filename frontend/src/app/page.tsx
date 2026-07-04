@@ -1,6 +1,7 @@
 "use client";
 
-import { useState } from "react";
+import { useRef, useState } from "react";
+import { useRouter } from "next/navigation";
 import { AudienceToggle } from "@/components/AudienceToggle";
 import { ChatComposer } from "@/components/ChatComposer";
 import { ChatThread } from "@/components/ChatThread";
@@ -43,6 +44,9 @@ function createId(): string {
 }
 
 export default function HomePage() {
+  const router = useRouter();
+  const abortRef = useRef<(() => void) | null>(null);
+  const hasNavigatedRef = useRef(false);
   const [queryMode, setQueryMode] = useState<QueryMode>("open");
   const [audience, setAudience] = useState<Audience>("layperson");
   const [question, setQuestion] = useState("");
@@ -75,6 +79,8 @@ export default function HomePage() {
     setLockedLanguage(null);
     setRetrievalRoute(undefined);
     setRetrievalExplainability(undefined);
+    hasNavigatedRef.current = false;
+    abortRef.current?.();
   };
 
   const runQuery = (queryText: string) => {
@@ -102,7 +108,8 @@ export default function HomePage() {
       { id: pendingId, role: "assistant", content: "", isPending: true },
     ]);
 
-    streamQuery(
+    abortRef.current?.();
+    abortRef.current = streamQuery(
       {
         question: queryText.trim(),
         query_mode: lockedMode ?? queryMode,
@@ -131,6 +138,13 @@ export default function HomePage() {
         }
         if (answer.conversation_id) {
           setConversationId(answer.conversation_id);
+          if (!hasNavigatedRef.current) {
+            hasNavigatedRef.current = true;
+            router.replace(`/gesprek/${answer.conversation_id}`);
+            if (navigator.clipboard?.writeText) {
+              void navigator.clipboard.writeText(`${window.location.origin}/gesprek/${answer.conversation_id}`);
+            }
+          }
         }
         setMessages((prev) =>
           prev.map((msg) =>
@@ -141,6 +155,8 @@ export default function HomePage() {
                   content: answer.answer,
                   citations: answer.citations,
                   verificationQuestions: answer.verification_questions,
+                  coverageGuidance: answer.coverage_guidance,
+                  coverageStatus: answer.coverage_status,
                 }
               : msg,
           ),
@@ -148,10 +164,17 @@ export default function HomePage() {
       },
       (err) => {
         setIsLoading(false);
+        if (err.name === "AbortError") return;
         setError(err.message);
         setMessages((prev) => prev.filter((msg) => msg.id !== pendingId));
       },
     );
+  };
+
+  const handleCancel = () => {
+    abortRef.current?.();
+    abortRef.current = null;
+    setIsLoading(false);
   };
 
   if (isChatActive) {
@@ -164,8 +187,12 @@ export default function HomePage() {
               <span className={styles.badge}>
                 {activeAudience === "layperson" ? "Begrijpelijke uitleg" : "Juridische modus"}
               </span>
-              {lockedMode && <span className={styles.badge}>{MODE_LABELS[lockedMode]}</span>}
-              <RetrievalRouteBadge route={retrievalRoute} />
+              {lockedMode && (
+                <span className={styles.badge} title="Modus vastgezet voor dit gesprek">
+                  {MODE_LABELS[lockedMode]} (vastgezet)
+                </span>
+              )}
+              <RetrievalRouteBadge route={retrievalRoute} audience={activeAudience} />
               {activeAudience === "professional" && (
                 <RetrievalExplainabilityPanel explainability={retrievalExplainability} />
               )}
@@ -177,8 +204,18 @@ export default function HomePage() {
         </header>
 
         <div className={chatStyles.chatBody}>
-          <ChatThread messages={messages} audience={activeAudience} conversationId={conversationId} />
-          <RetrievalStatus events={events} isLoading={isLoading} audience={activeAudience} />
+          <ChatThread
+            messages={messages}
+            audience={activeAudience}
+            conversationId={conversationId}
+            onVerificationSelect={setQuestion}
+          />
+          <RetrievalStatus
+            events={events}
+            isLoading={isLoading}
+            audience={activeAudience}
+            onCancel={handleCancel}
+          />
           {error && (
             <p className={styles.error} role="alert">
               {error}
@@ -216,14 +253,28 @@ export default function HomePage() {
           onModeChange={setQueryMode}
         />
 
-        <QueryFilterControls
-          domain={domainFilter}
-          timeContext={timeContext}
-          language={language}
-          onDomainChange={setDomainFilter}
-          onTimeContextChange={setTimeContext}
-          onLanguageChange={setLanguage}
-        />
+        <details className={styles.filtersCollapse}>
+          <summary className={styles.filtersSummary}>Filters en taal</summary>
+          <QueryFilterControls
+            domain={domainFilter}
+            timeContext={timeContext}
+            language={language}
+            onDomainChange={setDomainFilter}
+            onTimeContextChange={setTimeContext}
+            onLanguageChange={setLanguage}
+          />
+        </details>
+
+        <div className={styles.filtersDesktop}>
+          <QueryFilterControls
+            domain={domainFilter}
+            timeContext={timeContext}
+            language={language}
+            onDomainChange={setDomainFilter}
+            onTimeContextChange={setTimeContext}
+            onLanguageChange={setLanguage}
+          />
+        </div>
 
         <div className={styles.questionSection}>
           <ChatComposer
@@ -234,7 +285,7 @@ export default function HomePage() {
             label="Uw vraag"
             variant="landing"
           />
-          <RetrievalStatus events={events} isLoading={isLoading} audience={audience} />
+          <RetrievalStatus events={events} isLoading={isLoading} audience={audience} onCancel={handleCancel} />
           {error && (
             <p className={styles.error} role="alert">
               {error}

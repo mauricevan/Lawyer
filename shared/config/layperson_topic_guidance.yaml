@@ -1,0 +1,624 @@
+# Deterministic layperson answers for common EU topics
+version: "2026.07.03"
+
+topics:
+  - id: drone_privacy
+    patterns:
+      - drone
+      - filmen
+      - tuin
+      - buurman
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG / GDPR)"
+    short_answer_nl: >
+      Filmen met een drone boven andermans tuin kan inbreuk maken op de privacyregels.
+      U hebt recht op bescherming van uw persoonsgegevens en op uw woonomgeving.
+    summary_nl: >
+      De AVG vereist een geldige grondslag voor het verwerken van beelden waarin mensen
+      herkenbaar zijn. Een drone boven uw privéterrein kan persoonsgegevens verwerken.
+      De filmer moet u vaak informeren en mag niet meer verzamelen dan nodig is.
+    practical_nl: >
+      Noteer data, tijd en beelden. Vraag de filmer om te stoppen en overweeg contact
+      met de Autoriteit Persoonsgegevens als het doorgaat.
+
+  - id: ai_recruitment
+    patterns:
+      - ai om sollicitaties
+      - sollicitaties sorteren
+      - sollicitaties
+      - ai recruitment
+    regulation_celex: "32024R1689"
+    regulation_title: "Verordening (EU) 2024/1689 (AI Act)"
+    short_answer_nl: >
+      Wanneer AI sollicitaties beoordeelt, valt dat vaak onder **hoog-risico AI**.
+      Het bedrijf moet transparantie, menselijk toezicht en risicobeheersing inrichten.
+    summary_nl: >
+      De AI Act stelt eisen aan hoog-risico AI-systemen, waaronder HR- en
+      sollicitatiesystemen. Werkgevers moeten uitleggen wanneer AI wordt gebruikt,
+      data kwaliteit borgen en discriminatie voorkomen.
+    practical_nl: >
+      Vraag het bedrijf welk AI-systeem wordt gebruikt en welke rechten u hebt
+      (uitleg, menselijke beoordeling, klacht indienen).
+
+  - id: online_warranty
+    patterns:
+      - garantie
+      - online kopen
+      - webshop
+      - wasmachine
+      - bedenktijd
+      - opgelicht via een webshop
+      - geld terugvorderen
+      - tweedehands auto
+      - verborgen gebreken
+      - auto uit belgi
+    regulation_celex: "32011L0083"
+    regulation_title: "Richtlijn 2011/83/EU consumentenrechten"
+    short_answer_nl: >
+      Bij online aankopen binnen de EU hebt u minimaal **2 jaar wettelijke garantie**
+      op gebreken. U hebt ook een **bedenktijd van 14 dagen** bij koop op afstand.
+    summary_nl: >
+      EU-regels verplichten verkopers om duidelijke informatie te geven vóór de koop.
+      Bij gebreken kunt u reparatie, vervanging of terugbetaling eisen. Bij fraude
+      kunt u ook via Europese consumentenhulp (ECC) stappen ondernemen.
+    practical_nl: >
+      Bewaar orderbevestiging en communicatie. Meld gebreken schriftelijk binnen
+      redelijke termijn en vraag om herstel of terugbetaling.
+
+  - id: flight_compensation
+    patterns:
+      - vlucht
+      - vertraging
+      - compensatie
+      - luchthaven
+      - boarding geweigerd
+    regulation_celex: "32004R0261"
+    regulation_title: "Verordening (EG) nr. 261/2004 passagiersrechten"
+    short_answer_nl: >
+      Bij een vertraging van **3 uur of meer** binnen Europa hebt u meestal recht op
+      **compensatie** (€250–€600) en praktische hulp van de luchtvaartmaatschappij.
+    summary_nl: >
+      EU261 geldt voor vluchten vanuit EU-luchthavens en vluchten van EU-maatschappijen.
+      Na lange vertraging of annulering kunt u compensatie claimen, tenzij de maatschappij
+      een buitengewone omstandigheid aantoont.
+    practical_nl: >
+      Bewaar boardingpass en vertragingsschrijven. Dien uw claim schriftelijk in bij
+      de luchtvaartmaatschappij; bij weigering kunt u een klacht indienen.
+
+  - id: cookies_eprivacy
+    patterns:
+      - cookie
+      - cookiebanner
+      - cookies
+    regulation_celex: "32002L0058"
+    regulation_title: "Richtlijn 2002/58/EG (ePrivacy) en AVG"
+    short_answer_nl: >
+      Websites mogen trackingcookies meestal **niet zonder uw toestemming** plaatsen.
+      Een cookiebanner moet duidelijke keuzes bieden — geen onduidelijke vinkjes.
+    summary_nl: >
+      ePrivacy en de AVG vereisen toestemming voor niet-noodzakelijke cookies en
+      transparante informatie. Essentiële cookies (bijv. winkelwagen) mogen zonder
+      toestemming; analytics en marketing meestal niet.
+    practical_nl: >
+      Weiger niet-noodzakelijke cookies als u dat wilt. Controleer het privacybeleid
+      van de website voor welke gegevens worden verwerkt.
+
+  - id: cross_border_health
+    patterns:
+      - zorgverzekering
+      - behandeling in belgi
+      - grensoverschrijdend
+      - zorg in het buitenland
+    regulation_celex: "32011L0024"
+    regulation_title: "Richtlijn 2011/24/EU grensoverschrijdende patiëntenzorg"
+    short_answer_nl: >
+      U kunt soms **zorg in een andere EU-lidstaat** laten vergoeden, maar er gelden
+      voorwaarden en vaak voorafgaande toestemming of terugbetalingsregels.
+    summary_nl: >
+      EU-regels geven patiënten rechten op geplande zorg in het buitenland met
+      vergoeding volgens nationale regels. Spoedeisende zorg valt onder andere regels
+      (EHIC/Europese zorgverzekeringskaart).
+    practical_nl: >
+      Vraag vooraf bij uw zorgverzekeraar welke procedure en formulieren gelden
+      (bijv. S2 of terugbetalingsaanvraag).
+
+  - id: packaging_waste
+    patterns:
+      - plastic verpakking
+      - statiegeld
+      - verpakkingen
+    regulation_celex: "32024L2853"
+    regulation_title: "Verordening (EU) verpakkingen en verpakkingsafval (PPWR)"
+    short_answer_nl: >
+      De EU stelt steeds strengere regels voor verpakkingen: producenten **moeten**
+      afval verminderen, hergebruik stimuleren en recycleerbaarheid verbeteren.
+      Statiegeldregels verschillen per lidstaat.
+    summary_nl: >
+      Nieuwe EU-regels verplichten producenten verantwoordelijkheid voor verpakkingen
+      en stimuleren herbruikbare systemen. Statiegeld op drankverpakkingen wordt EU-breed
+      verder uitgerold; details worden nationaal ingevuld.
+    practical_nl: >
+      Check lokale regels voor inzameling en statiegeld. Producenten moeten
+      verduurzaming aantonen via rapportages.
+
+  - id: customs_gift
+    patterns:
+      - cadeau per post
+      - invoerrechten
+      - douane cadeau
+      - import uit de vs
+    regulation_celex: "32013R0952"
+    regulation_title: "Verordening (EU) nr. 952/2013 Unie douanewetboek"
+    short_answer_nl: >
+      Cadeaus per post kunnen **invoerrechten en btw** opleveren als de waarde boven
+      ca. **€150** uitkomt. De exacte drempel hangt af van type zending en herkomst.
+    summary_nl: >
+      Het EU-douanewetboek regelt invoer van goederen. Cadeaus zijn niet automatisch
+      vrijgesteld boven bepaalde waarden. De douane bepaalt of rechten verschuldigd zijn
+      op basis van waarde, herkomst en goederencode.
+    practical_nl: >
+      Houd rekening met invoerrechten bij cadeaus boven ca. €150. Bewaar factuur
+      of waardeverklaring en controleer TARIC voor uw specifieke product.
+
+  - id: parental_leave
+    patterns:
+      - ouderschapsverlof
+      - vaderschap
+      - vaderschapsverlof
+    regulation_celex: "32019L1152"
+    regulation_title: "Richtlijn (EU) 2019/1158 werk-privébalans"
+    short_answer_nl: >
+      EU-recht geeft vaders en tweede ouder recht op minimaal **10 weken betaald
+      ouderschapsverlof** (na nationale omzetting, vaak deels uitbetaald).
+    summary_nl: >
+      De richtlijn verplicht lidstaten minimumrechten voor ouderschapsverlof voor
+      beide ouders. De exacte uitbetaling en duur worden nationaal ingevuld —
+      Nederland kan meer bieden dan het EU-minimum.
+    practical_nl: >
+      Vraag bij uw werkgever en UWV welke regels in Nederland gelden voor uw situatie.
+
+  - id: payment_accounts
+    patterns:
+      - bank mijn rekening
+      - rekening sluiten
+      - betaalrekening
+    regulation_celex: "32014L0092"
+    regulation_title: "Richtlijn 2014/92/EU betaalrekeningen"
+    short_answer_nl: >
+      Een bank mag uw betaalrekening **niet zomaar sluiten**. U moet vooraf
+      **minimaal 2 maanden** schriftelijk gewaarschuwd worden, behalve in fraudegevallen.
+    summary_nl: >
+      EU-regels beschermen consumenten met een betaalrekening: duidelijke informatie,
+      redelijke kosten en bescherming bij sluiting. Sluiting zonder gegronde reden
+      of zonder termijn is meestal niet toegestaan.
+    practical_nl: >
+      Bewaar alle brieven van de bank. Bij onterechte sluiting kunt u klagen bij
+      de bank en de financiële geschillencommissie.
+
+  - id: crypto_mica
+    patterns:
+      - crypto
+      - bitcoin
+      - mica
+    regulation_celex: "32023R1114"
+    regulation_title: "Verordening (EU) 2023/1114 (MiCA)"
+    short_answer_nl: >
+      Sinds 2024 gelden EU-regels (**MiCA**) voor crypto-aanbieders: vergunning,
+      informatieplicht en consumentenbescherming bij verkoop aan particulieren.
+    summary_nl: >
+      MiCA verplicht crypto-dienstverleners transparante informatie te geven over
+      risico's, kosten en bescherming. Niet-gereguleerde aanbieders mogen in de EU
+      beperkt opereren; consumenten hebben meer rechten bij erkende partijen.
+    practical_nl: >
+      Controleer of de app een EU-vergunning heeft. Lees risicowaarschuwingen
+      en bewaar alle transactiegegevens.
+
+  - id: web_accessibility
+    patterns:
+      - toegankelijk
+      - blinden
+      - webshop toegankelijk
+    regulation_celex: "32019L0882"
+    regulation_title: "Richtlijn (EU) 2019/882 Europese Toegankelijkheidswet"
+    short_answer_nl: >
+      Steeds meer online diensten en producten moeten **toegankelijk** zijn voor
+      mensen met een handicap, inclusief webshops die consumentenproducten verkopen.
+    summary_nl: >
+      De Europese Toegankelijkheidswet verplicht leveranciers van bepaalde producten
+      en diensten (o.a. e-commerce) barrières weg te nemen. Denk aan leesbare teksten,
+      toetsenbordnavigatie en compatibiliteit met hulpsoftware.
+    practical_nl: >
+      Test uw webshop met toegankelijkheidstools. Documenteer verbeteringen —
+      dit wordt steeds vaker gecontroleerd.
+
+  - id: product_safety
+    patterns:
+      - glasscherven
+      - voedsel
+      - productveiligheid
+      - consumenten beschermen
+    regulation_celex: "32023R0988"
+    regulation_title: "Verordening (EU) 2023/988 algemene productveiligheid (GPSR)"
+    short_answer_nl: >
+      EU-regels verplichten producenten en verkopers **veilige producten** op de
+      markt te brengen. U hebt recht op informatie, terugroeping en schadevergoeding.
+    summary_nl: >
+      De GPSR versterkt consumentenbescherming: onveilige producten moeten worden
+      teruggeroepen. Verkopers moeten meldingen over gevaarlijke producten doorgeven
+      en consumenten informeren.
+    practical_nl: >
+      Bewaar het product, foto's en aankoopbewijs. Meld het bij de verkoper én
+      de nationale autoriteit voor productveiligheid.
+
+  - id: data_portability
+    patterns:
+      - spotify
+      - playlists meenemen
+      - data portability
+      - gegevensoverdraagbaarheid
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG / GDPR)"
+    short_answer_nl: >
+      Onder de AVG hebt u recht op **gegevensoverdraagbaarheid**: u kunt uw gegevens
+      in een machineleesbaar formaat opvragen en naar een andere dienst meenemen.
+    summary_nl: >
+      Artikel 20 AVG geeft u het recht om gegevens die u zelf aanleverde (bijv.
+      playlists, voorkeuren) te ontvangen en door te geven aan een andere aanbieder,
+      wanneer verwerking op toestemming of contract is gebaseerd.
+    practical_nl: >
+      Vraag Spotify om export van uw gegevens. Controleer of de nieuwe dienst
+      import ondersteunt — technische compatibiliteit verschilt per app.
+
+  - id: deepfake_ai
+    patterns:
+      - deepfake
+      - gezicht in een video
+    regulation_celex: "32024R1689"
+    regulation_title: "Verordening (EU) 2024/1689 (AI Act)"
+    short_answer_nl: >
+      **Ja**, platformen **moeten** deepfakes labelen en misbruik van AI-beelden beperken.
+      U kunt ook onder de AVG actie vragen tegen misbruik van uw gezichtsbeelden.
+    summary_nl: >
+      AI Act-artikelen over transparantie vereisen dat deepfakes als zodanig worden
+      gemeld. Daarnaast beschermt de AVG uw persoonsgegevens (beeltenis). Platformen
+      moeten meldingen behandelen en content kunnen verwijderen.
+    practical_nl: >
+      Meld de video bij het platform met AVG-grond (recht op verwijdering).
+      Overweeg contact met de Autoriteit Persoonsgegevens bij ernstig misbruik.
+
+  - id: import_car
+    patterns:
+      - elektrische auto import
+      - typegoedkeuring
+      - auto uit duitsland
+    regulation_celex: "32018R0858"
+    regulation_title: "Verordening (EU) 2018/858 typegoedkeuring voertuigen"
+    short_answer_nl: >
+      Geïmporteerde auto's moeten voldoen aan **EU-typegoedkeuring** en nationale
+      registratie-eisen. Elektrische auto's hebben extra eisen voor veiligheid en emissies.
+    summary_nl: >
+      EU-regels harmoniseren technische eisen voor voertuigen op de interne markt.
+      Bij import uit een andere EU-lidstaat gelden vaak vereenvoudigde procedures,
+      maar registratie, belasting en keuring blijven nationaal geregeld.
+    practical_nl: >
+      Vraag het CVO (Certificate of Conformity) op en check RDW-regels vóór aankoop.
+
+  - id: customs_union
+    patterns:
+      - 952/2013
+      - douanewetboek
+      - unie douanewetboek
+      - douane reglement
+    regulation_celex: "32013R0952"
+    regulation_title: "Verordening (EU) nr. 952/2013 Unie douanewetboek"
+    short_answer_nl: >
+      Dit is het **EU-douanewetboek**: regels voor invoer, uitvoer, douaneaangifte,
+      risicobeheer en vergunningen binnen de interne markt.
+    summary_nl: >
+      Verordening 952/2013 moderniseert douaneprocessen in de EU. Het regelt
+      aangifte, controle, vergunningen en samenwerking tussen lidstaten.
+      Importeurs en exporteurs moeten goederen correct classificeren en aangeven.
+    practical_nl: >
+      Raadpleeg TARIC voor codes en rechten. Bij import: bewaar facturen en
+      gebruik een douane-expediteur bij complexe zendingen.
+
+  - id: ai_training_data
+    patterns:
+      - ai te trainen
+      - ai trainen
+      - klantgegevens gebruiken
+      - gegevens gebruiken om mijn ai
+    regulation_celex: "32024R1689"
+    regulation_title: "Verordening (EU) 2024/1689 (AI Act) en AVG"
+    short_answer_nl: >
+      **Niet zomaar toegestaan.** U mag klantgegevens alleen voor AI-training
+      gebruiken met een **geldige grondslag** (vaak expliciete toestemming) en
+      transparante informatie onder de **AVG** en **AI Act**.
+    summary_nl: >
+      De AVG vereist een rechtmatige grondslag, doelbinding en dataminimalisatie.
+      De AI Act voegt eisen toe voor AI-systemen (data governance, risico's).
+      Anonieme of geaggregeerde data kan soms wel, persoonsgegevens zelden zonder
+      toestemming of contract.
+    practical_nl: >
+      Leg vast welke gegevens u gebruikt, informeer klanten en voer een
+      gegevensbeschermingseffectbeoordeling uit. Vraag juridisch advies vóór training.
+
+  - id: energy_label
+    patterns:
+      - energielabel
+      - verhuurder
+    regulation_celex: "32010L0031"
+    regulation_title: "Richtlijn 2010/31/EU energieprestatie gebouwen (EPBD)"
+    short_answer_nl: >
+      Verhuurders moeten huurders **informatie over energieprestatie** geven,
+      vaak via een energielabel. Exacte verplichtingen worden deels nationaal ingevuld.
+    summary_nl: >
+      EU-regels verplichten energielabels bij verkoop en verhuur van gebouwen.
+      Het label geeft inzicht in energieverbruik en helpt u de woning te vergelijken.
+      In Nederland gelden aanvullende regels via het Bouwbesluit.
+    practical_nl: >
+      Vraag uw verhuurder schriftelijk om het energielabel vóór of bij aanvang van de huur.
+
+  - id: minors_social_media
+    patterns:
+      - tiktok
+      - minderjarig
+      - kind is 15
+      - social media
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG / GDPR)"
+    short_answer_nl: >
+      Voor kinderen onder 16 (in Nederland) geldt vaak **ouderlijke toestemming**
+      voordat apps persoonsgegevens mogen verwerken. Platforms moeten kinderen extra beschermen.
+    summary_nl: >
+      De AVG vereist een geldige rechtsgrond voor verwerking van gegevens van minderjarigen.
+      Veel lidstaten, waaronder Nederland, stellen 16 jaar als minimumleeftijd voor
+      zelfstandige toestemming bij onlinediensten.
+    practical_nl: >
+      Controleer leeftijdsinstellingen en privacybeleid van de app. Als ouder kunt u
+      toestemming intrekken via account- of privacy-instellingen.
+
+  - id: avg_contacts
+    patterns:
+      - contacten
+      - telefoonboek
+      - app toegang tot mijn contacten
+      - toegang tot mijn contacten
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG / GDPR)"
+    short_answer_nl: >
+      **Nee, niet zonder duidelijke uitleg.** Een app mag uw contacten alleen gebruiken
+      als dat **noodzakelijk** is voor de dienst én u **informerend toestemming** geeft.
+    summary_nl: >
+      Contacten van anderen zijn ook persoonsgegevens. De app moet u uitleggen waarom
+      toegang nodig is en u moet toestemming kunnen weigeren zonder nadeel voor de kernfunctie.
+    practical_nl: >
+      Weiger contacttoegang als u die niet nodig vindt. Controleer welke gegevens
+      worden geüpload en verwijder ze via privacy-instellingen.
+
+  - id: cash_payments
+    patterns:
+      - contant geld
+      - contant betalen
+      - cash betalen
+      - pin weigeren
+    regulation_celex: "32015L2366"
+    regulation_title: "Richtlijn (EU) 2015/2366 (PSD2) en nationale regels"
+    short_answer_nl: >
+      EU-recht verbiedt **niet** dat winkels contant weigeren in alle situaties, maar
+      **wel** onredelijke beperkingen op betaaldiensten. Vaak geldt nationaal recht.
+    summary_nl: >
+      PSD2 regelt vooral elektronische betalingen en consumentenbescherming bij betalen.
+      Of een winkel contant moet accepteren, hangt ook af van nationale regels en
+      sectorafspraken — dit verschilt per land.
+    practical_nl: >
+      Vraag om alternatief (pin) of zoek een andere winkel. Bij discriminatie kunt u
+      een klacht indienen bij de consumentenautoriteit.
+
+  - id: working_time
+    patterns:
+      - maximum aantal uur
+      - werkweek
+      - overuren
+      - maximum uur per week
+    regulation_celex: "32003L0088"
+    regulation_title: "Richtlijn 2003/88/EG arbeidstijden"
+    short_answer_nl: >
+      EU-recht stelt grenzen aan **wekelijkse arbeidstijd** en **rusttijden**:
+      gemiddeld maximaal **48 uur per week** (inclusief overuren) en minimaal 11 uur rust per dag.
+    summary_nl: >
+      De arbeidstijdenrichtlijn beschermt gezondheid en veiligheid via maximum uren,
+      pauzes en nachtarbeidsregels. Lidstaten mogen strengere nationale regels handhaven.
+    practical_nl: >
+      Controleer uw contract en cao. Bij structurele overschrijding kunt u contact
+      opnemen met uw vakbond of inspectie SZW.
+
+  - id: driving_license_eu
+    patterns:
+      - rijbewijs
+      - rijden in itali
+      - rijden in duitsland
+      - nederlands rijbewijs
+    regulation_celex: "32006L0126"
+    regulation_title: "Richtlijn 2006/126/EG rijbewijzen"
+    short_answer_nl: >
+      **Ja**, met een geldig **Nederlands rijbewijs mag u in EU-landen rijden**
+      voor voertuigen waarvoor uw rijbewijs geldt, zolang het niet is ingetrokken.
+    summary_nl: >
+      EU-regels erkennen rijbewijzen uit andere lidstaten wederzijds. Permanente
+      verhuizing kan verplichten om te ruilen voor een lokaal rijbewijs.
+    practical_nl: >
+      Neem uw fysieke rijbewijs mee. Bij langdurig wonen in het buitenland: check
+      lokale omruiltermijnen.
+
+  - id: wine_import_personal
+    patterns:
+      - wijn import
+      - wijn uit frankrijk
+      - liter wijn
+      - eigen gebruik
+    regulation_celex: "32009R1100"
+    regulation_title: "Verordening (EU) nr. 1100/2008 en douaneregelgeving"
+    short_answer_nl: >
+      Voor **privé-import** gelden **accijns- en douanelimieten** per lidstaat.
+      Binnen EU-reizen zijn grotere hoeveelheden voor eigen gebruik meestal toegestaan.
+    summary_nl: >
+      EU-regels harmoniseren accijns op alcohol, maar hoeveel liter u mag invoeren
+      zonder extra formaliteiten hangt af van vervoerswijze en of het echt voor eigen
+      gebruik is. Douane kan bij grote hoeveelheden vragen stellen.
+    practical_nl: >
+      Bewaar aankoopbewijs. Bij meer dan een kleine persoonlijke voorraad: check
+      douane-limieten van uw land.
+
+  - id: iot_smart_home
+    patterns:
+      - thermostaat
+      - slimme thermostaat
+      - iot
+      - sensor thuis
+      - smart home
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG / GDPR)"
+    short_answer_nl: >
+      Slimme apparaten verwerken vaak **persoonsgegevens** (temperatuur, aanwezigheid).
+      De fabrikant moet u **duidelijk informeren** en een **rechtsgrond** hebben.
+    summary_nl: >
+      Onder de AVG gelden informatieplicht, dataminimalisatie en beveiliging ook voor
+      IoT-apparaten. Cloudkoppelingen vallen onder dezelfde regels als andere apps.
+    practical_nl: >
+      Lees privacy-instellingen, beperk datadeling en kies sterke wachtwoorden.
+      Schakel onnodige microfoon/camera-functies uit.
+
+  - id: telecom_contract
+    patterns:
+      - telefoonabonnement
+      - provider me vastzetten
+      - abonnement loopt
+      - telecom contract
+    regulation_celex: "32018L1972"
+    regulation_title: "Richtlijn (EU) 2018/1972 Europees wetboek van elektronische communicatie"
+    short_answer_nl: >
+      **Nee, niet onbeperkt.** EU-regels beperken lange **contractduur** en
+      **opzegkosten** bij telecomabonnementen; consumenten moeten redelijk kunnen wisselen.
+    summary_nl: >
+      Nationale regels implementeren EU-telecomkader met maxima op contracttermijnen,
+      transparante tarieven en nummerbehoud. Vastzetten voor 3 jaar kan onrechtmatig zijn.
+    practical_nl: >
+      Controleer uw contract en ACM-voorlichting. Bij onredelijke opzegblokkade:
+      dien klacht in bij provider en ACM.
+
+  - id: eu_tenant_rental
+    patterns:
+      - huurder
+      - huur huis
+      - huur in spanje
+      - verhuurder
+      - huurcontract
+    regulation_celex: "32016L2342"
+    regulation_title: "Richtlijn (EU) 2016/2342 en consumentenbescherming huur"
+    short_answer_nl: >
+      **Ja**, EU-regels geven huurders **bescherming tegen oneerlijke clausules** en
+      verplichten **duidelijke contractinformatie**. Nationaal recht regelt vaak de huurprijs.
+    summary_nl: >
+      Richtlijnen over oneerlijke bedingen en consumenteninformatie gelden ook bij
+      grensoverschrijdende huur. Exacte huurbescherming (duur, opzegging, deposito)
+      wordt grotendeels nationaal ingevuld, ook in Spanje.
+    practical_nl: >
+      Lees het contract vóór ondertekening. Bij twijfel: Europese consumentencentra (ECC)
+      of lokale huurdersorganisatie.
+
+  - id: cross_border_social_security
+    patterns:
+      - sociale zekerheid
+      - werk in nederland woon
+      - grensarbeider
+      - woon in duitsland
+    regulation_celex: "32004R0883"
+    regulation_title: "Verordening (EG) nr. 883/2004 coördinatie sociale zekerheid"
+    short_answer_nl: >
+      **Meestal** geldt één **coördinatieregeling**: u bent verzekerd waar u **werkt**,
+      tenzij u als **grensarbeider** onder speciale regels valt.
+    summary_nl: >
+      EU-regels voorkomen dat u dubbel verzekerd bent of zonder dekking valt bij
+      werken in het ene land en wonen in het andere. Uw ziektekosten, pensioenopbouw
+      en uitkeringen worden gecoördineerd via formulieren (bijv. A1, S1).
+    practical_nl: >
+      Vraag bij uw werkgever en sociale verzekeringsinstelling welk land leidend is.
+      Bewaar het A1-certificaat.
+
+  - id: food_liability_consumer
+    patterns:
+      - eten via deliveroo
+      - voedselveiligheid
+      - ziek werd van eten
+      - aansprakelijk stellen eten
+      - deliveroo
+    regulation_celex: "32004R0852"
+    regulation_title: "Verordening (EG) nr. 852/2004 voedselveiligheid"
+    short_answer_nl: >
+      **Ja, soms** kunt u de verkoper aansprakelijk stellen als voedsel **onveilig** was
+      en u **bewijs** hebt. EU-regels verplichten **voedselveiligheid** in de hele keten.
+    summary_nl: >
+      EU-voedselhygiëne- en veiligheidsregels gelden voor producenten, horeca en
+      platformverkopers. U moet schade en causaal verband aantonen; platformen hebben
+      ook informatie- en meldingsplichten.
+    practical_nl: >
+      Bewaar bestelling, foto's en medische informatie. Meld het bij de verkoper en
+      overweeg consumentenklacht via ECC.
+
+  - id: e_evidence_police
+    patterns:
+      - telefoon uitlezen
+      - politie mijn telefoon
+      - warrant
+      - e-evidence
+    regulation_celex: "32016L0680"
+    regulation_title: "Richtlijn (EU) 2016/680 gegevensbescherming strafrecht"
+    short_answer_nl: >
+      **Nee, niet zomaar.** Politie mag telefoongegevens meestal alleen uitlezen met
+      **wettelijke grondslag** en **toezicht** — vaak een **rechterlijke machtiging**.
+    summary_nl: >
+      EU-regels harmoniseren bescherming van persoonsgegevens in strafzaken.
+      Nationale strafproceswetten bepalen wanneer opsporing toegang krijgt tot
+      telefoondata; bulk-toegang zonder controle is beperkt.
+    practical_nl: >
+      Vraag schriftelijk welke wettelijke basis is gebruikt. Raadpleeg een advocaat
+      als u toegang betwist.
+
+  - id: pregnancy_employment
+    patterns:
+      - zwanger
+      - ontslaan zwanger
+      - zwangerschap werk
+      - baas wil me ontslaan
+    regulation_celex: "32006L0054"
+    regulation_title: "Richtlijn 2006/54/EG gelijke behandeling mannen en vrouwen"
+    short_answer_nl: >
+      **Nee, meestal niet.** Ontslag **vanwege zwangerschap** is in EU-recht **verboden**;
+      u hebt **bescherming** tijdens en kort na zwangerschapsverlof.
+    summary_nl: >
+      EU-gelijkheidsregels beschermen zwangere werknemers tegen discriminatie en
+      onterecht ontslag. Lidstaten moeten effectieve rechtsmiddelen bieden en
+      omkering van bewijslast toepassen bij vermoeden van discriminatie.
+    practical_nl: >
+      Documenteer communicatie met uw werkgever. Neem contact op met vakbond,
+      arbeidsinspectie of juridisch loket.
+
+  - id: gdpr_recruitment_retention
+    patterns:
+      - sollicitatiegegevens
+      - sollicitatie bewaren
+      - sollicitatiegegevens bewaren
+      - recruitment data
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG / GDPR)"
+    short_answer_nl: >
+      **Niet onbeperkt.** Sollicitatiegegevens mag een werkgever alleen **bewaren**
+      zolang dat **noodzakelijk** is — meestal **enkele maanden**, tenzij u instemt met langer.
+    summary_nl: >
+      De AVG vereist dat bewaartermijnen beperkt en doelgebonden zijn. Afgewezen
+      kandidaten moeten gegevens na redelijke termijn worden verwijderd, tenzij er
+      een andere rechtsgrond is (bijv. juridische procedure).
+    practical_nl: >
+      Vraag het privacybeleid van de werkgever. U kunt vernietiging of inzage vragen
+      via uw AVG-rechten.

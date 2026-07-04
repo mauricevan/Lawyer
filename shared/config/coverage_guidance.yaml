@@ -1,0 +1,300 @@
+# Topic guidance when EUR-Lex corpus cannot answer (NL-first)
+version: "2026.07.03"
+
+topics:
+  - id: workplace_monitoring
+    sensitivity: high
+    patterns:
+      - e-mail
+      - e-mails
+      - teams
+      - productiviteit
+      - toezicht
+      - monitoring
+      - scannen
+      - bespied
+      - whatsapp
+    chunk_keywords:
+      - privacy
+      - persoonsgegeven
+      - gegevensbescherming
+      - surveillance
+      - monitoring
+      - werknemer
+    empathy_opener: >-
+      Dit is begrijpelijkerwijs een zorgelijke situatie.
+    frameworks:
+      - name: AVG / GDPR (EU 2016/679)
+        summary: >-
+          Regels over verwerking van persoonsgegevens, waaronder communicatie op het werk.
+      - name: Richtlijn transparante en voorspelbare arbeidsvoorwaarden (EU 2019/1152)
+        summary: >-
+          EU-kader voor eerlijke arbeidsvoorwaarden; nationale uitwerking kan extra rechten geven.
+      - name: Nationale arbeids- en privacywetgeving
+        summary: >-
+          Nederlandse wetten, cao's en ondernemingsraad-rechten vallen grotendeels buiten EUR-Lex.
+    referrals:
+      - label: Autoriteit Persoonsgegevens
+        url: https://autoriteitpersoonsgegevens.nl
+        type: authority
+      - label: Juridisch Loket
+        url: https://www.juridischloket.nl
+        type: legal_aid
+      - label: FNV (vakbond)
+        url: https://www.fnv.nl
+        type: union
+
+  - id: employee_data_privacy
+    sensitivity: high
+    patterns:
+      - privacy op het werk
+      - werknemersdata
+      - werknemer persoonsgegeven
+      - werknemers persoonsgegevens
+      - cameratoezicht
+      - gezichtsherkenning
+      - werkgever persoonsgegevens
+    chunk_keywords:
+      - persoonsgegeven
+      - privacy
+      - gegevensbescherming
+      - gdpr
+      - avg
+    empathy_opener: >-
+      Vragen over privacy op het werk zijn begrijpelijk belangrijk voor u.
+    frameworks:
+      - name: AVG / GDPR (EU 2016/679)
+        summary: >-
+          Basisregels voor rechtmatige verwerking, informatieplicht en rechten van betrokkenen.
+      - name: Nationale uitvoeringswetgeving (bijv. UAVG)
+        summary: >-
+          Nederlandse invulling en toezicht; niet volledig in deze kennisbasis.
+    referrals:
+      - label: Autoriteit Persoonsgegevens
+        url: https://autoriteitpersoonsgegevens.nl
+        type: authority
+      - label: Juridisch Loket
+        url: https://www.juridischloket.nl
+        type: legal_aid
+
+  - id: national_law
+    sensitivity: high
+    patterns:
+      - nederlandse wet
+      - nationale wet
+      - vakantiedagen
+      - cao
+      - arbeidsrecht nederland
+    chunk_keywords:
+      - arbeidstijd
+      - vakantie
+      - cao
+    empathy_opener: >-
+      Vragen over puur Nederlandse wetgeving vallen vaak buiten EUR-Lex.
+    frameworks:
+      - name: Nationale wetgeving (Nederland)
+        summary: >-
+          Dit is nationale wetgeving, niet EUR-Lex. Omzetting van EU-richtlijnen kan afwijken.
+      - name: EUR-Lex (EU-bronnen)
+        summary: >-
+          Deze kennisbasis bevat vooral EU-verordeningen en richtlijnen.
+    referrals:
+      - label: Juridisch Loket
+        url: https://www.juridischloket.nl
+        type: legal_aid
+      - label: Overheid.nl
+        url: https://www.overheid.nl
+        type: authority
+
+  - id: health_insurance_non_discrimination
+    sensitivity: high
+    patterns:
+      - zorgverzekeraar
+      - medische aandoening
+      - zorgverzekering weigeren
+      - verzekering weigeren
+    chunk_keywords:
+      - zorgverzekering
+      - discriminatie
+      - gezondheid
+    empathy_opener: >-
+      Het is begrijpelijk dat u zich zorgen maakt over acceptatie door een verzekeraar.
+    frameworks:
+      - name: Richtlijn 2000/78/EG (gelijke behandeling)
+        summary: >-
+          EU-recht verbiedt discriminatie op grond van handicap of gezondheid bij
+          verzekeringen, met beperkte uitzonderingen. Details worden nationaal ingevuld.
+      - name: Nationale zorgverzekering (Nederland)
+        summary: >-
+          Acceptatie en premie vallen grotendeels onder nationaal recht en toezicht,
+          niet volledig in EUR-Lex.
+    referrals:
+      - label: Zorgverzekeringslijn
+        url: https://www.zorgverzekeringslijn.nl
+        type: legal_aid
+      - label: Autoriteit Consument & Markt (ACM)
+        url: https://www.acm.nl
+        type: authority
+
+  - id: fallback_general
+    sensitivity: low
+    patterns: []
+    chunk_keywords: []
+    empathy_opener: ""
+    frameworks:
+      - name: Relevante EU-verordeningen en richtlijnen
+        summary: >-
+          Zoek op EUR-Lex of raadpleeg een jurist voor uw specifieke situatie.
+      - name: Nationale wetgeving
+        summary: >-
+          Omzetting en handhaving in Nederland staan vaak buiten deze kennisbasis.
+    referrals:
+      - label: Juridisch Loket
+        url: https://www.juridischloket.nl
+        type: legal_aid
+      - label: EUR-Lex
+        url: https://eur-lex.europa.eu
+        type: authority
+
+  - id: theme_privacy
+    sensitivity: high
+    patterns:
+      - avg
+      - gdpr
+      - persoonsgegevens
+      - camera
+      - tracking
+      - cookies
+      - privacy
+    chunk_keywords:
+      - privacy
+      - persoonsgegeven
+      - gegevensbescherming
+    empathy_opener: >-
+      Vragen over privacy zijn begrijpelijk belangrijk.
+    frameworks:
+      - name: AVG / GDPR (EU 2016/679)
+        summary: >-
+          EU-privacyregels; nationale toezichthouders handhaven de uitvoering.
+    referrals:
+      - label: Autoriteit Persoonsgegevens
+        url: https://autoriteitpersoonsgegevens.nl
+        type: authority
+      - label: European Data Protection Board
+        url: https://www.edpb.europa.eu/
+        type: authority
+
+  - id: theme_consument
+    sensitivity: low
+    patterns:
+      - koop
+      - terugsturen
+      - garantie
+      - webshop
+      - levering
+      - abonnement
+      - consument
+    chunk_keywords:
+      - consument
+      - koop
+      - garantie
+    empathy_opener: ""
+    frameworks:
+      - name: EU consumentenrecht
+        summary: >-
+          Richtlijnen over koop op afstand, garantie en oneerlijke handelspraktijken.
+    referrals:
+      - label: ECC Nederland
+        url: https://www.eccnederland.nl
+        type: legal_aid
+      - label: Europese Commissie consumenten
+        url: https://ec.europa.eu/info/live-work-travel-eu/consumers_nl
+        type: authority
+
+  - id: theme_arbeid
+    sensitivity: high
+    patterns:
+      - loon
+      - ontslag
+      - vakantiedagen
+      - zwangerschapsverlof
+      - arbeidscontract
+      - werkgever
+    chunk_keywords:
+      - arbeid
+      - werknemer
+    empathy_opener: >-
+      Arbeidsvragen kunnen ingrijpend zijn; veel regels zijn nationaal ingevuld.
+    frameworks:
+      - name: Nationale arbeidswetgeving
+        summary: >-
+          Loon, ontslag en vakantie vallen grotendeels buiten EUR-Lex.
+      - name: EU arbeidsmobiliteit
+        summary: >-
+          Grensarbeid en detachering hebben EU-kaders op ec.europa.eu/social.
+    referrals:
+      - label: Juridisch Loket
+        url: https://www.juridischloket.nl
+        type: legal_aid
+      - label: Europese Commissie sociaal beleid
+        url: https://ec.europa.eu/social/
+        type: authority
+
+  - id: theme_digitaal
+    sensitivity: low
+    patterns:
+      - app
+      - platform
+      - algoritme
+      - ai
+      - sociale media
+      - moderatie
+      - chatbot
+    chunk_keywords:
+      - digitaal
+      - platform
+      - ai
+    empathy_opener: ""
+    frameworks:
+      - name: Digital Services Act / AI Act
+        summary: >-
+          EU-regels voor platforms, contentmoderatie en AI-systemen.
+    referrals:
+      - label: Digital Strategy EU
+        url: https://digital-strategy.ec.europa.eu/
+        type: authority
+      - label: ACM (digitale markt)
+        url: https://www.acm.nl
+        type: authority
+
+mismatch_intents:
+  surveillance_signals:
+    - werkgever
+    - monitor
+    - e-mail
+    - teams
+    - productiviteit
+    - scannen
+    - toezicht
+  irrelevant_intent_ids:
+    - INT-EMPLOYMENT-HOURS
+    - INT-EMPLOYMENT-AGENCY
+
+topic_gate_exclude_patterns:
+  - chatbot
+  - ai act
+  - ai-wet
+  - kunstmatige intelligentie
+  - gdpr
+  - avg
+  - persoonsgegeven
+  - registreren
+  - whistleblower
+  - klokkenluider
+  - cookie
+  - vlucht
+  - compensatie
+  - crypto
+  - deepfake
+  - sollicitaties
+  - whatsapp

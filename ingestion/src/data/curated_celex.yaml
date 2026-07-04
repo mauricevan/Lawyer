@@ -85,9 +85,24 @@ clusters:
   health_product:
     - "32017R0745"
     - "32017R0746"
+  environment_liability:
+    - "32004L0035"
+    - "32019L0904"
+    - "32024R1681"
+    - "32018L2001"
     - "32017R0745"
     - "32014R0536"
     - "32023R2859"
+  customs_tariff:
+    - "31987R2658"
+  customs_union:
+    - "32013R0952"
+    - "32015R2446"
+    - "32015R2447"
+  product_safety:
+    - "32001L0095"
+  tax_vat:
+    - "32006L0112"
 
 documents:
   # --- AI & Digital ---
@@ -239,6 +254,39 @@ documents:
     short_title: "Consumer Cooperation"
     doc_type: regulation
     oj_reference: "L 350/14"
+
+  # --- Customs (DWU — blueprint Priority 1) ---
+  - celex: "32013R0952"
+    title: "Verordening (EU) nr. 952/2013 tot vaststelling van het douanewetboek van de Unie (DWU/UCC)"
+    short_title: "UCC"
+    doc_type: regulation
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 269/1"
+  - celex: "32015R2446"
+    title: "Gedelegeerde Verordening (EU) 2015/2446 tot aanvulling van Verordening (EU) nr. 952/2013"
+    short_title: "UCC Delegated"
+    doc_type: regulation
+    oj_reference: "L 343/1"
+  - celex: "32015R2447"
+    title: "Uitvoeringsverordening (EU) 2015/2447 tot vaststelling van nadere voorschriften voor de uitvoering van Verordening (EU) nr. 952/2013"
+    short_title: "UCC Implementing"
+    doc_type: regulation
+    oj_reference: "L 343/558"
+  - celex: "32001L0095"
+    title: "Richtlijn 2001/95/EG betreffende de algemene productveiligheid"
+    short_title: "Product Safety"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 11/4"
+  - celex: "32006L0112"
+    title: "Richtlijn 2006/112/EG betreffende het gemeenschappelijke stelsel van belasting over de toegevoegde waarde"
+    short_title: "VAT Directive"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 347/1"
 
   # --- Privacy & Data ---
   - celex: "32016R0679"
@@ -689,3 +737,45 @@ documents:
     short_title: "SFTR"
     doc_type: regulation
     oj_reference: "L 337/1"
+  - celex: "31987R2658"
+    title: "Verordening (EEG) nr. 2658/87 betreffende de tarief- en statistiekenomenclatuur (GN)"
+    short_title: "Gecombineerde Nomenclatuur"
+    doc_type: regulation
+    oj_reference: "L 256/1"
+  - celex: "32023R1114"
+    title: "Verordening (EU) 2023/1114 betreffende markten in cryptoactiva (MiCA)"
+    short_title: "MiCA"
+    doc_type: regulation
+    oj_reference: "L 150/40"
+  - celex: "32019L0770"
+    title: "Richtlijn (EU) 2019/770 betreffende bepaalde aspecten van overeenkomsten betreffende de verkoop van goederen"
+    short_title: "Digitale inhoud richtlijn"
+    doc_type: directive
+    oj_reference: "L 136/28"
+  - celex: "32018R0644"
+    title: "Verordening (EU) 2018/644 betreffende grensoverschrijdende pakketbezorgdiensten"
+    short_title: "Pakketbezorging"
+    doc_type: regulation
+    oj_reference: "L 112/69"
+  - celex: "32023R0851"
+    title: "Verordening (EU) 2023/851 tot wijziging van verordening (EU) 2019/631 CO2 personenauto's"
+    short_title: "CO2 auto's"
+    doc_type: regulation
+    oj_reference: "L 110/1"
+  - celex: "32004R0852"
+    title: "Verordening (EG) nr. 852/2004 betreffende de hygiëne van levensmiddelen"
+    short_title: "Voedselhygiëne"
+    doc_type: regulation
+    oj_reference: "L 139/1"
+  - celex: "32019R0947"
+    title: "Verordening (EU) 2019/947 betreffende de exploitatie van onbemande luchtvaartuigen"
+    short_title: "UAS exploitatie"
+    doc_type: regulation
+    oj_reference: "L 152/45"
+  - celex: "32004L0035"
+    title: "Richtlijn 2004/35/EG betreffende milieuaansprakelijkheid met betrekking tot het voorkomen en het herstellen van milieuschade"
+    short_title: "Milieuaansprakelijkheid"
+    doc_type: directive
+    is_consolidated: true
+    version_type: consolidated
+    oj_reference: "L 143/56"

@@ -20,6 +20,13 @@ class StageCounts:
     final: int = 0
 
 
+@dataclass(slots=True)
+class DiscoveryContext:
+    celex: str | None = None
+    source: str | None = None
+    live_fallback_forced: bool = False
+
+
 class RetrievalExplainabilityService:
     """Maps internal retrieval context to public explainability schema."""
 
@@ -31,15 +38,17 @@ class RetrievalExplainabilityService:
         reranker: RerankerService,
         hybrid_rrf_enabled: bool,
         chunks: list[dict],
+        discovery: DiscoveryContext | None = None,
     ) -> RetrievalExplainability:
         filters = request.filters or QueryFilters()
+        ctx = discovery or DiscoveryContext()
         return RetrievalExplainability(
             route=route,  # type: ignore[arg-type]
             query_language=filters.language or request.language,
             router=RouterDecision(
                 domains=[filters.domain] if filters.domain else [],
                 doc_types=[filters.doc_type] if filters.doc_type else [],
-                celex_hint=filters.celex,
+                celex_hint=filters.celex or ctx.celex,
                 language=filters.language or request.language,
                 time_context=filters.time_context,
                 intent_id=filters.intent_id,
@@ -58,6 +67,10 @@ class RetrievalExplainabilityService:
                 "final": counts.final,
             },
             sources=self._source_breakdown(chunks),
+            discovery_celex=ctx.celex,
+            discovery_source=ctx.source,
+            live_fallback_forced=ctx.live_fallback_forced,
+            chunk_count=len(chunks),
         )
 
     def _source_breakdown(self, chunks: list[dict]) -> list[SourceScoreBreakdown]:

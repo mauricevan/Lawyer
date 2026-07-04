@@ -1,6 +1,6 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { useEffect, useRef, useState } from "react";
 import { useParams } from "next/navigation";
 import Link from "next/link";
 import { LegalFooter } from "@/components/LegalFooter";
@@ -8,7 +8,7 @@ import { ChatComposer } from "@/components/ChatComposer";
 import { ChatThread } from "@/components/ChatThread";
 import { SourcesSidebar } from "@/components/SourcesSidebar";
 import { RetrievalStatus } from "@/components/RetrievalStatus";
-import type { Audience, ChatMessage, Citation, QueryMode, RetrievalEvent, SupportedLanguage } from "@/models/types";
+import type { Audience, ChatMessage, Citation, CoverageGuidance, CoverageStatus, MessageMetadata, QueryMode, RetrievalEvent, SupportedLanguage } from "@/models/types";
 import {
   getConversation,
   streamQuery,
@@ -23,13 +23,22 @@ function createId(): string {
 }
 
 function toChatMessages(
-  messages: { id: string; role: string; content: string; citations?: Citation[] }[],
+  messages: {
+    id: string;
+    role: string;
+    content: string;
+    citations?: Citation[];
+    metadata?: MessageMetadata | null;
+  }[],
 ): ChatMessage[] {
   return messages.map((m) => ({
     id: m.id,
     role: m.role as "user" | "assistant",
     content: m.content,
     citations: m.citations,
+    verificationQuestions: m.metadata?.verification_questions,
+    coverageGuidance: m.metadata?.coverage_guidance,
+    coverageStatus: m.metadata?.coverage_status,
   }));
 }
 
@@ -44,7 +53,9 @@ export default function GesprekPage() {
   const [events, setEvents] = useState<RetrievalEvent[]>([]);
   const [allCitations, setAllCitations] = useState<Citation[]>([]);
   const [isReady, setIsReady] = useState(false);
+  const [loadError, setLoadError] = useState<string | null>(null);
   const [language, setLanguage] = useState<SupportedLanguage>("auto");
+  const abortRef = useRef<(() => void) | null>(null);
   const audience: Audience = "layperson";
 
   useEffect(() => {
@@ -54,9 +65,13 @@ export default function GesprekPage() {
         setQueryMode((conv.query_mode as QueryMode) || "open");
         setMessages(toChatMessages(conv.messages));
         setAllCitations(conv.messages.flatMap((m) => m.citations || []));
+        setLoadError(null);
         setIsReady(true);
       })
-      .catch(() => setIsReady(false));
+      .catch(() => {
+        setLoadError("Gesprek niet gevonden of niet meer beschikbaar.");
+        setIsReady(true);
+      });
   }, [id]);
 
   const handleFollowUp = (text: string) => {
@@ -74,7 +89,8 @@ export default function GesprekPage() {
       { id: pendingId, role: "assistant", content: "", isPending: true },
     ]);
 
-    streamQuery(
+    abortRef.current?.();
+    abortRef.current = streamQuery(
       {
         question: text.trim(),
         conversation_id: id,
@@ -94,6 +110,8 @@ export default function GesprekPage() {
                   content: answer.answer,
                   citations: answer.citations,
                   verificationQuestions: answer.verification_questions,
+                  coverageGuidance: answer.coverage_guidance,
+                  coverageStatus: answer.coverage_status,
                 }
               : msg,
           ),
@@ -101,17 +119,35 @@ export default function GesprekPage() {
         const updated = await getConversation(id);
         setAllCitations(updated.messages.flatMap((m) => m.citations || []));
       },
-      () => {
+      (err) => {
         setIsLoading(false);
+        if (err.name === "AbortError") return;
         setMessages((prev) => prev.filter((msg) => msg.id !== pendingId));
       },
     );
+  };
+
+  const handleCancel = () => {
+    abortRef.current?.();
+    abortRef.current = null;
+    setIsLoading(false);
   };
 
   if (!isReady) {
     return (
       <main className="container">
         <p>Gesprek laden...</p>
+      </main>
+    );
+  }
+
+  if (loadError) {
+    return (
+      <main className="container">
+        <div role="alert" className={styles.error}>
+          <p>{loadError}</p>
+          <Link href="/">← Terug naar start</Link>
+        </div>
       </main>
     );
   }
@@ -142,8 +178,18 @@ export default function GesprekPage() {
 
       <div className={styles.layout}>
         <div className={`${styles.main} ${chatStyles.chatBody}`}>
-          <ChatThread messages={messages} audience={audience} conversationId={id} />
-          <RetrievalStatus events={events} isLoading={isLoading} audience={audience} />
+          <ChatThread
+            messages={messages}
+            audience={audience}
+            conversationId={id}
+            onVerificationSelect={setFollowUp}
+          />
+          <RetrievalStatus
+            events={events}
+            isLoading={isLoading}
+            audience={audience}
+            onCancel={handleCancel}
+          />
         </div>
         <SourcesSidebar citations={allCitations} />
       </div>

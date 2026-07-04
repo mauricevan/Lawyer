@@ -23,5 +23,11 @@ def test_get_mode_hint_defaults_to_open() -> None:
     assert hint == get_mode_hint("open", "layperson")
 
 
+def test_layperson_compliance_hint_has_no_misschien() -> None:
+    hint = get_mode_hint("compliance", "layperson")
+    assert "misschien" not in hint.lower()
+    assert "niet kunt bevestigen" in hint.lower()
+
+
 def test_prompt_version_set() -> None:
     assert get_prompt_version().startswith("2026")

@@ -23,6 +23,8 @@ Gebruik vóór elke productie-deploy. Automatiseerbare stappen draaien via `scri
 
 - [ ] `/health` en `/ready` = 200
 - [ ] Smoke query via `/api/v1/query`
+- [ ] `./scripts/qa/smoke-docker-local.sh` (docker-compose.local :8001)
+- [ ] `POST /api/v1/admin/cache/purge-contaminated` (eenmalig na deploy met cache-wijzigingen)
 - [ ] `./scripts/observability/verify-stack.sh` (Prometheus/Grafana)
 - [ ] Geen kritieke alerts actief in Prometheus
 - [ ] [Post-release review](./post-release-review.md) ingepland (binnen 48 uur)

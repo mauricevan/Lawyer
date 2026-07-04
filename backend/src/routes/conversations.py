@@ -51,6 +51,7 @@ async def get_conversation(
                 "role": m.role,
                 "content": m.content,
                 "citations": m.citations or [],
+                "metadata": m.message_metadata,
                 "created_at": m.created_at.isoformat(),
             }
             for m in messages

@@ -7,6 +7,16 @@ from pydantic import BaseModel, Field
 from shared.schemas.citation import Citation
 
 
+class MessageMetadata(BaseModel):
+    """Optional assistant message metadata for coverage and retrieval."""
+
+    coverage_status: str | None = None
+    coverage_guidance: dict[str, Any] | None = None
+    verification_questions: list[str] = Field(default_factory=list)
+    confidence_score: float | None = None
+    retrieval_route: str | None = None
+
+
 class Message(BaseModel):
     """A single message in a conversation thread."""
 
@@ -14,6 +24,7 @@ class Message(BaseModel):
     role: str
     content: str
     citations: list[Citation] = Field(default_factory=list)
+    metadata: MessageMetadata | None = None
     created_at: datetime
 
 

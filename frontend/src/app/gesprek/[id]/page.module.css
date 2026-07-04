@@ -91,3 +91,11 @@
   border: none;
   border-radius: var(--radius-md);
 }
+
+.error {
+  padding: var(--space-6);
+  border: 2px solid var(--color-error);
+  border-radius: var(--radius-md);
+  background: var(--color-error-bg);
+  color: var(--color-text-primary);
+}

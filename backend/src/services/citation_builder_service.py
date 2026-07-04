@@ -1,4 +1,5 @@
 """Build structured citations from retrieval chunks."""
+from backend.src.utils.article_resolver import resolve_article_number
 from shared.schemas.citation import Citation
 
 
@@ -9,14 +10,15 @@ class CitationBuilderService:
         seen: set[tuple[str | None, str | None]] = set()
         citations: list[Citation] = []
         for chunk in chunks:
-            key = (chunk.get("celex"), chunk.get("article_number"))
+            article = resolve_article_number(chunk)
+            key = (chunk.get("celex"), article)
             if key in seen:
                 continue
             seen.add(key)
             celex = chunk.get("celex", "")
             citations.append(Citation(
                 celex=celex,
-                article=str(chunk.get("article_number")) if chunk.get("article_number") else None,
+                article=article,
                 title=chunk.get("title"),
                 excerpt=chunk.get("text", "")[:400],
                 eli_uri=chunk.get("eli_uri"),

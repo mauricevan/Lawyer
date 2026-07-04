@@ -74,6 +74,7 @@ class Message(Base):
     content: Mapped[str] = mapped_column(Text)
     citations: Mapped[dict | None] = mapped_column(JSONB, nullable=True)
     chunk_ids: Mapped[list | None] = mapped_column(JSONB, nullable=True)
+    message_metadata: Mapped[dict | None] = mapped_column("metadata", JSONB, nullable=True)
     created_at: Mapped[datetime] = mapped_column(DateTime(timezone=True), server_default=func.now())
     conversation: Mapped["Conversation"] = relationship(back_populates="messages")
 

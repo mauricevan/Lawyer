@@ -85,7 +85,18 @@ Verificatie:
 
 ```bash
 BACKEND_URL=http://127.0.0.1:8001 ./scripts/observability/verify-stack.sh
+./scripts/qa/smoke-docker-local.sh
 ```
+
+### Omgeving → poort → env var
+
+| Omgeving | Frontend | Backend API | Env var |
+|---|---|---|---|
+| `docker compose up` | http://localhost:3000 | http://localhost:8000 | `NEXT_PUBLIC_API_URL=http://localhost:8000` |
+| `docker compose.local.yml` | http://localhost:3000 | http://localhost:8001 | `NEXT_PUBLIC_API_URL=http://localhost:8001` |
+| Frontend dev (lokaal) | http://localhost:3000 | http://localhost:8001 | `frontend/.env.local` — **herstart** na wijziging |
+
+Backend-container draait migraties automatisch via `docker/entrypoint-backend.sh` (`alembic upgrade head`).
 
 - Backend exposeert Prometheus metrics op `GET /metrics`
 - Prometheus scrapet `backend:8000` (zie `observability/prometheus/prometheus.yml`)
@@ -111,6 +122,18 @@ docker compose -f docker-compose.yml -f docker-compose.scale.yml up -d
 ```bash
 PYTHONPATH=. pytest backend/tests -v -m "not integration"
 ```
+
+### EU-brede dekking (willekeurige richtlijnvragen)
+
+Voor betrouwbare antwoorden op willekeurige EU-wetvragen:
+
+1. **Backend** met `ENABLE_LIVE_FALLBACK=true` (standaard) — live EUR-Lex wanneer de corpus mist
+2. **CELEX-discovery** — titelindex + SPARQL (`ingestion/data/celex_title_index.json`, bouw met `python ingestion/scripts/build_celex_title_index.py`)
+3. **Qdrant** (aanbevolen) — lagere latency; start met `docker compose up -d qdrant`
+4. **Corpus ingest** — priority: `bash scripts/ingest/ingest-priority-corpora.sh` of volledig: `bash scripts/ingest/ingest-priority-corpora.sh --all-curated`
+5. **Maturity gate** — `API_URL=http://localhost:8003 bash scripts/qa/run-maturity-gate.sh`
+
+Zonder live fallback of corpus blijven onbekende richtlijnen een gap — dat is verwacht gedrag binnen EU-only scope.
 
 Database migraties:
 

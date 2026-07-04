@@ -44,7 +44,12 @@ class IngestQueueService:
             return False
 
     def _dispatch(self, celex: str, profile: str) -> None:
-        from ingestion.src.workers.ingest_tasks import ingest_single_document
-
+        try:
+            from ingestion.src.workers.ingest_tasks import ingest_single_document
+        except ImportError as exc:
+            raise RuntimeError(
+                f"Celery not available; run sync ingest: "
+                f"python ingestion/scripts/ingest_curated.py --from-celex {celex}"
+            ) from exc
         queue = PROFILE_QUEUES.get(profile, PROFILE_QUEUES["high"])
         ingest_single_document.apply_async(args=[celex, profile], queue=queue)

@@ -77,6 +77,7 @@ async def test_query_rejects_injection(api_client):
 
 @pytest.mark.asyncio
 async def test_query_stream_emits_complete_event(api_client, monkeypatch, mock_session):
+    append_mock = AsyncMock()
     async def fake_events(body, history, session=None):
         yield {"step": "search", "message": "Zoeken..."}
         yield {
@@ -86,6 +87,9 @@ async def test_query_stream_emits_complete_event(api_client, monkeypatch, mock_s
                 "answer": "Stream antwoord",
                 "conversation_id": "conv-2",
                 "retrieval_route": "hybrid",
+                "confidence_score": 0.77,
+                "verification_questions": ["Is dit voor uw bedrijf?"],
+                "coverage_status": "adequate",
                 "citations": [{"celex": "32022L2464", "excerpt": "CSRD", "trust": {}}],
             },
         }
@@ -93,7 +97,7 @@ async def test_query_stream_emits_complete_event(api_client, monkeypatch, mock_s
     monkeypatch.setattr(query_route.rag, "query_with_events", fake_events)
     monkeypatch.setattr(query_route.conversations, "create", AsyncMock(return_value=MagicMock(id="conv-2")))
     monkeypatch.setattr(query_route.conversations, "get_context", AsyncMock(return_value=[]))
-    monkeypatch.setattr(query_route.conversations, "append", AsyncMock())
+    monkeypatch.setattr(query_route.conversations, "append", append_mock)
     monkeypatch.setattr(query_route.cache_service, "track_live_chunks", AsyncMock())
     monkeypatch.setattr(query_route.audit_service, "log_query", AsyncMock())
 
@@ -111,3 +115,8 @@ async def test_query_stream_emits_complete_event(api_client, monkeypatch, mock_s
     assert "complete" in steps
     complete = next(event for event in events if event.get("step") == "complete")
     assert complete["detail"]["retrieval_route"] == "hybrid"
+    append_mock.assert_awaited_once()
+    saved: AnswerResponse = append_mock.await_args.args[3]
+    assert saved.confidence_score == 0.77
+    assert saved.verification_questions == ["Is dit voor uw bedrijf?"]
+    assert saved.coverage_status == "adequate"

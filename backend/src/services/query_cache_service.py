@@ -12,7 +12,9 @@ from backend.src.services.auto_upgrade_service import AutoUpgradeService
 from backend.src.services.feature_flag_service import FeatureFlagService
 from backend.src.services.metrics_service import metrics_service
 from backend.src.services.redis_cache_service import RedisCacheService
+from backend.src.utils.cache_chunk_validator import filter_cacheable_chunks
 from backend.src.utils.query_filter_sanitizer import privileged_filter_flags
+from backend.src.utils.article_resolver import resolve_article_number
 from shared.schemas.query import QueryFilters
 
 
@@ -51,18 +53,22 @@ class QueryCacheService:
             return None
         return payload
 
-    async def set(self, key: str, payload: list[dict[str, Any]]) -> None:
-        self._memory[key] = (datetime.now(timezone.utc), payload)
-        await self._redis.set(key, payload, ttl_seconds=settings.retrieval_cache_ttl_seconds)
+    async def set(self, key: str, payload: list[dict[str, Any]], question: str = "") -> None:
+        filtered = filter_cacheable_chunks(payload, question)
+        if not filtered:
+            return
+        self._memory[key] = (datetime.now(timezone.utc), filtered)
+        await self._redis.set(key, filtered, ttl_seconds=settings.retrieval_cache_ttl_seconds)
 
     async def track_live_chunks(
         self,
         session: AsyncSession,
         query_hash: str,
         chunks: list[dict[str, Any]],
+        question: str = "",
     ) -> None:
         expires_at = datetime.now(timezone.utc) + timedelta(seconds=settings.retrieval_cache_ttl_seconds)
-        for chunk in chunks:
+        for chunk in filter_cacheable_chunks(chunks, question):
             celex = chunk.get("celex")
             if not celex:
                 continue
@@ -110,18 +116,19 @@ class QueryCacheService:
         return [self._row_to_chunk(row) for row in rows]
 
     def _row_to_chunk(self, row: LiveCache) -> dict[str, Any]:
-        return {
+        chunk = {
             "chunk_id": row.qdrant_id or f"cache:{row.celex}",
             "celex": row.celex,
             "title": f"Cached EUR-Lex {row.celex}",
             "text": row.chunk_text,
-            "article_number": None,
             "language": "nl",
             "is_consolidated": False,
             "is_in_force": True,
             "score": 0.9,
             "source": "cache",
         }
+        chunk["article_number"] = resolve_article_number(chunk)
+        return chunk
 
     async def _maybe_queue_upgrade(
         self,

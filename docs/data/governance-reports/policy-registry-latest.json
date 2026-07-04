@@ -2,8 +2,8 @@
   "suite": "policy_registry",
   "passed": true,
   "coverage": {
-    "registered_count": 9,
-    "valid_count": 9,
+    "registered_count": 12,
+    "valid_count": 12,
     "coverage_ratio": 1.0,
     "policies": [
       {
@@ -75,6 +75,30 @@
         "path": "shared/config/product-limitations.yaml",
         "domain": "product",
         "plan": "plan11",
+        "valid": true,
+        "issues": []
+      },
+      {
+        "id": "risk_acceptance",
+        "path": "shared/config/risk_acceptance_register.yaml",
+        "domain": "governance",
+        "plan": "plan15",
+        "valid": true,
+        "issues": []
+      },
+      {
+        "id": "decision_log",
+        "path": "shared/config/decision_log_index.yaml",
+        "domain": "governance",
+        "plan": "plan15",
+        "valid": true,
+        "issues": []
+      },
+      {
+        "id": "governance_report",
+        "path": "shared/config/governance_report_policy.yaml",
+        "domain": "governance",
+        "plan": "plan15",
         "valid": true,
         "issues": []
       }

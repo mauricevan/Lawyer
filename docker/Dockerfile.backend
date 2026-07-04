@@ -14,6 +14,9 @@ COPY backend /app/backend
 COPY shared /app/shared
 COPY ingestion /app/ingestion
 
+COPY docker/entrypoint-backend.sh /entrypoint-backend.sh
+RUN chmod +x /entrypoint-backend.sh
+
 ENV PYTHONPATH=/app
 
-CMD ["uvicorn", "backend.src.main:app", "--host", "0.0.0.0", "--port", "8000", "--reload"]
+CMD ["/entrypoint-backend.sh"]

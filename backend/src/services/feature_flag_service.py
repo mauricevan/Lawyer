@@ -16,3 +16,6 @@ class FeatureFlagService:
 
     def is_audit_logging_enabled(self) -> bool:
         return settings.feature_flag_audit_logging
+
+    def is_agent_flow_enabled(self) -> bool:
+        return settings.agent_flow_enabled

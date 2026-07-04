@@ -1,0 +1,29 @@
+{
+  "entries": [
+    {
+      "celex": "32004L0035",
+      "title": "Richtlijn 2004/35/EG betreffende milieuaansprakelijkheid",
+      "aliases": [
+        "milieuaansprakelijkheid",
+        "milieuaansprakelijkheidsrichtlijn",
+        "environmental liability directive",
+        "milieu aansprakelijkheid"
+      ]
+    },
+    {
+      "celex": "32008R0593",
+      "title": "Verordening (EG) nr. 593/2008 betreffende het recht dat van toepassing is op verbintenissen uit overeenkomst (Rome I)",
+      "aliases": ["rome i", "vervoerdersaansprakelijkheid", "carrier liability"]
+    },
+    {
+      "celex": "32006R1907",
+      "title": "Verordening (EG) nr. 1907/2006 betreffende de registratie, beoordeling en autorisatie van chemische stoffen (REACH)",
+      "aliases": [
+        "reach",
+        "reach-verordening",
+        "registration evaluation authorisation of chemicals",
+        "chemische stoffen registratie"
+      ]
+    }
+  ]
+}

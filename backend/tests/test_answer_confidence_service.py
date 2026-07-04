@@ -23,3 +23,12 @@ def test_live_fallback_lowers_score() -> None:
     local = service.assess(chunks, "local", citation_count=1)
     live = service.assess(chunks, "live_fallback", citation_count=1)
     assert live < local
+
+
+def test_assess_retrieval_ignores_citation_penalty() -> None:
+    service = AnswerConfidenceService()
+    chunks = [{"score": 0.42}]
+    retrieval = service.assess_retrieval(chunks, "local")
+    post_llm = service.assess(chunks, "local", citation_count=0)
+    assert retrieval > post_llm
+    assert retrieval >= 0.35

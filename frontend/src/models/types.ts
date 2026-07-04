@@ -1,7 +1,35 @@
 export type QueryMode = "open" | "compliance" | "compare" | "updates";
 export type Audience = "layperson" | "professional";
 export type SupportedLanguage = "auto" | "nl" | "en" | "fr" | "de" | "es";
-export type RetrievalRoute = "local" | "live_fallback" | "hybrid" | "cache";
+export type RetrievalRoute =
+  | "local"
+  | "live_fallback"
+  | "hybrid"
+  | "cache"
+  | "layperson_topic"
+  | "cn_classification"
+  | "agent_flow";
+export type CoverageStatus = "adequate" | "insufficient" | "irrelevant" | "clarify_only";
+export type ReferralType = "authority" | "legal_aid" | "union";
+
+export interface CoverageFramework {
+  name: string;
+  summary: string;
+}
+
+export interface CoverageReferral {
+  label: string;
+  url: string;
+  type: ReferralType;
+}
+
+export interface CoverageGuidance {
+  topic_id: string;
+  sensitivity: "low" | "high";
+  empathy_opener: string;
+  frameworks: CoverageFramework[];
+  referrals: CoverageReferral[];
+}
 
 export interface TrustIndicator {
   is_consolidated: boolean;
@@ -43,12 +71,14 @@ export interface RetrievalExplainability {
   rerank_latency_ms: number;
   hybrid_rrf_enabled: boolean;
   stage_counts: Record<string, number>;
-  sources: Array<{
-    chunk_id: string;
-    celex: string;
-    vector_score?: number;
-    rerank_score?: number;
-  }>;
+  discovery_celex?: string;
+  discovery_source?: string;
+  live_fallback_forced?: boolean;
+  chunk_count?: number;
+  interpretation_plan?: Record<string, unknown>;
+  resolved_celex?: string[];
+  articles_fetched?: string[];
+  fetch_source?: string;
 }
 
 export interface AnswerResponse {
@@ -60,6 +90,8 @@ export interface AnswerResponse {
   confidence_score?: number;
   verification_questions?: string[];
   retrieval_explainability?: RetrievalExplainability;
+  coverage_guidance?: CoverageGuidance;
+  coverage_status?: CoverageStatus;
 }
 
 export interface QueryRequest {
@@ -79,11 +111,20 @@ export interface QueryRequest {
   };
 }
 
+export interface MessageMetadata {
+  coverage_status?: CoverageStatus;
+  coverage_guidance?: CoverageGuidance;
+  verification_questions?: string[];
+  confidence_score?: number;
+  retrieval_route?: RetrievalRoute;
+}
+
 export interface Message {
   id: string;
   role: string;
   content: string;
   citations: Citation[];
+  metadata?: MessageMetadata | null;
   created_at: string;
 }
 
@@ -107,6 +148,8 @@ export interface ChatMessage {
   content: string;
   citations?: Citation[];
   verificationQuestions?: string[];
+  coverageGuidance?: CoverageGuidance;
+  coverageStatus?: CoverageStatus;
   isPending?: boolean;
 }
 

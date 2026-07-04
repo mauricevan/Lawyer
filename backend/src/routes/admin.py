@@ -147,6 +147,24 @@ async def cleanup_expired_cache(session: AsyncSession = Depends(get_db)) -> dict
     return {"removed_entries": removed}
 
 
+@router.post("/cache/purge-contaminated", dependencies=[Depends(require_permission(Permission.ADMIN_WRITE))])
+async def purge_contaminated_cache(session: AsyncSession = Depends(get_db)) -> dict[str, int]:
+    removed_db = await cache_cleanup.purge_contaminated(session)
+    removed_redis = await redis_cache.flush_retrieval_keys()
+    return {"removed_live_cache": removed_db, "removed_redis_keys": removed_redis}
+
+
+@router.post("/reload-topics", dependencies=[Depends(require_permission(Permission.ADMIN_WRITE))])
+async def reload_topic_config() -> dict:
+    from shared.config.coverage_guidance_loader import load_coverage_guidance_config
+    from shared.config.layperson_topic_loader import get_layperson_topics, load_layperson_topic_config
+
+    load_layperson_topic_config.cache_clear()
+    load_coverage_guidance_config.cache_clear()
+    topics = get_layperson_topics()
+    return {"status": "ok", "topic_count": len(topics)}
+
+
 @router.get("/metrics", dependencies=[Depends(require_permission(Permission.ADMIN_READ))])
 async def get_runtime_metrics() -> dict:
     return {

@@ -37,3 +37,14 @@ def test_finalize_adds_disclaimer_and_insufficient_notice() -> None:
     assert "advocaat" in disclaimer.lower() or "juridisch" in disclaimer.lower()
     assert "Let op" in answer
     assert citations == []
+
+
+def test_finalize_strips_artikel_none_from_answer() -> None:
+    policy = AnswerPolicyService()
+    answer, _, _ = policy.finalize_answer(
+        "Registratie volgens artikel None is vereist.",
+        [],
+        [{"celex": "32024R1689", "text": "AI Act"}],
+        "layperson",
+    )
+    assert "none" not in answer.lower()

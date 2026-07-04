@@ -4,6 +4,7 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 from shared.schemas.citation import Citation
+from shared.schemas.coverage_guidance import CoverageGuidance, CoverageStatus
 from shared.schemas.retrieval_explainability import RetrievalExplainability
 from shared.schemas.validation_patterns import (
     CELEX_PATTERN,
@@ -14,7 +15,9 @@ from shared.schemas.validation_patterns import (
 
 QueryMode = Literal["open", "compliance", "compare", "updates"]
 Audience = Literal["layperson", "professional"]
-RetrievalRoute = Literal["local", "live_fallback", "hybrid", "cache"]
+RetrievalRoute = Literal[
+    "local", "live_fallback", "hybrid", "cache", "layperson_topic", "cn_classification", "agent_flow",
+]
 
 
 class QueryFilters(BaseModel):
@@ -56,3 +59,5 @@ class AnswerResponse(BaseModel):
     confidence_score: float | None = None
     verification_questions: list[str] = Field(default_factory=list)
     retrieval_explainability: RetrievalExplainability | None = None
+    coverage_guidance: CoverageGuidance | None = None
+    coverage_status: CoverageStatus | None = None

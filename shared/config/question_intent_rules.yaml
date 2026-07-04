@@ -1,0 +1,71 @@
+# Question intent rules — docs/product/eu-regulation-qa-bot-system-instruction.md v1.0
+version: "1.0"
+
+specific_triggers:
+  - mag ik
+  - mag een
+  - mag de
+  - kan ik
+  - hoe vraag ik
+  - welke artikelen
+  - relevante artikelen
+  - noem de relevante
+  - noem relevante
+  - binnen welke termijn
+  - wat is de termijn
+  - procedure
+  - invoeraangifte
+  - na vrijgave
+  - vrijgave van
+  - terugbetaling
+  - douanerechten
+  - wijzigen nadat
+  - artikel
+  - art.
+
+generic_triggers:
+  - wat is het ucc
+  - wat is het douanewetboek
+  - wat regelt verordening
+  - uitleg over het
+  - introductie tot
+
+legal_domains:
+  customs:
+    keywords:
+      - douane
+      - invoer
+      - invoeraangifte
+      - ucc
+      - douanewetboek
+      - 952/2013
+      - douanerechten
+      - vrijgave
+      - terugbetaling
+    primary_celex: "32013R0952"
+    secondary_celex: "32015R2446"
+  privacy:
+    keywords:
+      - avg
+      - gdpr
+      - persoonsgegevens
+      - privacy
+    primary_celex: "32016R0679"
+  consumer:
+    keywords:
+      - consumentenrecht
+      - consument
+      - koop op afstand
+    primary_celex: "32011L0083"
+
+forbidden_generic_phrases:
+  - moderniseert douaneprocessen
+  - moderniseert douane
+  - dit is het eu-douanewetboek
+  - dit is het **eu-douanewetboek**
+  - raadpleeg taric
+  - expediteur bij complexe zendingen
+
+registry_intro_topic_ids:
+  - customs_union
+  - customs_nomenclature

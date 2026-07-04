@@ -31,6 +31,7 @@ cd frontend && npm install && npm run dev
 | API health | `curl -s localhost:8001/health` | `200` |
 | Ready | `curl -s localhost:8001/ready` | postgres/qdrant ok |
 | Frontend | http://localhost:3000 | Chat laadt |
+| Smoke | `./scripts/qa/smoke-docker-local.sh` | health + query 200 |
 | Tests | `pytest backend/tests -m "not integration" -q` | groen |
 | Knowledge base | `./scripts/ops/run-knowledge-base-check.sh` | PASS |
 
@@ -58,6 +59,21 @@ cd frontend && npm install && npm run dev
 | Talen | [../product/language-rollout.md](../product/language-rollout.md) |
 | DoD / release | [definition-of-done.md](./definition-of-done.md), [playbooks/](./playbooks/) |
 | Ownership | [../org/component-ownership-matrix.yaml](../org/component-ownership-matrix.yaml) |
+
+## Mobiel & toegankelijkheid (handmatig)
+
+Viewport 320px (iPhone SE):
+
+```bash
+node scripts/demo/mobile-a11y-smoke.mjs
+```
+
+VoiceOver / NVDA checklist na UI-wijzigingen:
+
+- [ ] Verificatievragen zijn klikbare chips met `aria-pressed`
+- [ ] Annuleerknop verschijnt na ~10s laden
+- [ ] `/gesprek/[id]` fouttoestand heeft `role="alert"` en teruglink
+- [ ] Geen horizontale scroll op 320px
 
 ## Eerste bijdrage (checklist)
 

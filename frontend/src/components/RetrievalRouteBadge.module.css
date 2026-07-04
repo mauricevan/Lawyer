@@ -27,3 +27,8 @@
   background: var(--color-surface-hover);
   color: var(--color-text-secondary);
 }
+
+.agent_flow {
+  background: var(--color-warning-bg);
+  color: var(--color-warning);
+}

@@ -11,6 +11,7 @@ from backend.src.services.document_deprecation_service import DocumentDeprecatio
 from backend.src.services.document_version_conflict_service import DocumentVersionConflictService
 from backend.src.services.embedding_service import get_embedding_service
 from backend.src.services.feature_flag_service import FeatureFlagService
+from backend.src.services.celex_discovery_service import CelexDiscoveryService
 from backend.src.services.live_retrieval_service import LiveRetrievalService
 from backend.src.services.metrics_service import metrics_service
 from backend.src.services.postgres_search_service import PostgresSearchService
@@ -18,25 +19,37 @@ from backend.src.services.qdrant_service import QdrantService
 from backend.src.services.query_cache_service import QueryCacheService
 from backend.src.services.reranker_service import RerankerService
 from backend.src.services.retrieval_explainability_service import (
+    DiscoveryContext,
     RetrievalExplainabilityService,
     StageCounts,
 )
 from backend.src.services.trust_indicator_service import TrustIndicatorService
+from backend.src.utils.article_chunk_filter import (
+    chunks_include_planned_articles,
+    filter_chunks_by_articles_strict,
+)
+from backend.src.utils.celex_hint_resolver import (
+    cached_chunks_are_usable,
+    has_usable_celex_chunks,
+    resolve_live_celex_hint,
+    resolve_source_plan,
+    should_force_hint_live_fallback,
+)
 from backend.src.utils.context_dedup import deduplicate_chunks
-from backend.src.utils.qdrant_filters import doc_type_matches_celex
-from backend.src.utils.qdrant_resilience import safe_celex_hint_search, safe_dense_search
-from backend.src.utils.retrieval_budget import RetrievalBudget, RetrievalBudgetExceeded
+from backend.src.utils.planned_article_cache import cached_includes_planned_articles
+from backend.src.utils.qdrant_resilience import safe_dense_search
+from backend.src.utils.retrieval_budget import RetrievalBudget
+from backend.src.utils.retrieval_discovery_bootstrap import build_discovery_context, hint_search
+from backend.src.utils.retrieval_pipeline_fallback import run_pipeline_live_fallback
+from backend.src.utils.retrieval_merge import merge_deduped_results
+from backend.src.utils.retrieval_post_filters import apply_retrieval_post_filters
 from backend.src.utils.rrf_fusion import reciprocal_rank_fusion
-from ingestion.src.data.domain_registry_loader import get_domain_keywords
-from ingestion.src.data.legal_term_hints import match_celex_hints
 from shared.schemas.query import QueryFilters, QueryRequest
 from shared.schemas.retrieval_explainability import RetrievalExplainability
 
 logger = logging.getLogger(__name__)
 
 RETRIEVAL_CANDIDATE_LIMIT = 200
-DOMAIN_KEYWORDS = get_domain_keywords()
-
 
 class RetrievalPipelineService:
     """Executes hybrid search, reranking, and optional live fallback."""
@@ -55,6 +68,7 @@ class RetrievalPipelineService:
         self._explain = RetrievalExplainabilityService()
         self._deprecation = DocumentDeprecationService()
         self._versions = DocumentVersionConflictService()
+        self._discovery = CelexDiscoveryService()
 
     async def retrieve(
         self,
@@ -66,21 +80,36 @@ class RetrievalPipelineService:
         in_force = filters.in_force_only if filters else True
         if filters and filters.time_context == "historical":
             in_force = False
+        discovery_candidates = await self._discovery.discover(request.question, lang or "nl")
+        discovery_ctx = build_discovery_context(discovery_candidates)
+        celex_hint = resolve_live_celex_hint(
+            request.question, filters, None, discovery_candidates,
+        )
+        source_plan = resolve_source_plan(request.question, discovery_candidates)
         cache_key = self._cache.build_key(request.question, lang or "nl", in_force, filters)
         cached = await self._cache.get(cache_key)
+        if cached and celex_hint and not cached_chunks_are_usable(cached, celex_hint):
+            cached = None
+        if cached and source_plan and source_plan.articles:
+            if not cached_includes_planned_articles(cached, source_plan.articles):
+                cached = None
         if cached:
             metrics_service.record_cache_hit()
             cached = self._deprecation.filter_chunks(cached, filters)
             cached = self._versions.resolve_retrieval_chunks(cached, filters)
-            return self._finish(request, cached, "cache", StageCounts(final=len(cached)))
+            return self._finish(request, cached, "cache", StageCounts(final=len(cached)), discovery_ctx)
         if session is not None:
             persisted = await self._cache.get_persisted_chunks(session, cache_key)
+            if persisted and celex_hint and not cached_chunks_are_usable(persisted, celex_hint):
+                persisted = []
             if persisted:
                 persisted = self._deprecation.filter_chunks(persisted, filters)
                 persisted = self._versions.resolve_retrieval_chunks(persisted, filters)
-                await self._cache.set(cache_key, persisted)
+                await self._cache.set(cache_key, persisted, request.question)
                 metrics_service.record_cache_hit()
-                return self._finish(request, persisted, "cache", StageCounts(final=len(persisted)))
+                return self._finish(
+                    request, persisted, "cache", StageCounts(final=len(persisted)), discovery_ctx,
+                )
         counts = StageCounts()
         vector = self._embeddings.embed_query(request.question)
         budget = RetrievalBudget(settings.retrieval_budget_seconds)
@@ -98,40 +127,75 @@ class RetrievalPipelineService:
                 session, request.question, lang, limit=50, excluded_celex=excluded_celex,
             )
         counts.pg = len(pg_ranked)
-        hint_query = filters.celex if filters and filters.celex else request.question
-        hint_hits = self._hint_search(hint_query, lang, in_force, filters)
+        hint_hits = hint_search(
+            self._qdrant, self._deprecation, request.question, lang, in_force, filters,
+        )
         counts.hints = len(hint_hits)
         hybrid = self._flags.is_hybrid_rrf_enabled()
-        if hybrid:
-            merged = reciprocal_rank_fusion(hint_hits, dense, bm25_ranked, pg_ranked, k=settings.rrf_k)
-        else:
-            merged = self._merge_results(hint_hits, dense, bm25_ranked)
+        merged = (
+            reciprocal_rank_fusion(hint_hits, dense, bm25_ranked, pg_ranked, k=settings.rrf_k)
+            if hybrid
+            else merge_deduped_results(hint_hits, dense, bm25_ranked)
+        )
         counts.merged = len(merged)
-        merged = self._apply_post_filters(merged, filters)
+        merged = apply_retrieval_post_filters(merged, filters)
         merged = self._deprecation.filter_chunks(merged, filters)
         merged = self._versions.resolve_retrieval_chunks(merged, filters)
         if filters and filters.consolidated_preferred:
             merged = self._trust.prefer_consolidated(merged)
+        if not merged and celex_hint:
+            finished = await run_pipeline_live_fallback(
+                request, budget, cache_key, lang, filters, hint_hits, bm25_ranked, [],
+                counts, celex_hint, discovery_ctx,
+                self._live, self._cache, self._deprecation, self._flags, self._finish,
+            )
+            if finished is not None:
+                return finished
         reranked = self._reranker.rerank(request.question, merged)
         reranked = self._quality.filter_chunks(reranked)
         reranked = deduplicate_chunks(reranked, max_chunks=settings.rerank_top_k)
+        if source_plan and source_plan.articles:
+            planned = filter_chunks_by_articles_strict(reranked, source_plan.articles)
+            reranked = planned if planned else []
         counts.final = len(reranked)
-        if self._should_live_fallback(reranked):
-            fallback = await self._try_live_fallback(
-                request, budget, cache_key, lang, filters, hint_hits, bm25_ranked, reranked,
+        if celex_hint and has_usable_celex_chunks(hint_hits, celex_hint):
+            hint_output = hint_hits
+            if source_plan and source_plan.articles:
+                planned_hints = filter_chunks_by_articles_strict(hint_hits, source_plan.articles)
+                if planned_hints:
+                    hint_output = planned_hints
+                elif not reranked:
+                    hint_output = []
+            if hint_output and (not source_plan or not source_plan.articles or chunks_include_planned_articles(hint_output, source_plan.articles)):
+                output = merge_deduped_results(hint_output, reranked)[:8]
+                counts.final = len(output)
+                await self._cache.set(cache_key, output, request.question)
+                return self._finish(request, output, "hybrid", counts, discovery_ctx)
+        if (
+            should_force_hint_live_fallback(hint_hits, reranked, celex_hint)
+            or self._should_live_fallback(reranked)
+            or (source_plan and not has_usable_celex_chunks(reranked, source_plan.celex))
+            or (
+                source_plan
+                and source_plan.articles
+                and not chunks_include_planned_articles(reranked, source_plan.articles)
             )
-            if fallback is not None:
-                chunks, route = fallback
-                counts.final = len(chunks)
-                return self._finish(request, chunks, route, counts)
+        ):
+            finished = await run_pipeline_live_fallback(
+                request, budget, cache_key, lang, filters, hint_hits, bm25_ranked, reranked,
+                counts, celex_hint, discovery_ctx,
+                self._live, self._cache, self._deprecation, self._flags, self._finish,
+            )
+            if finished is not None:
+                return finished
         route = "hybrid" if hint_hits or bm25_ranked else "local"
         if hint_hits:
-            output = self._merge_results(hint_hits, reranked)[:8]
+            output = merge_deduped_results(hint_hits, reranked)[:8]
             counts.final = len(output)
-            await self._cache.set(cache_key, output)
-            return self._finish(request, output, "hybrid", counts)
-        await self._cache.set(cache_key, reranked)
-        return self._finish(request, reranked, route, counts)
+            await self._cache.set(cache_key, output, request.question)
+            return self._finish(request, output, "hybrid", counts, discovery_ctx)
+        await self._cache.set(cache_key, reranked, request.question)
+        return self._finish(request, reranked, route, counts, discovery_ctx)
 
     def _finish(
         self,
@@ -139,96 +203,17 @@ class RetrievalPipelineService:
         chunks: list[dict[str, Any]],
         route: str,
         counts: StageCounts,
+        discovery: DiscoveryContext | None = None,
     ) -> tuple[list[dict[str, Any]], str, RetrievalExplainability]:
         metrics_service.record_route(route)
         explainability = self._explain.build(
             route, request, counts, self._reranker, self._flags.is_hybrid_rrf_enabled(), chunks,
+            discovery,
         )
         return chunks, route, explainability
-
-    async def _try_live_fallback(
-        self,
-        request: QueryRequest,
-        budget: RetrievalBudget,
-        cache_key: str,
-        lang: str | None,
-        filters: QueryFilters | None,
-        hint_hits: list[dict],
-        bm25_ranked: list[dict],
-        reranked: list[dict],
-    ) -> tuple[list[dict[str, Any]], str] | None:
-        if not self._flags.is_live_fallback_enabled():
-            return None
-        try:
-            budget.ensure("live_fallback")
-        except RetrievalBudgetExceeded:
-            logger.warning("Skipping live fallback due to retrieval budget")
-            route = "hybrid" if hint_hits or bm25_ranked else "local"
-            await self._cache.set(cache_key, reranked)
-            return reranked, route
-        celex_hint = filters.celex if filters else None
-        allowed = lambda celex, allowed_lang: self._deprecation.is_celex_allowed(celex, allowed_lang, filters)
-        live_chunks = await self._live.fallback_chunks(
-            request.question,
-            lang or "nl",
-            celex_hint=celex_hint,
-            is_celex_allowed=allowed,
-        )
-        live_chunks = self._deprecation.filter_chunks(live_chunks, filters)
-        metrics_service.record_fallback(bool(live_chunks))
-        if not live_chunks:
-            return None
-        await self._cache.set(cache_key, live_chunks)
-        return live_chunks, "live_fallback"
 
     def _should_live_fallback(self, chunks: list[dict[str, Any]]) -> bool:
         if not chunks:
             return True
         scores = [float(chunk.get("score", 0.0)) for chunk in chunks]
         return max(scores, default=0.0) < settings.fallback_score_threshold
-
-    def _apply_post_filters(self, chunks: list[dict[str, Any]], filters: QueryFilters | None) -> list[dict[str, Any]]:
-        if not filters:
-            return chunks
-        output = chunks
-        if filters.doc_type:
-            output = [c for c in output if doc_type_matches_celex(filters.doc_type, c.get("celex", ""))]
-        if filters.domain:
-            terms = DOMAIN_KEYWORDS.get(filters.domain, ())
-            output = [c for c in output if self._matches_domain(c, terms)]
-        return output
-
-    def _matches_domain(self, chunk: dict[str, Any], terms: tuple[str, ...]) -> bool:
-        if not terms:
-            return True
-        text = f"{chunk.get('title', '')} {chunk.get('text', '')}".lower()
-        return any(term in text for term in terms)
-
-    def _hint_search(
-        self,
-        query: str,
-        language: str | None,
-        in_force_only: bool,
-        filters: QueryFilters | None,
-    ) -> list[dict]:
-        target_celex = match_celex_hints(query)
-        if not target_celex:
-            return []
-        if filters and filters.celex:
-            target_celex = {filters.celex}
-        else:
-            target_celex = self._deprecation.filter_celex_hints(target_celex, filters)
-        if not target_celex:
-            return []
-        return safe_celex_hint_search(self._qdrant, target_celex, language, in_force_only)
-
-    def _merge_results(self, *result_groups: list[dict]) -> list[dict]:
-        seen: set[str] = set()
-        merged: list[dict] = []
-        for group in result_groups:
-            for result in group:
-                cid = result.get("chunk_id")
-                if cid and cid not in seen:
-                    seen.add(cid)
-                    merged.append(result)
-        return merged

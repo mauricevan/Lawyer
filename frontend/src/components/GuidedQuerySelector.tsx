@@ -1,6 +1,8 @@
 import type { Audience, QueryMode } from "@/models/types";
 import styles from "./GuidedQuerySelector.module.css";
 
+const ENABLE_COMPARE = process.env.NEXT_PUBLIC_ENABLE_COMPARE === "true";
+
 const LAY_MODES: { id: QueryMode; label: string; description: string }[] = [
   {
     id: "open",
@@ -38,7 +40,13 @@ interface Props {
 }
 
 export function GuidedQuerySelector({ selectedMode, audience, onModeChange }: Props) {
-  const modes = audience === "layperson" ? LAY_MODES : PRO_MODES;
+  const layModes = ENABLE_COMPARE
+    ? LAY_MODES
+    : LAY_MODES.filter((mode) => mode.id !== "compare");
+  const proModes = ENABLE_COMPARE
+    ? PRO_MODES
+    : PRO_MODES.filter((mode) => mode.id !== "compare");
+  const modes = audience === "layperson" ? layModes : proModes;
 
   return (
     <fieldset className={styles.fieldset}>

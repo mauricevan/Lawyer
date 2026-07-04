@@ -1,0 +1,264 @@
+# Domain-level CELEX routing — all curated corpus clusters (ADR-0009 fase 2)
+# Article-specific plans live in legal_source_planner.yaml (checked first).
+version: "2026.07.04"
+
+domains:
+  - id: gdpr
+    legal_domain: privacy
+    celex: "32016R0679"
+    triggers_any:
+      - avg
+      - gdpr
+      - persoonsgegevens
+      - privacy
+      - gegevensverwerking
+      - verwerkingsverantwoordelijke
+      - recht op inzage
+      - gegevens wissen
+      - gegevensoverdraagbaarheid
+      - cookie
+      - cookies
+      - cookiebanner
+      - trackingcookie
+      - drone filmen
+      - whatsapp-berichten
+      - contacten toestemming
+
+  - id: ai_act
+    legal_domain: ai
+    celex: "32024R1689"
+    triggers_any:
+      - ai act
+      - ai-wet
+      - kunstmatige intelligentie
+      - chatbot
+      - chatbots
+      - high-risk ai
+      - hoog-risico ai
+      - deepfake
+      - ai sollicit
+      - ai beslissing
+
+  - id: dsa
+    legal_domain: digital
+    celex: "32022R2065"
+    triggers_any:
+      - dsa
+      - digitale diensten
+      - platform
+      - marketplace
+      - dark pattern
+      - nepreviews
+      - contentmoderatie
+
+  - id: dma
+    legal_domain: digital
+    celex: "32022R1925"
+    triggers_any:
+      - dma
+      - gatekeeper
+      - app store
+      - digitale markten
+
+  - id: eprivacy
+    legal_domain: privacy
+    celex: "32002L0058"
+    triggers_any:
+      - eprivacy
+      - e-privacy
+      - sms spam
+      - marketing sms
+      - opt-in sms
+
+  - id: consumer_rights
+    legal_domain: consumer
+    celex: "32011L0083"
+    triggers_any:
+      - consument
+      - webshop
+      - online kopen
+      - garantie
+      - herroepingsrecht
+      - bedenktijd
+      - koop op afstand
+      - digitaal product
+      - abonnement
+      - maaltijdbox
+
+  - id: flight_rights
+    legal_domain: transport
+    celex: "32004R0261"
+    triggers_any:
+      - vlucht
+      - vertraging
+      - compensatie vlucht
+      - luchtvaartmaatschappij
+      - instapweigering
+      - denied boarding
+      - overboeking
+
+  - id: mica
+    legal_domain: financial
+    celex: "32023R1114"
+    triggers_any:
+      - mica
+      - crypto
+      - bitcoin
+      - cryptoactiva
+      - nft
+
+  - id: dora
+    legal_domain: financial
+    celex: "32022R2554"
+    triggers_any:
+      - dora
+      - digitale operationele weerbaarheid
+      - ict-risico financ
+
+  - id: nis2
+    legal_domain: cyber
+    celex: "32022L2555"
+    triggers_any:
+      - nis2
+      - nis-richtlijn
+      - cyberbeveiliging
+      - netwerk- en informatiesystemen
+
+  - id: whistleblower
+    legal_domain: employment
+    celex: "32024L1385"
+    triggers_any:
+      - whistleblower
+      - klokkenluider
+      - meldingen doen
+      - intern meldkanaal
+
+  - id: parental_leave
+    legal_domain: employment
+    celex: "32019L1152"
+    triggers_any:
+      - ouderschapsverlof
+      - vaderschapsverlof
+      - arbeidstijden
+      - uitzendkracht
+
+  - id: cross_border_health
+    legal_domain: health
+    celex: "32011L0024"
+    triggers_any:
+      - zorg in het buitenland
+      - zorgverzekering eu
+      - grensoverschrijdende zorg
+      - patiëntenrechten
+
+  - id: product_safety
+    legal_domain: consumer
+    celex: "32023R0988"
+    triggers_any:
+      - productveiligheid
+      - terugroeping
+      - gebreken product
+      - gpsr
+      - veilig product
+      - fabrikant
+      - veiligheidsrisico
+
+  - id: product_conformity
+    legal_domain: consumer
+    celex: "32019R1020"
+    triggers_any:
+      - conformiteitsverklaring
+      - harmonisatiewetgeving
+      - markttoezicht product
+      - technische documentatie
+
+  - id: accessibility
+    legal_domain: digital
+    celex: "32019L0882"
+    triggers_any:
+      - toegankelijkheid
+      - accessibility
+      - handicap website
+
+  - id: packaging
+    legal_domain: environment
+    celex: "32023R0853"
+    triggers_any:
+      - verpakking
+      - verpakkingsafval
+      - recycleerbaar
+
+  - id: environmental_liability
+    legal_domain: environment
+    celex: "32004L0035"
+    triggers_any:
+      - milieuaansprakelijkheid
+      - milieuaansprakelijkheidsrichtlijn
+      - milieuschade
+      - environmental liability
+      - 2004/35
+
+  - id: payment_accounts
+    legal_domain: financial
+    celex: "32014L0092"
+    triggers_any:
+      - betaalrekening
+      - rekening sluiten
+      - bank sluit rekening
+
+  - id: energy_label
+    legal_domain: environment
+    celex: "32010L0031"
+    triggers_any:
+      - energielabel
+      - energieprestatie gebouw
+
+  - id: customs_ucc
+    legal_domain: customs
+    celex: "32013R0952"
+    triggers_any:
+      - douane
+      - invoerrecht
+      - invoerrechten
+      - douanewetboek
+      - douanewaarde
+      - terugbetaling
+      - invoeraangifte
+      - vrijgave goederen
+
+  - id: customs_tariff
+    legal_domain: customs
+    celex: "31987R2658"
+    triggers_any:
+      - goederencode
+      - goederen code
+      - taric
+      - gecombineerde nomenclatuur
+      - douanetarief
+
+  - id: vat
+    legal_domain: tax
+    celex: "32006L0112"
+    triggers_any:
+      - btw
+      - omzetbelasting
+      - intracommunautair
+
+  - id: vehicle_type_approval
+    legal_domain: transport
+    celex: "32007R0715"
+    triggers_any:
+      - typegoedkeuring
+      - auto importeren
+      - emissie-eisen auto
+
+  - id: carrier_liability
+    legal_domain: transport
+    celex: "32008R0593"
+    triggers_any:
+      - aansprakelijkheid van vervoerders
+      - vervoerder aansprakelijk
+      - internationaal goederenvervoer
+      - goederenvervoer
+      - cmr
+      - vervoer overeenkomst

@@ -77,6 +77,18 @@ intents:
     domain: consumer
     confidence: 0.80
 
+  - id: INT-UCC-CUSTOMS
+    patterns:
+      - invoeraangifte
+      - douanewetboek
+      - 952/2013
+      - douanerechten
+      - terugbetaling douane
+    domain: customs
+    doc_type: regulation
+    celex_hint: "32013R0952"
+    confidence: 0.88
+
   - id: INT-COMPARE-DOCS
     patterns: ["verschil tussen", "vergelijk", "compare"]
     doc_type: regulation

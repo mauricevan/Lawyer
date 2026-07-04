@@ -1,0 +1,62 @@
+# CN position guidance for classification questions (EU Combined Nomenclature)
+version: "2026.07.03"
+regulation_celex: "31987R2658"
+regulation_title: "Verordening (EEG) nr. 2658/87 (Gecombineerde Nomenclatuur)"
+
+classification_signals:
+  - goederencode
+  - goederen code
+  - goederennummer
+  - cn-code
+  - cn code
+  - taric
+  - tariefcode
+  - hs-code
+  - gecombineerde nomenclatuur
+  - douane-indeling
+  - tariefindeling
+
+import_signals:
+  - import
+  - importeer
+  - invoer
+  - douane
+  - aangifte
+
+referrals:
+  - label: TARIC (EU-tariefdatabase)
+    url: https://ec.europa.eu/taxation_customs/dds2/taric/taric_consultation.jsp
+    type: authority
+  - label: Belastingdienst — Douane
+    url: https://www.belastingdienst.nl/wps/wcm/connect/bldcontentnl/belastingdienst/zakelijk/internationaal/douane
+    type: authority
+
+positions:
+  - code: "0101"
+    title_nl: "Levende paarden, ezels, muilezels en veulens"
+    product_signals:
+      - paard
+      - paarden
+      - horse
+      - veulen
+      - ezels
+      - muilezels
+    subheadings:
+      - code: "0101 21 00"
+        label_nl: "Fokdieren van zuiver ras (pure-bred breeding animals)"
+        signals:
+          - zuiver ras
+          - fokpaard
+          - fokdier
+          - stamboek
+          - pure-bred
+          - fokken
+      - code: "0101 29"
+        label_nl: "Overige paarden"
+        signals:
+          - overige paarden
+          - rijpaard
+          - sportpaard
+    summary_nl: >-
+      Positie 0101 is de juiste hoofdgroep voor levende paarden bij import.
+      Voor de douane-aangifte zijn meestal acht cijfers (CN) nodig, niet alleen vier.

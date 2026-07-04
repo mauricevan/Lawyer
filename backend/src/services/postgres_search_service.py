@@ -29,8 +29,8 @@ class PostgresSearchService:
         exclusion_clause = ""
         params: dict[str, Any] = {"config": config, "query": cleaned, "limit": limit}
         if excluded:
-            exclusion_clause = "AND c.celex NOT IN :excluded_celex"
-            params["excluded_celex"] = tuple(excluded)
+            exclusion_clause = "AND NOT (c.celex = ANY(:excluded_celex))"
+            params["excluded_celex"] = excluded
         try:
             async with session.begin_nested():
                 result = await session.execute(

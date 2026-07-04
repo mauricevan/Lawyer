@@ -1,4 +1,17 @@
 {
-  "updated_at": "2026-07-02T20:30:00+00:00",
-  "failures": []
+  "updated_at": "2026-07-04T06:55:44.744452+00:00",
+  "failures": [
+    {
+      "celex": "32015R2447",
+      "error": "timed out"
+    },
+    {
+      "celex": "32001L0095",
+      "error": "timed out"
+    },
+    {
+      "celex": "32006L0112",
+      "error": "timed out"
+    }
+  ]
 }

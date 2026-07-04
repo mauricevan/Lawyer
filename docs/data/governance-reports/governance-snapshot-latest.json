@@ -3,7 +3,7 @@
   "passed": true,
   "snapshot": {
     "suite": "governance_snapshot",
-    "completed_at": "2026-07-03T10:58:36.598641+00:00",
+    "completed_at": "2026-07-03T11:07:07.418108+00:00",
     "policy_registry": {
       "coverage_ratio": 1.0,
       "registered_count": 12,

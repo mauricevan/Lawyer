@@ -1,0 +1,220 @@
+# Legal source planner — maps questions to CELEX + article targets (ADR-0009)
+version: "2026.07.04"
+
+plans:
+  - id: environmental_liability_operator
+    legal_domain: environment
+    celex: "32004L0035"
+    articles:
+      - "3"
+      - "4"
+      - "5"
+      - "6"
+    triggers_any:
+      - milieuaansprakelijkheid
+      - milieuaansprakelijkheidsrichtlijn
+      - milieuschade
+      - exploitant
+      - environmental liability
+      - 2004/35
+
+  - id: gpsr_manufacturer_risk
+    legal_domain: consumer
+    celex: "32023R0988"
+    articles:
+      - "9"
+      - "10"
+      - "11"
+      - "31"
+      - "32"
+    triggers_any:
+      - fabrikant
+      - veiligheidsrisico
+      - productveiligheid
+      - gpsr
+      - 2023/988
+      - terugroeping
+      - veilig product
+
+  - id: product_conformity_doc
+    legal_domain: consumer
+    celex: "32019R1020"
+    articles:
+      - "4"
+      - "16"
+      - "28"
+    triggers_any:
+      - conformiteitsverklaring
+      - verklaring van conformiteit
+      - harmonisatiewetgeving
+      - harmonisatie wetgeving
+      - technische documentatie product
+
+  - id: consumer_withdrawal
+    legal_domain: consumer
+    celex: "32011L0083"
+    articles:
+      - "9"
+      - "10"
+      - "22"
+    triggers_any:
+      - herroepingstermijn
+      - herroepingsrecht
+      - herroeping
+      - bedenktijd
+      - overeenkomst op afstand
+      - koop op afstand
+      - online kopen terugsturen
+      - 2011/83
+
+  - id: transport_carrier_liability
+    legal_domain: transport
+    celex: "32008R0593"
+    articles:
+      - "4"
+      - "5"
+    triggers_any:
+      - aansprakelijkheid van vervoerders
+      - internationaal goederenvervoer
+      - welke eu-verordening regelt
+      - vervoerders bij internationaal
+
+  - id: ucc_refund_deadline
+    legal_domain: customs
+    celex: "32013R0952"
+    articles:
+      - "121"
+      - "116"
+    triggers_any:
+      - binnen welke termijn
+      - verzoek tot terugbetaling
+      - verzoek om terugbetaling
+      - indienen verzoek
+      - termijn terugbetaling
+      - termijn voor terugbetaling
+
+  - id: ucc_duty_refund
+    legal_domain: customs
+    celex: "32013R0952"
+    related_celex:
+      - "32015R2446"
+    articles:
+      - "116"
+      - "117"
+      - "118"
+      - "119"
+      - "120"
+      - "121"
+    triggers_any:
+      - terugbetaling
+      - terug betaling
+      - te veel betaald
+      - teveel betaald
+      - douanewaarde
+      - invoerrechten
+      - invoerrecht
+      - korting niet
+      - douaneschuld
+      - correctie douanewaarde
+      - machines uit japan
+
+  - id: ucc_customs_value
+    legal_domain: customs
+    celex: "32013R0952"
+    articles:
+      - "128"
+      - "129"
+      - "130"
+      - "131"
+    triggers_any:
+      - waarde van de goederen
+      - transactiewaarde
+
+  - id: gdpr_portability
+    legal_domain: privacy
+    celex: "32016R0679"
+    articles:
+      - "20"
+      - "12"
+    triggers_any:
+      - gegevensoverdraagbaarheid
+      - data portability
+      - gegevens meenemen
+
+  - id: gdpr_lawful_basis
+    legal_domain: privacy
+    celex: "32016R0679"
+    articles:
+      - "6"
+      - "7"
+      - "13"
+    triggers_any:
+      - rechtsgrond
+      - rechtsgronden
+      - zonder toestemming
+      - verwerken zonder
+      - toestemming gegevens
+      - trackingcookie
+      - cookie toestemming
+
+  - id: gdpr_access_erasure
+    legal_domain: privacy
+    celex: "32016R0679"
+    articles:
+      - "15"
+      - "17"
+      - "12"
+    triggers_any:
+      - recht op inzage
+      - gegevens wissen
+      - recht op vergetel
+      - avg verzoek
+
+  - id: consumer_warranty_digital
+    legal_domain: consumer
+    celex: "32019L0771"
+    articles:
+      - "10"
+      - "11"
+      - "16"
+    triggers_any:
+      - wettelijke garantie
+      - garantie online
+      - gebrek product
+      - digitaal product werkt niet
+
+  - id: ai_act_obligations
+    legal_domain: ai
+    celex: "32024R1689"
+    articles:
+      - "9"
+      - "14"
+      - "50"
+    triggers_any:
+      - high-risk ai
+      - hoog-risico ai
+      - ai sollicit
+      - menselijk toezicht ai
+
+  - id: ucc_declaration_amendment
+    legal_domain: customs
+    celex: "32013R0952"
+    articles:
+      - "164"
+      - "174"
+    triggers_any:
+      - invoeraangifte wijzigen
+      - douaneaangifte wijzigen
+      - aangifte wijzigen na vrijgave
+
+  - id: flight_compensation
+    legal_domain: transport
+    celex: "32004R0261"
+    articles:
+      - "5"
+      - "6"
+      - "7"
+    triggers_any:
+      - vlucht vertraging compensatie
+      - vertraagde vlucht compensatie
+      - denied boarding

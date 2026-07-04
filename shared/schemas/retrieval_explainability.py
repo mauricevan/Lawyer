@@ -3,7 +3,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-RetrievalRoute = Literal["local", "live_fallback", "hybrid", "cache"]
+RetrievalRoute = Literal["local", "live_fallback", "hybrid", "cache", "agent_flow"]
 
 
 class RouterDecision(BaseModel):
@@ -39,3 +39,11 @@ class RetrievalExplainability(BaseModel):
     hybrid_rrf_enabled: bool
     stage_counts: dict[str, int] = Field(default_factory=dict)
     sources: list[SourceScoreBreakdown] = Field(default_factory=list)
+    discovery_celex: str | None = None
+    discovery_source: str | None = None
+    live_fallback_forced: bool = False
+    chunk_count: int = 0
+    interpretation_plan: dict | None = None
+    resolved_celex: list[str] = Field(default_factory=list)
+    articles_fetched: list[str] = Field(default_factory=list)
+    fetch_source: str | None = None

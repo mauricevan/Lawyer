@@ -6,6 +6,7 @@ import time
 import httpx
 
 from backend.src.security.ssrf_guard import assert_url_allowed, validate_celex
+from backend.src.utils.legal_content_quality import is_usable_content_bytes
 from ingestion.src.clients.eurlex_fetch_urls import build_fetch_urls
 
 logger = logging.getLogger(__name__)
@@ -44,7 +45,7 @@ class CellarRestClient:
             assert_url_allowed(url)
             try:
                 content = await self._fetch_url(url)
-                if self._is_usable_content(content):
+                if is_usable_content_bytes(content):
                     return content
                 errors.append(f"{content_type}:{len(content)}B")
             except Exception as exc:
@@ -100,14 +101,14 @@ class CellarRestClient:
         async with httpx.AsyncClient(timeout=self._timeout, follow_redirects=True) as client:
             response = await self._get_response(client, url, headers)
             if response.status_code in PENDING_STATUS:
-                if self._is_usable_content(response.content):
+                if is_usable_content_bytes(response.content):
                     return response.content
                 for poll in range(1, PENDING_POLL_ATTEMPTS):
                     if not response.content:
                         break
                     await asyncio.sleep(PENDING_POLL_SECONDS)
                     response = await self._get_response(client, url, headers)
-                    if self._is_usable_content(response.content):
+                    if is_usable_content_bytes(response.content):
                         return response.content
                 return b""
             response.raise_for_status()
@@ -127,14 +128,6 @@ class CellarRestClient:
                 response=response,
             )
         return response
-
-    def _is_usable_content(self, content: bytes) -> bool:
-        if len(content) < MIN_CONTENT_BYTES:
-            return False
-        lowered = content[:2000].lower()
-        if b"please wait" in lowered or b"just a moment" in lowered:
-            return False
-        return b"<" in content[:500]
 
     async def _respect_rate_limit(self) -> None:
         if self._delay_seconds <= 0:

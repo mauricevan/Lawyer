@@ -20,3 +20,10 @@ class CacheCleanupService:
         )
         await session.commit()
         return int(result.rowcount or 0)
+
+    async def purge_contaminated(self, session: AsyncSession) -> int:
+        result = await session.execute(
+            delete(LiveCache).where(LiveCache.chunk_text.ilike("%misschien%"))
+        )
+        await session.commit()
+        return int(result.rowcount or 0)

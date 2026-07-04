@@ -1,0 +1,187 @@
+# Privacy / AVG topics
+topics:
+  - id: data_portability
+    patterns:
+      - playlists meenemen
+      - data portability
+      - gegevensoverdraagbaarheid
+      - gegevens exporteren
+    exclude_patterns:
+      - blokkeren
+      - account permanent
+      - verbannen
+      - geblokkeerd
+      - permanent blokkeren
+    min_pattern_hits: 1
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG / GDPR)"
+    short_answer_nl: >
+      Onder de AVG hebt u recht op **gegevensoverdraagbaarheid**: u kunt uw gegevens
+      in een machineleesbaar formaat opvragen en naar een andere dienst meenemen.
+    summary_nl: >
+      Artikel 20 AVG geeft u het recht om gegevens die u zelf aanleverde te ontvangen
+      en door te geven aan een andere aanbieder, wanneer verwerking op toestemming
+      of contract is gebaseerd.
+    practical_nl: >
+      Vraag de dienst om export van uw gegevens. Controleer of de nieuwe dienst
+      import ondersteunt.
+
+  - id: avg_contacts
+    patterns:
+      - contacten
+      - telefoonboek
+      - app toegang tot mijn contacten
+      - toegang tot mijn contacten
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG / GDPR)"
+    short_answer_nl: >
+      **Nee, niet zonder duidelijke uitleg.** Een app mag uw contacten alleen gebruiken
+      als dat **noodzakelijk** is voor de dienst én u **informerend toestemming** geeft.
+    summary_nl: >
+      Contacten van anderen zijn ook persoonsgegevens. De app moet u uitleggen waarom
+      toegang nodig is en u moet toestemming kunnen weigeren zonder nadeel.
+    practical_nl: >
+      Weiger contacttoegang als u die niet nodig vindt. Controleer privacy-instellingen.
+
+  - id: minors_social_media
+    patterns:
+      - tiktok
+      - minderjarig
+      - kind is 15
+      - social media
+      - minimumleeftijd
+      - tiktok-account
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG / GDPR)"
+    short_answer_nl: >
+      De **minimumleeftijd** voor zelfstandige toestemming is in Nederland **16 jaar**.
+      Onder die leeftijd is **ouderlijke toestemming** meestal nodig voor TikTok.
+    summary_nl: >
+      De AVG vereist een geldige rechtsgrond voor verwerking van gegevens van minderjarigen.
+      Lidstaten mogen 13–16 jaar kiezen als minimumleeftijd voor onlinediensten.
+    practical_nl: >
+      Controleer leeftijdsinstellingen en privacybeleid. Als ouder kunt u toestemming
+      intrekken via account-instellingen.
+
+  - id: iot_smart_home
+    patterns:
+      - thermostaat
+      - slimme thermostaat
+      - iot
+      - sensor thuis
+      - smart home
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG / GDPR)"
+    short_answer_nl: >
+      Slimme apparaten verwerken vaak **persoonsgegevens**. De fabrikant **moet**
+      u duidelijk informeren en een **rechtsgrond** hebben.
+    summary_nl: >
+      Onder de AVG gelden informatieplicht, dataminimalisatie en beveiliging ook voor
+      IoT-apparaten. Cloudkoppelingen vallen onder dezelfde regels als andere apps.
+    practical_nl: >
+      Lees privacy-instellingen, beperk datadeling en kies sterke wachtwoorden.
+
+  - id: gdpr_lawful_basis
+    patterns:
+      - rechtsgrond
+      - rechtsgronden
+      - zonder toestemming
+      - verwerken zonder toestemming
+      - welke rechtsgronden
+    exclude_patterns:
+      - minderjarig
+      - tiktok
+      - vingerafdruk
+      - camerabeelden
+    min_pattern_hits: 1
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG / GDPR)"
+    short_answer_nl: >
+      Verwerking zonder **toestemming** kan wél, mits er een andere **rechtsgrond** uit
+      artikel 6 AVG geldt — bijvoorbeeld **contract**, **wettelijke verplichting**,
+      **vitaal belang**, **algemeen belang** of **gerechtvaardigd belang**.
+    summary_nl: >
+      Artikel 6 AVG noemt zes rechtsgronden. Toestemming (lid 1 onder a) is er één van;
+      de andere grondslagen (b–f) vereisen elk eigen voorwaarden. Artikel 7 regelt
+      toestemming; artikelen 13–14 de informatieplicht.
+    practical_nl: >
+      Leg per verwerking vast welke grondslag geldt en waarom. Documenteer afwegingen
+      bij gerechtvaardigd belang. Raadpleeg de AP bij twijfel.
+
+  - id: retail_cctv_gdpr
+    patterns:
+      - camerabeelden
+      - winkel camera
+      - cameratoezicht winkel
+      - beveiligingscamera winkel
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG / GDPR)"
+    short_answer_nl: >
+      Winkels mogen camerabeelden gebruiken, maar **niet onbeperkt**. Er geldt
+      **doelbinding**, **bewaartermijn** en een **informatieplicht** richting klanten.
+    summary_nl: >
+      Cameratoezicht in winkels verwerkt persoonsgegevens. De winkel moet u informeren,
+      beelden niet langer bewaren dan nodig en toegang beperken tot bevoegden.
+    practical_nl: >
+      Zoek het privacybord in de winkel. Vraag de winkel om uw rechten (inzage, verwijdering).
+
+  - id: school_photos_gdpr
+    patterns:
+      - schoolfoto
+      - foto's van leerlingen
+      - school website foto
+      - leerlingen website
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG / GDPR)"
+    short_answer_nl: >
+      **Ja**, de school **moet toestemming** vragen (meestal via ouders) voordat
+      foto's van leerlingen op de **website** worden geplaatst.
+    summary_nl: >
+      Scholen zijn verwerkingsverantwoordelijke voor leerlingfoto's. Publicatie op
+      een website vereist een rechtsgrond, vaak toestemming van ouder/voogd.
+    practical_nl: >
+      Vraag het privacyreglement van de school. U kunt toestemming intrekken of
+      inzage vragen via de school of AP.
+
+  - id: workplace_biometrics
+    patterns:
+      - vingerafdruk
+      - vingerafdruk-scannen
+      - biometrie inklokken
+      - inklokken vingerafdruk
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG / GDPR)"
+    short_answer_nl: >
+      **Niet zomaar.** Vingerafdrukken zijn **biometrie** (bijzondere categorie).
+      Uw werkgever **moet** zware eisen halen en meestal **expliciete toestemming** hebben.
+    summary_nl: >
+      Biometrische gegevens voor inklokken vereisen een duidelijke rechtsgrond,
+      dataminimalisatie en beveiliging. Alternatieven moeten beschikbaar zijn.
+    practical_nl: >
+      Vraag het privacybeleid en DPIA-document. Weiger indien alternatief ontbreekt;
+      neem contact op met AP of vakbond.
+
+  - id: employer_byod_email
+    patterns:
+      - privé-e-mail
+      - prive e-mail
+      - zakelijke laptop
+      - privé mail werk
+      - byod
+      - e-mails lezen
+      - e-mail lezen
+      - werkgever mijn e-mail
+      - werkgever mijn e-mails
+      - onder de avg
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG / GDPR)"
+    short_answer_nl: >
+      **Nee, niet alles.** Uw werkgever mag privé-e-mail op een zakelijke laptop
+      **niet zomaar lezen**; alleen wat **noodzakelijk** is met **doelbinding** en
+      **minimalisatie**.
+    summary_nl: >
+      De AVG vereist dat werkgevers persoonsgegevens doelgebonden verwerken.
+      Monitoring moet proportioneel zijn; privécommunicatie heeft extra bescherming.
+    practical_nl: >
+      Scheid werk- en privéaccounts waar mogelijk. Vraag het monitoringbeleid op
+      en neem contact op met AP bij overschrijding.

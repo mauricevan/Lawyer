@@ -20,3 +20,27 @@
   color: var(--color-text-secondary);
   line-height: 1.5;
 }
+
+.chips {
+  display: flex;
+  flex-wrap: wrap;
+  gap: var(--space-2);
+}
+
+.chip {
+  min-height: 44px;
+  padding: var(--space-2) var(--space-3);
+  border: 1px solid var(--color-border);
+  border-radius: var(--radius-full);
+  background: var(--color-surface);
+  font-size: var(--text-sm);
+  text-align: left;
+  cursor: pointer;
+  color: var(--color-text-primary);
+}
+
+.chip:hover,
+.chip[aria-pressed="true"] {
+  border-color: var(--color-primary);
+  background: var(--color-info-bg);
+}

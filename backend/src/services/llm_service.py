@@ -6,6 +6,11 @@ import httpx
 
 from backend.src.config import settings
 from backend.src.services.citation_builder_service import CitationBuilderService
+from backend.src.services.regulation_label_service import regulation_label
+from backend.src.utils.article_resolver import resolve_article_number
+from backend.src.utils.legal_chunk_text import clean_chunk_text
+from backend.src.utils.legal_text_trimmer import trim_legal_preamble
+from backend.src.utils.layperson_answer_formatter import _practical_hint
 from shared.config.prompt_loader import (
     get_follow_up_hint,
     get_history_window,
@@ -18,13 +23,6 @@ from shared.schemas.citation import Citation
 logger = logging.getLogger(__name__)
 
 _config = load_prompt_config()
-SYSTEM_PROMPT = get_system_prompt("professional")
-LAYPERSON_SYSTEM_PROMPT = get_system_prompt("layperson")
-FOLLOW_UP_HINT = get_follow_up_hint()
-HISTORY_WINDOW = get_history_window()
-PROFESSIONAL_MODE_HINTS = _config["mode_hints"]["professional"]
-LAYPERSON_MODE_HINTS = _config["mode_hints"]["layperson"]
-
 OPENROUTER_API_URL = "https://openrouter.ai/api/v1/chat/completions"
 
 
@@ -41,11 +39,13 @@ class LlmService:
         history: list[dict] | None = None,
         query_mode: str = "open",
         audience: str = "layperson",
+        context_quality: str = "hoog",
+        specific_intent: bool = False,
     ) -> tuple[str, list[Citation]]:
-        context = self._build_context(context_chunks, audience)
-        mode_hint = self._mode_instruction(query_mode, audience)
+        context = self._build_context(context_chunks, audience, context_quality)
+        mode_hint = self._mode_instruction(query_mode, audience, specific_intent)
         messages = self._build_messages(question, context, mode_hint, history)
-        system_prompt = self._system_prompt(audience)
+        system_prompt = self._system_prompt(audience, specific_intent)
         try:
             text = await self._call_llm(messages, system_prompt)
         except Exception as exc:
@@ -54,8 +54,8 @@ class LlmService:
         citations = self._citation_builder.from_chunks(context_chunks)
         return text, citations
 
-    def _system_prompt(self, audience: str) -> str:
-        return get_system_prompt(audience)
+    def _system_prompt(self, audience: str, specific: bool = False) -> str:
+        return get_system_prompt(audience, specific=specific)
 
     async def _call_llm(self, messages: list[dict], system_prompt: str) -> str:
         if settings.llm_provider == "anthropic":
@@ -65,10 +65,37 @@ class LlmService:
     async def _call_openrouter(self, messages: list[dict], system_prompt: str) -> str:
         if not settings.openrouter_api_key:
             raise ValueError("OPENROUTER_API_KEY is not configured")
+        models = [settings.openrouter_model]
+        if settings.openrouter_fallback_model:
+            models.append(settings.openrouter_fallback_model)
+        last_error: Exception | None = None
+        for model in models:
+            for attempt in range(settings.llm_max_retries + 1):
+                try:
+                    return await self._post_openrouter(messages, system_prompt, model)
+                except httpx.HTTPStatusError as exc:
+                    last_error = exc
+                    if exc.response.status_code == 429 and attempt < settings.llm_max_retries:
+                        await asyncio.sleep(settings.llm_retry_backoff_seconds * (attempt + 1))
+                        continue
+                    if exc.response.status_code == 429 and model != models[-1]:
+                        break
+                    raise
+        if last_error:
+            raise last_error
+        raise ValueError("OpenRouter request failed")
+
+    async def _post_openrouter(
+        self,
+        messages: list[dict],
+        system_prompt: str,
+        model: str,
+    ) -> str:
         payload = {
-            "model": settings.openrouter_model,
+            "model": model,
             "messages": [{"role": "system", "content": system_prompt}, *messages],
-            "max_tokens": 2000,
+            "max_tokens": settings.llm_max_tokens,
+            "temperature": settings.llm_temperature,
         }
         headers = {
             "Authorization": f"Bearer {settings.openrouter_api_key}",
@@ -88,28 +115,42 @@ class LlmService:
         client = anthropic.Anthropic(api_key=settings.anthropic_api_key)
         response = client.messages.create(
             model="claude-sonnet-4-20250514",
-            max_tokens=2000,
+            max_tokens=settings.llm_max_tokens,
+            temperature=settings.llm_temperature,
             system=system_prompt,
             messages=messages,
         )
         return response.content[0].text
 
-    def _build_context(self, chunks: list[dict], audience: str = "layperson") -> str:
-        parts = []
+    def _article_header(self, chunk: dict, index: int, audience: str) -> str:
+        article = resolve_article_number(chunk)
+        if audience == "professional":
+            art = f"Art.{article}" if article else "Art. (onbekend)"
+            return f"[Bron {index}] CELEX:{chunk.get('celex')} {art}"
+        title = chunk.get("title") or "EU-regelgeving"
+        suffix = f" — artikel {article}" if article else ""
+        return f"[Bron {index}] {title}{suffix}"
+
+    def _build_context(
+        self,
+        chunks: list[dict],
+        audience: str = "layperson",
+        context_quality: str = "hoog",
+    ) -> str:
+        quality_line = (
+            f"[BRON KWALITEIT: {context_quality} — "
+            "beantwoord substantiële vragen alleen bij hoog]"
+        )
+        parts = [quality_line]
         for i, c in enumerate(chunks, 1):
-            if audience == "professional":
-                header = (
-                    f"[Bron {i}] CELEX:{c.get('celex')} "
-                    f"Art.{c.get('article_number', '?')}"
-                )
-            else:
-                title = c.get("title") or "EU-regelgeving"
-                article = c.get("article_number", "?")
-                header = f"[Bron {i}] {title} — artikel {article}"
-            parts.append(f"{header}\n{c.get('text', '')[:1500]}")
+            header = self._article_header(c, i, audience)
+            body = trim_legal_preamble(str(c.get("text", "")))
+            parts.append(f"{header}\n{body}")
         return "\n\n".join(parts)
 
-    def _mode_instruction(self, mode: str, audience: str = "layperson") -> str:
+    def _mode_instruction(self, mode: str, audience: str = "layperson", specific: bool = False) -> str:
+        if specific:
+            return get_mode_hint(mode, audience, specific=True)
         return get_mode_hint(mode, audience)
 
     def _build_messages(
@@ -133,21 +174,45 @@ class LlmService:
             return (
                 "## Kort antwoord\n"
                 "Ik heb geen relevante EU-regels gevonden voor uw vraag.\n\n"
+                "## Uitleg\n"
+                "Formuleer uw vraag met een EU-wetnaam of onderwerp (bijv. AVG, AI Act).\n\n"
+                "## Wat dit voor u kan betekenen\n"
+                "Zo kan ik gerichter zoeken in EUR-Lex.\n\n"
                 "## Let op\n"
-                "Probeer uw vraag anders te formuleren of raadpleeg een advocaat."
+                "Dit is geen persoonlijk juridisch advies."
             )
         top = chunks[0]
-        title = top.get("title", top.get("celex"))
-        article = top.get("article_number", "?")
-        excerpt = top.get("text", "")[:500]
+        title = self._display_title(top)
+        excerpt = self._meaningful_excerpt(top)
         if audience == "professional":
-            return (
-                f"Op basis van {title}, artikel {article}: {excerpt}..."
-            )
+            article = resolve_article_number(top)
+            art_label = f"artikel {article}" if article else "onbekend artikel"
+            return f"Op basis van {title}, {art_label}: {excerpt}"
+        article = resolve_article_number(top)
+        art_line = f" (artikel {article})" if article else ""
         return (
             f"## Kort antwoord\n"
-            f"Op basis van {title} lijkt artikel {article} relevant voor uw vraag.\n\n"
-            f"## Uitleg\n{excerpt}...\n\n"
+            f"Volgens {title}{art_line} gelden EU-regels die op uw vraag van toepassing kunnen zijn.\n\n"
+            f"## Uitleg\n{excerpt}\n\n"
+            f"## Wat dit voor u kan betekenen\n"
+            f"{_practical_hint(question)}\n\n"
             f"## Let op\n"
-            f"Dit is een automatisch samengesteld antwoord. Raadpleeg een advocaat bij twijfel."
+            f"Dit is geen persoonlijk juridisch advies."
         )
+
+    @staticmethod
+    def _display_title(chunk: dict) -> str:
+        title = str(chunk.get("title") or "").strip()
+        celex = str(chunk.get("celex") or "")
+        if not title or title.endswith(".xml") or title.startswith("L_"):
+            return regulation_label(celex, "de relevante EU-verordening")
+        return title
+
+    def _meaningful_excerpt(self, chunk: dict) -> str:
+        body = clean_chunk_text(str(chunk.get("text", "")))
+        if not body or "| article |" in body.lower() or len(body) < 40:
+            body = trim_legal_preamble(str(chunk.get("text", "")))
+        sentences = [part.strip() for part in body.replace("\n", " ").split(".") if len(part.strip()) > 30]
+        if not sentences:
+            return body[:400] or "De EU-bron bevat regels die op uw vraag van toepassing kunnen zijn."
+        return ". ".join(sentences[:3]) + "."

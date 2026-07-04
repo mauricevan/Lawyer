@@ -8,6 +8,7 @@ import type {
   RetrievalEvent,
 } from "@/models/types";
 import { getDisclaimer } from "@/content/legalDisclaimers";
+import { getApiUrl } from "@/services/apiClient";
 
 export { getDisclaimer };
 
@@ -32,7 +33,7 @@ export function normalizeCitation(citation: Partial<Citation> & { celex: string 
   };
 }
 
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+const API_URL = getApiUrl();
 
 export async function submitQuery(request: QueryRequest): Promise<AnswerResponse> {
   const response = await fetch(`${API_URL}/api/v1/query`, {
@@ -94,6 +95,8 @@ export function streamQuery(
                 confidence_score: detail.confidence_score as number | undefined,
                 verification_questions: (detail.verification_questions as string[]) || [],
                 retrieval_explainability: detail.retrieval_explainability as AnswerResponse["retrieval_explainability"],
+                coverage_guidance: detail.coverage_guidance as AnswerResponse["coverage_guidance"],
+                coverage_status: detail.coverage_status as AnswerResponse["coverage_status"],
               });
             }
           }

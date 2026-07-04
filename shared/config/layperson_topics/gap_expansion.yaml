@@ -1,0 +1,319 @@
+# Gap-reduction topics batch 1 (instructie §2.2)
+topics:
+  - id: spam_sms
+    patterns:
+      - spam sms
+      - ongewenste reclame sms
+      - reclame sms
+      - nep sms
+      - ongewenst bericht telefoon
+    exclude_patterns:
+      - e-mail
+      - nieuwsbrief
+      - telefoonabonnement opzeggen
+    regulation_celex: "32002L0058"
+    regulation_title: "Richtlijn 2002/58/EG ePrivacy"
+    short_answer_nl: >
+      **Nee.** U mag geen reclame-sms ontvangen zonder **vooraf toestemming** (opt-in)
+      volgens de EU **ePrivacy-richtlijn**.
+    summary_nl: >
+      Commerciële sms en vergelijkbare berichten vereisen uitdrukkelijke toestemming.
+      STOP moet gratis en effectief zijn.
+    practical_nl: >
+      1. Antwoord **STOP** op de sms. 2. Meld bij **ACM** via consuwijzer.nl.
+      3. Bij ernstige overlast: nationale toezichthouder.
+
+  - id: nft_fraude
+    patterns:
+      - nft oplichting
+      - nft fraude
+      - crypto oplichting
+      - nft is waardeloos
+      - waardeloos na oplichting
+      - mijn nft
+    exclude_patterns:
+      - belastingaangifte
+      - mining thuis
+    regulation_celex: "32023R1114"
+    regulation_title: "Verordening (EU) 2023/1114 MiCA"
+    short_answer_nl: >
+      **Oplichting is verboden.** MiCA en consumentenrecht bieden kaders tegen misleidende
+      crypto- en NFT-aanbiedingen; terugbetaling hangt af van de feiten.
+    summary_nl: >
+      EU-regels op cryptoactiva en misleidende handelspraktijken kunnen van toepassing zijn.
+      Bewijs en melding zijn essentieel.
+    practical_nl: >
+      1. Bewaar transacties en communicatie. 2. Meld bij platform en bank.
+      3. Klacht bij **ACM** of financiële toezichthouder.
+
+  - id: gps_tracking_auto
+    patterns:
+      - gps tracker
+      - gps-tracker
+      - auto volgen partner
+      - voertuig tracken
+      - locatie auto volgen
+    exclude_patterns:
+      - navigatie app
+      - parkeren
+      - verzekering premie
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG)"
+    short_answer_nl: >
+      **Meestal niet zonder grondslag.** Een GPS-tracker in een gedeeld voertuig is
+      **persoonsgegevensverwerking** onder de **AVG** en vereist rechtmatigheid en transparantie.
+    summary_nl: >
+      Volgen van iemands locatie zonder toestemming of wettelijke basis kan onrechtmatig zijn.
+      Doelbinding en minimalisatie zijn verplicht.
+    practical_nl: >
+      1. Vraag uitleg over doel en bewaartermijn. 2. Schakel tracker uit indien onrechtmatig.
+      3. Klacht bij **Autoriteit Persoonsgegevens**.
+
+  - id: foodtruck_hygiene
+    patterns:
+      - foodtruck hygiëne
+      - foodtruck hygiene
+      - mobiele horeca hygiëne
+      - straatverkoper eten veilig
+      - foodtruck vergunning
+    regulation_celex: "32004R0852"
+    regulation_title: "Verordening (EG) nr. 852/2004 voedselhygiëne"
+    short_answer_nl: >
+      **Ja**, foodtrucks moeten voldoen aan EU **voedselhygiëne**-regels: HACCP-principes,
+      schone werkplek en traceerbaarheid.
+    summary_nl: >
+      EU-hygiëneverordeningen gelden voor alle voedselbedrijven, inclusief mobiele verkoop.
+      Nationale vergunningen kunnen extra eisen stellen.
+    practical_nl: >
+      1. Controleer registratie bij gemeente. 2. Meld klacht bij **NVWA**.
+      3. Bij ziekte na consumptie: bewaar bon en meld incident.
+
+  - id: pensioen_buitenland
+    patterns:
+      - pensioen buitenland
+      - pensioen eu land
+      - pensioenrechten grensarbeider
+      - werken in duitsland pensioen
+      - pensioenopbouw eu
+      - pensioen opbouwen
+      - werken in duitsland
+    regulation_celex: "32004L0038"
+    regulation_title: "Richtlijn 2004/38/EG verblijfsrecht"
+    short_answer_nl: >
+      **EU-coördinatie geldt.** Pensioenopbouw en overdracht worden gecoördineerd via
+      EU-regels; u behoudt vaak opgebouwde rechten bij werken in een ander EU-land.
+    summary_nl: >
+      Verordening (EG) 883/2004 coördineert sociale zekerheid. Details hangen af van
+      landen en regelingen.
+    practical_nl: >
+      1. Vraag overzicht bij pensioenfonds. 2. Raadpleeg **SVB** voor grensarbeid.
+      3. Europese Commissie sociale zekerheid bij twijfel.
+
+  - id: maaltijdbox_prijsverhoging
+    patterns:
+      - maaltijdbox prijs
+      - maaltijdbox duurder
+      - abonnement maaltijdbox prijsverhoging
+      - mealbox prijs omhoog
+      - eten abonnement prijswijziging
+      - maaltijdbox abonnement
+      - abonnement ineens duurder
+    exclude_patterns:
+      - software
+      - streaming
+    regulation_celex: "32011L0083"
+    regulation_title: "Richtlijn 2011/83/EU consumentenrechten"
+    short_answer_nl: >
+      **Niet zomaar.** Bij lopende consumentencontracten gelden EU-regels over **duidelijke
+      informatie** en **eerlijke wijzigingen**; eenzijdige prijsverhoging kan beperkt zijn.
+    summary_nl: >
+      Consumentenrechtenrichtlijn en oneerlijke handelspraktijken beschermen tegen misleidende
+      prijswijzigingen bij abonnementen.
+    practical_nl: >
+      1. Lees contract en opzegvoorwaarden. 2. Protesteer schriftelijk binnen redelijke termijn.
+      3. Klacht bij **ACM** of **ECC Nederland**.
+
+  - id: bezorgdrone_registratie
+    patterns:
+      - bezorgdrone
+      - drone bezorging
+      - pakket drone
+      - commerciële drone bezorg
+      - drone pakketten bezorgen
+    exclude_patterns:
+      - filmen
+      - tuin
+      - privacy
+      - buurman
+    regulation_celex: "32019R0947"
+    regulation_title: "Verordening (EU) 2019/947 UAS en exploitanten"
+    short_answer_nl: >
+      **Ja**, commerciële bezorgdrones vallen onder EU **drone-regels**: registratie,
+      training en operationele beperkingen kunnen verplicht zijn.
+    summary_nl: >
+      De EU drone-verordening harmoniseert registratie en veiligheidsregels voor
+      onbemande luchtvaartuigen.
+    practical_nl: >
+      1. Controleer registratie bij exploitant. 2. Meld incidenten bij luchtvaartautoriteit.
+      3. Vraag vergunningen bij gemeente indien lokaal vereist.
+
+  - id: vereniging_ledenlijst_avg
+    patterns:
+      - vereniging ledenlijst
+      - ledenlijst vereniging
+      - ledenlijsten vereniging
+      - vereniging ledenlijsten
+      - vereniging avg
+      - ledengegevens vereniging
+      - vereniging persoonsgegevens
+      - verwerkt ledenlijsten
+      - registreren bij de ap
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG)"
+    short_answer_nl: >
+      **Ja**, verenigingen zijn **verwerkingsverantwoordelijke** voor ledenlijsten en moeten
+      voldoen aan de **AVG** (doelbinding, beveiliging, rechten leden).
+    summary_nl: >
+      Ledenadministratie bevat persoonsgegevens. Registratie bij AP is meestal niet verplicht
+      tenzij gevoelige verwerking op grote schaal.
+    practical_nl: >
+      1. Vraag privacybeleid van de vereniging. 2. Uitoefen recht op inzage/correctie.
+      3. Klacht bij **AP** bij ernstige schending.
+
+  - id: digitale_inhoud_gebrekkig
+    patterns:
+      - gebrekkige download
+      - kapotte app gekocht
+      - game werkt niet
+      - digitale inhoud defect
+      - software download defect
+      - game download
+      - download werkt niet
+      - gekochte game
+    regulation_celex: "32019L0770"
+    regulation_title: "Richtlijn (EU) 2019/770 digitale inhoud"
+    short_answer_nl: >
+      **Ja**, bij gebrekkige **digitale inhoud** (apps, games, downloads) hebt u EU-rechten
+      op **herstel, vervanging of prijsvermindering**.
+    summary_nl: >
+      Richtlijn digitale inhoud en diensten geeft consumenten rechten vergelijkbaar met
+      koop van goederen, met aanpassingen voor updates.
+    practical_nl: >
+      1. Meld gebrek schriftelijk binnen redelijke termijn. 2. Vraag update of terugbetaling.
+      3. Geschil via **ECC** of nationale geschillencommissie.
+
+  - id: vliegtuig_instapweigering
+    patterns:
+      - instapweigering
+      - geweigerd aan boord
+      - boarding geweigerd
+      - niet mogen instappen vliegtuig
+      - denied boarding
+    regulation_celex: "32004R0261"
+    regulation_title: "Verordening (EG) nr. 261/2004 passagiersrechten"
+    short_answer_nl: >
+      Bij **instapweigering** (bijv. overboeking) hebt u vaak recht op **compensatie**,
+      verzorging en omboeking volgens EU **passagiersrechten**.
+    summary_nl: >
+      Verordening 261/2004 beschermt passagiers bij instapweigering, annulering en lange vertraging.
+    practical_nl: >
+      1. Vraag schriftelijke reden en voucher. 2. Bewaar boarding pass en bonnen.
+      3. Claim bij luchtvaartmaatschappij of geschillencommissie.
+
+  - id: dark_patterns_webshop
+    patterns:
+      - dark pattern
+      - misleidende knop
+      - moeilijk opzeggen abonnement
+      - vinkje automatisch aangevinkt
+      - misleidende webshop
+    exclude_patterns:
+      - garantie
+      - wasmachine
+    regulation_celex: "32005L0029"
+    regulation_title: "Richtlijn 2005/29/EG oneerlijke handelspraktijken"
+    short_answer_nl: >
+      **Nee**, **misleidende UX** (dark patterns) die u tot aankoop of abonnement dwingen
+      zijn verboden onder EU **oneerlijke handelspraktijken**.
+    summary_nl: >
+      Verduisterde kosten, moeilijk opzeggen en misleidende standaardvinkjes kunnen onrechtmatig zijn.
+    practical_nl: >
+      1. Screenshot de checkout-flow. 2. Meld bij **ACM** via consuwijzer.nl.
+      3. Vraag herroeping binnen wettelijke termijn.
+
+  - id: co2_uitstoot_auto_koop
+    patterns:
+      - co2 norm auto
+      - co2 uitstoot nieuwe auto
+      - emissienorm auto kopen
+      - co2 auto aankoop
+      - uitstootgrens personenauto
+      - co2 norm nieuwe auto
+      - nieuwe auto kopen
+    regulation_celex: "32023R0851"
+    regulation_title: "Verordening (EU) 2023/851 CO2 auto's"
+    short_answer_nl: >
+      Nieuwe auto's moeten voldoen aan EU **CO2-emissiegrenzen**; fabrikanten krijgen
+      boetes bij overschrijding van de vlootnorm.
+    summary_nl: >
+      CO2-verordening voor personenauto's en bestelwagens stimuleert lagere uitstoot bij verkoop.
+    practical_nl: >
+      1. Controleer WLTP-verbruik in advertentie. 2. Vergelijk energielabel.
+      3. Bij misleiding: klacht bij **ACM**.
+
+  - id: ai_beslissing_sollicitatie
+    patterns:
+      - ai sollicitatie
+      - ai beslissing sollicitatie
+      - ai krediet
+      - automatische afwijzing sollicitatie
+      - algoritme sollicitatie
+    exclude_patterns:
+      - cv bewaren
+      - bewaartermijn
+    regulation_celex: "32024R1689"
+    regulation_title: "Verordening (EU) 2024/1689 (AI Act)"
+    short_answer_nl: >
+      **AI bij sollicitatie of krediet** kan onder de **AI Act** vallen: transparantie,
+      menselijk toezicht en risicobeoordeling kunnen verplicht zijn.
+    summary_nl: >
+      Hoog-risico AI-systemen voor HR en krediet krijgen strenge eisen op uitleg en non-discriminatie.
+    practical_nl: >
+      1. Vraag of AI wordt gebruikt en welke criteria. 2. Vraag menselijke herbeoordeling.
+      3. Klacht bij AP of gelijkekanseninstantie.
+
+  - id: grensoverschrijdend_pakket
+    patterns:
+      - pakket verloren
+      - pakket kwijt uit duitsland
+      - pakket uit ander eu land
+      - grensoverschrijdend pakket
+      - verloren zending eu
+    regulation_celex: "32018R0644"
+    regulation_title: "Verordening (EU) 2018/644 pakketbezorging"
+    short_answer_nl: >
+      Bij **verloren pakketten** binnen de EU gelden regels over **dienstverlening** en
+      consumentenbescherming; de verkoper/vervoerder blijft vaak aansprakelijk.
+    summary_nl: >
+      EU-pakketverordening en consumentenrecht bepalen aansprakelijkheid bij niet-levering.
+    practical_nl: >
+      1. Meld bij webshop én vervoerder. 2. Vraag terugbetaling of nieuwe zending.
+      3. Geschil via **ECC Nederland**.
+
+  - id: app_contacten_toestemming
+    patterns:
+      - app vraagt contacten
+      - app contacten toestemming
+    exclude_patterns:
+      - telefoonboek
+      - importeer
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG)"
+    short_answer_nl: >
+      **Nee, niet verplicht.** Een app mag uw **contacten** alleen verwerken met een
+      **geldige grondslag** (meestal **toestemming**) onder de **AVG**.
+    summary_nl: >
+      Contacten zijn persoonsgegevens van derden. Toestemming moet vrij en specifiek zijn.
+    practical_nl: >
+      1. Weiger toegang als niet nodig. 2. Controleer privacy-instellingen telefoon.
+      3. Klacht bij **AP** bij misbruik.

@@ -1,6 +1,7 @@
 import type { Metadata } from "next";
 import "@/styles/tokens.css";
 import "./globals.css";
+import { ApiHealthBanner } from "@/components/ApiHealthBanner";
 
 export const metadata: Metadata = {
   title: "EU-regels helder uitgelegd — EUR-Lex",
@@ -15,7 +16,10 @@ export default function RootLayout({
 }) {
   return (
     <html lang="nl">
-      <body>{children}</body>
+      <body>
+        <ApiHealthBanner />
+        {children}
+      </body>
     </html>
   );
 }

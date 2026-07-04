@@ -17,6 +17,9 @@ Snelle diagnose: symptoom → eerste actie → runbook.
 | Symptoom | Eerste check | Runbook / fix |
 |---|---|---|
 | `/ready` 503 | Postgres, Qdrant, Redis status | [top-5 #1, #5](../../observability/runbooks/top-5-incidents.md) |
+| 500 op stream/query na deploy | `alembic current` in container | `docker compose exec backend alembic upgrade head` |
+| Frontend "Failed to fetch" | `NEXT_PUBLIC_API_URL`, CORS | Herstart frontend; check poort 8001 met local compose |
+| Metadata mist na reload | Stream append zonder coverage velden | Update backend; verify `test_query_stream_emits_complete_event` |
 | 401/403 op admin | `ADMIN_API_KEY`, JWT config | [secret-inventory.md](../security/secret-inventory.md) |
 | Migratie faalt | `alembic current`, logs | `alembic upgrade head` op staging eerst |
 | Celery jobs stuck | Worker logs, Redis | [top-5 #4](../../observability/runbooks/top-5-incidents.md) |

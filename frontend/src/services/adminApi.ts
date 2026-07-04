@@ -1,5 +1,7 @@
 """Admin API helpers with optional X-Admin-Key header."""
-const API_URL = process.env.NEXT_PUBLIC_API_URL || "http://localhost:8000";
+import { getApiUrl } from "@/services/apiClient";
+
+const API_URL = getApiUrl();
 const STORAGE_KEY = "lawyer_admin_api_key";
 
 export function getStoredAdminKey(): string {

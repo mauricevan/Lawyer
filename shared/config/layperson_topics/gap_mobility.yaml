@@ -1,0 +1,275 @@
+# Gap-reduction topics batch 2
+topics:
+  - id: webshop_eu_consument
+    patterns:
+      - webshop frankrijk
+      - verkopen aan consumenten frankrijk
+      - verkopen aan consumenten in frankrijk
+      - start een webshop
+      - webshop starten eu
+      - webshop andere eu landen
+      - cross border webshop
+      - webshop starten
+      - verkopen frankrijk
+      - webshop en verkoop
+      - consumenten in frankrijk
+    regulation_celex: "32011L0083"
+    regulation_title: "Richtlijn 2011/83/EU consumentenrechten"
+    short_answer_nl: >
+      Bij verkopen aan EU-consumenten gelden **informatieplichten**, **bedenktijd** en
+      **garantie** volgens EU **consumentenrechten**.
+    summary_nl: >
+      Richtlijn 2011/83/EU harmoniseert koop op afstand binnen de EU interne markt.
+    practical_nl: >
+      1. Pas algemene voorwaarden aan per land. 2. Toon totaalprijs inclusief btw/verzendkosten.
+      3. Raadpleeg **ECC** voor grensoverschrijdende verkoop.
+
+  - id: betalingsgegevens_webshop
+    patterns:
+      - betaalgegevens bewaren
+      - webshop betaalgegevens
+      - creditcard gegevens opslaan
+      - betalingsgegevens webshop
+    exclude_patterns:
+      - chargeback
+      - gelekt
+    regulation_celex: "32016R0679"
+    regulation_title: "AVG en PSD2"
+    short_answer_nl: >
+      Een webshop mag **betaalgegevens** alleen bewaren met **rechtmatige grondslag**,
+      **beveiliging** en **dataminimalisatie** (AVG/PSD2).
+    summary_nl: >
+      Opslag van kaartgegevens vereist vaak PCI-DSS en expliciete toestemming of contract.
+    practical_nl: >
+      1. Vraag privacybeleid en bewaartermijn. 2. Gebruik beveiligde betaalprovider.
+      3. Meld datalek bij AP.
+
+  - id: telefoon_abonnement_vast
+    patterns:
+      - telefoonabonnement 3 jaar
+      - provider vastzetten
+      - abonnement looptijd telefoon
+      - lange contract telefoon
+      - sim only contract duur
+      - telefoonabonnement
+      - vast contract
+    regulation_celex: "32011L0083"
+    regulation_title: "Richtlijn 2011/83/EU en telecom"
+    short_answer_nl: >
+      Bij een **telefoonabonnement** met **lange binding** (bijv. 3 jaar) kan EU
+      **consumentenrecht** en nationale telecomregels **opzeg- en herroepingsrechten** bieden.
+    summary_nl: >
+      Consumentencontracten en telecomspecifieke regels beperken misleidende lange looptijden.
+    practical_nl: >
+      1. Lees opzegclausule. 2. Vraag overstapdienst. 3. Klacht bij **ACM**.
+
+  - id: transport_goederen_aansprakelijkheid
+    patterns:
+      - aansprakelijkheid vervoerder
+      - goederenvervoer internationaal
+      - vervoerder aansprakelijk schade
+      - cmr vervoer
+      - vracht beschadigd
+      - beschadigde vracht
+      - vervoerder aansprakelijk
+    regulation_celex: "32011R0952"
+    regulation_title: "CMR en EU vervoersrecht"
+    short_answer_nl: >
+      **Vervoerders** zijn onder EU/internationaal vervoersrecht **aansprakelijk** voor
+      verlies of beschadiging van goederen, met beperkte uitzonderingen.
+    summary_nl: >
+      CMR-verdrag en EU-regels gelden voor veel grensoverschrijdend goederenvervoer.
+    practical_nl: >
+      1. Documenteer schade bij levering. 2. Meld binnen wettelijke termijn.
+      3. Vraag verzekering vervoerder.
+
+  - id: subscription_auto_renewal
+    patterns:
+      - automatisch verlengd abonnement
+      - stilzwijgend verlengen
+      - abonnement verlengd zonder toestemming
+      - auto renewal abonnement
+      - automatisch verlengd
+      - verlengd zonder mail
+    exclude_patterns:
+      - maaltijdbox
+    regulation_celex: "32011L0083"
+    regulation_title: "Richtlijn 2011/83/EU consumentenrechten"
+    short_answer_nl: >
+      **Stilzwijgende verlenging** moet **duidelijk** zijn vooraf; consumenten moeten
+      kunnen **opzeggen** volgens EU **consumentenrecht**.
+    summary_nl: >
+      Transparante informatie over verlenging en opzegging is verplicht bij abonnementen.
+    practical_nl: >
+      1. Zoek opzeglink in bevestiging. 2. Zeg schriftelijk op binnen termijn.
+      3. Klacht bij **ACM**.
+
+  - id: hotel_boeking_annulering
+    patterns:
+      - hotel annuleren
+      - hotel boeking annulering
+      - reis annuleren hotel
+      - annuleringskosten hotel eu
+    regulation_celex: "32011L0083"
+    regulation_title: "Richtlijn 2011/83/EU consumentenrechten"
+    short_answer_nl: >
+      Bij **online hotelboekingen** gelden EU **informatie- en herroepingsregels**; annuleringskosten
+      moeten vooraf duidelijk zijn.
+    summary_nl: >
+      Niet alle hotelboekingen vallen onder 14 dagen bedenktijd; annuleringsvoorwaarden moeten transparant zijn.
+    practical_nl: >
+      1. Lees annuleringsbeleid vóór betaling. 2. Vraag kosteloze annulering indien misleidend.
+      3. Geschil via **ECC**.
+
+  - id: rental_deposit_eu
+    patterns:
+      - borg huur eu
+      - huur borg terug
+      - deposit huur spanje
+      - borg niet terug verhuurder
+    regulation_celex: "32016R0679"
+    regulation_title: "AVG en nationale huurwet"
+    short_answer_nl: >
+      **Borg** is contractueel geregeld; EU-recht biedt weinig harmonisatie voor woninghuur,
+      maar **discriminatie** en **misleidende praktijken** zijn verboden.
+    summary_nl: >
+      Huurrecht is grotendeels nationaal; EU-bescherming geldt voor grensoverschrijdende consumentenclausules.
+    practical_nl: >
+      1. Leg borg schriftelijk vast. 2. Maak opleverrapport met foto's.
+      3. Vraag **ECC** bij grensoverschrijdend geschil.
+
+  - id: medical_device_ce
+    patterns:
+      - medisch hulpmiddel ce
+      - ce markering medisch
+      - thuis test ce
+      - medische app ce
+    regulation_celex: "32017R0745"
+    regulation_title: "Verordening (EU) 2017/745 medische hulpmiddelen"
+    short_answer_nl: >
+      **Medische hulpmiddelen** (inclusief sommige apps) moeten voldoen aan EU **MDR**
+      en **CE-markering** voordat ze legaal op de markt mogen.
+    summary_nl: >
+      MDR stelt eisen aan veiligheid, klinisch bewijs en traceerbaarheid.
+    practical_nl: >
+      1. Controleer CE-markering en IFU. 2. Meld bijwerking bij fabrikant.
+      3. Meld bij **IGJ** bij ernstig risico.
+
+  - id: ev_charging_tariff
+    patterns:
+      - laadpaal tarief
+      - elektrisch laden prijs
+      - ev laden kosten
+      - laadpas abonnement
+    regulation_celex: "32023R1804"
+    regulation_title: "Richtlijn EU laadinfrastructuur"
+    short_answer_nl: >
+      **Laadprijzen** moeten **transparant** zijn per kWh; EU-regels op laadinfrastructuur
+      vereisen duidelijke prijsinformatie aan het laadpunt.
+    summary_nl: >
+      AFIR-richtlijn en nationale uitwerking verplichten prijsweergave en ad-hoc betaling.
+    practical_nl: >
+      1. Vergelijk prijs per kWh op display. 2. Bewaar transactiebon.
+      3. Klacht bij **ACM** bij misleidende prijzen.
+
+  - id: online_gambling_eu
+    patterns:
+      - online gokken eu
+      - online casino eu
+      - goksite vergunning
+      - online wedden eu
+    regulation_celex: "32018L0005"
+    regulation_title: "Richtlijn 2018/5/EU kansspelen"
+    short_answer_nl: >
+      **Online gokken** is **niet volledig geharmoniseerd**; aanbieders moeten een **nationale
+      vergunning** hebben in het land waar u speelt.
+    summary_nl: >
+      EU-landen regelen kansspelen zelf; consumentenbescherming verschilt per lidstaat.
+    practical_nl: >
+      1. Controleer vergunning op site. 2. Speel alleen bij legale aanbieder.
+      3. Meld bij **Kansspelautoriteit** bij illegale aanbieders.
+
+  - id: marketplace_fake_reviews
+    patterns:
+      - nepreviews
+      - valse reviews
+      - fake reviews webshop
+      - gekochte reviews
+    regulation_celex: "32022R2065"
+    regulation_title: "Verordening (EU) 2022/2065 (DSA)"
+    short_answer_nl: >
+      **Nepreviews** zijn verboden; onder de **DSA** moeten platforms misleidende reviews
+      bestrijden en transparant zijn over advertenties.
+    summary_nl: >
+      DSA en oneerlijke handelspraktijken verbieden manipulatie van consumentenbeoordelingen.
+    practical_nl: >
+      1. Meld review bij platform. 2. Meld bij **ACM** als patroon van misleiding.
+      3. Overweeg geschil met verkoper.
+
+  - id: student_exchange_eu
+    patterns:
+      - erasmus rechten
+      - uitwisseling student eu
+      - studie buitenland eu
+      - erasmus student
+    regulation_celex: "32004L0038"
+    regulation_title: "Richtlijn 2004/38/EG en Erasmus+"
+    short_answer_nl: >
+      **Studenten** uit EU-landen hebben recht op **vrij verkeer** en gelijke behandeling;
+      Erasmus+ regelt vaak financiering en erkenning van studiepunten.
+    summary_nl: >
+      Verblijfsrecht en non-discriminatie gelden bij studie in een ander EU-land.
+    practical_nl: >
+      1. Vraag Erasmus-bureau van uw instelling. 2. Registreer verblijf indien vereist.
+      3. Europese Commissie Erasmus+ bij problemen.
+
+  - id: cross_border_inheritance
+    patterns:
+      - erfenis eu land
+      - erfenis buitenland eu
+      - nalatenschap eu
+      - erfrecht eu
+    regulation_celex: "32012R0650"
+    regulation_title: "Verordening (EU) nr. 650/2012 erfrecht"
+    short_answer_nl: >
+      EU **erfrechtverordening** bepaalt welk **recht** geldt en erkenning van erfenissen
+      tussen lidstaten; erfbelasting blijft nationaal.
+    summary_nl: >
+      Verordening 650/2012 vereenvoudigt grensoverschrijdende erfenissen, niet belastingen.
+    practical_nl: >
+      1. Maak Europese erftestament. 2. Raadpleeg notaris in betrokken landen.
+      3. Juridisch Loket voor doorverwijzing.
+
+  - id: package_customs_delay
+    patterns:
+      - pakket vast douane
+      - douane vertraging pakket
+      - invoerrechten pakket eu
+      - pakket geblokkeerd douane
+    regulation_celex: "32013R0952"
+    regulation_title: "Verordening (EU) nr. 952/2013 douane"
+    short_answer_nl: >
+      Pakketten uit **buiten de EU** kunnen **douanecontrole** en **invoerrechten** krijgen;
+      binnen de EU is douane meestal niet nodig.
+    summary_nl: >
+      Unie douanewetboek regelt aangifte en vrijstellingen; waarde en herkomst bepalen kosten.
+    practical_nl: >
+      1. Controleer tracking en douane-status. 2. Betaal invoerrechten indien legitiem.
+      3. Vraag verkoper om ondersteuning.
+
+  - id: public_wifi_logging
+    patterns:
+      - openbaar wifi
+      - wifi hotspot logging
+      - gratis wifi winkel
+      - wifi persoonsgegevens
+    regulation_celex: "32016R0679"
+    regulation_title: "Verordening (EU) 2016/679 (AVG)"
+    short_answer_nl: >
+      Aanbieders van **openbaar wifi** mogen alleen **noodzakelijke gegevens** verwerken
+      met duidelijke **privacy-informatie** onder de **AVG**.
+    summary_nl: >
+      MAC-logging en marketing via wifi vereisen grondslag en transparantie.
+    practical_nl: >
+      1. Lees privacyverklaring hotspot. 2. Gebruik VPN op openbaar wifi.
+      3. Klacht bij **AP** bij excessieve logging.

@@ -1,22 +1,25 @@
 """Unit tests for LlmService prompt and context building."""
-from backend.src.services.llm_service import (
-    LAYPERSON_MODE_HINTS,
-    LAYPERSON_SYSTEM_PROMPT,
-    PROFESSIONAL_MODE_HINTS,
-    SYSTEM_PROMPT,
-    LlmService,
-)
+from backend.src.services.llm_service import LlmService
+from shared.config.prompt_loader import get_mode_hint, get_system_prompt
 
 
 def test_system_prompt_layperson():
     service = LlmService()
-    assert service._system_prompt("layperson") == LAYPERSON_SYSTEM_PROMPT
-    assert "CELEX" not in LAYPERSON_SYSTEM_PROMPT or "GEEN CELEX" in LAYPERSON_SYSTEM_PROMPT
+    prompt = get_system_prompt("layperson")
+    assert service._system_prompt("layperson") == prompt
+    assert "CELEX" not in prompt or "GEEN CELEX" in prompt
 
 
 def test_system_prompt_professional():
     service = LlmService()
-    assert service._system_prompt("professional") == SYSTEM_PROMPT
+    assert service._system_prompt("professional") == get_system_prompt("professional")
+
+
+def test_system_prompt_specific_variant():
+    service = LlmService()
+    specific = get_system_prompt("professional", specific=True)
+    assert service._system_prompt("professional", specific=True) == specific
+    assert "Wettelijke grondslag" in specific
 
 
 def test_build_context_layperson_uses_title():
@@ -52,9 +55,9 @@ def test_mode_instruction_per_audience():
     service = LlmService()
     lay = service._mode_instruction("compliance", "layperson")
     pro = service._mode_instruction("compliance", "professional")
-    assert lay == LAYPERSON_MODE_HINTS["compliance"]
-    assert pro == PROFESSIONAL_MODE_HINTS["compliance"]
-    assert "ja, nee" in lay.lower()
+    assert lay == get_mode_hint("compliance", "layperson")
+    assert pro == get_mode_hint("compliance", "professional")
+    assert "niet kunt bevestigen" in lay.lower()
 
 
 def test_fallback_answer_layperson_structure():

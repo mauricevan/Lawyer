@@ -74,3 +74,19 @@ class RedisCacheService:
             return {"enabled": True, "healthy": bool(pong)}
         except Exception:
             return {"enabled": True, "healthy": False}
+
+    async def flush_retrieval_keys(self) -> int:
+        if self._disabled:
+            return 0
+        client = await self._get_client()
+        if client is None:
+            return 0
+        try:
+            removed = 0
+            async for key in client.scan_iter(match="*"):
+                await client.delete(key)
+                removed += 1
+            return removed
+        except Exception as exc:
+            logger.warning("Redis flush failed: %s", exc)
+            return 0

@@ -23,3 +23,7 @@ services:
 
   postgres:
     ports: !override []
+
+  frontend:
+    environment:
+      NEXT_PUBLIC_API_URL: http://localhost:8001

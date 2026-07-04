@@ -1,21 +1,21 @@
-"""Live fallback retrieval via CELLAR SPARQL and EUR-Lex content."""
-import asyncio
+"""Live fallback retrieval via CELLAR REST and EUR-Lex content."""
 import logging
 import re
 from collections.abc import Callable
 from typing import Any
 
-import httpx
-
 from backend.src.config import settings
-from backend.src.security.ssrf_guard import SecurityValidationError, assert_url_allowed, validate_celex
+from backend.src.security.ssrf_guard import SecurityValidationError, validate_celex
+from backend.src.services.chunk_quality_service import ChunkQualityService
+from backend.src.services.legal_source_planner_service import LegalSourcePlannerService
 from backend.src.services.live_chunk_builder import LiveChunkBuilder
+from backend.src.services.live_document_fetch_service import LiveDocumentFetchService
 from backend.src.services.language_resolution_service import LanguageResolutionService
+from backend.src.utils.article_resolver import resolve_article_number
+from backend.src.utils.legal_content_quality import is_usable_legal_text, strip_html_tags
 from ingestion.src.clients.sparql_client import SparqlClient
 
 logger = logging.getLogger(__name__)
-EURLEX_TITLE_RE = re.compile(r"<title>(.*?)</title>", re.IGNORECASE | re.DOTALL)
-MAX_RETRIES = 3
 CelexAllowedFn = Callable[[str, str | None], bool]
 
 
@@ -25,7 +25,10 @@ class LiveRetrievalService:
     def __init__(self) -> None:
         self._sparql = SparqlClient(timeout=settings.live_fallback_timeout_seconds)
         self._chunk_builder = LiveChunkBuilder()
+        self._document_fetch = LiveDocumentFetchService()
+        self._quality = ChunkQualityService()
         self._language = LanguageResolutionService()
+        self._planner = LegalSourcePlannerService()
 
     async def fallback_chunks(
         self,
@@ -33,29 +36,57 @@ class LiveRetrievalService:
         language: str = "nl",
         celex_hint: str | None = None,
         is_celex_allowed: CelexAllowedFn | None = None,
+        article_hints: tuple[str, ...] | None = None,
+        strict_articles: bool = False,
+        search_keywords: tuple[str, ...] | None = None,
+        agent_mode: bool = False,
     ) -> list[dict[str, Any]]:
         if not settings.enable_live_fallback:
             return []
         celex = await self._resolve_celex(question, language, celex_hint, is_celex_allowed)
         if not celex:
             return []
+        source_plan = self._planner.plan(question)
+        if source_plan and not celex_hint:
+            celex = source_plan.celex
+        if not article_hints and source_plan:
+            article_hints = source_plan.articles
         try:
             celex = validate_celex(celex)
         except SecurityValidationError:
             return []
-        for lang in self._language.fallback_chain(language):
+        fetch_languages = (language,) if agent_mode else self._language.fallback_chain(language)
+        for lang in fetch_languages:
             metadata = await self._fetch_sparql_metadata(celex, lang)
-            title, html = await self._fetch_document_html(celex, lang)
+            fetched = await self._document_fetch.fetch_document(celex, lang)
+            if not fetched:
+                continue
+            content, _content_type, resolved_lang, title = fetched
             if metadata and metadata.get("title"):
                 title = metadata["title"]
-            if not html:
-                continue
-            parsed = self._chunk_builder.build_from_html(celex, html, lang, title, metadata)
+            parsed = self._chunk_builder.build_from_html(
+                celex,
+                content,
+                resolved_lang,
+                title,
+                metadata,
+                question=question,
+                article_hints=article_hints,
+                strict_articles=strict_articles,
+                search_keywords=search_keywords,
+                agent_mode=agent_mode,
+            )
+            parsed = self._quality.filter_chunks(parsed, expected_language=language)
             if parsed:
                 return parsed
-            return self._build_chunks_from_plain_text(
-                celex, title, html.decode("utf-8", errors="ignore"), lang, metadata,
+            plain = self._build_chunks_from_plain_text(
+                celex, title, content.decode("utf-8", errors="ignore"), resolved_lang, metadata,
             )
+            plain = self._quality.filter_chunks(plain, expected_language=language)
+            if plain:
+                return plain
+            if resolved_lang != language:
+                continue
         return []
 
     async def _resolve_celex(
@@ -100,7 +131,10 @@ class LiveRetrievalService:
 
     async def _discover_celex(self, question: str, language: str) -> str | None:
         try:
-            return await self._sparql.discover_celex_by_keywords(question, language)
+            candidates = await self._sparql.discover_celex_candidates(question, language, limit=3)
+            if candidates:
+                return candidates[0].get("celex") or None
+            return None
         except Exception as exc:
             logger.warning("SPARQL discovery failed: %s", exc)
             return None
@@ -112,31 +146,6 @@ class LiveRetrievalService:
             logger.warning("SPARQL metadata lookup failed for %s: %s", celex, exc)
             return None
 
-    async def _fetch_document_html(self, celex: str, language: str) -> tuple[str, bytes]:
-        url = self._eurlex_url(celex, language)
-        assert_url_allowed(url)
-        timeout = settings.live_fallback_timeout_seconds
-        for attempt in range(MAX_RETRIES):
-            try:
-                async with httpx.AsyncClient(timeout=timeout) as client:
-                    response = await client.get(url)
-                    if response.status_code in (429, 503):
-                        await asyncio.sleep(2 ** attempt)
-                        continue
-                    response.raise_for_status()
-                html = response.content
-                title_match = EURLEX_TITLE_RE.search(response.text)
-                title = title_match.group(1).strip() if title_match else ""
-                return title, html
-            except Exception as exc:
-                logger.warning("Live fallback fetch failed (attempt %s): %s", attempt + 1, exc)
-                await asyncio.sleep(2 ** attempt)
-        return "", b""
-
-    def _eurlex_url(self, celex: str, language: str) -> str:
-        lang = (language or "NL").upper()
-        return f"https://eur-lex.europa.eu/legal-content/{lang}/TXT/?uri=CELEX:{celex}"
-
     def _build_chunks_from_plain_text(
         self,
         celex: str,
@@ -145,24 +154,26 @@ class LiveRetrievalService:
         language: str,
         metadata: dict[str, str] | None,
     ) -> list[dict[str, Any]]:
-        snippet = re.sub(r"<[^>]+>", " ", html_text)
-        snippet = re.sub(r"\s+", " ", snippet).strip()[:2400]
+        snippet = strip_html_tags(html_text)
+        if not is_usable_legal_text(snippet):
+            return []
         segments = [part.strip() for part in re.split(r"(?<=[.!?])\s+", snippet) if len(part.strip()) > 80]
         if not segments:
             segments = [snippet[:1200]]
         chunks: list[dict[str, Any]] = []
         for index, segment in enumerate(segments[:3], start=1):
-            chunks.append({
+            chunk = {
                 "chunk_id": f"live:{celex}:{index}",
                 "celex": celex,
                 "title": title or f"EUR-Lex CELEX {celex}",
                 "text": segment,
-                "article_number": str(index),
                 "language": language,
                 "is_consolidated": False,
                 "is_in_force": True,
                 "eli_uri": metadata.get("modified") if metadata else None,
                 "score": 1.0,
                 "source": "live_fallback",
-            })
+            }
+            chunk["article_number"] = resolve_article_number(chunk) or str(index)
+            chunks.append(chunk)
         return chunks

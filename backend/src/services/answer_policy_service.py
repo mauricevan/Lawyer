@@ -3,6 +3,7 @@ from shared.legal.disclaimers import get_disclaimer
 from shared.schemas.citation import Citation
 
 from backend.src.services.citation_builder_service import CitationBuilderService
+from backend.src.utils.answer_text_sanitizer import sanitize_answer_text
 
 INSUFFICIENT_MARKERS = (
     "onvoldoende",
@@ -36,6 +37,7 @@ class AnswerPolicyService:
     ) -> tuple[str, list[Citation], str]:
         citations = self.enforce_citations(citations, chunks)
         answer = self._ensure_insufficient_notice(answer_text, chunks, audience)
+        answer = sanitize_answer_text(answer, audience)
         return answer, citations, get_disclaimer(audience, language)  # type: ignore[arg-type]
 
     def _ensure_insufficient_notice(

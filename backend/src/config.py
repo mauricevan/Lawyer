@@ -13,6 +13,11 @@ class Settings(BaseSettings):
     llm_provider: str = "openrouter"
     openrouter_api_key: str = ""
     openrouter_model: str = "google/gemma-4-31b-it:free"
+    openrouter_fallback_model: str = ""
+    llm_max_retries: int = 2
+    llm_retry_backoff_seconds: float = 1.5
+    llm_temperature: float = 0.1
+    llm_max_tokens: int = 1500
     anthropic_api_key: str = ""
     openai_api_key: str = ""
     use_local_embeddings: bool = True
@@ -20,9 +25,14 @@ class Settings(BaseSettings):
     jwt_algorithm: str = "HS256"
     jwt_expire_minutes: int = 60
     app_env: str = "development"
-    cors_origins: str = "http://localhost:3000"
+    cors_origins: str = "http://localhost:3000,http://localhost:3001,http://localhost:3002"
     enable_live_fallback: bool = True
-    live_fallback_timeout_seconds: float = 6.0
+    agent_flow_enabled: bool = True
+    agent_retrieval_budget_seconds: float = 55.0
+    agent_max_instruments: int = 3
+    agent_max_articles_per_instrument: int = 8
+    agent_max_total_chunks: int = 12
+    live_fallback_timeout_seconds: float = 25.0
     retrieval_cache_ttl_seconds: int = 86400
     enable_redis_cache: bool = True
     redis_url: str = "redis://localhost:6379/0"
@@ -49,6 +59,9 @@ class Settings(BaseSettings):
     feedback_retention_days: int = 365
     conversation_retention_days: int = 180
     partner_pilot_api_key: str = ""
+    audit_run_token: str = ""
+    query_rate_limit: str = "20/minute"
+    audit_query_rate_limit: str = "200/minute"
 
 
 settings = Settings()
