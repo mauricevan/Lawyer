@@ -10,6 +10,7 @@ from backend.src.services.conflict_aware_celex_resolver_service import ConflictA
 from backend.src.services.evidence_gate_service import EvidenceGateService
 from backend.src.services.instrument_resolver_service import InstrumentResolverService
 from backend.src.services.legal_case_analysis_service import LegalCaseAnalysisService
+from backend.src.services.case_law_simulation_gate_service import CaseLawSimulationGateService
 from backend.src.services.legal_judge_gate_service import LegalJudgeGateService
 from backend.src.services.legal_reconciliation_service import LegalReconciliationService
 from backend.src.services.llm_legal_planner_service import LlmLegalPlannerService
@@ -18,6 +19,7 @@ from backend.src.utils.hypothesis_retrieval_query import build_analysis_retrieva
 from shared.schemas.celex_resolution import CelexResolutionResult
 from shared.schemas.evidence_validation import EvidenceValidationResult
 from shared.schemas.legal_conflict import LegalCaseAnalysis, ReconciliationResult
+from shared.schemas.case_law_simulation import CaseLawSimulationResult
 from shared.schemas.legal_judge import LegalJudgeResult
 from shared.schemas.legal_hypothesis import LegalHypothesis
 from shared.schemas.legal_interpretation import AgentFetchResult, LegalInterpretationPlan
@@ -38,6 +40,7 @@ class AgentV4PipelineService:
         self._reconciliation = LegalReconciliationService()
         self._answer = AgentAnswerService()
         self._judge_gate = LegalJudgeGateService()
+        self._court_gate = CaseLawSimulationGateService()
 
     async def run(
         self,
@@ -93,6 +96,7 @@ class AgentV4PipelineService:
         bundle, judge_result = await self._judge_gate.gate(
             bundle, request, analysis, resolved, fetch, evidence, reconciliation, history,
         )
+        bundle, _court_result = self._court_gate.gate(bundle, analysis)
         return resolved, fetch, bundle, hypothesis, evidence, reconciliation, analysis
 
     async def run_with_events(
@@ -187,8 +191,19 @@ class AgentV4PipelineService:
             "Juridische stress-test afgerond." if is_layperson else "Judge complete.",
             {"legal_judge": judge_result.model_dump(mode="json") if judge_result else None},
         )
+        yield _step(
+            "court",
+            "Ik simuleer hoe een EU-rechter deze zaak zou beoordelen…" if is_layperson else "CJEU case simulation…",
+        )
+        bundle, court_result = self._court_gate.gate(bundle, analysis)
+        yield _step(
+            "simulated",
+            "Hof-simulatie afgerond." if is_layperson else "Court simulation complete.",
+            {"case_law_simulation": court_result.model_dump(mode="json") if court_result else None},
+        )
         explain = _build_explainability(
-            resolved, fetch, hypothesis, evidence, reconciliation, analysis, celex_resolution, judge_result,
+            resolved, fetch, hypothesis, evidence, reconciliation, analysis,
+            celex_resolution, judge_result, court_result,
         )
         yield _complete(
             request, bundle, hypothesis, evidence.is_valid, reconciliation.conclusion,
@@ -268,6 +283,7 @@ def _build_explainability(
     analysis: LegalCaseAnalysis,
     celex_resolution: CelexResolutionResult | None = None,
     judge_result: LegalJudgeResult | None = None,
+    court_result: CaseLawSimulationResult | None = None,
 ) -> RetrievalExplainability:
     payload = plan.model_dump(mode="json")
     payload["legal_hypothesis"] = hypothesis.model_dump(mode="json")
@@ -281,6 +297,8 @@ def _build_explainability(
         payload["legal_effect"] = analysis.legal_effect.model_dump(mode="json")
     if judge_result:
         payload["legal_judge"] = judge_result.model_dump(mode="json")
+    if court_result:
+        payload["case_law_simulation"] = court_result.model_dump(mode="json")
     return RetrievalExplainability(
         route="live_fallback",
         query_language="nl",

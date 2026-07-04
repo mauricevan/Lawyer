@@ -18,6 +18,8 @@ const STEP_LABELS: Record<string, string> = {
   reconciling: "Afstemming",
   judge: "Juridische toets",
   judged: "Toets klaar",
+  court: "Hof-simulatie",
+  simulated: "Simulatie klaar",
   verifying: "Controle",
   search: "Zoeken",
   router: "Router",
