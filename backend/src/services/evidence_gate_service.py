@@ -29,13 +29,17 @@ class EvidenceGateService:
         celex_resolution: CelexResolutionResult | None = None,
     ) -> tuple[AgentFetchResult, EvidenceValidationResult]:
         """Validate evidence; on FAIL retry retrieval once in same domain, then re-validate."""
-        evidence = self._validator.validate(request.question, fetch.chunks, plan, hypothesis)
+        evidence = self._validator.validate(
+            request.question, fetch.chunks, plan, hypothesis, analysis,
+        )
         if evidence.is_valid:
             return self._with_validated_chunks(fetch, evidence), evidence
         retried = await self._retry.retry(
             request, plan, fetch, session, hypothesis, analysis, celex_resolution,
         )
-        evidence = self._validator.validate(request.question, retried.chunks, plan, hypothesis)
+        evidence = self._validator.validate(
+            request.question, retried.chunks, plan, hypothesis, analysis,
+        )
         if evidence.is_valid:
             return self._with_validated_chunks(retried, evidence), evidence
         return retried, evidence

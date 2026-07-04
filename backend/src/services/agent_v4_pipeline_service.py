@@ -85,7 +85,7 @@ class AgentV4PipelineService:
             "reconciliation_conclusion": reconciliation.conclusion,
         })
         bundle = await self._answer.build(
-            request, fetch, resolved, history, evidence, reconciliation,
+            request, fetch, resolved, history, evidence, reconciliation, analysis,
         )
         return resolved, fetch, bundle, hypothesis, evidence, reconciliation, analysis
 
@@ -107,6 +107,17 @@ class AgentV4PipelineService:
             "conflict",
             "Ik bepaal het primaire juridische conflict…" if is_layperson else "Primary legal conflict…",
             {"legal_hypothesis": hypothesis.model_dump(mode="json")},
+        )
+        yield _step(
+            "effect",
+            "Ik bepaal het juridische effect van de maatregel…" if is_layperson else "Legal effect…",
+            {
+                "legal_effect": (
+                    analysis.legal_effect.model_dump(mode="json")
+                    if analysis.legal_effect
+                    else None
+                ),
+            },
         )
         if analysis.legal_domain == "unknown":
             bundle = await self._answer.build_no_domain_gap(request)
@@ -156,7 +167,7 @@ class AgentV4PipelineService:
             {"reconciliation": reconciliation.model_dump(mode="json")},
         )
         bundle = await self._answer.build(
-            request, fetch, resolved, history, evidence, reconciliation,
+            request, fetch, resolved, history, evidence, reconciliation, analysis,
         )
         explain = _build_explainability(
             resolved, fetch, hypothesis, evidence, reconciliation, analysis, celex_resolution,
@@ -247,6 +258,8 @@ def _build_explainability(
     payload["reconciliation_conclusion"] = reconciliation.conclusion
     if celex_resolution:
         payload["celex_resolution"] = celex_resolution.model_dump(mode="json")
+    if analysis.legal_effect:
+        payload["legal_effect"] = analysis.legal_effect.model_dump(mode="json")
     return RetrievalExplainability(
         route="live_fallback",
         query_language="nl",

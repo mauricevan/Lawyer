@@ -3,6 +3,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
+from shared.schemas.legal_effect import LegalEffectAnalysis
 from shared.schemas.legal_interpretation import LegalActor, LegalQuestionType, LegalRoutingDomain
 
 PrimaryLegalConflict = Literal[
@@ -31,6 +32,7 @@ class LegalCaseAnalysis(BaseModel):
     legal_question_type: LegalQuestionType = "unknown"
     likely_eu_frameworks: list[str] = Field(default_factory=list, max_length=8)
     default_celex: str | None = None
+    legal_effect: LegalEffectAnalysis | None = None
 
 
 class ReconciliationResult(BaseModel):

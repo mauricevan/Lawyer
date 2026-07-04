@@ -6,6 +6,7 @@ from backend.src.utils.conflict_celex_registry import (
     primary_celex_for_conflict,
 )
 from backend.src.utils.conflict_domain_mapping import map_conflict_to_domain
+from backend.src.utils.effect_law_mapping import map_effect_to_law
 from backend.src.utils.legal_domain_retrieval_filter import is_celex_allowed_for_domain
 from shared.schemas.legal_conflict import LegalCaseAnalysis, PrimaryLegalConflict
 
@@ -72,6 +73,12 @@ def _score_one(celex: str, analysis: LegalCaseAnalysis, locked_domain: str) -> i
     if conflict == "internal_market_restriction" and celex == "32008R0768":
         if _has_ecommerce_framework(analysis.likely_eu_frameworks):
             score -= 25
+    if analysis.legal_effect:
+        effect_mapping = map_effect_to_law(analysis.legal_effect, conflict)
+        if celex == effect_mapping.primary_celex:
+            score += 25
+        if celex in effect_mapping.secondary_celex:
+            score += 10
     return score
 
 

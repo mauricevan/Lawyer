@@ -25,7 +25,8 @@ from backend.src.utils.layperson_answer_formatter import is_hybrid_boilerplate, 
 from backend.src.utils.layperson_gap_policy import is_publishable_clear_answer
 from shared.schemas.coverage_guidance import AdequacyResult
 from shared.schemas.evidence_validation import EvidenceFailureReason, EvidenceValidationResult
-from shared.schemas.legal_conflict import ReconciliationResult
+from backend.src.services.legal_effect_answer_service import enrich_layperson_answer
+from shared.schemas.legal_conflict import LegalCaseAnalysis, ReconciliationResult
 from shared.schemas.legal_interpretation import AgentFetchResult, LegalInterpretationPlan
 from shared.schemas.query import QueryRequest
 
@@ -37,6 +38,7 @@ _REASON_LABELS: dict[EvidenceFailureReason, str] = {
     "actor_mismatch": "bronnen sluiten niet aan op de juridische actor in de vraag",
     "subject_mismatch": "bronnen beantwoorden het onderwerp van de vraag niet",
     "insufficient_substance": "onvoldoende inhoudelijke juridische onderbouwing",
+    "effect_mismatch": "bronnen ondersteunen het juridische effect niet",
 }
 
 
@@ -62,6 +64,7 @@ class AgentAnswerService:
         history: list[dict] | None,
         evidence: EvidenceValidationResult | None = None,
         reconciliation: ReconciliationResult | None = None,
+        analysis: LegalCaseAnalysis | None = None,
     ) -> dict[str, Any]:
         route = "agent_flow"
         intent = self._intent.analyze(request.question)
@@ -77,7 +80,9 @@ class AgentAnswerService:
         if evidence and not evidence.is_valid:
             return self._insufficient_evidence_gap(request, plan, fetch, route, intent, guidance, evidence)
         if fetch.chunks:
-            return await self._answer_from_chunks(request, fetch.chunks, plan, history, route, guidance)
+            return await self._answer_from_chunks(
+                request, fetch.chunks, plan, history, route, guidance, analysis,
+            )
         if fetch.fetch_attempted:
             clear = await self._resolve_clear_fallback(request, fetch.chunks, plan)
             if clear:
@@ -115,10 +120,12 @@ class AgentAnswerService:
         history: list[dict] | None,
         route: str,
         guidance: Any,
+        analysis: LegalCaseAnalysis | None = None,
     ) -> dict[str, Any]:
         if request.audience == "layperson" and can_build_generic_answer(chunks, request.question):
             prose = await self._compose_layperson_answer(request, chunks, plan)
             if prose and not is_weak_layperson_answer(prose):
+                prose = self._apply_effect_framing(prose, request, analysis)
                 citations = self._source_consistency.filter_citations(
                     self._citations.from_chunks(chunks), chunks,
                 )
@@ -149,9 +156,20 @@ class AgentAnswerService:
                 partial_answer=verified_text if verified_text.strip() else None,
             )
         adequacy = AdequacyResult(is_adequate=True, coverage_status="adequate")
+        final_text = self._apply_effect_framing(verified_text, request, analysis)
         return self._assembly.finalize(
-            request, verified_text, citations, chunks, route, adequacy, guidance,
+            request, final_text, citations, chunks, route, adequacy, guidance,
         )
+
+    def _apply_effect_framing(
+        self,
+        answer_text: str,
+        request: QueryRequest,
+        analysis: LegalCaseAnalysis | None,
+    ) -> str:
+        if request.audience != "layperson" or not analysis or not analysis.legal_effect:
+            return answer_text
+        return enrich_layperson_answer(answer_text, analysis.legal_effect)
 
     async def _improve_layperson_answer(
         self,

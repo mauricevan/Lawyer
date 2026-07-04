@@ -4,6 +4,12 @@ from typing import Literal
 from pydantic import BaseModel, Field
 
 from shared.schemas.legal_conflict import PrimaryLegalConflict, ReconciliationConclusion
+from shared.schemas.legal_effect import (
+    EffectConclusionHint,
+    LegalEffectType,
+    RestrictionStrength,
+    StateActionType,
+)
 from shared.schemas.legal_interpretation import LegalActor, LegalQuestionType, LegalRoutingDomain
 
 HypothesisSource = Literal["llm", "rule"]
@@ -23,4 +29,8 @@ class LegalHypothesis(BaseModel):
     context: str = ""
     possible_domains: list[str] = Field(default_factory=list, max_length=4)
     primary_legal_conflict: PrimaryLegalConflict | None = None
+    legal_effect_type: LegalEffectType | None = None
+    restriction_strength: RestrictionStrength | None = None
+    state_action: StateActionType | None = None
+    effect_conclusion_hint: EffectConclusionHint | None = None
     reconciliation_conclusion: ReconciliationConclusion | None = None

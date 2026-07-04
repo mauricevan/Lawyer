@@ -10,6 +10,7 @@ EvidenceFailureReason = Literal[
     "actor_mismatch",
     "subject_mismatch",
     "insufficient_substance",
+    "effect_mismatch",
 ]
 
 

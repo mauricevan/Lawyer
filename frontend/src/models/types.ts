@@ -107,6 +107,10 @@ export interface LegalHypothesis {
   context?: string;
   possible_domains?: string[];
   primary_legal_conflict?: string;
+  legal_effect_type?: string;
+  restriction_strength?: string;
+  state_action?: string;
+  effect_conclusion_hint?: string;
   reconciliation_conclusion?: string;
 }
 

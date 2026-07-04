@@ -1,4 +1,5 @@
-"""V4 legal case analysis: hypothesis + primary conflict + domain mapping."""
+"""V4/V6 legal case analysis: hypothesis + conflict + effect + domain mapping."""
+from backend.src.services.legal_effect_service import LegalEffectService
 from backend.src.services.legal_hypothesis_service import LegalHypothesisService
 from backend.src.services.primary_legal_conflict_service import (
     infer_context,
@@ -6,27 +7,29 @@ from backend.src.services.primary_legal_conflict_service import (
     select_primary_legal_conflict,
 )
 from backend.src.utils.conflict_domain_mapping import map_conflict_to_domain
+from backend.src.utils.effect_law_mapping import apply_effect_to_case_analysis
 from shared.schemas.legal_conflict import LegalCaseAnalysis
 from shared.schemas.legal_hypothesis import LegalHypothesis
 
 
 class LegalCaseAnalysisService:
-    """Build V4 case analysis before any EUR-Lex retrieval."""
+    """Build case analysis before any EUR-Lex retrieval."""
 
     def __init__(self) -> None:
         self._hypothesis = LegalHypothesisService()
+        self._effect = LegalEffectService()
 
     async def analyze(
         self,
         question: str,
         history: list[dict] | None = None,
     ) -> LegalCaseAnalysis:
-        """Form hypothesis, select primary conflict, map domain deterministically."""
+        """Form hypothesis, conflict, legal effect, then effect-driven law mapping."""
         hypothesis = await self._hypothesis.form(question, history)
         conflict = select_primary_legal_conflict(question, hypothesis)
         mapping = map_conflict_to_domain(conflict)
         parties = infer_parties(question) or _parties_from_actor(hypothesis.legal_actor)
-        return LegalCaseAnalysis(
+        base = LegalCaseAnalysis(
             case_summary=hypothesis.legal_problem,
             parties=parties,
             context=infer_context(question),
@@ -38,6 +41,9 @@ class LegalCaseAnalysisService:
             likely_eu_frameworks=list(mapping.frameworks),
             default_celex=mapping.default_celex,
         )
+        effect = self._effect.classify(question, base)
+        with_effect = base.model_copy(update={"legal_effect": effect})
+        return apply_effect_to_case_analysis(with_effect)
 
     def to_hypothesis(self, analysis: LegalCaseAnalysis) -> LegalHypothesis:
         """Expose V4 analysis through the existing LegalHypothesis API shape."""
@@ -52,6 +58,10 @@ class LegalCaseAnalysisService:
             context=analysis.context,
             possible_domains=list(analysis.possible_domains),
             primary_legal_conflict=analysis.primary_legal_conflict,
+            legal_effect_type=analysis.legal_effect.legal_effect_type if analysis.legal_effect else None,
+            restriction_strength=analysis.legal_effect.restriction_strength if analysis.legal_effect else None,
+            state_action=analysis.legal_effect.state_action if analysis.legal_effect else None,
+            effect_conclusion_hint=analysis.legal_effect.effect_conclusion_hint if analysis.legal_effect else None,
             source="rule",
         )
 

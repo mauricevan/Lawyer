@@ -12,6 +12,7 @@ from backend.src.utils.conflict_domain_mapping import (
     map_conflict_to_domain,
 )
 from backend.src.utils.domain_framework_registry import celex_from_frameworks
+from backend.src.utils.effect_evidence_probe import chunk_supports_legal_effect
 from backend.src.utils.legal_domain_retrieval_filter import (
     filter_chunks_by_domain,
     is_celex_allowed_for_domain,
@@ -19,6 +20,7 @@ from backend.src.utils.legal_domain_retrieval_filter import (
 )
 from backend.src.utils.legal_question_type_chunk_scoring import rank_chunks_by_question_type
 from shared.schemas.evidence_validation import EvidenceFailureReason, EvidenceValidationResult
+from shared.schemas.legal_conflict import LegalCaseAnalysis
 from shared.schemas.legal_hypothesis import LegalHypothesis
 from shared.schemas.legal_interpretation import LegalInterpretationPlan
 
@@ -34,6 +36,7 @@ class EvidenceValidationService:
         chunks: list[dict[str, Any]],
         plan: LegalInterpretationPlan,
         hypothesis: LegalHypothesis | None = None,
+        analysis: LegalCaseAnalysis | None = None,
     ) -> EvidenceValidationResult:
         """Return PASS only when chunks substantively support the question."""
         if not chunks:
@@ -53,6 +56,8 @@ class EvidenceValidationService:
             return self._fail(["actor_mismatch"])
         if not self._subject_supported(question, domain_chunks, hypothesis):
             return self._fail(["subject_mismatch"])
+        if not self._effect_supported(domain_chunks, analysis, hypothesis):
+            return self._fail(["effect_mismatch"])
         ranked = self._rank_validated(domain_chunks, question, plan)
         if not ranked:
             return self._fail(["insufficient_substance"])
@@ -144,6 +149,29 @@ class EvidenceValidationService:
             return any(score_chunk_relevance(str(chunk.get("text", "")), probe) >= 2 for chunk in chunks)
         probe = hypothesis.legal_problem or " ".join(hypothesis.likely_eu_frameworks)
         return any(score_chunk_relevance(str(chunk.get("text", "")), probe) >= _MIN_RELEVANCE_SCORE for chunk in chunks)
+
+    def _effect_supported(
+        self,
+        chunks: list[dict[str, Any]],
+        analysis: LegalCaseAnalysis | None,
+        hypothesis: LegalHypothesis | None,
+    ) -> bool:
+        """V6: chunks must support the juridical effect mechanism, not only the topic."""
+        effect = analysis.legal_effect if analysis else None
+        if not effect and hypothesis and hypothesis.legal_effect_type:
+            from shared.schemas.legal_effect import LegalEffectAnalysis
+            effect = LegalEffectAnalysis(
+                legal_effect_type=hypothesis.legal_effect_type,
+                restriction_strength=hypothesis.restriction_strength or "medium",
+                state_action=hypothesis.state_action or "requirement",
+                effect_conclusion_hint=hypothesis.effect_conclusion_hint or "conditional",
+            )
+        if not effect:
+            return True
+        return any(
+            chunk_supports_legal_effect(str(chunk.get("text", "")), effect)
+            for chunk in chunks
+        )
 
     def _rank_validated(
         self,

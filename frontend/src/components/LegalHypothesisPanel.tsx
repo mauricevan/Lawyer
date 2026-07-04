@@ -4,6 +4,8 @@ import type { Audience, LegalHypothesis } from "@/models/types";
 import {
   labelLegalActor,
   labelLegalDomain,
+  labelLegalEffect,
+  labelEffectConclusion,
   labelPrimaryConflict,
   labelQuestionType,
   labelReconciliation,
@@ -58,6 +60,18 @@ export function LegalHypothesisPanel({
           <p className={styles.metaItem}>
             <span className={styles.metaLabel}>Primair conflict</span>
             {labelPrimaryConflict(hypothesis.primary_legal_conflict)}
+          </p>
+        )}
+        {hypothesis.legal_effect_type && (
+          <p className={styles.metaItem}>
+            <span className={styles.metaLabel}>Juridisch effect</span>
+            {labelLegalEffect(hypothesis.legal_effect_type)}
+          </p>
+        )}
+        {hypothesis.effect_conclusion_hint && (
+          <p className={styles.metaItem}>
+            <span className={styles.metaLabel}>Effectconclusie</span>
+            {labelEffectConclusion(hypothesis.effect_conclusion_hint)}
           </p>
         )}
         <p className={styles.metaItem}>

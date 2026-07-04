@@ -7,6 +7,7 @@ from backend.src.utils.conflict_celex_registry import (
 )
 from backend.src.utils.conflict_domain_mapping import map_conflict_to_domain
 from backend.src.utils.domain_framework_registry import celex_from_frameworks
+from backend.src.utils.effect_law_mapping import effect_celex_candidates
 from backend.src.utils.legal_domain_retrieval_filter import is_celex_allowed_for_domain
 from shared.schemas.celex_resolution import CelexRejectionReason, CelexResolutionResult
 from shared.schemas.legal_conflict import LegalCaseAnalysis
@@ -96,6 +97,8 @@ class ConflictAwareCelexResolverService:
         rejected: list[str],
     ) -> list[str]:
         pool: list[str] = []
+        if analysis.legal_effect:
+            pool.extend(effect_celex_candidates(analysis.legal_effect, analysis.primary_legal_conflict))
         pool.extend(primary_celex_for_conflict(analysis.primary_legal_conflict))
         if analysis.default_celex:
             pool.append(analysis.default_celex)

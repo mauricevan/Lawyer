@@ -1,5 +1,20 @@
 import type { LegalHypothesis } from "@/models/types";
 
+const EFFECT_LABELS: Record<string, string> = {
+  market_access_prohibition: "Markttoegang verbod",
+  discrimination_by_establishment: "Ongelijke behandeling vestiging",
+  additional_requirement: "Aanvullende nationale eis",
+  licensing_or_authorisation: "Vergunning / toestemming",
+  procedural_burden: "Procedurele last",
+  enforcement_measure: "Handhaving / toezicht",
+};
+
+const CONCLUSION_LABELS: Record<string, string> = {
+  permitted: "Toegestaan",
+  prohibited: "Niet toegestaan",
+  conditional: "Onder voorwaarden",
+};
+
 const CONFLICT_LABELS: Record<string, string> = {
   internal_market_restriction: "Beperking interne markt",
   consumer_transaction_issue: "Consumententransactie",
@@ -67,6 +82,14 @@ export function labelReconciliation(conclusion: string): string {
   return RECONCILIATION_LABELS[conclusion] || conclusion.replaceAll("_", " ");
 }
 
+export function labelLegalEffect(effectType: string): string {
+  return EFFECT_LABELS[effectType] || effectType.replaceAll("_", " ");
+}
+
+export function labelEffectConclusion(conclusion: string): string {
+  return CONCLUSION_LABELS[conclusion] || conclusion.replaceAll("_", " ");
+}
+
 export function parseLegalHypothesis(raw: unknown): LegalHypothesis | undefined {
   if (!raw || typeof raw !== "object") return undefined;
   const item = raw as Record<string, unknown>;
@@ -94,6 +117,12 @@ export function parseLegalHypothesis(raw: unknown): LegalHypothesis | undefined 
       : undefined,
     primary_legal_conflict: item.primary_legal_conflict
       ? String(item.primary_legal_conflict)
+      : undefined,
+    legal_effect_type: item.legal_effect_type ? String(item.legal_effect_type) : undefined,
+    restriction_strength: item.restriction_strength ? String(item.restriction_strength) : undefined,
+    state_action: item.state_action ? String(item.state_action) : undefined,
+    effect_conclusion_hint: item.effect_conclusion_hint
+      ? String(item.effect_conclusion_hint)
       : undefined,
     reconciliation_conclusion: item.reconciliation_conclusion
       ? String(item.reconciliation_conclusion)

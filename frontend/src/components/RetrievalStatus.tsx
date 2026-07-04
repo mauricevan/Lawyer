@@ -9,6 +9,7 @@ import styles from "./RetrievalStatus.module.css";
 const STEP_LABELS: Record<string, string> = {
   hypothesis: "Analyse",
   conflict: "Conflict",
+  effect: "Juridisch effect",
   celex: "EU-bronnen",
   planning: "Kaders",
   resolving: "Wetgeving",
