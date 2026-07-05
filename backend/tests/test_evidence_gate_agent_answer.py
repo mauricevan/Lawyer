@@ -18,7 +18,7 @@ async def test_invalid_evidence_blocks_answer_generation():
     service = AgentAnswerService()
     request = QueryRequest(
         question="Wanneer mag een toezichthouder een product van de markt halen?",
-        audience="layperson",
+        audience="professional",
         language="nl",
     )
     plan = LegalInterpretationPlan(

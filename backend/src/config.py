@@ -60,8 +60,10 @@ class Settings(BaseSettings):
     conversation_retention_days: int = 180
     partner_pilot_api_key: str = ""
     audit_run_token: str = ""
+    layperson_conversation_llm_enabled: bool = True
     query_rate_limit: str = "20/minute"
     audit_query_rate_limit: str = "200/minute"
+    internal_simulation_telemetry_enabled: bool = False
 
 
 settings = Settings()

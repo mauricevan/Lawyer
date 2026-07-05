@@ -89,6 +89,7 @@ export interface AnswerResponse {
   retrieval_route?: RetrievalRoute;
   confidence_score?: number;
   verification_questions?: string[];
+  clarification_prompt?: string;
   retrieval_explainability?: RetrievalExplainability;
   coverage_guidance?: CoverageGuidance;
   coverage_status?: CoverageStatus;
@@ -135,6 +136,7 @@ export interface MessageMetadata {
   coverage_status?: CoverageStatus;
   coverage_guidance?: CoverageGuidance;
   verification_questions?: string[];
+  clarification_prompt?: string;
   confidence_score?: number;
   retrieval_route?: RetrievalRoute;
   legal_hypothesis?: LegalHypothesis;
@@ -169,6 +171,7 @@ export interface ChatMessage {
   content: string;
   citations?: Citation[];
   verificationQuestions?: string[];
+  clarificationPrompt?: string;
   coverageGuidance?: CoverageGuidance;
   coverageStatus?: CoverageStatus;
   legalHypothesis?: LegalHypothesis;

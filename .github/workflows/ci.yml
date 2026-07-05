@@ -20,8 +20,17 @@ jobs:
           cache-dependency-path: backend/requirements.txt
       - name: Install backend dependencies
         run: pip install -r backend/requirements.txt
+      - name: Explanation engine immutability guard
+        run: chmod +x scripts/ci/check_explanation_immutability.sh && ./scripts/ci/check_explanation_immutability.sh
+      - name: Explanation engine unit tests
+        run: pytest backend/tests/test_explanation_*.py -q -m "not integration"
       - name: Run backend unit tests
         run: pytest backend/tests -q -m "not integration"
+      - name: G3 routing and threshold lock (Steps 4–6)
+        run: |
+          pytest backend/tests/test_g3_step4_d1.py backend/tests/test_g3_step4_d2.py \
+            backend/tests/test_g3_step5_gpsr_consistency.py backend/tests/test_g3_step6_manifest.py \
+            backend/tests/test_g3_step6_smoke.py -q -m "not integration"
       - name: Run API e2e tests
         run: pytest backend/tests/test_query_api_e2e.py -q
 

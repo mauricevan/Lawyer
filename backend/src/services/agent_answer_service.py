@@ -1,6 +1,7 @@
 """Agent-path answer orchestration with gap-as-exception policy."""
 from typing import Any
 
+from backend.src.config import settings
 from backend.src.services.answer_bundle_assembly_service import AnswerBundleAssemblyService
 from backend.src.services.citation_verifier_service import CitationVerifierService
 from backend.src.services.coverage_guidance_service import CoverageGuidanceService
@@ -8,6 +9,7 @@ from backend.src.services.regulation_label_service import regulation_label
 from backend.src.services.citation_builder_service import CitationBuilderService
 from backend.src.services.layperson_answer_service import LaypersonAnswerService
 from backend.src.services.layperson_clear_answer_composer import LaypersonClearAnswerComposer
+from backend.src.services.layperson_conversation_service import LaypersonConversationService
 from backend.src.services.legal_extractive_generic import can_build_generic_answer
 from backend.src.services.llm_service import LlmService
 from backend.src.services.question_intent_service import QuestionIntentService
@@ -25,7 +27,6 @@ from backend.src.utils.layperson_answer_formatter import is_hybrid_boilerplate, 
 from backend.src.utils.layperson_gap_policy import is_publishable_clear_answer
 from shared.schemas.coverage_guidance import AdequacyResult
 from shared.schemas.evidence_validation import EvidenceFailureReason, EvidenceValidationResult
-from backend.src.services.legal_effect_answer_service import enrich_layperson_answer
 from shared.schemas.legal_conflict import LegalCaseAnalysis, ReconciliationResult
 from shared.schemas.legal_interpretation import AgentFetchResult, LegalInterpretationPlan
 from shared.schemas.query import QueryRequest
@@ -55,6 +56,7 @@ class AgentAnswerService:
         self._layperson = LaypersonAnswerService()
         self._citations = CitationBuilderService()
         self._clear_composer = LaypersonClearAnswerComposer()
+        self._conversation = LaypersonConversationService()
 
     async def build(
         self,
@@ -125,7 +127,6 @@ class AgentAnswerService:
         if request.audience == "layperson" and can_build_generic_answer(chunks, request.question):
             prose = await self._compose_layperson_answer(request, chunks, plan)
             if prose and not is_weak_layperson_answer(prose):
-                prose = self._apply_effect_framing(prose, request, analysis)
                 citations = self._source_consistency.filter_citations(
                     self._citations.from_chunks(chunks), chunks,
                 )
@@ -156,20 +157,9 @@ class AgentAnswerService:
                 partial_answer=verified_text if verified_text.strip() else None,
             )
         adequacy = AdequacyResult(is_adequate=True, coverage_status="adequate")
-        final_text = self._apply_effect_framing(verified_text, request, analysis)
         return self._assembly.finalize(
-            request, final_text, citations, chunks, route, adequacy, guidance,
+            request, verified_text, citations, chunks, route, adequacy, guidance,
         )
-
-    def _apply_effect_framing(
-        self,
-        answer_text: str,
-        request: QueryRequest,
-        analysis: LegalCaseAnalysis | None,
-    ) -> str:
-        if request.audience != "layperson" or not analysis or not analysis.legal_effect:
-            return answer_text
-        return enrich_layperson_answer(answer_text, analysis.legal_effect)
 
     async def _improve_layperson_answer(
         self,
@@ -179,6 +169,12 @@ class AgentAnswerService:
     ) -> str:
         if request.audience != "layperson":
             return answer_text
+        if settings.layperson_conversation_llm_enabled and chunks:
+            conversational = await self._conversation.compose_answer(
+                request.question, chunks, answer_text,
+            )
+            if conversational:
+                return conversational.strip()
         if is_weak_layperson_answer(answer_text) or is_hybrid_boilerplate(answer_text):
             extractive = self._clear_composer.compose_without_llm(
                 request.question, chunks, allow_topic=False,
@@ -315,6 +311,15 @@ class AgentAnswerService:
         guidance: Any,
         evidence: EvidenceValidationResult,
     ) -> dict[str, Any]:
+        if request.audience == "layperson":
+            adequacy = AdequacyResult(
+                is_adequate=False,
+                reason="insufficient_evidence",
+                coverage_status="insufficient",
+            )
+            return self._assembly.gap_bundle(
+                request, fetch.chunks, route, adequacy, guidance, intent,
+            )
         labels = [
             regulation_label(inst.celex, inst.title or inst.name)
             for inst in plan.instruments if inst.celex

@@ -47,11 +47,25 @@
   font-size: var(--text-base);
   resize: none;
   line-height: 1.5;
+  touch-action: manipulation;
 }
 
-.input:focus {
+.input:focus-visible {
   border-color: var(--color-primary);
-  outline: none;
+}
+
+.inputClarification {
+  border-color: var(--color-primary);
+  background: var(--color-info-bg);
+}
+
+.composerClarification {
+  border-top-color: var(--color-primary);
+}
+
+.submit:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
 }
 
 .submit {
@@ -66,6 +80,7 @@
   font-size: var(--text-base);
   font-weight: 600;
   cursor: pointer;
+  touch-action: manipulation;
 }
 
 .submit:hover:not(:disabled) {

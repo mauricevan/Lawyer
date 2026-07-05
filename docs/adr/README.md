@@ -11,6 +11,8 @@
 | [0007](./0007-enterprise-reliability-plan14.md) | Plan14 enterprise reliability | Accepted |
 | [0008](./0008-product-governance-plan15.md) | Plan15 product governance | Accepted |
 | [0009](./0009-agentic-legal-reasoning.md) | Agentische juridische workflow (RAG → planner) | Accepted (fase 1) |
+| [0010](./0010-g3-unified-evidence-acceptance-profiles.md) | G3 unified evidence pipeline — acceptance profiles | Proposed (rev. 3) |
+| [0011](./0011-immutable-legal-explanation-engine.md) | Immutable legal explanation engine (compose → publish) | Accepted |
 
 ## Nieuwe ADR aanmaken
 

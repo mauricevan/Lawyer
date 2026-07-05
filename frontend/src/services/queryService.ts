@@ -14,6 +14,10 @@ import { getApiUrl } from "@/services/apiClient";
 
 export { getDisclaimer };
 
+function apiUrl(): string {
+  return getApiUrl();
+}
+
 export function normalizeCitation(citation: Partial<Citation> & { celex: string }): Citation {
   return {
     celex: citation.celex,
@@ -35,10 +39,8 @@ export function normalizeCitation(citation: Partial<Citation> & { celex: string 
   };
 }
 
-const API_URL = getApiUrl();
-
 export async function submitQuery(request: QueryRequest): Promise<AnswerResponse> {
-  const response = await fetch(`${API_URL}/api/v1/query`, {
+  const response = await fetch(`${apiUrl()}/api/v1/query`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(request),
@@ -56,7 +58,7 @@ export function streamQuery(
   onError: (error: Error) => void,
 ): () => void {
   const controller = new AbortController();
-  fetch(`${API_URL}/api/v1/query/stream`, {
+  fetch(`${apiUrl()}/api/v1/query/stream`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify(request),
@@ -97,6 +99,7 @@ export function streamQuery(
                 retrieval_route: detail.retrieval_route as AnswerResponse["retrieval_route"],
                 confidence_score: detail.confidence_score as number | undefined,
                 verification_questions: (detail.verification_questions as string[]) || [],
+                clarification_prompt: detail.clarification_prompt as string | undefined,
                 retrieval_explainability: detail.retrieval_explainability as AnswerResponse["retrieval_explainability"],
                 coverage_guidance: detail.coverage_guidance as AnswerResponse["coverage_guidance"],
                 coverage_status: detail.coverage_status as AnswerResponse["coverage_status"],
@@ -112,7 +115,7 @@ export function streamQuery(
 }
 
 export async function getConversation(id: string): Promise<Conversation> {
-  const response = await fetch(`${API_URL}/api/v1/conversations/${id}`);
+  const response = await fetch(`${apiUrl()}/api/v1/conversations/${id}`);
   if (!response.ok) throw new Error("Gesprek niet gevonden");
   return response.json();
 }
@@ -121,7 +124,7 @@ export async function createConversation(
   queryMode: QueryMode,
   title?: string,
 ): Promise<{ id: string }> {
-  const response = await fetch(`${API_URL}/api/v1/conversations`, {
+  const response = await fetch(`${apiUrl()}/api/v1/conversations`, {
     method: "POST",
     headers: { "Content-Type": "application/json" },
     body: JSON.stringify({ query_mode: queryMode, title }),
@@ -130,17 +133,17 @@ export async function createConversation(
 }
 
 export async function getDocument(celex: string) {
-  const response = await fetch(`${API_URL}/api/v1/documents/${celex}`);
+  const response = await fetch(`${apiUrl()}/api/v1/documents/${celex}`);
   if (!response.ok) throw new Error("Document niet gevonden");
   return response.json();
 }
 
 export function getExportPdfUrl(conversationId: string): string {
-  return `${API_URL}/api/v1/export/pdf/${conversationId}`;
+  return `${apiUrl()}/api/v1/export/pdf/${conversationId}`;
 }
 
 export function getExportDocxUrl(conversationId: string): string {
-  return `${API_URL}/api/v1/export/docx/${conversationId}`;
+  return `${apiUrl()}/api/v1/export/docx/${conversationId}`;
 }
 
 export const EXAMPLE_QUESTIONS_PRO: Record<QueryMode, string[]> = {

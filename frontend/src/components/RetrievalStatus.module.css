@@ -3,7 +3,12 @@
   border: 1px solid var(--color-border);
   border-radius: var(--radius-md);
   padding: var(--space-4);
-  margin-bottom: var(--space-4);
+  flex-shrink: 0;
+}
+
+.containerCompact {
+  max-height: min(7rem, 22vh);
+  overflow-y: auto;
 }
 
 .list {

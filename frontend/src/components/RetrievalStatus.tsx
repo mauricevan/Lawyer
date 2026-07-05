@@ -6,6 +6,30 @@ import { useEffect, useMemo, useState } from "react";
 import { LegalHypothesisPanel } from "./LegalHypothesisPanel";
 import styles from "./RetrievalStatus.module.css";
 
+const LAYPERSON_VISIBLE_STEPS = new Set([
+  "clarifying",
+  "clarified",
+  "fetching",
+  "validating",
+  "generating",
+  "complete",
+  "search",
+  "found",
+  "verifying",
+]);
+
+const LAYPERSON_STEP_LABELS: Record<string, string> = {
+  clarifying: "Vraag verduidelijken",
+  clarified: "Vraag helder",
+  fetching: "EUR-Lex",
+  validating: "Bronnen controleren",
+  generating: "Antwoord samenstellen",
+  complete: "Klaar",
+  search: "Zoeken",
+  found: "Gevonden",
+  verifying: "Controle",
+};
+
 const STEP_LABELS: Record<string, string> = {
   hypothesis: "Analyse",
   conflict: "Conflict",
@@ -20,6 +44,16 @@ const STEP_LABELS: Record<string, string> = {
   judged: "Toets klaar",
   court: "Hof-simulatie",
   simulated: "Simulatie klaar",
+  panel: "Panelbesluit",
+  finalized: "Besluit klaar",
+  doctrine: "Doctrine-evolutie",
+  evolved: "Evolutie klaar",
+  anchoring: "Doctrine-ankers",
+  anchored: "Ankers klaar",
+  clarifying: "Vraag verduidelijken",
+  clarified: "Vraag helder",
+  stability: "Doctrine-stabiliteit",
+  stabilized: "Stabiliteit klaar",
   verifying: "Controle",
   search: "Zoeken",
   router: "Router",
@@ -40,6 +74,8 @@ interface Props {
   audience?: Audience;
   onCancel?: () => void;
   cancelAfterMs?: number;
+  isHidden?: boolean;
+  compact?: boolean;
 }
 
 function hypothesisFromEvents(events: RetrievalEvent[]) {
@@ -58,9 +94,12 @@ export function RetrievalStatus({
   audience = "layperson",
   onCancel,
   cancelAfterMs = 10_000,
+  isHidden = false,
+  compact = false,
 }: Props) {
   const [showCancel, setShowCancel] = useState(false);
   const liveHypothesis = useMemo(() => hypothesisFromEvents(events), [events]);
+  const hideHypothesis = audience === "layperson";
 
   useEffect(() => {
     if (!isLoading) {
@@ -71,16 +110,29 @@ export function RetrievalStatus({
     return () => window.clearTimeout(timer);
   }, [isLoading, cancelAfterMs]);
 
+  if (isHidden) return null;
   if (!isLoading && events.length === 0) return null;
 
+  const filteredEvents =
+    audience === "layperson"
+      ? events.filter((event) => LAYPERSON_VISIBLE_STEPS.has(event.step))
+      : events;
+
+  if (!isLoading && audience === "layperson" && filteredEvents.length === 0) return null;
+
   const displayEvents =
-    events.length > 0
-      ? events
+    filteredEvents.length > 0
+      ? filteredEvents
       : [{ step: "search", message: DEFAULT_MESSAGES[audience] }];
+  const visibleEvents = compact && isLoading ? displayEvents.slice(-1) : displayEvents;
 
   return (
-    <div className={styles.container} aria-live="polite" aria-busy={isLoading}>
-      {liveHypothesis && (
+    <div
+      className={`${styles.container} ${compact ? styles.containerCompact : ""}`}
+      aria-live="polite"
+      aria-busy={isLoading}
+    >
+      {liveHypothesis && !hideHypothesis && (
         <LegalHypothesisPanel
           hypothesis={liveHypothesis}
           audience={audience}
@@ -89,10 +141,10 @@ export function RetrievalStatus({
         />
       )}
       <ul className={styles.list}>
-        {displayEvents.map((event, i) => (
+        {visibleEvents.map((event, i) => (
           <li key={`${event.step}-${i}`} className={styles.item}>
             <span className={styles.icon} aria-hidden="true">
-              {STEP_LABELS[event.step] || "Stap"}
+              {(audience === "layperson" ? LAYPERSON_STEP_LABELS : STEP_LABELS)[event.step] || "Stap"}
             </span>
             <span>{event.message}</span>
           </li>

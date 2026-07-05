@@ -18,6 +18,7 @@ import {
 import { parseLegalHypothesis } from "@/utils/legalHypothesisLabels";
 import chatStyles from "@/components/ChatLayout.module.css";
 import styles from "./page.module.css";
+import { hasPendingClarificationInput } from "@/utils/clarificationView";
 
 function createId(): string {
   return `${Date.now()}-${Math.random().toString(36).slice(2, 9)}`;
@@ -38,6 +39,7 @@ function toChatMessages(
     content: m.content,
     citations: m.citations,
     verificationQuestions: m.metadata?.verification_questions,
+    clarificationPrompt: m.metadata?.clarification_prompt,
     coverageGuidance: m.metadata?.coverage_guidance,
     coverageStatus: m.metadata?.coverage_status,
     legalHypothesis: parseLegalHypothesis(m.metadata?.legal_hypothesis),
@@ -56,7 +58,8 @@ export default function GesprekPage() {
   const [allCitations, setAllCitations] = useState<Citation[]>([]);
   const [isReady, setIsReady] = useState(false);
   const [loadError, setLoadError] = useState<string | null>(null);
-  const [language, setLanguage] = useState<SupportedLanguage>("auto");
+  const [language, setLanguage] = useState<SupportedLanguage>("nl");
+  const [shareFeedback, setShareFeedback] = useState<string | null>(null);
   const abortRef = useRef<(() => void) | null>(null);
   const audience: Audience = "layperson";
 
@@ -103,6 +106,7 @@ export default function GesprekPage() {
       (event) => setEvents((prev) => [...prev, event]),
       async (answer) => {
         setIsLoading(false);
+        setEvents([]);
         setMessages((prev) =>
           prev.map((msg) =>
             msg.id === pendingId
@@ -112,6 +116,7 @@ export default function GesprekPage() {
                   content: answer.answer,
                   citations: answer.citations,
                   verificationQuestions: answer.verification_questions,
+                  clarificationPrompt: answer.clarification_prompt,
                   coverageGuidance: answer.coverage_guidance,
                   coverageStatus: answer.coverage_status,
                   legalHypothesis: answer.legal_hypothesis,
@@ -139,7 +144,7 @@ export default function GesprekPage() {
   if (!isReady) {
     return (
       <main className="container">
-        <p>Gesprek laden...</p>
+        <p>Gesprek laden…</p>
       </main>
     );
   }
@@ -155,6 +160,18 @@ export default function GesprekPage() {
     );
   }
 
+  const waitingForClarification = hasPendingClarificationInput(messages, audience, isLoading);
+
+  const handleShareLink = async () => {
+    try {
+      await navigator.clipboard.writeText(window.location.href);
+      setShareFeedback("Link gekopieerd");
+      window.setTimeout(() => setShareFeedback(null), 2500);
+    } catch {
+      setShareFeedback("Kopiëren mislukt — kopieer de URL uit de adresbalk");
+    }
+  };
+
   return (
     <main className={`container ${chatStyles.chatLayout}`}>
       <header className={styles.header}>
@@ -163,19 +180,28 @@ export default function GesprekPage() {
         </Link>
         <h1 className={styles.title}>{title}</h1>
         <div className={styles.actions}>
-          <a href={getExportPdfUrl(id)} className={styles.exportBtn}>
-            Export PDF
-          </a>
-          <a href={getExportDocxUrl(id)} className={styles.exportBtn}>
-            Export Word
-          </a>
+          {!waitingForClarification && (
+            <>
+              <a href={getExportPdfUrl(id)} className={styles.exportBtn}>
+                Export PDF
+              </a>
+              <a href={getExportDocxUrl(id)} className={styles.exportBtn}>
+                Export Word
+              </a>
+            </>
+          )}
           <button
             type="button"
             className={styles.shareBtn}
-            onClick={() => navigator.clipboard.writeText(window.location.href)}
+            onClick={() => void handleShareLink()}
           >
-            Deel link
+            Deel Link
           </button>
+          {shareFeedback && (
+            <span className={styles.shareFeedback} role="status" aria-live="polite">
+              {shareFeedback}
+            </span>
+          )}
         </div>
       </header>
 
@@ -185,13 +211,18 @@ export default function GesprekPage() {
             messages={messages}
             audience={audience}
             conversationId={id}
-            onVerificationSelect={setFollowUp}
+            isLoading={isLoading}
+            onVerificationSelect={(text) => {
+              if (!isLoading) handleFollowUp(text);
+            }}
           />
           <RetrievalStatus
             events={events}
             isLoading={isLoading}
             audience={audience}
             onCancel={handleCancel}
+            isHidden={waitingForClarification}
+            compact
           />
         </div>
         <SourcesSidebar citations={allCitations} />
@@ -203,6 +234,7 @@ export default function GesprekPage() {
         onSubmit={handleFollowUp}
         isLoading={isLoading}
         isFollowUp
+        isClarificationFollowUp={waitingForClarification}
         variant="sticky"
       />
       <LegalFooter audience={audience} language={language} compact />

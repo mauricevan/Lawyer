@@ -4,10 +4,8 @@ from typing import Any
 
 from sqlalchemy.ext.asyncio import AsyncSession
 
-from backend.src.services.agent_v4_pipeline_service import (
-    AgentV4PipelineService,
-    _build_explainability,
-)
+from backend.src.services.agent_v4_pipeline_service import AgentV4PipelineService
+from backend.src.utils.explanation_explainability_builder import build_retrieval_explainability
 from shared.schemas.query import AnswerResponse, QueryRequest
 from shared.schemas.retrieval_explainability import RetrievalExplainability
 
@@ -33,7 +31,9 @@ class AgentQueryService:
             await self._pipeline.run(request, history, session)
         )
         chunk_ids = [c.get("chunk_id", "") for c in fetch.chunks]
-        explain = _build_explainability(resolved, fetch, hypothesis, evidence, reconciliation, analysis)
+        explain = build_retrieval_explainability(
+            resolved, fetch, hypothesis, evidence, reconciliation, analysis,
+        )
         response = AnswerResponse(
             answer=bundle["answer_text"],
             conversation_id=request.conversation_id or "",
@@ -42,10 +42,11 @@ class AgentQueryService:
             retrieval_route="agent_flow",
             confidence_score=bundle["quality"]["confidence_score"],  # type: ignore[arg-type]
             verification_questions=bundle["quality"]["verification_questions"],  # type: ignore[arg-type]
+            clarification_prompt=bundle["quality"].get("clarification_prompt"),
             retrieval_explainability=explain,
             coverage_guidance=bundle["coverage_guidance"],
             coverage_status=bundle["coverage_status"],
-            legal_hypothesis=hypothesis,
+            legal_hypothesis=hypothesis if request.audience == "professional" else None,
         )
         return response, chunk_ids, fetch.chunks, explain
 

@@ -20,6 +20,7 @@ import {
 } from "@/services/queryService";
 import chatStyles from "@/components/ChatLayout.module.css";
 import styles from "./page.module.css";
+import { hasPendingClarificationInput } from "@/utils/clarificationView";
 
 const COPY = {
   layperson: {
@@ -59,7 +60,7 @@ export default function HomePage() {
   const [lockedMode, setLockedMode] = useState<QueryMode | null>(null);
   const [domainFilter, setDomainFilter] = useState("");
   const [timeContext, setTimeContext] = useState<"current" | "historical">("current");
-  const [language, setLanguage] = useState<SupportedLanguage>("auto");
+  const [language, setLanguage] = useState<SupportedLanguage>("nl");
   const [retrievalRoute, setRetrievalRoute] = useState<RetrievalRoute | undefined>();
   const [retrievalExplainability, setRetrievalExplainability] = useState<RetrievalExplainability | undefined>();
   const [lockedLanguage, setLockedLanguage] = useState<SupportedLanguage | null>(null);
@@ -130,6 +131,9 @@ export default function HomePage() {
       },
       (answer) => {
         setIsLoading(false);
+        if (activeAudience === "layperson" || answer.coverage_status === "clarify_only") {
+          setEvents([]);
+        }
         if (answer.retrieval_route) {
           setRetrievalRoute(answer.retrieval_route);
         }
@@ -155,6 +159,7 @@ export default function HomePage() {
                   content: answer.answer,
                   citations: answer.citations,
                   verificationQuestions: answer.verification_questions,
+                  clarificationPrompt: answer.clarification_prompt,
                   coverageGuidance: answer.coverage_guidance,
                   coverageStatus: answer.coverage_status,
                   legalHypothesis: answer.legal_hypothesis,
@@ -179,6 +184,12 @@ export default function HomePage() {
   };
 
   if (isChatActive) {
+    const waitingForClarification = hasPendingClarificationInput(
+      messages,
+      activeAudience,
+      isLoading,
+    );
+
     return (
       <main className={`container ${chatStyles.chatLayout}`}>
         <header className={styles.chatHeader}>
@@ -209,13 +220,18 @@ export default function HomePage() {
             messages={messages}
             audience={activeAudience}
             conversationId={conversationId}
-            onVerificationSelect={setQuestion}
+            isLoading={isLoading}
+            onVerificationSelect={(text) => {
+              if (!isLoading) runQuery(text);
+            }}
           />
           <RetrievalStatus
             events={events}
             isLoading={isLoading}
             audience={activeAudience}
             onCancel={handleCancel}
+            isHidden={waitingForClarification}
+            compact={activeAudience === "layperson"}
           />
           {error && (
             <p className={styles.error} role="alert">
@@ -230,6 +246,7 @@ export default function HomePage() {
           onSubmit={runQuery}
           isLoading={isLoading}
           isFollowUp
+          isClarificationFollowUp={waitingForClarification}
           variant="sticky"
         />
 
