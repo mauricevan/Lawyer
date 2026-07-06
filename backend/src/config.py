@@ -12,8 +12,10 @@ class Settings(BaseSettings):
     qdrant_collection: str = "eurlex_chunks"
     llm_provider: str = "openrouter"
     openrouter_api_key: str = ""
-    openrouter_model: str = "google/gemma-4-31b-it:free"
-    openrouter_fallback_model: str = ""
+    openrouter_model: str = "meta-llama/llama-3.3-70b-instruct:free"
+    openrouter_fallback_model: str = (
+        "qwen/qwen3-next-80b-a3b-instruct:free,google/gemma-4-31b-it:free"
+    )
     llm_max_retries: int = 2
     llm_retry_backoff_seconds: float = 1.5
     llm_temperature: float = 0.1
@@ -28,10 +30,16 @@ class Settings(BaseSettings):
     cors_origins: str = "http://localhost:3000,http://localhost:3001,http://localhost:3002"
     enable_live_fallback: bool = True
     agent_flow_enabled: bool = True
+    declarant_pipeline_enabled: bool = True
+    legacy_layperson_agent_v4: bool = False
+    eurlex_research_agent_enabled: bool = True
+    eurlex_research_strict_citation: bool = True
     agent_retrieval_budget_seconds: float = 55.0
+    research_loop_max_iterations: int = 5
     agent_max_instruments: int = 3
     agent_max_articles_per_instrument: int = 8
     agent_max_total_chunks: int = 12
+    agent_research_max_articles: int = 15
     live_fallback_timeout_seconds: float = 25.0
     retrieval_cache_ttl_seconds: int = 86400
     enable_redis_cache: bool = True

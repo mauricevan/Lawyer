@@ -37,15 +37,17 @@ _OPERATIVE_MARKERS = (
     "shall", "must", "required", "verplicht", "fabrikant", "manufacturer",
     "aansprakelijk", "risico", "risk", "notify", "inform", "melden",
 )
+_DEFINITION_QUESTION_HINTS = ("betekent", "definitie", "definition", "wat is", "what is", "wordt gedefinieerd")
+_DEFINITION_CHUNK_MARKERS = ("wordt verstaan", "verstaan onder", "begripsbepaling", "begripsbepalingen")
 
 
-def clean_chunk_text(text: str) -> str:
+def clean_chunk_text(text: str, focus_terms: tuple[str, ...] | None = None) -> str:
     body = text or ""
     body = _CELEX_PREFIX.sub("", body)
     body = _XML_NAME.sub("", body)
     body = re.sub(r"\|\s*section\s*\.?\s*", " ", body, flags=re.IGNORECASE)
     body = _PIPE_CELLS.sub(" ", body)
-    body = trim_legal_preamble(body)
+    body = trim_legal_preamble(body, focus_terms=focus_terms)
     body = re.sub(r"^\(\d+\)\s+", "", body)
     return re.sub(r"\s+", " ", body).strip()
 
@@ -98,6 +100,9 @@ def score_chunk_relevance(text: str, question: str) -> int:
             score += 2 if len(word) > 6 else 1
     if any(marker in lowered_t for marker in _OPERATIVE_MARKERS):
         score += 3
+    if any(hint in lowered_q for hint in _DEFINITION_QUESTION_HINTS):
+        if any(marker in lowered_t for marker in _DEFINITION_CHUNK_MARKERS):
+            score += 4
     if is_recital_noise(text):
         score -= 10
     if "fabrikant" in lowered_q and "fabrikant" in lowered_t:
@@ -108,9 +113,31 @@ def score_chunk_relevance(text: str, question: str) -> int:
         score += 8
     if "exploitant" in lowered_q and lowered_t.startswith(("de bevoegde instantie", "de lidstaat")):
         score -= 4
+    if any(word in lowered_q for word in ("douane", "invoer", "import", "china", "webshop", "pakket")):
+        if any(marker in lowered_t for marker in ("aangifte", "vrijmaking", "vrije verkeer", "douanewetboek")):
+            score += 10
+        if "artikel 156" in lowered_t or "156" in lowered_t[:40]:
+            score += 6
+        if "commissie gelast" in lowered_t or "krachtens lid 1 vast te stellen" in lowered_t:
+            score -= 12
     if "risico" in lowered_q or "veilig" in lowered_q:
         if any(w in lowered_t for w in ("risico", "gevaar", "melden", "waarschuwen", "corrigeren")):
             score += 4
+    if any(w in lowered_q for w in ("legitim", "identif", "paspoort", "identiteitskaart")):
+        if any(
+            marker in lowered_t
+            for marker in (
+                "identiteitskaart",
+                "paspoort",
+                "identity card",
+                "passport",
+                "recht van toegang",
+                "right of entry",
+            )
+        ):
+            score += 12
+        if any(marker in lowered_t for marker in ("elektronische zegel", "electronic seal", "certificaat")):
+            score -= 8
     return score
 
 

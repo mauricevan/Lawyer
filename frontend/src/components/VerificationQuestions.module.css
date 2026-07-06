@@ -11,6 +11,7 @@
   font-size: var(--text-sm);
   font-weight: 600;
   color: var(--color-text-primary);
+  text-wrap: balance;
 }
 
 .list {
@@ -37,10 +38,26 @@
   text-align: left;
   cursor: pointer;
   color: var(--color-text-primary);
+  touch-action: manipulation;
+  transition: border-color var(--duration-fast) var(--ease-out),
+    background var(--duration-fast) var(--ease-out);
 }
 
-.chip:hover,
-.chip[aria-pressed="true"] {
+.chip:hover:not(:disabled) {
   border-color: var(--color-primary);
   background: var(--color-info-bg);
+}
+
+.chip:active:not(:disabled) {
+  border-color: var(--color-primary-active);
+}
+
+.chip:focus-visible {
+  outline: 2px solid var(--color-primary);
+  outline-offset: 2px;
+}
+
+.chip:disabled {
+  opacity: 0.55;
+  cursor: not-allowed;
 }

@@ -12,9 +12,10 @@ LegalIssue = Literal[
 _EMPLOYEE_HINTS = (
     "werknemer", "werknemers", "medewerker", "medewerkers", "arbeidscontract",
     "ontslagen", "ontslag", "werkgever ontslaat", "langdurig ziek", "ziekteverlof",
+    "werkgever",
 )
 _MANUFACTURER_HINTS = (
-    "fabrikant", "producent", "bedrijf", "ondernemer", "verkoper", "importeur",
+    "fabrikant", "producent", "ondernemer", "verkoper", "importeur",
     "importeert", "inverkeerbrenger",
 )
 _CONSUMER_HINTS = (

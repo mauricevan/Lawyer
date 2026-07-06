@@ -2,6 +2,99 @@
 version: "2026.07.04"
 
 plans:
+  - id: ucc_customs_territory
+    legal_domain: customs
+    celex: "32013R0952"
+    related_celex:
+      - "12016E028"
+    articles:
+      - "4"
+    triggers_any:
+      - douane-unie
+      - douaneunie
+      - customs union
+      - douanegebied
+      - douane unie
+      - lidstaten douane
+      - welke lidstaten
+      - territorium douane
+      - douane-uniegebied
+
+  - id: ucc_import_declaration
+    legal_domain: customs
+    celex: "32013R0952"
+    articles:
+      - "156"
+      - "158"
+      - "271"
+    triggers_any:
+      - douaneaangifte
+      - invoeraangifte
+      - aangifte doen
+      - moet ik douane
+      - pakketjes
+      - pakketje
+      - china
+      - 150
+      - ioss
+      - import uit
+      - goederen uit derde land
+
+  - id: gpsr_supply_chain_docs
+    legal_domain: consumer
+    celex: "32023R0988"
+    articles:
+      - "4"
+      - "5"
+      - "6"
+      - "19"
+      - "20"
+    triggers_any:
+      - gpsr-document
+      - documenten van leverancier
+      - leverancier eisen
+      - technische documentatie
+      - veiligheidsinformatie
+      - distributeur
+      - importeur
+      - keten
+
+  - id: eu_citizenship_identification
+    legal_domain: citizenship
+    celex: "32004L0038"
+    related_celex:
+      - "32014R0910"
+    articles:
+      - "4"
+      - "5"
+      - "6"
+    triggers_any:
+      - legitimeren
+      - legitimatie
+      - identificeren
+      - identiteitskaart
+      - paspoort
+      - overheidsdienst
+      - eidas
+      - elektronische identificatie
+
+  - id: dsa_platform_start
+    legal_domain: digital
+    celex: "32022R2065"
+    articles:
+      - "3"
+      - "14"
+      - "51"
+    triggers_any:
+      - platform bouwen
+      - platform beginnen
+      - platform starten
+      - mag ik een platform
+      - nieuw platform
+      - contentwebsite
+      - online platform
+      - digitale diensten
+
   - id: environmental_liability_operator
     legal_domain: environment
     celex: "32004L0035"
@@ -32,6 +125,7 @@ plans:
       - "11"
       - "31"
       - "32"
+      - "35"
     triggers_any:
       - fabrikant
       - veiligheidsrisico
@@ -39,7 +133,13 @@ plans:
       - gpsr
       - 2023/988
       - terugroeping
+      - terugroep
+      - product terugroep
+      - terughaal
+      - recall
       - veilig product
+      - onveilig product
+      - speelgoed
 
   - id: product_conformity_doc
     legal_domain: consumer
@@ -66,8 +166,8 @@ plans:
       - market_access
     articles:
       - "9"
-      - "10"
-      - "22"
+      - "6"
+      - "13"
     triggers_any:
       - herroepingstermijn
       - herroepingsrecht
@@ -76,7 +176,33 @@ plans:
       - overeenkomst op afstand
       - koop op afstand
       - online kopen terugsturen
+      - terugsturen
+      - passen niet
       - 2011/83
+
+  - id: gdpr_marketing_sharing
+    legal_domain: privacy
+    celex: "32016R0679"
+    issue_fit:
+      - obligation
+      - rights
+    articles:
+      - "6"
+      - "7"
+      - "21"
+      - "13"
+    triggers_any:
+      - doorgeven
+      - doorgifte
+      - reclamebedrijf
+      - reclame
+      - marketing
+      - nieuwsbrief
+      - e-mailadres
+      - emailadres
+      - e-mail
+      - email
+      - werkgever
 
   - id: transport_carrier_liability
     legal_domain: transport
@@ -167,6 +293,10 @@ plans:
       - toestemming gegevens
       - trackingcookie
       - cookie toestemming
+      - doorgeven
+      - reclame
+      - marketing
+      - nieuwsbrief
 
   - id: gdpr_access_erasure
     legal_domain: privacy

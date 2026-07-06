@@ -3,7 +3,7 @@ from typing import Literal
 
 from pydantic import BaseModel, Field
 
-RetrievalRoute = Literal["local", "live_fallback", "hybrid", "cache", "agent_flow"]
+RetrievalRoute = Literal["local", "live_fallback", "hybrid", "cache", "agent_flow", "declarant_flow"]
 
 
 class RouterDecision(BaseModel):

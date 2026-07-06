@@ -1,33 +1,29 @@
 "use client";
 
-import { useEffect, useState } from "react";
+import { formatChoiceLabel } from "@/utils/formatChoiceLabel";
 import styles from "./VerificationQuestions.module.css";
 
 interface Props {
   questions: string[];
   isCoverageGap?: boolean;
   onSelectQuestion?: (question: string) => void;
+  isDisabled?: boolean;
 }
 
 export function VerificationQuestions({
   questions,
   isCoverageGap = false,
   onSelectQuestion,
+  isDisabled = false,
 }: Props) {
-  const [activeQuestion, setActiveQuestion] = useState<string | null>(null);
-
-  useEffect(() => {
-    setActiveQuestion(null);
-  }, [questions]);
-
   if (questions.length === 0) return null;
 
   const title = isCoverageGap
-    ? "Om u beter te helpen"
-    : "Ter controle — kunt u dit bevestigen?";
+    ? "Om U Beter Te Helpen — Klik Om Direct Door Te Gaan"
+    : "Ter Controle — Klik Om Direct Door Te Gaan";
 
   const handleSelect = (question: string) => {
-    setActiveQuestion(question);
+    if (isDisabled) return;
     onSelectQuestion?.(question);
   };
 
@@ -35,17 +31,16 @@ export function VerificationQuestions({
     <aside className={styles.panel} aria-label={title}>
       <p className={styles.title}>{title}</p>
       {onSelectQuestion ? (
-        <div className={styles.chips} role="list">
+        <div className={styles.chips}>
           {questions.map((question) => (
             <button
               key={question}
               type="button"
-              role="listitem"
               className={styles.chip}
-              aria-pressed={activeQuestion === question}
+              disabled={isDisabled}
               onClick={() => handleSelect(question)}
             >
-              {question}
+              {formatChoiceLabel(question)}
             </button>
           ))}
         </div>

@@ -3,6 +3,7 @@ import re
 from typing import Any
 
 from backend.src.services.legal_source_planner_service import LegalSourcePlannerService
+from backend.src.utils.defined_term_extractor import extract_defined_term
 from backend.src.services.regulation_label_service import regulation_label
 from backend.src.utils.article_resolver import resolve_article_number
 from backend.src.utils.legal_chunk_text import (
@@ -87,11 +88,14 @@ def collect_generic_excerpts(
     planner = LegalSourcePlannerService()
     plan = planner.plan(question)
     planned = set(plan.articles) if plan and plan.articles else set()
+    planned_norm = {a.lstrip("0") for a in planned}
     seen: set[str] = set()
     items: list[tuple[int, dict[str, str]]] = []
+    defined = extract_defined_term(question).term
     for chunk in chunks:
         raw = str(chunk.get("text", "")).strip()
-        cleaned = clean_chunk_text(raw)
+        focus_terms = chunk_focus_terms(chunk, question)
+        cleaned = clean_chunk_text(raw, focus_terms=focus_terms)
         if (
             len(cleaned) < 80
             or _is_preamble_noise(cleaned)
@@ -103,6 +107,9 @@ def collect_generic_excerpts(
         article = str(
             chunk.get("article_number") or resolve_article_number(chunk) or parse_article_number(raw) or ""
         ).strip()
+        leading = parse_article_number(cleaned)
+        if leading:
+            article = leading
         if not article or article in {"?", "—", "-"}:
             if not _has_obligation_text(cleaned):
                 continue
@@ -113,8 +120,12 @@ def collect_generic_excerpts(
         if key in seen:
             continue
         seen.add(key)
-        rank = 0 if article in planned or article.lstrip("0") in {a.lstrip("0") for a in planned} else 2
+        rank = 0 if article in planned or article.lstrip("0") in planned_norm else 2
+        if planned_norm and article.lstrip("0") in planned_norm:
+            rank -= 8
         rank -= score_chunk_relevance(cleaned, question)
+        rank += _platform_rank_penalty(cleaned, question)
+        rank += _customs_celex_rank(str(chunk.get("celex", "")), question)
         if planned and article.lstrip("0") not in {a.lstrip("0") for a in planned}:
             rank += 5
         items.append((rank, {
@@ -134,7 +145,87 @@ def collect_generic_excerpts(
         operator_items = [item for _, item in items if _chunk_about_operator(item["text"])]
         if operator_items:
             items = [(0, item) for item in operator_items]
+    lowered_q = question.lower()
+    if any(word in lowered_q for word in ("douane", "invoer", "import", "china", "webshop", "pakket", "etsy")):
+        customs_items = [item for _, item in items if item["celex"] == "32013R0952"]
+        if customs_items:
+            items = [(0, item) for item in customs_items] + [
+                (rank, item) for rank, item in items if item["celex"] != "32013R0952"
+            ]
+    if any(word in lowered_q for word in ("terugroep", "terughaal", "recall", "onveilig")):
+        recall_items = [
+            item for _, item in items if "terugroep" in item["text"].lower()
+        ]
+        if recall_items:
+            items = [(0, item) for item in recall_items] + [
+                (rank, item) for rank, item in items if item not in recall_items
+            ]
+    if defined:
+        markers = ("wordt verstaan", "verstaan onder", "begripsbepaling", "for the purposes", "shall mean")
+        term_items = [
+            item for _, item in items
+            if _chunk_defines_term(item["text"], defined, markers)
+        ]
+        if term_items:
+            items = [(0, item) for item in term_items] + [
+                (rank, item) for rank, item in items if item not in term_items
+            ]
+        else:
+            term_items = [
+                item for _, item in items
+                if _text_contains_defined_term(item["text"], defined)
+            ]
+            if term_items:
+                items = [(0, item) for item in term_items] + [
+                    (rank, item) for rank, item in items if item not in term_items
+                ]
     return [item for _, item in items[:limit]]
+
+
+def chunk_focus_terms(chunk: dict[str, Any], question: str) -> tuple[str, ...] | None:
+    """Preserve the operative passage when trimming long definition articles."""
+    defined = extract_defined_term(question).term
+    if defined:
+        return (defined,)
+    terms: list[str] = []
+    for term in chunk.get("matched_terms") or []:
+        text = str(term).strip().lower()
+        if len(text) >= 3:
+            terms.append(text)
+    unique = tuple(dict.fromkeys(terms))
+    return unique or None
+
+
+def _chunk_defines_term(text: str, term: str, markers: tuple[str, ...]) -> bool:
+    lowered = text.lower()
+    if not _text_contains_defined_term(lowered, term):
+        return False
+    if any(marker in lowered for marker in markers):
+        return True
+    return bool(_quoted_definition_pattern(term).search(text))
+
+
+def _text_contains_defined_term(text: str, term: str) -> bool:
+    lowered = text.lower()
+    if f'"{term}"' in lowered or f"“{term}”" in lowered or f"„{term}“" in lowered:
+        return True
+    return bool(re.search(rf"\b{re.escape(term)}\b", lowered))
+
+
+def _quoted_definition_pattern(term: str) -> re.Pattern[str]:
+    quotes = r'["\'\u201c\u201d\u201e]'
+    return re.compile(rf"\d+\)\s*{quotes}{re.escape(term)}{quotes}", re.IGNORECASE)
+
+
+def _customs_celex_rank(celex: str, question: str) -> int:
+    lowered_q = question.lower()
+    if not any(word in lowered_q for word in ("douane", "invoer", "import", "china", "webshop", "pakket")):
+        return 0
+    if celex == "32013R0952":
+        return -6
+    if celex == "32015R2446":
+        return 4
+    return 0
 
 
 def _chunk_about_manufacturer(text: str) -> bool:
@@ -158,6 +249,24 @@ def _chunk_about_operator(text: str) -> bool:
 def _has_obligation_text(text: str) -> bool:
     lowered = text.lower()
     return any(marker in lowered for marker in _OBLIGATION_MARKERS)
+
+
+def _platform_rank_penalty(text: str, question: str) -> int:
+    lowered_q = question.lower()
+    if not any(word in lowered_q for word in ("platform", "contentwebsite", "marktplaats", "website")):
+        return 0
+    lowered_t = text.lower()
+    penalty = 0
+    if any(marker in lowered_t for marker in ("commissie gelast", "krachtens lid 1 vast te stellen")):
+        penalty += 12
+    if any(marker in lowered_t for marker in ("hosting", "opslag", "dienstaanbieder", "intermediary")):
+        penalty -= 8
+    if any(word in lowered_q for word in ("douane", "invoer", "import", "china", "webshop", "pakket")):
+        if any(marker in lowered_t for marker in ("aangifte", "vrijmaking", "vrije verkeer", "douanerechten")):
+            penalty -= 10
+        if "commissie" in lowered_t and "artikel 116" in lowered_t:
+            penalty += 15
+    return penalty
 
 
 def _is_preamble_noise(text: str) -> bool:

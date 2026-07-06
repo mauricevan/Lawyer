@@ -10,6 +10,7 @@ LegalRoutingDomain = Literal[
     "product_safety",
     "data_protection",
     "digital_services",
+    "customs_law",
     "unknown",
 ]
 
@@ -30,6 +31,10 @@ _PRODUCT_SAFETY_HINTS = (
     " ce ", "ce-mark", "product on market", "op de markt brengen", "fabrikant",
     "manufacturer", "conformity", "conformiteit", "conformiteitsverklaring",
 )
+_RECALL_SAFETY_HINTS = (
+    "terugroep", "terughaal", "recall", "onveilig", "veiligheidsrisico",
+    "productveiligheid", "gpsr",
+)
 _EMPLOYEE_HINTS = (
     "werknemer", "medewerker", "ontslag", "arbeidscontract",
     "sollicitant", "sollicitatie", "werkgever",
@@ -38,16 +43,22 @@ _CONSUMER_HINTS = ("consument", "klant", "koper", "webshop", "retour", "herroep"
 _ADMIN_HINTS = ("toezichthouder", "handhaving", "markttoezicht", "boete", "van de markt")
 _PRIVACY_HINTS = ("avg", "gdpr", "persoonsgegevens", "privacy", "gegevensbescherming")
 _GDPR_ENFORCEMENT = ("handhaving avg", "boete gdpr", "gegevensbeschermingsautoriteit")
+_CUSTOMS_HINTS = ("douane", "customs", "invoer", "aangifte", "ucc", "invoerrechten")
+_IDENTIFICATION_HINTS = ("legitim", "identif", "paspoort", "eidas", "id-kaart", "id kaart")
 
 
 def infer_legal_domain(question: str, actor: LegalActor) -> LegalRoutingDomain:
     """Return one routing domain — overrides first, then actor rules, then fallback."""
     lowered = question.lower()
+    if _is_explicit_dsa_question(lowered):
+        return "digital_services"
+    if any(h in lowered for h in _CUSTOMS_HINTS):
+        return "customs_law"
     override = _apply_internal_market_override(lowered)
     if override:
         return override
-    if _is_explicit_dsa_question(lowered):
-        return "digital_services"
+    if any(h in lowered for h in _RECALL_SAFETY_HINTS):
+        return "product_safety"
     product_domain = _apply_product_safety_override(lowered, actor)
     if product_domain:
         return product_domain
@@ -93,6 +104,10 @@ def _sanitize_digital_services_hint(
 
 
 def _domain_from_fallback_hints(lowered: str) -> LegalRoutingDomain:
+    if any(h in lowered for h in _CUSTOMS_HINTS):
+        return "customs_law"
+    if any(h in lowered for h in _IDENTIFICATION_HINTS):
+        return "internal_market"
     if any(h in lowered for h in _PRIVACY_HINTS):
         return "data_protection"
     if any(h in lowered for h in _EMPLOYEE_HINTS):
@@ -118,6 +133,8 @@ def _apply_actor_hard_rules(
     if actor == "employee":
         return "employment_law"
     if actor == "consumer":
+        if any(h in lowered for h in _RECALL_SAFETY_HINTS):
+            return "product_safety"
         return "consumer_protection"
     if actor == "platform":
         return "digital_services" if _is_explicit_dsa_question(lowered) else hinted

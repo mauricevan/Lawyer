@@ -3,7 +3,7 @@ import ipaddress
 import re
 from urllib.parse import urlparse
 
-CELEX_PATTERN = re.compile(r"^\d{5}[A-Z]\d{4}([A-Z()0-9]+)?$")
+CELEX_PATTERN = re.compile(r"^\d{5}[A-Z]\d{3,4}([A-Z()0-9]+)?$")
 ALLOWED_HOSTS = frozenset({
     "eur-lex.europa.eu",
     "publications.europa.eu",

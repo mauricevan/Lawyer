@@ -1,6 +1,7 @@
 """Validate retrieved EUR-Lex chunks before answer generation."""
 from typing import Any
 
+from backend.src.utils.defined_term_extractor import extract_defined_term
 from backend.src.services.legal_extractive_generic import can_build_generic_answer
 from backend.src.utils.evidence_chunk_filters import (
     chunk_supports_actor,
@@ -126,6 +127,12 @@ class EvidenceValidationService:
         chunks: list[dict[str, Any]],
         hypothesis: LegalHypothesis | None,
     ) -> bool:
+        defined_term = extract_defined_term(question).term
+        if defined_term:
+            return any(
+                self._chunk_defines_term(str(chunk.get("text", "")), defined_term)
+                for chunk in chunks
+            )
         probe = question
         if hypothesis and hypothesis.primary_legal_conflict:
             probe = hypothesis.case_summary or hypothesis.legal_problem
@@ -137,6 +144,21 @@ class EvidenceValidationService:
             score_chunk_relevance(str(chunk.get("text", "")), probe) >= _MIN_RELEVANCE_SCORE
             for chunk in chunks
         )
+
+    @staticmethod
+    def _chunk_defines_term(text: str, term: str) -> bool:
+        lowered = text.lower()
+        if term not in lowered:
+            return False
+        markers = (
+            "wordt verstaan",
+            "verstaan onder",
+            "begripsbepaling",
+            "for the purposes",
+            "means ",
+            "shall mean",
+        )
+        return any(marker in lowered for marker in markers)
 
     def _frameworks_supported(
         self,
@@ -182,6 +204,7 @@ class EvidenceValidationService:
         ranked = rank_chunks_by_question_type(
             rank_chunks_by_domain(chunks, plan.legal_domain),
             plan.legal_question_type,
+            question,
         )
         scored = sorted(
             ranked,

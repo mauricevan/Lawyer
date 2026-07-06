@@ -31,8 +31,29 @@ def test_pre_employment_selects_employment_conflict():
     assert map_conflict_to_domain(conflict).domain == "employment_law"
 
 
+def test_chatbot_registration_selects_product_compliance():
+    """G3 §5 C2: chatbot/app registration → GPSR product compliance."""
+    hypothesis = LegalHypothesisService()._rule_hypothesis(
+        "Moet ik mijn chatbot registreren? app / SaaS",
+    )
+    conflict = select_primary_legal_conflict(
+        "Moet ik mijn chatbot registreren? app / SaaS",
+        hypothesis,
+    )
+    assert conflict == "product_compliance_issue"
+    assert map_conflict_to_domain(conflict).domain == "product_safety"
+
+
 def test_dsa_question_selects_platform_governance():
     hypothesis = LegalHypothesisService()._rule_hypothesis(DSA_Q)
     conflict = select_primary_legal_conflict(DSA_Q, hypothesis)
+    assert conflict == "platform_governance_issue"
+    assert map_conflict_to_domain(conflict).default_celex == "32022R2065"
+
+
+def test_platform_contentwebsite_merged_selects_dsa():
+    merged = "mag ik een platform bouwen — verduidelijking: contentwebsite"
+    hypothesis = LegalHypothesisService()._rule_hypothesis(merged)
+    conflict = select_primary_legal_conflict(merged, hypothesis)
     assert conflict == "platform_governance_issue"
     assert map_conflict_to_domain(conflict).default_celex == "32022R2065"

@@ -29,6 +29,10 @@ class LlmLegalPlannerService:
         self._intent = QuestionIntentService()
         self._rule_planner = LegalSourcePlannerService()
 
+    def interpret_rule_only(self, question: str) -> LegalInterpretationPlan:
+        """Rule-based plan only — declarant think→fetch path (no LLM planner)."""
+        return apply_context_to_plan(self._rule_fallback(question), question)
+
     async def interpret(
         self,
         question: str,

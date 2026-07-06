@@ -6,7 +6,9 @@ from shared.schemas.legal_interpretation import InstrumentTarget
 
 _GPSR_CELEX = frozenset({"32023R0988"})
 _SURVEILLANCE_CELEX = frozenset({"32019R1020"})
-_CUSTOMS_CELEX = frozenset({"32013R0952", "32015R2446"})
+_CUSTOMS_CELEX = frozenset({"32013R0952", "32015R2446", "12016E028"})
+_EIDAS_CELEX = frozenset({"32014R0910", "32018R1724", "32024R1183"})
+_CITIZENSHIP_CELEX = frozenset({"32004L0038"})
 _FINANCIAL_CELEX = frozenset({"32014R0596"})
 _DSA_CELEX = frozenset({"32022R2065"})
 _EMPLOYMENT_CELEX = frozenset({"32000L0078"})
@@ -23,6 +25,7 @@ _DOMAIN_DEFAULT_CELEX: dict[LegalRoutingDomain, str] = {
     "administrative_law": "32019R1020",
     "digital_services": "32022R2065",
     "internal_market": "32008R0768",
+    "customs_law": "32013R0952",
 }
 
 
@@ -32,6 +35,10 @@ def is_celex_allowed_for_domain(celex: str | None, domain: LegalRoutingDomain) -
         return True
     if domain == "digital_services":
         return celex in _DSA_CELEX
+    if domain == "customs_law":
+        return celex in _CUSTOMS_CELEX
+    if domain == "data_protection":
+        return celex in _PRIVACY_CELEX
     if celex in _DSA_CELEX:
         return False
     if domain == "employment_law":
@@ -43,13 +50,11 @@ def is_celex_allowed_for_domain(celex: str | None, domain: LegalRoutingDomain) -
     if domain == "administrative_law":
         return celex not in (_CUSTOMS_CELEX | _FINANCIAL_CELEX | _DSA_CELEX | _EMPLOYMENT_CELEX)
     if domain == "internal_market":
-        if celex in _INTERNAL_MARKET_CELEX:
+        if celex in _INTERNAL_MARKET_CELEX | _EIDAS_CELEX | _CITIZENSHIP_CELEX:
             return True
         return celex not in (
             _CUSTOMS_CELEX | _FINANCIAL_CELEX | _GPSR_CELEX | _SURVEILLANCE_CELEX | _DSA_CELEX
         )
-    if domain == "data_protection":
-        return celex in _PRIVACY_CELEX
     return celex not in _CROSS_DOMAIN_BLOCK
 
 
@@ -139,6 +144,8 @@ def _default_name(domain: LegalRoutingDomain, lowered: str) -> str:
         return "gpsr_manufacturer_risk"
     if domain == "digital_services":
         return "dsa_obligations"
+    if domain == "customs_law":
+        return "union_customs_code"
     if domain == "internal_market":
         return "internal_market_national_rules"
     return "EU-regelgeving"

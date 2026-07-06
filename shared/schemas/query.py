@@ -17,7 +17,8 @@ from shared.schemas.validation_patterns import (
 QueryMode = Literal["open", "compliance", "compare", "updates"]
 Audience = Literal["layperson", "professional"]
 RetrievalRoute = Literal[
-    "local", "live_fallback", "hybrid", "cache", "layperson_topic", "cn_classification", "agent_flow",
+    "local", "live_fallback", "hybrid", "cache", "layperson_topic", "cn_classification",
+    "agent_flow", "declarant_flow",
 ]
 
 
@@ -62,4 +63,5 @@ class AnswerResponse(BaseModel):
     retrieval_explainability: RetrievalExplainability | None = None
     coverage_guidance: CoverageGuidance | None = None
     coverage_status: CoverageStatus | None = None
+    clarification_prompt: str | None = None
     legal_hypothesis: LegalHypothesis | None = None

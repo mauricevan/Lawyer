@@ -7,6 +7,7 @@ from backend.src.services.primary_legal_conflict_service import (
     select_primary_legal_conflict,
 )
 from backend.src.utils.conflict_domain_mapping import map_conflict_to_domain
+from backend.src.utils.effective_question_resolver import resolve_effective_question
 from backend.src.utils.effect_law_mapping import apply_effect_to_case_analysis
 from shared.schemas.legal_conflict import LegalCaseAnalysis
 from shared.schemas.legal_hypothesis import LegalHypothesis
@@ -25,14 +26,15 @@ class LegalCaseAnalysisService:
         history: list[dict] | None = None,
     ) -> LegalCaseAnalysis:
         """Form hypothesis, conflict, legal effect, then effect-driven law mapping."""
-        hypothesis = await self._hypothesis.form(question, history)
-        conflict = select_primary_legal_conflict(question, hypothesis)
+        merged = resolve_effective_question(question, history)
+        hypothesis = await self._hypothesis.form(merged, history)
+        conflict = select_primary_legal_conflict(merged, hypothesis)
         mapping = map_conflict_to_domain(conflict)
-        parties = infer_parties(question) or _parties_from_actor(hypothesis.legal_actor)
+        parties = infer_parties(merged) or _parties_from_actor(hypothesis.legal_actor)
         base = LegalCaseAnalysis(
             case_summary=hypothesis.legal_problem,
             parties=parties,
-            context=infer_context(question),
+            context=infer_context(merged),
             possible_domains=_possible_domains(mapping.domain),
             primary_legal_conflict=conflict,
             legal_domain=mapping.domain,
@@ -41,7 +43,7 @@ class LegalCaseAnalysisService:
             likely_eu_frameworks=list(mapping.frameworks),
             default_celex=mapping.default_celex,
         )
-        effect = self._effect.classify(question, base)
+        effect = self._effect.classify(merged, base)
         with_effect = base.model_copy(update={"legal_effect": effect})
         return apply_effect_to_case_analysis(with_effect)
 

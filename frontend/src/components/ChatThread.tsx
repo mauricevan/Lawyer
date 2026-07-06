@@ -85,10 +85,8 @@ export function ChatThread({
                     onSelect={handleSelect}
                     isDisabled={isLoading}
                   />
-                ) : msg.coverageStatus === "clarify_only" ? (
-                  <p className={styles.resolvedClarification}>
-                    Verduidelijking ontvangen — zie uw keuze hieronder in het gesprek.
-                  </p>
+                ) : msg.coverageStatus === "clarify_only" && msg.content ? (
+                  <LaypersonMarkdown>{msg.content}</LaypersonMarkdown>
                 ) : (
                   <LaypersonMarkdown>{msg.content}</LaypersonMarkdown>
                 )}

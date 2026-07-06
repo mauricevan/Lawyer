@@ -5,15 +5,19 @@ from typing import Any
 from sqlalchemy.ext.asyncio import AsyncSession
 
 from backend.src.services.agent_query_service import AgentQueryService
+from backend.src.services.declarant_query_service import DeclarantQueryService
 from backend.src.services.answer_bundle_service import AnswerBundleService
 from backend.src.services.citation_formatter import CitationFormatter
 from backend.src.services.llm_service import LlmService
+from backend.src.services.rag_explanation_publish_service import RagExplanationPublishService
 from backend.src.services.query_router_service import QueryRouterService
 from backend.src.services.question_intent_service import QuestionIntentService
 from backend.src.services.reranker_service import RerankerService
 from backend.src.services.retrieval_pipeline_service import RetrievalPipelineService
 from backend.src.services.trust_indicator_service import TrustIndicatorService
 from backend.src.services.vague_question_service import VagueQuestionService
+from backend.src.utils.clarification_history_merge import prior_clarification_turn
+from backend.src.utils.effective_question_resolver import resolve_effective_question
 from backend.src.utils.article_resolver import resolve_article_number
 from shared.schemas.query import AnswerResponse, QueryFilters, QueryRequest
 
@@ -31,6 +35,8 @@ class RagService:
         self._answer_bundle = AnswerBundleService()
         self._question_intent = QuestionIntentService()
         self._agent = AgentQueryService()
+        self._declarant = DeclarantQueryService()
+        self._publish = RagExplanationPublishService()
 
     @property
     def _llm(self) -> LlmService:
@@ -42,8 +48,17 @@ class RagService:
         history: list[dict] | None = None,
         session: AsyncSession | None = None,
     ) -> tuple[AnswerResponse, list[str], list[dict[str, Any]]]:
-        if self._vague.is_vague(request.question):
-            return self._clarify_response(request, [])
+        is_follow_up = bool(history) and (
+            prior_clarification_turn(history) or len(history) >= 2
+        )
+        if self._should_use_declarant(request):
+            response, chunk_ids, chunks, _explain = await self._declarant.query(
+                request, history, session,
+            )
+            self._enrich_citations(response.citations, chunks)
+            return response, chunk_ids, chunks
+        if not is_follow_up and self._vague.is_vague(request.question):
+            return await self._clarify_response(request, [])
         if AgentQueryService.is_enabled():
             response, chunk_ids, chunks, _explain = await self._agent.query(
                 request, history, session,
@@ -55,18 +70,11 @@ class RagService:
         chunk_ids = [r.get("chunk_id", "") for r in results]
         bundle = await self._answer_bundle.build(request, results, retrieval_route, history)
         self._enrich_citations(bundle["citations"], results)
+        bundle["retrieval_route"] = bundle.get("retrieval_route") or retrieval_route
+        bundle = await self._publish.publish_bundle(request, bundle, results)
         effective_route = bundle.get("retrieval_route") or retrieval_route
-        response = AnswerResponse(
-            answer=bundle["answer_text"],
-            conversation_id=request.conversation_id or "",
-            citations=bundle["citations"],
-            disclaimer=bundle["disclaimer"],
-            retrieval_route=effective_route,
-            confidence_score=bundle["quality"]["confidence_score"],  # type: ignore[arg-type]
-            verification_questions=bundle["quality"]["verification_questions"],  # type: ignore[arg-type]
-            retrieval_explainability=explainability,
-            coverage_guidance=bundle["coverage_guidance"],
-            coverage_status=bundle["coverage_status"],
+        response = self._publish.to_answer_response(
+            request, bundle, effective_route, explainability,
         )
         return response, chunk_ids, results
 
@@ -77,8 +85,16 @@ class RagService:
         session: AsyncSession | None = None,
     ) -> AsyncIterator[dict[str, Any]]:
         is_layperson = request.audience == "layperson"
-        if self._vague.is_vague(request.question):
+        is_follow_up = bool(history) and (
+            prior_clarification_turn(history) or len(history) >= 2
+        )
+        if self._should_use_declarant(request):
+            async for event in self._declarant.query_with_events(request, history, session):
+                yield event
+            return
+        if not is_follow_up and self._vague.is_vague(request.question):
             bundle = self._build_clarify_bundle(request)
+            bundle = await self._publish.publish_bundle(request, bundle, [])
             yield {"step": "search", "message": "Ik heb uw vraag ontvangen..." if is_layperson else "Vraag ontvangen"}
             yield self._complete_event(request, bundle, None, None)
             return
@@ -111,6 +127,8 @@ class RagService:
         yield {"step": "generating", "message": "Ik stel een antwoord voor u samen..." if is_layperson else "Antwoord wordt samengesteld..."}
         bundle = await self._answer_bundle.build(request, consolidated, retrieval_route, history)
         self._enrich_citations(bundle["citations"], consolidated)
+        bundle["retrieval_route"] = bundle.get("retrieval_route") or retrieval_route
+        bundle = await self._publish.publish_bundle(request, bundle, consolidated)
         effective_route = bundle.get("retrieval_route") or retrieval_route
         yield self._complete_event(request, bundle, effective_route, explainability)
 
@@ -135,6 +153,7 @@ class RagService:
                 "retrieval_route": retrieval_route,
                 "confidence_score": bundle["quality"]["confidence_score"],
                 "verification_questions": bundle["quality"]["verification_questions"],
+                "clarification_prompt": bundle["quality"].get("clarification_prompt"),
                 "retrieval_explainability": (
                     explainability.model_dump(mode="json") if explainability else None
                 ),
@@ -160,21 +179,14 @@ class RagService:
             "coverage_status": "clarify_only",
         }
 
-    def _clarify_response(
+    async def _clarify_response(
         self,
         request: QueryRequest,
         chunks: list[dict[str, Any]],
     ) -> tuple[AnswerResponse, list[str], list[dict[str, Any]]]:
         bundle = self._build_clarify_bundle(request)
-        response = AnswerResponse(
-            answer=bundle["answer_text"],
-            conversation_id=request.conversation_id or "",
-            citations=[],
-            disclaimer=bundle["disclaimer"],
-            confidence_score=0.0,
-            verification_questions=bundle["quality"]["verification_questions"],  # type: ignore[arg-type]
-            coverage_status="clarify_only",
-        )
+        bundle = await self._publish.publish_bundle(request, bundle, chunks)
+        response = self._publish.to_answer_response(request, bundle)
         return response, [], chunks
 
     def _enrich_citations(self, citations: list, chunks: list[dict]) -> None:
@@ -189,6 +201,16 @@ class RagService:
             rerank = chunk.get("rerank_score")
             cite.retrieval_score = float(score) if score is not None else None
             cite.rerank_score = float(rerank) if rerank is not None else None
+
+    def _should_use_declarant(self, request: QueryRequest) -> bool:
+        from backend.src.config import settings
+        if request.audience != "layperson":
+            return False
+        if not DeclarantQueryService.is_enabled():
+            return False
+        if settings.legacy_layperson_agent_v4:
+            return False
+        return True
 
     def _route_request(self, request: QueryRequest) -> QueryRequest:
         route = self._router.route(request.question, request.language)
